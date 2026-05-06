@@ -33,6 +33,7 @@ import { CompressorLibraryBrowser } from "../components/components/CompressorLib
 import { BitzerLibraryBrowser } from "../components/components/BitzerLibraryBrowser";
 import { FanLibraryBrowser } from "../components/components/FanLibraryBrowser";
 import { ExpansionValveLibraryBrowser } from "../components/components/ExpansionValveLibraryBrowser";
+import { RefrigerantLibraryBrowser } from "../components/components/RefrigerantLibraryBrowser";
 import { useComponentStore } from "../stores/useComponentStore";
 
 type ComponentTab =
