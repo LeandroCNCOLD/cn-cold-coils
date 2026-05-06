@@ -168,6 +168,8 @@ export function ComponentsPage() {
         return store.reheatCoils;
       case "frost":
         return store.frostConfigs;
+      case "refrigerant":
+        return [];
     }
   };
 
