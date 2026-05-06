@@ -271,10 +271,13 @@ export function computeFluidPressureDrop(params: ComputeFluidPressureDropParams)
       `Re=${reynolds.toFixed(0)} — regime laminar no tubo do evaporador`,
     );
   }
-  const velocityForWarning = Number(velocity.toFixed(2));
-  if (velocityForWarning < 0.1 || velocityForWarning > 5) {
+  // Nota: velocity aqui é calculada com densidade do líquido saturado (fase líquida).
+  // Para evaporador DX bifásico, a velocidade real da mistura é maior (rho_bifásico < rho_liq).
+  // Faixa típica para líquido saturado em tubos de evaporador: 0.05–2 m/s.
+  const velocityForWarning = Number(velocity.toFixed(3));
+  if (velocityForWarning < 0.01 || velocityForWarning > 3) {
     warnings.push(
-      `Velocidade do fluido ${velocity.toFixed(2)} m/s fora da faixa típica (0.1–5 m/s)`,
+      `Velocidade do líquido ${velocity.toFixed(3)} m/s fora da faixa típica (0.01–3 m/s) — verifique circuitos e diâmetro`,
     );
   }
 

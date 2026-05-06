@@ -192,15 +192,27 @@ export function computeFluidVelocity(params: {
   nCircuits: number;
   tubeID_m: number;
   massFlow_kg_s?: number;
+  /** Qualidade de entrada do refrigerante (fração de vapor). Padrão: 0.20 */
+  x_in?: number;
+  /** Qualidade de saída do refrigerante (fração de vapor). Padrão: 0.90 */
+  x_out?: number;
 }): number {
   const props = getRefrigerantLiquidProps(params.refrigerant, params.T_evap_C);
   const massFlowKgS =
     params.massFlow_kg_s && params.massFlow_kg_s > 0
       ? params.massFlow_kg_s
       : params.Q_total_W / (props.h_fg_kJkg * 1000);
-  // Display uses an evaporating two-phase mean density; using saturated liquid
-  // density here severely under-reports velocity in direct-expansion coils.
-  const effectiveRho = props.rho_kg_m3 * 0.06;
+  // Usa densidade bifásica média calculada pela correlação de Zivi (1964),
+  // integrada de x_in a x_out. Representa a velocidade média real do
+  // refrigerante bifásico no evaporador DX.
+  // Fonte: Zivi, S.M. (1964), Trans. ASME J. Heat Transfer, 86, 247–252.
+  const rho_v = getRefrigerantVaporDensity(params.refrigerant, params.T_evap_C);
+  const effectiveRho = meanTwoPhaseRefrigerantDensity(
+    props.rho_kg_m3,
+    rho_v,
+    params.x_in ?? 0.20,
+    params.x_out ?? 0.90,
+  );
   const tubeAreaM2 = Math.PI * Math.pow(params.tubeID_m / 2, 2);
   return (massFlowKgS / params.nCircuits) / (effectiveRho * tubeAreaM2);
 }

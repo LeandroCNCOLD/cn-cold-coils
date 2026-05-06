@@ -401,9 +401,12 @@ export function runSimulation(params: RunSimulationParams): CnCoilsSimulationRes
         `Re=${Re_check.toFixed(0)} acima de 10.000 — extrapolação moderada`,
       );
     }
-    if (v_fluid_check > 5) {
+    // v_fluid_check usa densidade do líquido saturado (monofásico).
+    // Para evaporador DX bifásico a velocidade real da mistura é maior;
+    // o limiar de 3 m/s para líquido equivale a ~15–20 m/s bifásico.
+    if (v_fluid_check > 3) {
       warnings.push(
-        `Velocidade do fluido ${v_fluid_check.toFixed(2)} m/s fora da faixa típica (0,1–5 m/s)`,
+        `Velocidade do líquido ${v_fluid_check.toFixed(3)} m/s acima de 3 m/s — verifique nº de circuitos e diâmetro interno`,
       );
     }
   }
