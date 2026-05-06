@@ -48,12 +48,21 @@ async function loadBitzer(): Promise<BitzerLibraryPayload> {
   if (cache) return cache;
   if (inflight) return inflight;
   inflight = fetch("/data/equipment/compressors_bitzer.json", { cache: "force-cache" })
-    .then(async (res) => {
-      if (!res.ok) throw new Error(`HTTP ${res.status} carregando compressores Bitzer`);
-      const json = (await res.json()) as BitzerLibraryPayload;
-      cache = json;
-      return json;
-    })
+      .then(async (res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status} carregando compressores Bitzer`);
+        const json = (await res.json()) as Partial<BitzerLibraryPayload>;
+        const normalized: BitzerLibraryPayload = {
+          source: json.source ?? "bitzer",
+          count: json.count ?? json.compressors?.length ?? 0,
+          manufacturers: json.manufacturers ?? ["BITZER"],
+          refrigerants: json.refrigerants ?? [],
+          rpms: json.rpms ?? [],
+          models_count: json.models_count ?? 0,
+          compressors: json.compressors ?? [],
+        };
+        cache = normalized;
+        return normalized;
+      })
     .finally(() => {
       inflight = null;
     });
