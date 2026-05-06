@@ -130,6 +130,12 @@ const TABS: {
     icon: <CloudSnow className="h-4 w-4" />,
     descriptionKey: "components.tabs.frost.description",
   },
+  {
+    id: "refrigerant",
+    labelKey: "Fluido refrigerante",
+    icon: <Droplet className="h-4 w-4" />,
+    descriptionKey: "Catálogo de fluidos refrigerantes (puros e misturas) com dados termodinâmicos.",
+  },
 ];
 
 export function ComponentsPage() {
