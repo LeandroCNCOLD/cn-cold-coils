@@ -798,6 +798,18 @@ export interface FanSpec {
   sound_pressure_db?: number;
   /** Peso aproximado (kg). */
   weight_kg?: number;
+  /** Fabricante. */
+  manufacturer?: string;
+  /** Modelo comercial. */
+  model?: string;
+  /** Coeficientes do polinômio de pressão estática SPH(Q) = a0 + a1·Q + a2·Q² + … (Q em m³/h, SPH em Pa). */
+  sph_coefficients?: number[];
+  /** Coeficientes do polinômio de potência absorvida P(Q) = p0 + p1·Q + p2·Q² + … (Q em m³/h, P em W). */
+  power_coefficients?: number[];
+  /** Vazão mínima recomendada na curva (m³/h). */
+  min_airflow_m3_h?: number;
+  /** Vazão máxima (free flow) recomendada na curva (m³/h). */
+  max_airflow_m3_h?: number;
 }
 
 export interface ExpansionValveSpec {
