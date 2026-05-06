@@ -204,9 +204,12 @@ export function FanForm({ onSaved }: FanFormProps) {
             >
               <option value="">—</option>
               <option value="axial">Axial</option>
-              <option value="centrifugal">Centrífugo</option>
+              <option value="centrifugal_forward">Centrífugo — pás para frente</option>
+              <option value="centrifugal_backward">Centrífugo — pás para trás</option>
+              <option value="centrifugal_radial">Centrífugo — radial</option>
               <option value="mixed_flow">Fluxo misto</option>
-              <option value="ec_radial">EC Radial</option>
+              <option value="tangential">Tangencial</option>
+              <option value="ec_plug">EC Plug</option>
             </select>
           </div>
           <div>
