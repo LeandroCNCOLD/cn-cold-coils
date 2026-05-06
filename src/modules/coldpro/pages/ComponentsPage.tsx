@@ -12,6 +12,7 @@ import {
   Zap,
   CloudSnow,
   Plus,
+  Droplet,
 } from "lucide-react";
 import type { ReactNode } from "react";
 
@@ -33,6 +34,7 @@ import { CompressorLibraryBrowser } from "../components/components/CompressorLib
 import { BitzerLibraryBrowser } from "../components/components/BitzerLibraryBrowser";
 import { FanLibraryBrowser } from "../components/components/FanLibraryBrowser";
 import { ExpansionValveLibraryBrowser } from "../components/components/ExpansionValveLibraryBrowser";
+import { RefrigerantLibraryBrowser } from "../components/components/RefrigerantLibraryBrowser";
 import { useComponentStore } from "../stores/useComponentStore";
 
 type ComponentTab =
@@ -46,7 +48,8 @@ type ComponentTab =
   | "defrost"
   | "agro"
   | "reheat"
-  | "frost";
+  | "frost"
+  | "refrigerant";
 
 interface SavedItem {
   id: string;
@@ -127,6 +130,12 @@ const TABS: {
     icon: <CloudSnow className="h-4 w-4" />,
     descriptionKey: "components.tabs.frost.description",
   },
+  {
+    id: "refrigerant",
+    labelKey: "Fluido refrigerante",
+    icon: <Droplet className="h-4 w-4" />,
+    descriptionKey: "Catálogo de fluidos refrigerantes (puros e misturas) com dados termodinâmicos.",
+  },
 ];
 
 export function ComponentsPage() {
@@ -159,6 +168,8 @@ export function ComponentsPage() {
         return store.reheatCoils;
       case "frost":
         return store.frostConfigs;
+      case "refrigerant":
+        return [];
     }
   };
 
@@ -197,6 +208,8 @@ export function ComponentsPage() {
       case "frost":
         store.deleteFrostConfig(id);
         return;
+      case "refrigerant":
+        return;
     }
   };
 
@@ -225,6 +238,8 @@ export function ComponentsPage() {
         return <ReheatCoilForm onSaved={onSaved} />;
       case "frost":
         return <FrostConfigForm onSaved={onSaved} />;
+      case "refrigerant":
+        return null;
     }
   };
 
@@ -294,6 +309,8 @@ export function ComponentsPage() {
               </header>
               {renderForm()}
             </div>
+          ) : activeTab === "refrigerant" ? (
+            <RefrigerantLibraryBrowser />
           ) : (
             <div className="space-y-4">
               {activeTab === "compressor" && (
