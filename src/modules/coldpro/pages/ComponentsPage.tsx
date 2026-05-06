@@ -47,7 +47,8 @@ type ComponentTab =
   | "defrost"
   | "agro"
   | "reheat"
-  | "frost";
+  | "frost"
+  | "refrigerant";
 
 interface SavedItem {
   id: string;
