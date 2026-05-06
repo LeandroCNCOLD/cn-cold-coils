@@ -32,6 +32,7 @@ import { ComponentCard } from "../components/components/ComponentCard";
 import { CompressorLibraryBrowser } from "../components/components/CompressorLibraryBrowser";
 import { BitzerLibraryBrowser } from "../components/components/BitzerLibraryBrowser";
 import { FanLibraryBrowser } from "../components/components/FanLibraryBrowser";
+import { ExpansionValveLibraryBrowser } from "../components/components/ExpansionValveLibraryBrowser";
 import { useComponentStore } from "../stores/useComponentStore";
 
 type ComponentTab =
@@ -312,6 +313,14 @@ export function ComponentsPage() {
                 </>
               )}
               {activeTab === "fan" && <FanLibraryBrowser />}
+              {activeTab === "expansion_valve" && (
+                <div className="mb-4">
+                  <h3 className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-500">
+                    Catálogo Danfoss
+                  </h3>
+                  <ExpansionValveLibraryBrowser />
+                </div>
+              )}
 
               <div className="flex items-center justify-between">
                 <p className="text-sm text-slate-500">

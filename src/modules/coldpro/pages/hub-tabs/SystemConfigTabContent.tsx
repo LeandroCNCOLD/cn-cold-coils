@@ -16,6 +16,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
 import { CompressorForm } from "../../components/forms/CompressorForm";
+import { ExpansionValveSelectorPanel } from "../../components/forms/ExpansionValveSelectorPanel";
 import { CondenserForm } from "../../components/forms/CondenserForm";
 import {
   EvaporatorForm,
@@ -441,6 +442,15 @@ export function SystemConfigTabContent({ onDone }: Props) {
         </Card>
       </div>
 
+      {/* Seleção automática de válvula de expansão */}
+      {compressor.cooling_capacity_w != null && compressor.cooling_capacity_w > 0 && (
+        <ExpansionValveSelectorPanel
+          refrigerant={(compressor as { refrigerant?: string }).refrigerant ?? "R404A"}
+          tevap_c={(evaporator as { T_evaporating_c?: number }).T_evaporating_c ?? -10}
+          n_circuits={(evaporator as { circuits?: number }).circuits ?? 4}
+          required_capacity_kw={compressor.cooling_capacity_w / 1000}
+        />
+      )}
       {/* Botão avançar */}
       <div className="flex justify-end">
         <Button
