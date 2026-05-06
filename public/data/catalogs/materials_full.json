@@ -1,0 +1,306 @@
+{
+  "fin_materials": [
+    {
+      "id": 1,
+      "name": "LAMIERA ZINCATA 10/10"
+    },
+    {
+      "id": 2,
+      "name": "LAMIERA ZINCATA 12/10"
+    },
+    {
+      "id": 3,
+      "name": "LAMIERA ZINCATA 15/10"
+    },
+    {
+      "id": 4,
+      "name": "LAMIERA ZINCATA 20/10"
+    },
+    {
+      "id": 5,
+      "name": "LAMIERA NERA FERRO  20/10"
+    },
+    {
+      "id": 6,
+      "name": "LAMIERA NERA FERRO  30/10"
+    },
+    {
+      "id": 7,
+      "name": "FOGLI ALLUMINIO 12/10"
+    },
+    {
+      "id": 8,
+      "name": "FOGLI ALLUMINIO 15/10"
+    },
+    {
+      "id": 9,
+      "name": "FOGLI ALLUMINIO 20/10"
+    },
+    {
+      "id": 10,
+      "name": "FOGLI OTTONE SP 12/10"
+    },
+    {
+      "id": 11,
+      "name": "FOGLI OTTONE SP 15/10"
+    }
+  ],
+  "tube_materials": [
+    {
+      "id": 1,
+      "name": "NONE"
+    },
+    {
+      "id": 2,
+      "name": "TUBO RAME RIC. DA 9.54 SP 0.30"
+    },
+    {
+      "id": 2,
+      "name": "TUBO RAME RIC. DA 9.54 SP 0.35"
+    },
+    {
+      "id": 2,
+      "name": "TUBO RAME RIC. DA 9.54 SP 0.50"
+    },
+    {
+      "id": 2,
+      "name": "TUBO RAME RIC. DA 9.54 SP 0.75"
+    },
+    {
+      "id": 2,
+      "name": "TUBO RAME RIC. DA 9.54 SP 1.00"
+    },
+    {
+      "id": 2,
+      "name": "TUBO RAME RIC. DA 12   SP 0.35"
+    },
+    {
+      "id": 2,
+      "name": "TUBO RAME RIC. DA 12   SP 0.38"
+    },
+    {
+      "id": 2,
+      "name": "TUBO RAME RIC. DA  1\"   SP 0.41"
+    },
+    {
+      "id": 2,
+      "name": "TUBO RAME RIC. DA  1\"   SP 0.50"
+    },
+    {
+      "id": 2,
+      "name": "TUBO RAME RIC. DA 1 \"   SP 0.75"
+    },
+    {
+      "id": 2,
+      "name": "TUBO RAME RIC. DA 12   SP 1.00"
+    },
+    {
+      "id": 4,
+      "name": "TUBO IN ACCIAIO 3/4"
+    }
+  ],
+  "collector_materials": [
+    {
+      "name": "NONE"
+    },
+    {
+      "id": 2,
+      "name": "TUBO RAME IN VERGHE DA 10X1"
+    },
+    {
+      "id": 2,
+      "name": "TUBO RAME IN VERGHE DA 12X1"
+    },
+    {
+      "id": 2,
+      "name": "TUBO RAME IN VERGHE DA 14X1"
+    },
+    {
+      "id": 2,
+      "name": "TUBO RAME IN VERGHE DA 16X1"
+    },
+    {
+      "id": 2,
+      "name": "TUBO RAME IN VERGHE DA 18X1"
+    },
+    {
+      "id": 2,
+      "name": "TUBO RAME IN VERGHE DA 20X1"
+    },
+    {
+      "id": 2,
+      "name": "TUBO RAME IN VERGHE DA 22X1"
+    },
+    {
+      "id": 2,
+      "name": "TUBO RAME IN VERGHE DA 24X1"
+    },
+    {
+      "id": 2,
+      "name": "TUBO RAME IN VERGHE DA 26X1"
+    },
+    {
+      "id": 2,
+      "name": "TUBO RAME IN VERGHE DA 28X1"
+    },
+    {
+      "id": 2,
+      "name": "TUBO RAME IN VERGHE DA 30X1"
+    },
+    {
+      "id": 2,
+      "name": "TUBO RAME IN VERGHE DA 32X1"
+    },
+    {
+      "id": 2,
+      "name": "TUBO RAME IN VERGHE DA 35X1"
+    },
+    {
+      "id": 2,
+      "name": "TUBO RAME IN VERGHE DA 42X1"
+    },
+    {
+      "id": 2,
+      "name": "TUBO RAME IN VERGHE DA 54X1"
+    },
+    {
+      "id": 4,
+      "name": "TUBO ACCIAIO IN VERGHE DA 1/2\""
+    },
+    {
+      "id": 6,
+      "name": "TUBO ACCIAIO IN VERGHE DA 3/4\""
+    },
+    {
+      "id": 6,
+      "name": "TUBO ACCIAIO IN VERGHE DA 1\""
+    },
+    {
+      "id": 6,
+      "name": "TUBO INOX IN VERGHE DA 1\" 1/4"
+    },
+    {
+      "id": 4,
+      "name": "TUBO INOX IN VERGHE DA 2\""
+    },
+    {
+      "id": 4,
+      "name": "TUBO INOX IN VERGHE DA 2\" 1/2"
+    },
+    {
+      "id": 4,
+      "name": "TUBO INOX IN VERGHE DA 3\""
+    },
+    {
+      "id": 4,
+      "name": "TUBO INOX IN VERGHE DA 3\" 1/2"
+    },
+    {
+      "id": 4,
+      "name": "TUBO INOX IN VERGHE DA 4\""
+    },
+    {
+      "id": 2
+    }
+  ],
+  "distributor_materials": [
+    {
+      "id": 1,
+      "name": "DISTRIBUTORE DA 12 PER 2 FORI"
+    },
+    {
+      "id": 2,
+      "name": "DISTRIBUTORE DA 12 PER 3 FORI"
+    },
+    {
+      "id": 3,
+      "name": "DISTRIBUTORE DA 12 PER 4 FORI"
+    },
+    {
+      "id": 4,
+      "name": "DISTRIBUTORE DA 12 PER 5 FORI"
+    },
+    {
+      "id": 5,
+      "name": "DISTRIBUTORE DA 12 PER 6 FORI"
+    },
+    {
+      "id": 6,
+      "name": "DISTRIBUTORE DA 16 PER 4 FORI"
+    },
+    {
+      "id": 7,
+      "name": "DISTRIBUTORE DA 16 PER 5 FORI"
+    },
+    {
+      "id": 8,
+      "name": "DISTRIBUTORE DA 16 PER 6 FORI"
+    },
+    {
+      "id": 9,
+      "name": "DISTRIBUTORE DA 16 PER 7 FORI"
+    },
+    {
+      "id": 10,
+      "name": "DISTRIBUTORE DA 16 PER 8 FORI"
+    },
+    {
+      "id": 11,
+      "name": "DISTRIBUTORE DA 16 PER 9 FORI"
+    },
+    {
+      "id": 12,
+      "name": "DISTRIBUTORE DA 16 PER 10 FORI"
+    },
+    {
+      "id": 13,
+      "name": "DISTRIBUTORE DA 16 PER 11 FORI"
+    },
+    {
+      "id": 14,
+      "name": "DISTRIBUTORE DA 16 PER 12 FORI"
+    },
+    {
+      "id": 15,
+      "name": "DISTRIBUTORE DA 22 PER 10 FORI"
+    },
+    {
+      "id": 16,
+      "name": "DISTRIBUTORE DA 22 PER 11 FORI"
+    },
+    {
+      "id": 17,
+      "name": "DISTRIBUTORE DA 22 PER 12 FORI"
+    },
+    {
+      "id": 18,
+      "name": "DISTRIBUTORE DA 22 PER 13 FORI"
+    },
+    {
+      "id": 19,
+      "name": "DISTRIBUTORE DA 22 PER 14 FORI"
+    },
+    {
+      "id": 20,
+      "name": "DISTRIBUTORE DA 22 PER 15 FORI"
+    },
+    {
+      "id": 21,
+      "name": "DISTRIBUTORE DA 22 PER 16 FORI"
+    }
+  ],
+  "frame_materials": [
+    {
+      "name": "40-15"
+    },
+    {
+      "name": "40-15"
+    }
+  ],
+  "solder_materials": [
+    {
+      "id": 13,
+      "name": "STAGNATURA"
+    }
+  ]
+}

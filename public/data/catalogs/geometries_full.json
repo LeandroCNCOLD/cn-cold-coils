@@ -1,0 +1,6791 @@
+{
+  "condensation": [
+    {
+      "id": 3,
+      "type": 1,
+      "description": "103216_S_S",
+      "row_pitch_mm": 16,
+      "tube_pitch_mm": 32,
+      "outer_diameter_mm": 10.3,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 7,
+      "type": 1,
+      "description": "174035_S_S",
+      "row_pitch_mm": 34.64,
+      "tube_pitch_mm": 40,
+      "outer_diameter_mm": 16.65,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 10,
+      "type": 1,
+      "description": "123328_S_S",
+      "row_pitch_mm": 28,
+      "tube_pitch_mm": 33,
+      "outer_diameter_mm": 12,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 14,
+      "type": 1,
+      "description": "276065_S_S",
+      "row_pitch_mm": 65,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 27,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 17,
+      "type": 1,
+      "description": "081811_S_S",
+      "row_pitch_mm": 11,
+      "tube_pitch_mm": 18,
+      "outer_diameter_mm": 8,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 21,
+      "type": 1,
+      "description": "072616_S_S",
+      "row_pitch_mm": 16,
+      "tube_pitch_mm": 26,
+      "outer_diameter_mm": 6.52,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 25,
+      "type": 1,
+      "description": "134034_S_S",
+      "row_pitch_mm": 34,
+      "tube_pitch_mm": 40,
+      "outer_diameter_mm": 13.3,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 30,
+      "type": 1,
+      "description": "155050_S_S",
+      "row_pitch_mm": 50,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 35,
+      "type": 1,
+      "description": "166030_C_S",
+      "row_pitch_mm": 30,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 38,
+      "type": 1,
+      "description": "072512_C_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 40,
+      "type": 1,
+      "description": "072512_P_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 44,
+      "type": 1,
+      "description": "102512_C_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 47,
+      "type": 1,
+      "description": "102522_C_G",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 50,
+      "type": 1,
+      "description": "102522_S_G",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 52,
+      "type": 1,
+      "description": "102522_P_D",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 56,
+      "type": 1,
+      "description": "102525_C_G",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 59,
+      "type": 1,
+      "description": "103535_S_G",
+      "row_pitch_mm": 35,
+      "tube_pitch_mm": 35,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 62,
+      "type": 1,
+      "description": "133832_C_G",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 64,
+      "type": 1,
+      "description": "072512_S_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 68,
+      "type": 1,
+      "description": "072512_L_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 71,
+      "type": 1,
+      "description": "102512_S_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 74,
+      "type": 1,
+      "description": "102512_P_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 76,
+      "type": 1,
+      "description": "102512_L_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 80,
+      "type": 1,
+      "description": "102522_L_S",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 83,
+      "type": 1,
+      "description": "102525_S_S",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 86,
+      "type": 1,
+      "description": "102525_P_S",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 88,
+      "type": 1,
+      "description": "102525_L_G",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 92,
+      "type": 1,
+      "description": "133832_S_G",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 95,
+      "type": 1,
+      "description": "133832_P_G",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 98,
+      "type": 1,
+      "description": "133832_L_G",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 100,
+      "type": 1,
+      "description": "165043_S_G",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 104,
+      "type": 1,
+      "description": "165043_C_S",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 107,
+      "type": 1,
+      "description": "165043_P_S",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 110,
+      "type": 1,
+      "description": "165043_L_S",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 113,
+      "type": 1,
+      "description": "133026_C_D",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 117,
+      "type": 1,
+      "description": "133026_P_S",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 120,
+      "type": 1,
+      "description": "133026_L_S",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 151,
+      "type": 1,
+      "description": "133227_C_G",
+      "row_pitch_mm": 27.43,
+      "tube_pitch_mm": 31.75,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 153,
+      "type": 1,
+      "description": "091212_S_S",
+      "row_pitch_mm": 12,
+      "tube_pitch_mm": 12,
+      "outer_diameter_mm": 9,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 158,
+      "type": 1,
+      "description": "092522_C_D",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 8.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 168,
+      "type": 1,
+      "description": "133227_C_M",
+      "row_pitch_mm": 27.43,
+      "tube_pitch_mm": 31.75,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 170,
+      "type": 1,
+      "description": "166060_x_S",
+      "row_pitch_mm": 60,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 174,
+      "type": 1,
+      "description": "256060_x_S",
+      "row_pitch_mm": 60,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 25.4,
+      "fin_height_mm": 2
+    },
+    {
+      "id": 28,
+      "type": 1,
+      "description": "176638_S_S",
+      "row_pitch_mm": 38,
+      "tube_pitch_mm": 66,
+      "outer_diameter_mm": 16.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 176,
+      "type": 1,
+      "description": "102522_C_S Lantery - COND - CN COLD",
+      "row_pitch_mm": 22,
+      "tube_pitch_mm": 25.4,
+      "outer_diameter_mm": 10.3,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 177,
+      "type": 1,
+      "description": "133228_C_S CN COLD 1/2",
+      "row_pitch_mm": 27.5,
+      "tube_pitch_mm": 31.75,
+      "outer_diameter_mm": 13.3,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 178,
+      "type": 1,
+      "description": "165050_S_S_50x50mipal",
+      "row_pitch_mm": 50,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.87,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 66,
+      "type": 1,
+      "description": "072512_L_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 90,
+      "type": 1,
+      "description": "133832_C_S",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 156,
+      "type": 1,
+      "description": "092522_W_S",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 8.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 1,
+      "type": 1,
+      "description": "082522_S_S",
+      "row_pitch_mm": 22,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 8.5,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 4,
+      "type": 1,
+      "description": "103232_S_S",
+      "row_pitch_mm": 32,
+      "tube_pitch_mm": 32,
+      "outer_diameter_mm": 10.3,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 6,
+      "type": 1,
+      "description": "134035_S_S",
+      "row_pitch_mm": 34.64,
+      "tube_pitch_mm": 40,
+      "outer_diameter_mm": 13.3,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 8,
+      "type": 1,
+      "description": "173866_S_S",
+      "row_pitch_mm": 66,
+      "tube_pitch_mm": 38.1,
+      "outer_diameter_mm": 16.65,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 11,
+      "type": 1,
+      "description": "123030_S_S",
+      "row_pitch_mm": 30,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.5,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 12,
+      "type": 1,
+      "description": "166030_S_S",
+      "row_pitch_mm": 30,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 15.87,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 13,
+      "type": 1,
+      "description": "163838_S_S",
+      "row_pitch_mm": 38,
+      "tube_pitch_mm": 38,
+      "outer_diameter_mm": 16.5,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 15,
+      "type": 1,
+      "description": "276058_S_S",
+      "row_pitch_mm": 58,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 26.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 16,
+      "type": 1,
+      "description": "102626_S_S",
+      "row_pitch_mm": 26,
+      "tube_pitch_mm": 26,
+      "outer_diameter_mm": 10,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 19,
+      "type": 1,
+      "description": "102017_S_S",
+      "row_pitch_mm": 17,
+      "tube_pitch_mm": 20,
+      "outer_diameter_mm": 10,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 20,
+      "type": 1,
+      "description": "256060_S_S",
+      "row_pitch_mm": 60,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 25,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 22,
+      "type": 1,
+      "description": "123026_S_S",
+      "row_pitch_mm": 26,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 27,
+      "type": 1,
+      "description": "173833_S_S",
+      "row_pitch_mm": 33,
+      "tube_pitch_mm": 38,
+      "outer_diameter_mm": 16.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 29,
+      "type": 1,
+      "description": "206060_S_S",
+      "row_pitch_mm": 60,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 20,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 31,
+      "type": 1,
+      "description": "102516_S_S",
+      "row_pitch_mm": 16,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.53,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 34,
+      "type": 1,
+      "description": "165043_S_S",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 36,
+      "type": 1,
+      "description": "133026_C_S",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 37,
+      "type": 1,
+      "description": "072512_C_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 39,
+      "type": 1,
+      "description": "072512_C_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 41,
+      "type": 1,
+      "description": "072512_P_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 42,
+      "type": 1,
+      "description": "072512_P_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 43,
+      "type": 1,
+      "description": "102512_C_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 45,
+      "type": 1,
+      "description": "102512_C_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 46,
+      "type": 1,
+      "description": "102522_C_D",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 48,
+      "type": 1,
+      "description": "102522_C_S",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 49,
+      "type": 1,
+      "description": "102522_S_D",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 51,
+      "type": 1,
+      "description": "102522_S_S",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 53,
+      "type": 1,
+      "description": "102522_P_G",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 54,
+      "type": 1,
+      "description": "102522_P_S",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 55,
+      "type": 1,
+      "description": "102525_C_D",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 57,
+      "type": 1,
+      "description": "102525_C_S",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 58,
+      "type": 1,
+      "description": "103535_S_D",
+      "row_pitch_mm": 35,
+      "tube_pitch_mm": 35,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 60,
+      "type": 1,
+      "description": "103535_S_S",
+      "row_pitch_mm": 35,
+      "tube_pitch_mm": 35,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 61,
+      "type": 1,
+      "description": "133832_C_D",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 63,
+      "type": 1,
+      "description": "072512_S_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 65,
+      "type": 1,
+      "description": "072512_S_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 67,
+      "type": 1,
+      "description": "072512_L_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 69,
+      "type": 1,
+      "description": "102512_S_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 70,
+      "type": 1,
+      "description": "102512_S_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 72,
+      "type": 1,
+      "description": "102512_P_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 73,
+      "type": 1,
+      "description": "102512_P_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 75,
+      "type": 1,
+      "description": "102512_L_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 77,
+      "type": 1,
+      "description": "102512_L_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 78,
+      "type": 1,
+      "description": "102522_L_D",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 79,
+      "type": 1,
+      "description": "102522_L_G",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 81,
+      "type": 1,
+      "description": "102525_S_D",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 82,
+      "type": 1,
+      "description": "102525_S_G",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 84,
+      "type": 1,
+      "description": "102525_P_D",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 85,
+      "type": 1,
+      "description": "102525_P_G",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 87,
+      "type": 1,
+      "description": "102525_L_D",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 89,
+      "type": 1,
+      "description": "102525_L_S",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 91,
+      "type": 1,
+      "description": "133832_S_D",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 93,
+      "type": 1,
+      "description": "133832_S_S",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 94,
+      "type": 1,
+      "description": "133832_P_D",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 96,
+      "type": 1,
+      "description": "133832_P_S",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 97,
+      "type": 1,
+      "description": "133832_L_D",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 99,
+      "type": 1,
+      "description": "133832_L_S",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 101,
+      "type": 1,
+      "description": "165043_S_D",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 102,
+      "type": 1,
+      "description": "165043_C_D",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 103,
+      "type": 1,
+      "description": "165043_C_G",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 105,
+      "type": 1,
+      "description": "165043_P_D",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 106,
+      "type": 1,
+      "description": "165043_P_G",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 108,
+      "type": 1,
+      "description": "165043_L_D",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 109,
+      "type": 1,
+      "description": "165043_L_G",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 112,
+      "type": 1,
+      "description": "133026_C_G",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 114,
+      "type": 1,
+      "description": "133026_S_S",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 115,
+      "type": 1,
+      "description": "133026_S_G",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 116,
+      "type": 1,
+      "description": "133026_S_D",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 118,
+      "type": 1,
+      "description": "133026_P_G",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 119,
+      "type": 1,
+      "description": "133026_P_D",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 121,
+      "type": 1,
+      "description": "133026_L_G",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 122,
+      "type": 1,
+      "description": "133026_L_D",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 152,
+      "type": 1,
+      "description": "164236_L_D",
+      "row_pitch_mm": 36.4,
+      "tube_pitch_mm": 42,
+      "outer_diameter_mm": 15.87,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 155,
+      "type": 1,
+      "description": "092522_W_D",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 8.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 157,
+      "type": 1,
+      "description": "092522_C_S",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 8.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 166,
+      "type": 1,
+      "description": "123732_C_C",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.4,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 169,
+      "type": 1,
+      "description": "166030_x_S",
+      "row_pitch_mm": 30,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 171,
+      "type": 1,
+      "description": "165050_x_S",
+      "row_pitch_mm": 50,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 172,
+      "type": 1,
+      "description": "162719_x_S",
+      "row_pitch_mm": 19,
+      "tube_pitch_mm": 27,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 2
+    },
+    {
+      "id": 173,
+      "type": 1,
+      "description": "195050_x_S",
+      "row_pitch_mm": 50,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 19,
+      "fin_height_mm": 2
+    },
+    {
+      "id": 175,
+      "type": 1,
+      "description": "122525_x_S",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 12,
+      "fin_height_mm": 1
+    }
+  ],
+  "evaporation": [
+    {
+      "id": 4,
+      "type": 1,
+      "description": "103232_S_S",
+      "row_pitch_mm": 32,
+      "tube_pitch_mm": 32,
+      "outer_diameter_mm": 10.3,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 8,
+      "type": 1,
+      "description": "173866_S_S",
+      "row_pitch_mm": 66,
+      "tube_pitch_mm": 38.1,
+      "outer_diameter_mm": 16.65,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 11,
+      "type": 1,
+      "description": "123030_S_S",
+      "row_pitch_mm": 30,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.5,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 14,
+      "type": 1,
+      "description": "276065_S_S",
+      "row_pitch_mm": 65,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 27,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 17,
+      "type": 1,
+      "description": "081811_S_S",
+      "row_pitch_mm": 11,
+      "tube_pitch_mm": 18,
+      "outer_diameter_mm": 8,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 21,
+      "type": 1,
+      "description": "072616_S_S",
+      "row_pitch_mm": 16,
+      "tube_pitch_mm": 26,
+      "outer_diameter_mm": 6.52,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 25,
+      "type": 1,
+      "description": "134034_S_S",
+      "row_pitch_mm": 34,
+      "tube_pitch_mm": 40,
+      "outer_diameter_mm": 13.3,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 28,
+      "type": 1,
+      "description": "176638_S_S",
+      "row_pitch_mm": 38,
+      "tube_pitch_mm": 66,
+      "outer_diameter_mm": 16.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 32,
+      "type": 1,
+      "description": "165043_S_S",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 35,
+      "type": 1,
+      "description": "072512_C_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 37,
+      "type": 1,
+      "description": "072512_C_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 40,
+      "type": 1,
+      "description": "072512_P_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 43,
+      "type": 1,
+      "description": "102512_C_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 46,
+      "type": 1,
+      "description": "102522_C_S",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 48,
+      "type": 1,
+      "description": "102522_S_G",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 51,
+      "type": 1,
+      "description": "102522_P_G",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 54,
+      "type": 1,
+      "description": "102525_C_G",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 57,
+      "type": 1,
+      "description": "103535_S_G",
+      "row_pitch_mm": 35,
+      "tube_pitch_mm": 35,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 59,
+      "type": 1,
+      "description": "133832_C_D",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 62,
+      "type": 1,
+      "description": "072512_S_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 65,
+      "type": 1,
+      "description": "072512_L_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 68,
+      "type": 1,
+      "description": "102512_S_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 70,
+      "type": 1,
+      "description": "102512_P_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 73,
+      "type": 1,
+      "description": "102512_L_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 76,
+      "type": 1,
+      "description": "102522_L_D",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 79,
+      "type": 1,
+      "description": "102525_S_D",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 81,
+      "type": 1,
+      "description": "102525_S_S",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 84,
+      "type": 1,
+      "description": "102525_P_S",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 87,
+      "type": 1,
+      "description": "102525_L_S",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 90,
+      "type": 1,
+      "description": "133832_S_G",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 92,
+      "type": 1,
+      "description": "133832_P_D",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 95,
+      "type": 1,
+      "description": "133832_L_D",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 98,
+      "type": 1,
+      "description": "165043_S_G",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 101,
+      "type": 1,
+      "description": "165043_C_G",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 103,
+      "type": 1,
+      "description": "165043_P_D",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 106,
+      "type": 1,
+      "description": "165043_L_D",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 110,
+      "type": 1,
+      "description": "133026_C_G",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 113,
+      "type": 1,
+      "description": "133026_S_G",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 115,
+      "type": 1,
+      "description": "133026_P_S",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 118,
+      "type": 1,
+      "description": "133026_L_S",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 129,
+      "type": 1,
+      "description": "166030_x_S",
+      "row_pitch_mm": 30,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 131,
+      "type": 1,
+      "description": "165050_x_S",
+      "row_pitch_mm": 50,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 134,
+      "type": 1,
+      "description": "256060_x_S",
+      "row_pitch_mm": 60,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 25.4,
+      "fin_height_mm": 2
+    },
+    {
+      "id": 1,
+      "type": 1,
+      "description": "082522_S_S",
+      "row_pitch_mm": 22,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 8.5,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 6,
+      "type": 1,
+      "description": "134035_S_S",
+      "row_pitch_mm": 34.64,
+      "tube_pitch_mm": 40,
+      "outer_diameter_mm": 13.3,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 7,
+      "type": 1,
+      "description": "174035_S_S",
+      "row_pitch_mm": 34.64,
+      "tube_pitch_mm": 40,
+      "outer_diameter_mm": 16.65,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 10,
+      "type": 1,
+      "description": "123328_S_S",
+      "row_pitch_mm": 28,
+      "tube_pitch_mm": 33,
+      "outer_diameter_mm": 12,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 12,
+      "type": 1,
+      "description": "166030_S_S",
+      "row_pitch_mm": 30,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 15.87,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 13,
+      "type": 1,
+      "description": "163838_S_S",
+      "row_pitch_mm": 38,
+      "tube_pitch_mm": 38,
+      "outer_diameter_mm": 16.5,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 15,
+      "type": 1,
+      "description": "276058_S_S",
+      "row_pitch_mm": 58,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 26.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 16,
+      "type": 1,
+      "description": "102626_S_S",
+      "row_pitch_mm": 26,
+      "tube_pitch_mm": 26,
+      "outer_diameter_mm": 10,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 19,
+      "type": 1,
+      "description": "102017_S_S",
+      "row_pitch_mm": 17,
+      "tube_pitch_mm": 20,
+      "outer_diameter_mm": 10,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 20,
+      "type": 1,
+      "description": "256060_S_S",
+      "row_pitch_mm": 60,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 25,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 22,
+      "type": 1,
+      "description": "123026_S_S",
+      "row_pitch_mm": 26,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 26,
+      "type": 1,
+      "description": "103216_S_S",
+      "row_pitch_mm": 16,
+      "tube_pitch_mm": 32,
+      "outer_diameter_mm": 10.3,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 27,
+      "type": 1,
+      "description": "173833_S_S",
+      "row_pitch_mm": 33,
+      "tube_pitch_mm": 38,
+      "outer_diameter_mm": 16.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 29,
+      "type": 1,
+      "description": "206060_S_S",
+      "row_pitch_mm": 60,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 20,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 30,
+      "type": 1,
+      "description": "155050_S_S",
+      "row_pitch_mm": 50,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 33,
+      "type": 1,
+      "description": "166030_C_S",
+      "row_pitch_mm": 30,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 34,
+      "type": 1,
+      "description": "133026_C_S",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 36,
+      "type": 1,
+      "description": "072512_C_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 38,
+      "type": 1,
+      "description": "072512_P_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 39,
+      "type": 1,
+      "description": "072512_P_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 41,
+      "type": 1,
+      "description": "102512_C_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 42,
+      "type": 1,
+      "description": "102512_C_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 44,
+      "type": 1,
+      "description": "102522_C_D",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 45,
+      "type": 1,
+      "description": "102522_C_G",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 47,
+      "type": 1,
+      "description": "102522_S_D",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 49,
+      "type": 1,
+      "description": "102522_S_S",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 50,
+      "type": 1,
+      "description": "102522_P_D",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 52,
+      "type": 1,
+      "description": "102522_P_S",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 53,
+      "type": 1,
+      "description": "102525_C_D",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 55,
+      "type": 1,
+      "description": "102525_C_S",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 56,
+      "type": 1,
+      "description": "103535_S_D",
+      "row_pitch_mm": 35,
+      "tube_pitch_mm": 35,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 58,
+      "type": 1,
+      "description": "103535_S_S",
+      "row_pitch_mm": 35,
+      "tube_pitch_mm": 35,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 60,
+      "type": 1,
+      "description": "133832_C_G",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 61,
+      "type": 1,
+      "description": "072512_S_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 63,
+      "type": 1,
+      "description": "072512_S_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 64,
+      "type": 1,
+      "description": "072512_L_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 66,
+      "type": 1,
+      "description": "072512_L_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 67,
+      "type": 1,
+      "description": "102512_S_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 69,
+      "type": 1,
+      "description": "102512_S_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 71,
+      "type": 1,
+      "description": "102512_P_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 72,
+      "type": 1,
+      "description": "102512_P_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 74,
+      "type": 1,
+      "description": "102512_L_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 75,
+      "type": 1,
+      "description": "102512_L_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 77,
+      "type": 1,
+      "description": "102522_L_G",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 78,
+      "type": 1,
+      "description": "102522_L_S",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 80,
+      "type": 1,
+      "description": "102525_S_G",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 82,
+      "type": 1,
+      "description": "102525_P_D",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 83,
+      "type": 1,
+      "description": "102525_P_G",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 85,
+      "type": 1,
+      "description": "102525_L_D",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 86,
+      "type": 1,
+      "description": "102525_L_G",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 88,
+      "type": 1,
+      "description": "133832_C_S",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 89,
+      "type": 1,
+      "description": "133832_S_D",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 91,
+      "type": 1,
+      "description": "133832_S_S",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 93,
+      "type": 1,
+      "description": "133832_P_G",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 94,
+      "type": 1,
+      "description": "133832_P_S",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 96,
+      "type": 1,
+      "description": "133832_L_G",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 97,
+      "type": 1,
+      "description": "133832_L_S",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 99,
+      "type": 1,
+      "description": "165043_S_D",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 100,
+      "type": 1,
+      "description": "165043_C_D",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 102,
+      "type": 1,
+      "description": "165043_C_S",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 104,
+      "type": 1,
+      "description": "165043_P_G",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 105,
+      "type": 1,
+      "description": "165043_P_S",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 107,
+      "type": 1,
+      "description": "165043_L_G",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 108,
+      "type": 1,
+      "description": "165043_L_S",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 111,
+      "type": 1,
+      "description": "133026_C_D",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 112,
+      "type": 1,
+      "description": "133026_S_S",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 114,
+      "type": 1,
+      "description": "133026_S_D",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 116,
+      "type": 1,
+      "description": "133026_P_G",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 117,
+      "type": 1,
+      "description": "133026_P_D",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 119,
+      "type": 1,
+      "description": "133026_L_G",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 120,
+      "type": 1,
+      "description": "133026_L_D",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 130,
+      "type": 1,
+      "description": "166060_x_S",
+      "row_pitch_mm": 60,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 132,
+      "type": 1,
+      "description": "162719_x_S",
+      "row_pitch_mm": 19,
+      "tube_pitch_mm": 27,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 2
+    },
+    {
+      "id": 133,
+      "type": 1,
+      "description": "195050_x_S",
+      "row_pitch_mm": 50,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 19,
+      "fin_height_mm": 2
+    },
+    {
+      "id": 135,
+      "type": 1,
+      "description": "122525_x_S",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 12,
+      "fin_height_mm": 1
+    }
+  ],
+  "cooling": [
+    {
+      "id": 3,
+      "type": 1,
+      "description": "103216_S_S",
+      "row_pitch_mm": 16,
+      "tube_pitch_mm": 32,
+      "outer_diameter_mm": 10.3,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 5,
+      "type": 1,
+      "description": "173833_S_S",
+      "row_pitch_mm": 33,
+      "tube_pitch_mm": 38.1,
+      "outer_diameter_mm": 16.65,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 8,
+      "type": 1,
+      "description": "173866_S_S",
+      "row_pitch_mm": 66,
+      "tube_pitch_mm": 38.1,
+      "outer_diameter_mm": 16.65,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 12,
+      "type": 1,
+      "description": "166030_S_S",
+      "row_pitch_mm": 30,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 15.87,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 15,
+      "type": 1,
+      "description": "276058_S_S",
+      "row_pitch_mm": 58,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 26.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 17,
+      "type": 1,
+      "description": "081811_S_S",
+      "row_pitch_mm": 11,
+      "tube_pitch_mm": 18,
+      "outer_diameter_mm": 8,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 21,
+      "type": 1,
+      "description": "072616_S_S",
+      "row_pitch_mm": 16,
+      "tube_pitch_mm": 26,
+      "outer_diameter_mm": 6.52,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 28,
+      "type": 1,
+      "description": "176638_S_S",
+      "row_pitch_mm": 38,
+      "tube_pitch_mm": 66,
+      "outer_diameter_mm": 16.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 122,
+      "type": 1,
+      "description": "165043_S_S",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 124,
+      "type": 1,
+      "description": "133026_C_S",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 127,
+      "type": 1,
+      "description": "072512_C_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 130,
+      "type": 1,
+      "description": "072512_P_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 133,
+      "type": 1,
+      "description": "102512_C_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 135,
+      "type": 1,
+      "description": "102522_C_G",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 138,
+      "type": 1,
+      "description": "102522_S_G",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 141,
+      "type": 1,
+      "description": "102522_P_G",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 144,
+      "type": 1,
+      "description": "102525_C_G",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 146,
+      "type": 1,
+      "description": "103535_S_D",
+      "row_pitch_mm": 35,
+      "tube_pitch_mm": 35,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 149,
+      "type": 1,
+      "description": "133832_C_D",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 152,
+      "type": 1,
+      "description": "072512_S_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 155,
+      "type": 1,
+      "description": "072512_L_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 157,
+      "type": 1,
+      "description": "102512_S_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 160,
+      "type": 1,
+      "description": "102512_P_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 163,
+      "type": 1,
+      "description": "102512_L_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 166,
+      "type": 1,
+      "description": "102522_L_D",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 168,
+      "type": 1,
+      "description": "102522_L_S",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 171,
+      "type": 1,
+      "description": "102525_S_S",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 174,
+      "type": 1,
+      "description": "102525_P_S",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 177,
+      "type": 1,
+      "description": "102525_L_S",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 179,
+      "type": 1,
+      "description": "133832_S_D",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 182,
+      "type": 1,
+      "description": "133832_P_D",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 185,
+      "type": 1,
+      "description": "133832_L_D",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 188,
+      "type": 1,
+      "description": "165043_S_G",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 190,
+      "type": 1,
+      "description": "165043_C_D",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 193,
+      "type": 1,
+      "description": "165043_P_D",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 196,
+      "type": 1,
+      "description": "165043_L_D",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 200,
+      "type": 1,
+      "description": "133026_C_G",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 202,
+      "type": 1,
+      "description": "133026_S_S",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 205,
+      "type": 1,
+      "description": "133026_P_S",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 208,
+      "type": 1,
+      "description": "133026_L_S",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 215,
+      "type": 1,
+      "description": "071912_S_S",
+      "row_pitch_mm": 12,
+      "tube_pitch_mm": 19,
+      "outer_diameter_mm": 7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 219,
+      "type": 1,
+      "description": "166060_x_S",
+      "row_pitch_mm": 60,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 222,
+      "type": 1,
+      "description": "195050_x_S",
+      "row_pitch_mm": 50,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 19,
+      "fin_height_mm": 2
+    },
+    {
+      "id": 206,
+      "type": 1,
+      "description": "133026_P_G",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 1,
+      "type": 1,
+      "description": "082522_S_S",
+      "row_pitch_mm": 22,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 8.5,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 4,
+      "type": 1,
+      "description": "103232_S_S",
+      "row_pitch_mm": 32,
+      "tube_pitch_mm": 32,
+      "outer_diameter_mm": 10.3,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 6,
+      "type": 1,
+      "description": "134035_S_S",
+      "row_pitch_mm": 34.64,
+      "tube_pitch_mm": 40,
+      "outer_diameter_mm": 13.3,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 22,
+      "type": 1,
+      "description": "123026_S_S",
+      "row_pitch_mm": 26,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 139,
+      "type": 1,
+      "description": "102522_S_S",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 172,
+      "type": 1,
+      "description": "102525_P_D",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 194,
+      "type": 1,
+      "description": "165043_P_G",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 7,
+      "type": 1,
+      "description": "174035_S_S",
+      "row_pitch_mm": 34.64,
+      "tube_pitch_mm": 40,
+      "outer_diameter_mm": 16.65,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 10,
+      "type": 1,
+      "description": "123328_S_S",
+      "row_pitch_mm": 28,
+      "tube_pitch_mm": 33,
+      "outer_diameter_mm": 12,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 11,
+      "type": 1,
+      "description": "123030_S_S",
+      "row_pitch_mm": 30,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.5,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 13,
+      "type": 1,
+      "description": "163838_S_S",
+      "row_pitch_mm": 38,
+      "tube_pitch_mm": 38,
+      "outer_diameter_mm": 16.5,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 14,
+      "type": 1,
+      "description": "276065_S_S",
+      "row_pitch_mm": 65,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 27,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 16,
+      "type": 1,
+      "description": "102626_S_S",
+      "row_pitch_mm": 26,
+      "tube_pitch_mm": 26,
+      "outer_diameter_mm": 10,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 19,
+      "type": 1,
+      "description": "102017_S_S",
+      "row_pitch_mm": 17,
+      "tube_pitch_mm": 20,
+      "outer_diameter_mm": 10,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 20,
+      "type": 1,
+      "description": "256060_S_S",
+      "row_pitch_mm": 60,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 25,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 25,
+      "type": 1,
+      "description": "134034_S_S",
+      "row_pitch_mm": 34,
+      "tube_pitch_mm": 40,
+      "outer_diameter_mm": 13.3,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 29,
+      "type": 1,
+      "description": "206060_S_S",
+      "row_pitch_mm": 60,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 20,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 30,
+      "type": 1,
+      "description": "155050_S_S",
+      "row_pitch_mm": 50,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 123,
+      "type": 1,
+      "description": "166030_C_S",
+      "row_pitch_mm": 30,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 125,
+      "type": 1,
+      "description": "072512_C_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 126,
+      "type": 1,
+      "description": "072512_C_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 128,
+      "type": 1,
+      "description": "072512_P_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 129,
+      "type": 1,
+      "description": "072512_P_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 131,
+      "type": 1,
+      "description": "102512_C_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 132,
+      "type": 1,
+      "description": "102512_C_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 134,
+      "type": 1,
+      "description": "102522_C_D",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 136,
+      "type": 1,
+      "description": "102522_C_S",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 137,
+      "type": 1,
+      "description": "102522_S_D",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 140,
+      "type": 1,
+      "description": "102522_P_D",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 142,
+      "type": 1,
+      "description": "102522_P_S",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 143,
+      "type": 1,
+      "description": "102525_C_D",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 145,
+      "type": 1,
+      "description": "102525_C_S",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 147,
+      "type": 1,
+      "description": "103535_S_G",
+      "row_pitch_mm": 35,
+      "tube_pitch_mm": 35,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 148,
+      "type": 1,
+      "description": "103535_S_S",
+      "row_pitch_mm": 35,
+      "tube_pitch_mm": 35,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 150,
+      "type": 1,
+      "description": "133832_C_G",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 151,
+      "type": 1,
+      "description": "072512_S_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 153,
+      "type": 1,
+      "description": "072512_S_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 154,
+      "type": 1,
+      "description": "072512_L_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 156,
+      "type": 1,
+      "description": "072512_L_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 158,
+      "type": 1,
+      "description": "102512_S_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 159,
+      "type": 1,
+      "description": "102512_S_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 161,
+      "type": 1,
+      "description": "102512_P_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 162,
+      "type": 1,
+      "description": "102512_P_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 164,
+      "type": 1,
+      "description": "102512_L_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 165,
+      "type": 1,
+      "description": "102512_L_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 167,
+      "type": 1,
+      "description": "102522_L_G",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 169,
+      "type": 1,
+      "description": "102525_S_D",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 170,
+      "type": 1,
+      "description": "102525_S_G",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 173,
+      "type": 1,
+      "description": "102525_P_G",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 175,
+      "type": 1,
+      "description": "102525_L_D",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 176,
+      "type": 1,
+      "description": "102525_L_G",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 178,
+      "type": 1,
+      "description": "133832_C_S",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 180,
+      "type": 1,
+      "description": "133832_S_G",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 181,
+      "type": 1,
+      "description": "133832_S_S",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 183,
+      "type": 1,
+      "description": "133832_P_G",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 184,
+      "type": 1,
+      "description": "133832_P_S",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 186,
+      "type": 1,
+      "description": "133832_L_G",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 187,
+      "type": 1,
+      "description": "133832_L_S",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 189,
+      "type": 1,
+      "description": "165043_S_D",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 191,
+      "type": 1,
+      "description": "165043_C_G",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 192,
+      "type": 1,
+      "description": "165043_C_S",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 195,
+      "type": 1,
+      "description": "165043_P_S",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 197,
+      "type": 1,
+      "description": "165043_L_G",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 198,
+      "type": 1,
+      "description": "165043_L_S",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 201,
+      "type": 1,
+      "description": "133026_C_D",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 203,
+      "type": 1,
+      "description": "133026_S_G",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 204,
+      "type": 1,
+      "description": "133026_S_D",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 207,
+      "type": 1,
+      "description": "133026_P_D",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 209,
+      "type": 1,
+      "description": "133026_L_G",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 210,
+      "type": 1,
+      "description": "133026_L_D",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 218,
+      "type": 1,
+      "description": "166030_x_S",
+      "row_pitch_mm": 30,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 220,
+      "type": 1,
+      "description": "165050_x_S",
+      "row_pitch_mm": 50,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 221,
+      "type": 1,
+      "description": "162719_x_S",
+      "row_pitch_mm": 19,
+      "tube_pitch_mm": 27,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 2
+    },
+    {
+      "id": 223,
+      "type": 1,
+      "description": "256060_x_S",
+      "row_pitch_mm": 60,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 25.4,
+      "fin_height_mm": 2
+    },
+    {
+      "id": 228,
+      "type": 1,
+      "description": "122525_x_S",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 12,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 229,
+      "type": 1,
+      "description": "133228_C_S F Lantery EVP - CN COLD",
+      "row_pitch_mm": 27.5,
+      "tube_pitch_mm": 31.75,
+      "outer_diameter_mm": 13.3,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 230,
+      "type": 1,
+      "description": "166030_SW_S Lantery RESF - CN COLD",
+      "row_pitch_mm": 30,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 16.4,
+      "fin_height_mm": 1
+    }
+  ],
+  "heating": [
+    {
+      "id": 3,
+      "type": 1,
+      "description": "103216_S_S",
+      "row_pitch_mm": 16,
+      "tube_pitch_mm": 32,
+      "outer_diameter_mm": 10.3,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 6,
+      "type": 1,
+      "description": "134035_S_S",
+      "row_pitch_mm": 34.64,
+      "tube_pitch_mm": 40,
+      "outer_diameter_mm": 13.3,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 10,
+      "type": 1,
+      "description": "123328_S_S",
+      "row_pitch_mm": 28,
+      "tube_pitch_mm": 33,
+      "outer_diameter_mm": 12,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 12,
+      "type": 1,
+      "description": "166030_S_S",
+      "row_pitch_mm": 30,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 15.87,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 16,
+      "type": 1,
+      "description": "102626_S_S",
+      "row_pitch_mm": 26,
+      "tube_pitch_mm": 26,
+      "outer_diameter_mm": 10,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 19,
+      "type": 1,
+      "description": "102017_S_S",
+      "row_pitch_mm": 17,
+      "tube_pitch_mm": 20,
+      "outer_diameter_mm": 10,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 22,
+      "type": 1,
+      "description": "123026_S_S",
+      "row_pitch_mm": 26,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 27,
+      "type": 1,
+      "description": "173833_S_S",
+      "row_pitch_mm": 33,
+      "tube_pitch_mm": 38,
+      "outer_diameter_mm": 16.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 31,
+      "type": 1,
+      "description": "133127_S_S",
+      "row_pitch_mm": 27,
+      "tube_pitch_mm": 31,
+      "outer_diameter_mm": 13.3,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 33,
+      "type": 1,
+      "description": "166030_C_S",
+      "row_pitch_mm": 30,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 37,
+      "type": 1,
+      "description": "072512_C_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 39,
+      "type": 1,
+      "description": "072512_P_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 43,
+      "type": 1,
+      "description": "102512_C_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 45,
+      "type": 1,
+      "description": "102522_C_G",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 48,
+      "type": 1,
+      "description": "102522_S_G",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 50,
+      "type": 1,
+      "description": "102522_P_D",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 54,
+      "type": 1,
+      "description": "102525_C_G",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 56,
+      "type": 1,
+      "description": "103535_S_D",
+      "row_pitch_mm": 35,
+      "tube_pitch_mm": 35,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 59,
+      "type": 1,
+      "description": "133832_C_D",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 61,
+      "type": 1,
+      "description": "072512_S_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 65,
+      "type": 1,
+      "description": "072512_L_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 67,
+      "type": 1,
+      "description": "102512_S_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 70,
+      "type": 1,
+      "description": "102512_P_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 72,
+      "type": 1,
+      "description": "102512_P_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 76,
+      "type": 1,
+      "description": "102522_L_D",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 78,
+      "type": 1,
+      "description": "102522_L_S",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 81,
+      "type": 1,
+      "description": "102525_S_S",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 83,
+      "type": 1,
+      "description": "102525_P_G",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 87,
+      "type": 1,
+      "description": "102525_L_S",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 89,
+      "type": 1,
+      "description": "133832_S_D",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 92,
+      "type": 1,
+      "description": "133832_P_D",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 94,
+      "type": 1,
+      "description": "133832_P_S",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 98,
+      "type": 1,
+      "description": "165043_S_G",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 100,
+      "type": 1,
+      "description": "165043_C_D",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 103,
+      "type": 1,
+      "description": "165043_P_D",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 105,
+      "type": 1,
+      "description": "165043_P_S",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 110,
+      "type": 1,
+      "description": "133026_C_G",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 112,
+      "type": 1,
+      "description": "133026_S_S",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 115,
+      "type": 1,
+      "description": "133026_P_S",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 117,
+      "type": 1,
+      "description": "133026_P_D",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 199,
+      "type": 1,
+      "description": "133026_C_S",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.62,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 201,
+      "type": 1,
+      "description": "103026_C_S",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 9.52,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 204,
+      "type": 1,
+      "description": "091412_S_M",
+      "row_pitch_mm": 12,
+      "tube_pitch_mm": 14,
+      "outer_diameter_mm": 9,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 207,
+      "type": 1,
+      "description": "091212_S_S",
+      "row_pitch_mm": 12,
+      "tube_pitch_mm": 12,
+      "outer_diameter_mm": 9,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 224,
+      "type": 1,
+      "description": "102522_C_M",
+      "row_pitch_mm": 22,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 10,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 245,
+      "type": 1,
+      "description": "166030_x_S",
+      "row_pitch_mm": 30,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 249,
+      "type": 1,
+      "description": "162719_x_S",
+      "row_pitch_mm": 19,
+      "tube_pitch_mm": 27,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 2
+    },
+    {
+      "id": 1,
+      "type": 1,
+      "description": "082522_S_S",
+      "row_pitch_mm": 22,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 8.5,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 2,
+      "type": 1,
+      "description": "102522_W_S",
+      "row_pitch_mm": 22,
+      "tube_pitch_mm": 25.4,
+      "outer_diameter_mm": 10.3,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 4,
+      "type": 1,
+      "description": "103232_S_S",
+      "row_pitch_mm": 32,
+      "tube_pitch_mm": 32,
+      "outer_diameter_mm": 10.3,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 7,
+      "type": 1,
+      "description": "174035_S_S",
+      "row_pitch_mm": 34.64,
+      "tube_pitch_mm": 40,
+      "outer_diameter_mm": 16.65,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 8,
+      "type": 1,
+      "description": "173866_S_S",
+      "row_pitch_mm": 66,
+      "tube_pitch_mm": 38.1,
+      "outer_diameter_mm": 16.65,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 11,
+      "type": 1,
+      "description": "123030_S_S",
+      "row_pitch_mm": 30,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.5,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 13,
+      "type": 1,
+      "description": "163838_S_S",
+      "row_pitch_mm": 38,
+      "tube_pitch_mm": 38,
+      "outer_diameter_mm": 16.5,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 14,
+      "type": 1,
+      "description": "276065_S_S",
+      "row_pitch_mm": 65,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 27,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 15,
+      "type": 1,
+      "description": "276058_S_S",
+      "row_pitch_mm": 58,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 26.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 17,
+      "type": 1,
+      "description": "081811_S_S",
+      "row_pitch_mm": 11,
+      "tube_pitch_mm": 18,
+      "outer_diameter_mm": 8,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 20,
+      "type": 1,
+      "description": "256060_S_S",
+      "row_pitch_mm": 60,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 25,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 21,
+      "type": 1,
+      "description": "072616_S_S",
+      "row_pitch_mm": 16,
+      "tube_pitch_mm": 26,
+      "outer_diameter_mm": 6.52,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 25,
+      "type": 1,
+      "description": "134034_S_S",
+      "row_pitch_mm": 34,
+      "tube_pitch_mm": 40,
+      "outer_diameter_mm": 13.3,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 28,
+      "type": 1,
+      "description": "176638_S_S",
+      "row_pitch_mm": 38,
+      "tube_pitch_mm": 66,
+      "outer_diameter_mm": 16.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 29,
+      "type": 1,
+      "description": "206060_S_S",
+      "row_pitch_mm": 60,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 20,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 30,
+      "type": 1,
+      "description": "155050_S_S",
+      "row_pitch_mm": 50,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 32,
+      "type": 1,
+      "description": "165043_S_S",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 35,
+      "type": 1,
+      "description": "072512_C_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 36,
+      "type": 1,
+      "description": "072512_C_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 38,
+      "type": 1,
+      "description": "072512_P_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 40,
+      "type": 1,
+      "description": "072512_P_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 41,
+      "type": 1,
+      "description": "102512_C_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 42,
+      "type": 1,
+      "description": "102512_C_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 44,
+      "type": 1,
+      "description": "102522_C_D",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 46,
+      "type": 1,
+      "description": "102522_C_S",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 47,
+      "type": 1,
+      "description": "102522_S_D",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 49,
+      "type": 1,
+      "description": "102522_S_S",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 51,
+      "type": 1,
+      "description": "102522_P_G",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 52,
+      "type": 1,
+      "description": "102522_P_S",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 53,
+      "type": 1,
+      "description": "102525_C_D",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 55,
+      "type": 1,
+      "description": "102525_C_S",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 57,
+      "type": 1,
+      "description": "103535_S_G",
+      "row_pitch_mm": 35,
+      "tube_pitch_mm": 35,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 58,
+      "type": 1,
+      "description": "103535_S_S",
+      "row_pitch_mm": 35,
+      "tube_pitch_mm": 35,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 60,
+      "type": 1,
+      "description": "133832_C_G",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 62,
+      "type": 1,
+      "description": "072512_S_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 63,
+      "type": 1,
+      "description": "072512_S_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 64,
+      "type": 1,
+      "description": "072512_L_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 66,
+      "type": 1,
+      "description": "072512_L_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 68,
+      "type": 1,
+      "description": "102512_S_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 69,
+      "type": 1,
+      "description": "102512_S_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 71,
+      "type": 1,
+      "description": "102512_P_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 73,
+      "type": 1,
+      "description": "102512_L_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 74,
+      "type": 1,
+      "description": "102512_L_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 75,
+      "type": 1,
+      "description": "102512_L_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 77,
+      "type": 1,
+      "description": "102522_L_G",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 79,
+      "type": 1,
+      "description": "102525_S_D",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 80,
+      "type": 1,
+      "description": "102525_S_G",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 82,
+      "type": 1,
+      "description": "102525_P_D",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 84,
+      "type": 1,
+      "description": "102525_P_S",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 85,
+      "type": 1,
+      "description": "102525_L_D",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 86,
+      "type": 1,
+      "description": "102525_L_G",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 88,
+      "type": 1,
+      "description": "133832_C_S",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 90,
+      "type": 1,
+      "description": "133832_S_G",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 91,
+      "type": 1,
+      "description": "133832_S_S",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 93,
+      "type": 1,
+      "description": "133832_P_G",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 95,
+      "type": 1,
+      "description": "133832_L_D",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 96,
+      "type": 1,
+      "description": "133832_L_G",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 97,
+      "type": 1,
+      "description": "133832_L_S",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 99,
+      "type": 1,
+      "description": "165043_S_D",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 101,
+      "type": 1,
+      "description": "165043_C_G",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 102,
+      "type": 1,
+      "description": "165043_C_S",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 104,
+      "type": 1,
+      "description": "165043_P_G",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 106,
+      "type": 1,
+      "description": "165043_L_D",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 107,
+      "type": 1,
+      "description": "165043_L_G",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 108,
+      "type": 1,
+      "description": "165043_L_S",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 111,
+      "type": 1,
+      "description": "133026_C_D",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 113,
+      "type": 1,
+      "description": "133026_S_G",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 114,
+      "type": 1,
+      "description": "133026_S_D",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 116,
+      "type": 1,
+      "description": "133026_P_G",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 119,
+      "type": 1,
+      "description": "133026_L_G",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 190,
+      "type": 1,
+      "description": "133026_L_D",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.62,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 198,
+      "type": 1,
+      "description": "092225_C_G",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 22,
+      "outer_diameter_mm": 9,
+      "fin_height_mm": 2
+    },
+    {
+      "id": 200,
+      "type": 1,
+      "description": "133026_L_S",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.62,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 202,
+      "type": 1,
+      "description": "103026_L_S",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 9.52,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 203,
+      "type": 1,
+      "description": "122225_S_S",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 22,
+      "outer_diameter_mm": 12,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 205,
+      "type": 1,
+      "description": "081412_S_M",
+      "row_pitch_mm": 12,
+      "tube_pitch_mm": 14,
+      "outer_diameter_mm": 8,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 209,
+      "type": 1,
+      "description": "152525_C_M",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 15,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 210,
+      "type": 1,
+      "description": "174236_C_S",
+      "row_pitch_mm": 36.4,
+      "tube_pitch_mm": 42,
+      "outer_diameter_mm": 16.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 222,
+      "type": 1,
+      "description": "213840_S_S",
+      "row_pitch_mm": 40,
+      "tube_pitch_mm": 38,
+      "outer_diameter_mm": 21.3,
+      "fin_height_mm": 2
+    },
+    {
+      "id": 243,
+      "type": 1,
+      "description": "165528_C_S",
+      "row_pitch_mm": 27.5,
+      "tube_pitch_mm": 55,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 246,
+      "type": 1,
+      "description": "166060_x_S",
+      "row_pitch_mm": 60,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 247,
+      "type": 1,
+      "description": "165050_x_S",
+      "row_pitch_mm": 50,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 250,
+      "type": 1,
+      "description": "195050_x_S",
+      "row_pitch_mm": 50,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 19,
+      "fin_height_mm": 2
+    },
+    {
+      "id": 257,
+      "type": 1,
+      "description": "122525_x_S",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 12,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 251,
+      "type": 1,
+      "description": "256060_x_S",
+      "row_pitch_mm": 60,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 25.4,
+      "fin_height_mm": 2
+    },
+    {
+      "id": 258,
+      "type": 1,
+      "description": "133228_C_S F Lantery EVP - CN COLD",
+      "row_pitch_mm": 27.5,
+      "tube_pitch_mm": 31.75,
+      "outer_diameter_mm": 13.3,
+      "fin_height_mm": 1
+    }
+  ],
+  "vapor": [
+    {
+      "id": 4,
+      "type": 1,
+      "description": "103232_S_S",
+      "row_pitch_mm": 32,
+      "tube_pitch_mm": 32,
+      "outer_diameter_mm": 10.3,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 7,
+      "type": 1,
+      "description": "174035_S_S",
+      "row_pitch_mm": 34.64,
+      "tube_pitch_mm": 40,
+      "outer_diameter_mm": 16.65,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 10,
+      "type": 1,
+      "description": "123328_S_S",
+      "row_pitch_mm": 28,
+      "tube_pitch_mm": 33,
+      "outer_diameter_mm": 12,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 14,
+      "type": 1,
+      "description": "276065_S_S",
+      "row_pitch_mm": 65,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 27,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 17,
+      "type": 1,
+      "description": "081811_S_S",
+      "row_pitch_mm": 11,
+      "tube_pitch_mm": 18,
+      "outer_diameter_mm": 8,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 21,
+      "type": 1,
+      "description": "072616_S_S",
+      "row_pitch_mm": 16,
+      "tube_pitch_mm": 26,
+      "outer_diameter_mm": 6.52,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 25,
+      "type": 1,
+      "description": "134034_S_S",
+      "row_pitch_mm": 34,
+      "tube_pitch_mm": 40,
+      "outer_diameter_mm": 13.3,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 30,
+      "type": 1,
+      "description": "155050_S_S",
+      "row_pitch_mm": 50,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 33,
+      "type": 1,
+      "description": "166030_C_S",
+      "row_pitch_mm": 30,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 36,
+      "type": 1,
+      "description": "072512_C_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 38,
+      "type": 1,
+      "description": "072512_P_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 42,
+      "type": 1,
+      "description": "102512_C_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 45,
+      "type": 1,
+      "description": "102522_C_G",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 48,
+      "type": 1,
+      "description": "102522_S_G",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 50,
+      "type": 1,
+      "description": "102522_P_D",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 54,
+      "type": 1,
+      "description": "102525_C_G",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 57,
+      "type": 1,
+      "description": "103535_S_G",
+      "row_pitch_mm": 35,
+      "tube_pitch_mm": 35,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 60,
+      "type": 1,
+      "description": "133832_C_G",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 62,
+      "type": 1,
+      "description": "072512_S_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 66,
+      "type": 1,
+      "description": "072512_L_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 69,
+      "type": 1,
+      "description": "102512_S_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 72,
+      "type": 1,
+      "description": "102512_P_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 74,
+      "type": 1,
+      "description": "102512_L_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 78,
+      "type": 1,
+      "description": "102522_L_S",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 81,
+      "type": 1,
+      "description": "102525_S_S",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 84,
+      "type": 1,
+      "description": "102525_P_S",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 86,
+      "type": 1,
+      "description": "102525_L_G",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 90,
+      "type": 1,
+      "description": "133832_S_G",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 93,
+      "type": 1,
+      "description": "133832_P_G",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 96,
+      "type": 1,
+      "description": "133832_L_G",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 98,
+      "type": 1,
+      "description": "165043_S_G",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 102,
+      "type": 1,
+      "description": "165043_C_S",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 105,
+      "type": 1,
+      "description": "165043_P_S",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 108,
+      "type": 1,
+      "description": "165043_L_S",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 111,
+      "type": 1,
+      "description": "133026_C_D",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 115,
+      "type": 1,
+      "description": "133026_P_S",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 117,
+      "type": 1,
+      "description": "133026_P_D",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 120,
+      "type": 1,
+      "description": "133026_L_D",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 130,
+      "type": 1,
+      "description": "166060_x_S",
+      "row_pitch_mm": 60,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 134,
+      "type": 1,
+      "description": "256060_x_S",
+      "row_pitch_mm": 60,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 25.4,
+      "fin_height_mm": 2
+    },
+    {
+      "id": 52,
+      "type": 1,
+      "description": "102522_P_S",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 76,
+      "type": 1,
+      "description": "102522_L_D",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 113,
+      "type": 1,
+      "description": "133026_S_G",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 1,
+      "type": 1,
+      "description": "082522_S_S",
+      "row_pitch_mm": 22,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 8.5,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 5,
+      "type": 1,
+      "description": "173833_S_S",
+      "row_pitch_mm": 33,
+      "tube_pitch_mm": 38.1,
+      "outer_diameter_mm": 16.65,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 6,
+      "type": 1,
+      "description": "134035_S_S",
+      "row_pitch_mm": 34.64,
+      "tube_pitch_mm": 40,
+      "outer_diameter_mm": 13.3,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 8,
+      "type": 1,
+      "description": "173866_S_S",
+      "row_pitch_mm": 66,
+      "tube_pitch_mm": 38.1,
+      "outer_diameter_mm": 16.65,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 11,
+      "type": 1,
+      "description": "123030_S_S",
+      "row_pitch_mm": 30,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.5,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 12,
+      "type": 1,
+      "description": "166030_S_S",
+      "row_pitch_mm": 30,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 15.87,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 13,
+      "type": 1,
+      "description": "163838_S_S",
+      "row_pitch_mm": 38,
+      "tube_pitch_mm": 38,
+      "outer_diameter_mm": 16.5,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 15,
+      "type": 1,
+      "description": "276058_S_S",
+      "row_pitch_mm": 58,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 26.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 16,
+      "type": 1,
+      "description": "102626_S_S",
+      "row_pitch_mm": 26,
+      "tube_pitch_mm": 26,
+      "outer_diameter_mm": 10,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 19,
+      "type": 1,
+      "description": "102017_S_S",
+      "row_pitch_mm": 17,
+      "tube_pitch_mm": 20,
+      "outer_diameter_mm": 10,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 20,
+      "type": 1,
+      "description": "256060_S_S",
+      "row_pitch_mm": 60,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 25,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 22,
+      "type": 1,
+      "description": "123026_S_S",
+      "row_pitch_mm": 26,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 26,
+      "type": 1,
+      "description": "103216_S_S",
+      "row_pitch_mm": 16,
+      "tube_pitch_mm": 32,
+      "outer_diameter_mm": 10.3,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 28,
+      "type": 1,
+      "description": "176638_S_S",
+      "row_pitch_mm": 38,
+      "tube_pitch_mm": 66,
+      "outer_diameter_mm": 16.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 29,
+      "type": 1,
+      "description": "206060_S_S",
+      "row_pitch_mm": 60,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 20,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 31,
+      "type": 1,
+      "description": "163934_S_S",
+      "row_pitch_mm": 34,
+      "tube_pitch_mm": 39,
+      "outer_diameter_mm": 16,
+      "fin_height_mm": 2
+    },
+    {
+      "id": 32,
+      "type": 1,
+      "description": "165043_S_S",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 34,
+      "type": 1,
+      "description": "133026_C_S",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 35,
+      "type": 1,
+      "description": "072512_C_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 37,
+      "type": 1,
+      "description": "072512_C_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 39,
+      "type": 1,
+      "description": "072512_P_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 40,
+      "type": 1,
+      "description": "072512_P_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 41,
+      "type": 1,
+      "description": "102512_C_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 43,
+      "type": 1,
+      "description": "102512_C_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 44,
+      "type": 1,
+      "description": "102522_C_D",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 46,
+      "type": 1,
+      "description": "102522_C_S",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 47,
+      "type": 1,
+      "description": "102522_S_D",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 49,
+      "type": 1,
+      "description": "102522_S_S",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 51,
+      "type": 1,
+      "description": "102522_P_G",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 53,
+      "type": 1,
+      "description": "102525_C_D",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 55,
+      "type": 1,
+      "description": "102525_C_S",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 56,
+      "type": 1,
+      "description": "103535_S_D",
+      "row_pitch_mm": 35,
+      "tube_pitch_mm": 35,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 58,
+      "type": 1,
+      "description": "103535_S_S",
+      "row_pitch_mm": 35,
+      "tube_pitch_mm": 35,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 59,
+      "type": 1,
+      "description": "133832_C_D",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 61,
+      "type": 1,
+      "description": "072512_S_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 63,
+      "type": 1,
+      "description": "072512_S_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 64,
+      "type": 1,
+      "description": "072512_L_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 65,
+      "type": 1,
+      "description": "072512_L_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 67,
+      "type": 1,
+      "description": "102512_S_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 68,
+      "type": 1,
+      "description": "102512_S_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 70,
+      "type": 1,
+      "description": "102512_P_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 71,
+      "type": 1,
+      "description": "102512_P_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 73,
+      "type": 1,
+      "description": "102512_L_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 75,
+      "type": 1,
+      "description": "102512_L_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 77,
+      "type": 1,
+      "description": "102522_L_G",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 79,
+      "type": 1,
+      "description": "102525_S_D",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 80,
+      "type": 1,
+      "description": "102525_S_G",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 82,
+      "type": 1,
+      "description": "102525_P_D",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 83,
+      "type": 1,
+      "description": "102525_P_G",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 85,
+      "type": 1,
+      "description": "102525_L_D",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 87,
+      "type": 1,
+      "description": "102525_L_S",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 88,
+      "type": 1,
+      "description": "133832_C_S",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 89,
+      "type": 1,
+      "description": "133832_S_D",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 91,
+      "type": 1,
+      "description": "133832_S_S",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 92,
+      "type": 1,
+      "description": "133832_P_D",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 94,
+      "type": 1,
+      "description": "133832_P_S",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 95,
+      "type": 1,
+      "description": "133832_L_D",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 97,
+      "type": 1,
+      "description": "133832_L_S",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 99,
+      "type": 1,
+      "description": "165043_S_D",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 100,
+      "type": 1,
+      "description": "165043_C_D",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 101,
+      "type": 1,
+      "description": "165043_C_G",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 103,
+      "type": 1,
+      "description": "165043_P_D",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 104,
+      "type": 1,
+      "description": "165043_P_G",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 106,
+      "type": 1,
+      "description": "165043_L_D",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 107,
+      "type": 1,
+      "description": "165043_L_G",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 110,
+      "type": 1,
+      "description": "133026_C_G",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 112,
+      "type": 1,
+      "description": "133026_S_S",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 114,
+      "type": 1,
+      "description": "133026_S_D",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 116,
+      "type": 1,
+      "description": "133026_P_G",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 118,
+      "type": 1,
+      "description": "133026_L_S",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 119,
+      "type": 1,
+      "description": "133026_L_G",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 129,
+      "type": 1,
+      "description": "166030_x_S",
+      "row_pitch_mm": 30,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 131,
+      "type": 1,
+      "description": "165050_x_S",
+      "row_pitch_mm": 50,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 132,
+      "type": 1,
+      "description": "162719_x_S",
+      "row_pitch_mm": 19,
+      "tube_pitch_mm": 27,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 2
+    },
+    {
+      "id": 133,
+      "type": 1,
+      "description": "195050_x_S",
+      "row_pitch_mm": 50,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 19,
+      "fin_height_mm": 2
+    },
+    {
+      "id": 135,
+      "type": 1,
+      "description": "122525_x_S",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 12,
+      "fin_height_mm": 1
+    }
+  ],
+  "direct_expansion": [
+    {
+      "id": 3,
+      "type": 1,
+      "description": "103216_S_S",
+      "row_pitch_mm": 16,
+      "tube_pitch_mm": 32,
+      "outer_diameter_mm": 10.3,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 7,
+      "type": 1,
+      "description": "174035_S_S",
+      "row_pitch_mm": 34.64,
+      "tube_pitch_mm": 40,
+      "outer_diameter_mm": 16.65,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 10,
+      "type": 1,
+      "description": "123328_S_S",
+      "row_pitch_mm": 28,
+      "tube_pitch_mm": 33,
+      "outer_diameter_mm": 12,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 13,
+      "type": 1,
+      "description": "163838_S_S",
+      "row_pitch_mm": 38,
+      "tube_pitch_mm": 38,
+      "outer_diameter_mm": 16.5,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 16,
+      "type": 1,
+      "description": "102626_S_S",
+      "row_pitch_mm": 26,
+      "tube_pitch_mm": 26,
+      "outer_diameter_mm": 10,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 20,
+      "type": 1,
+      "description": "256060_S_S",
+      "row_pitch_mm": 60,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 25,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 22,
+      "type": 1,
+      "description": "123026_S_S",
+      "row_pitch_mm": 26,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 28,
+      "type": 1,
+      "description": "176638_S_S",
+      "row_pitch_mm": 38,
+      "tube_pitch_mm": 66,
+      "outer_diameter_mm": 16.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 32,
+      "type": 1,
+      "description": "166440_S_S",
+      "row_pitch_mm": 40,
+      "tube_pitch_mm": 63.5,
+      "outer_diameter_mm": 16,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 35,
+      "type": 1,
+      "description": "133026_C_S",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 37,
+      "type": 1,
+      "description": "072512_C_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 40,
+      "type": 1,
+      "description": "072512_P_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 43,
+      "type": 1,
+      "description": "102512_C_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 46,
+      "type": 1,
+      "description": "102522_C_G",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 48,
+      "type": 1,
+      "description": "102522_S_D",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 51,
+      "type": 1,
+      "description": "102522_P_D",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 54,
+      "type": 1,
+      "description": "102525_C_D",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 57,
+      "type": 1,
+      "description": "103535_S_D",
+      "row_pitch_mm": 35,
+      "tube_pitch_mm": 35,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 59,
+      "type": 1,
+      "description": "103535_S_S",
+      "row_pitch_mm": 35,
+      "tube_pitch_mm": 35,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 62,
+      "type": 1,
+      "description": "072512_S_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 65,
+      "type": 1,
+      "description": "072512_L_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 68,
+      "type": 1,
+      "description": "102512_S_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 70,
+      "type": 1,
+      "description": "102512_S_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 73,
+      "type": 1,
+      "description": "102512_P_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 76,
+      "type": 1,
+      "description": "102512_L_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 79,
+      "type": 1,
+      "description": "102522_L_S",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 81,
+      "type": 1,
+      "description": "102525_S_G",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 84,
+      "type": 1,
+      "description": "102525_P_G",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 87,
+      "type": 1,
+      "description": "102525_L_G",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 90,
+      "type": 1,
+      "description": "133832_S_D",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 92,
+      "type": 1,
+      "description": "133832_S_S",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 95,
+      "type": 1,
+      "description": "133832_P_S",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 98,
+      "type": 1,
+      "description": "133832_L_S",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 101,
+      "type": 1,
+      "description": "165043_C_D",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 103,
+      "type": 1,
+      "description": "165043_C_S",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 106,
+      "type": 1,
+      "description": "165043_P_S",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 109,
+      "type": 1,
+      "description": "165043_L_S",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 113,
+      "type": 1,
+      "description": "133026_S_S",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 115,
+      "type": 1,
+      "description": "133026_S_D",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 118,
+      "type": 1,
+      "description": "133026_P_D",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 121,
+      "type": 1,
+      "description": "133026_L_D",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 145,
+      "type": 1,
+      "description": "176030_S_S",
+      "row_pitch_mm": 30,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 16.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 155,
+      "type": 1,
+      "description": "133227_C_M",
+      "row_pitch_mm": 27.43,
+      "tube_pitch_mm": 31.75,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 158,
+      "type": 1,
+      "description": "165050_x_S",
+      "row_pitch_mm": 50,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 161,
+      "type": 1,
+      "description": "256060_x_S",
+      "row_pitch_mm": 60,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 25.4,
+      "fin_height_mm": 2
+    },
+    {
+      "id": 1,
+      "type": 1,
+      "description": "082522_S_S",
+      "row_pitch_mm": 22,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 8.5,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 4,
+      "type": 1,
+      "description": "103232_S_S",
+      "row_pitch_mm": 32,
+      "tube_pitch_mm": 32,
+      "outer_diameter_mm": 10.3,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 6,
+      "type": 1,
+      "description": "134035_S_S",
+      "row_pitch_mm": 34.64,
+      "tube_pitch_mm": 40,
+      "outer_diameter_mm": 13.3,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 8,
+      "type": 1,
+      "description": "173866_S_S",
+      "row_pitch_mm": 66,
+      "tube_pitch_mm": 38.1,
+      "outer_diameter_mm": 16.65,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 11,
+      "type": 1,
+      "description": "123030_S_S",
+      "row_pitch_mm": 30,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.5,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 12,
+      "type": 1,
+      "description": "166030_S_S",
+      "row_pitch_mm": 30,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 15.87,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 14,
+      "type": 1,
+      "description": "276065_S_S",
+      "row_pitch_mm": 65,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 27,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 15,
+      "type": 1,
+      "description": "276058_S_S",
+      "row_pitch_mm": 58,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 26.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 17,
+      "type": 1,
+      "description": "081811_S_S",
+      "row_pitch_mm": 11,
+      "tube_pitch_mm": 18,
+      "outer_diameter_mm": 8,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 19,
+      "type": 1,
+      "description": "102017_S_S",
+      "row_pitch_mm": 17,
+      "tube_pitch_mm": 20,
+      "outer_diameter_mm": 10,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 21,
+      "type": 1,
+      "description": "072616_S_S",
+      "row_pitch_mm": 16,
+      "tube_pitch_mm": 26,
+      "outer_diameter_mm": 6.52,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 25,
+      "type": 1,
+      "description": "134034_S_S",
+      "row_pitch_mm": 34,
+      "tube_pitch_mm": 40,
+      "outer_diameter_mm": 13.3,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 27,
+      "type": 1,
+      "description": "173833_S_S",
+      "row_pitch_mm": 33,
+      "tube_pitch_mm": 38,
+      "outer_diameter_mm": 16.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 29,
+      "type": 1,
+      "description": "206060_S_S",
+      "row_pitch_mm": 60,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 20,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 30,
+      "type": 1,
+      "description": "155050_S_S",
+      "row_pitch_mm": 50,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 33,
+      "type": 1,
+      "description": "165043_S_S",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 34,
+      "type": 1,
+      "description": "166030_C_S",
+      "row_pitch_mm": 30,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 36,
+      "type": 1,
+      "description": "072512_C_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 38,
+      "type": 1,
+      "description": "072512_C_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 39,
+      "type": 1,
+      "description": "072512_P_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 41,
+      "type": 1,
+      "description": "072512_P_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 42,
+      "type": 1,
+      "description": "102512_C_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 44,
+      "type": 1,
+      "description": "102512_C_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 45,
+      "type": 1,
+      "description": "102522_C_D",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 47,
+      "type": 1,
+      "description": "102522_C_S",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 49,
+      "type": 1,
+      "description": "102522_S_G",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 50,
+      "type": 1,
+      "description": "102522_S_S",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 52,
+      "type": 1,
+      "description": "102522_P_G",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 53,
+      "type": 1,
+      "description": "102522_P_S",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 55,
+      "type": 1,
+      "description": "102525_C_G",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 56,
+      "type": 1,
+      "description": "102525_C_S",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 58,
+      "type": 1,
+      "description": "103535_S_G",
+      "row_pitch_mm": 35,
+      "tube_pitch_mm": 35,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 60,
+      "type": 1,
+      "description": "133832_C_D",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 61,
+      "type": 1,
+      "description": "133832_C_G",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 63,
+      "type": 1,
+      "description": "072512_S_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 64,
+      "type": 1,
+      "description": "072512_S_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 66,
+      "type": 1,
+      "description": "072512_L_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 67,
+      "type": 1,
+      "description": "072512_L_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 7.2,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 69,
+      "type": 1,
+      "description": "102512_S_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 71,
+      "type": 1,
+      "description": "102512_P_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 72,
+      "type": 1,
+      "description": "102512_P_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 74,
+      "type": 1,
+      "description": "102512_L_D",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 75,
+      "type": 1,
+      "description": "102512_L_G",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 77,
+      "type": 1,
+      "description": "102522_L_D",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 78,
+      "type": 1,
+      "description": "102522_L_G",
+      "row_pitch_mm": 21.65,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 80,
+      "type": 1,
+      "description": "102525_S_D",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 82,
+      "type": 1,
+      "description": "102525_S_S",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 83,
+      "type": 1,
+      "description": "102525_P_D",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 85,
+      "type": 1,
+      "description": "102525_P_S",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 86,
+      "type": 1,
+      "description": "102525_L_D",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 88,
+      "type": 1,
+      "description": "102525_L_S",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 9.54,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 89,
+      "type": 1,
+      "description": "133832_C_S",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 91,
+      "type": 1,
+      "description": "133832_S_G",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 93,
+      "type": 1,
+      "description": "133832_P_D",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 94,
+      "type": 1,
+      "description": "133832_P_G",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 96,
+      "type": 1,
+      "description": "133832_L_D",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 97,
+      "type": 1,
+      "description": "133832_L_G",
+      "row_pitch_mm": 32.48,
+      "tube_pitch_mm": 37.5,
+      "outer_diameter_mm": 12.7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 99,
+      "type": 1,
+      "description": "165043_S_G",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 100,
+      "type": 1,
+      "description": "165043_S_D",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 102,
+      "type": 1,
+      "description": "165043_C_G",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 104,
+      "type": 1,
+      "description": "165043_P_D",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 105,
+      "type": 1,
+      "description": "165043_P_G",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 107,
+      "type": 1,
+      "description": "165043_L_D",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 108,
+      "type": 1,
+      "description": "165043_L_G",
+      "row_pitch_mm": 43.3,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 111,
+      "type": 1,
+      "description": "133026_C_G",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 112,
+      "type": 1,
+      "description": "133026_C_D",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 114,
+      "type": 1,
+      "description": "133026_S_G",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 116,
+      "type": 1,
+      "description": "133026_P_S",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 117,
+      "type": 1,
+      "description": "133026_P_G",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 119,
+      "type": 1,
+      "description": "133026_L_S",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 120,
+      "type": 1,
+      "description": "133026_L_G",
+      "row_pitch_mm": 25.98,
+      "tube_pitch_mm": 30,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 143,
+      "type": 1,
+      "description": "133227_C_G",
+      "row_pitch_mm": 27.43,
+      "tube_pitch_mm": 31.75,
+      "outer_diameter_mm": 12.6,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 144,
+      "type": 1,
+      "description": "155030_W_M",
+      "row_pitch_mm": 30,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15,
+      "fin_height_mm": 2
+    },
+    {
+      "id": 146,
+      "type": 1,
+      "description": "104313_S_S",
+      "row_pitch_mm": 12.5,
+      "tube_pitch_mm": 43.3,
+      "outer_diameter_mm": 10.1,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 156,
+      "type": 1,
+      "description": "166030_x_S",
+      "row_pitch_mm": 30,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 157,
+      "type": 1,
+      "description": "166060_x_S",
+      "row_pitch_mm": 60,
+      "tube_pitch_mm": 60,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 159,
+      "type": 1,
+      "description": "162719_x_S",
+      "row_pitch_mm": 19,
+      "tube_pitch_mm": 27,
+      "outer_diameter_mm": 15.88,
+      "fin_height_mm": 2
+    },
+    {
+      "id": 160,
+      "type": 1,
+      "description": "195050_x_S",
+      "row_pitch_mm": 50,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 19,
+      "fin_height_mm": 2
+    },
+    {
+      "id": 165,
+      "type": 1,
+      "description": "165049_S_S",
+      "row_pitch_mm": 48.9,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 16,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 168,
+      "type": 1,
+      "description": "122525_x_S",
+      "row_pitch_mm": 25,
+      "tube_pitch_mm": 25,
+      "outer_diameter_mm": 12,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 169,
+      "type": 1,
+      "description": "133228_C_S F Lantery EVP - CN COLD",
+      "row_pitch_mm": 27.5,
+      "tube_pitch_mm": 31.75,
+      "outer_diameter_mm": 13.3,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 170,
+      "type": 1,
+      "description": "102522_SW_S_cncold",
+      "row_pitch_mm": 22,
+      "tube_pitch_mm": 25.4,
+      "outer_diameter_mm": 10.3,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 171,
+      "type": 1,
+      "description": "071912_S_S",
+      "row_pitch_mm": 12,
+      "tube_pitch_mm": 19,
+      "outer_diameter_mm": 7,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 172,
+      "type": 1,
+      "description": "133833_C_STrineva EVP - CN COLD",
+      "row_pitch_mm": 33,
+      "tube_pitch_mm": 38.1,
+      "outer_diameter_mm": 13.3,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 173,
+      "type": 1,
+      "description": "165050_C_S - MIPAL50X50-CONGELADOS",
+      "row_pitch_mm": 50,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.87,
+      "fin_height_mm": 1
+    },
+    {
+      "id": 174,
+      "type": 1,
+      "description": "165050_C_S_mipal_50x50_inox",
+      "row_pitch_mm": 50,
+      "tube_pitch_mm": 50,
+      "outer_diameter_mm": 15.87,
+      "fin_height_mm": 1
+    }
+  ]
+}

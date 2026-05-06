@@ -1,0 +1,119 @@
+[
+  {
+    "id": 16,
+    "name": "R134a",
+    "description_id": 743,
+    "components": [
+      {
+        "component_id": 18,
+        "fraction": 1
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "name": "R404A",
+    "description_id": 749,
+    "components": [
+      {
+        "component_id": 16,
+        "fraction": 0.44
+      },
+      {
+        "component_id": 22,
+        "fraction": 0.51999998
+      },
+      {
+        "component_id": 18,
+        "fraction": 0.039999999
+      }
+    ]
+  },
+  {
+    "id": 26,
+    "name": "R22",
+    "description_id": 744,
+    "components": [
+      {
+        "component_id": 7,
+        "fraction": 1
+      }
+    ]
+  },
+  {
+    "id": 45,
+    "name": "R407C",
+    "description_id": 745,
+    "components": [
+      {
+        "component_id": 9,
+        "fraction": 0.23
+      },
+      {
+        "component_id": 16,
+        "fraction": 0.25
+      },
+      {
+        "component_id": 18,
+        "fraction": 0.51999998
+      }
+    ]
+  },
+  {
+    "id": 51,
+    "name": "R410A",
+    "description_id": 746,
+    "components": [
+      {
+        "component_id": 9,
+        "fraction": 0.5
+      },
+      {
+        "component_id": 16,
+        "fraction": 0.5
+      }
+    ]
+  },
+  {
+    "id": 67,
+    "name": "R744 (CO2)",
+    "description_id": 732,
+    "components": [
+      {
+        "component_id": 35,
+        "fraction": 1
+      }
+    ]
+  },
+  {
+    "id": 66,
+    "name": "R717 (AMMONIA)",
+    "description_id": 776,
+    "components": [
+      {
+        "component_id": 38,
+        "fraction": 1
+      }
+    ]
+  },
+  {
+    "id": 331,
+    "name": "R448A",
+    "description_id": 4005
+  },
+  {
+    "id": 332,
+    "name": "R449A",
+    "description_id": 4006
+  },
+  {
+    "id": 333,
+    "name": "R450A",
+    "description_id": 4007
+  },
+  {
+    "id": 337,
+    "name": "R513A",
+    "description_id": 4008
+  }
+]
