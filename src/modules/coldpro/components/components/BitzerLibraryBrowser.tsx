@@ -119,7 +119,7 @@ export function BitzerLibraryBrowser() {
             </h3>
             <p className="text-xs text-slate-500">
               Polinômios nativos BITZER (λ + corrente + potência específica) ·
-              {" "}{meta?.refrigerants.length ?? 0} refrigerantes · {meta?.rpms.length ?? 0} rotações.
+              {" "}{meta?.refrigerants?.length ?? 0} refrigerantes · {meta?.rpms?.length ?? 0} rotações.
             </p>
           </div>
         </div>
