@@ -11,7 +11,8 @@ import { useComponentStore } from "../../stores/useComponentStore";
  * Estima vazão livre (m³/h) a partir do polinômio SPH(Q) ≈ a0 + a1·Q + …
  * resolvendo SPH(Q) = 0 numericamente. Retorna 0 se SPH(0) ≤ 0.
  */
-function estimateMaxAirflow(sphCoeffs: number[]): number {
+function estimateMaxAirflow(sphCoeffs: number[] | null | undefined): number {
+  if (!sphCoeffs || sphCoeffs.length === 0) return 0;
   const sph = (q: number) => sphCoeffs.reduce((acc, c, i) => acc + c * q ** i, 0);
   let lo = 0;
   let hi = 30000;
