@@ -305,6 +305,8 @@ export function ComponentsPage() {
               </header>
               {renderForm()}
             </div>
+          ) : activeTab === "refrigerant" ? (
+            <RefrigerantLibraryBrowser />
           ) : (
             <div className="space-y-4">
               {activeTab === "compressor" && (
