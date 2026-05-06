@@ -12,6 +12,7 @@ import {
   Zap,
   CloudSnow,
   Plus,
+  Droplet,
 } from "lucide-react";
 import type { ReactNode } from "react";
 
