@@ -50,7 +50,8 @@ interface UseCondenserSimulationOptions {
 }
 
 const DEFAULT_AIRFLOW_M3H = 8000;
-const DEFAULT_FLUID_MASS_KGH = 1200;
+// DEFAULT_FLUID_MASS_KGH removido — vazão mássica agora é estimada
+// iterativamente a partir de Q_cond (ṁ = Q / h_fg), igual ao evaporador.
 
 function toFluidId(refrigerant: string): string {
   return refrigerant.startsWith("REF_") ? refrigerant : `REF_${refrigerant}`;
@@ -110,10 +111,27 @@ export function calculateCondenserResult(
   const fluidData = getRefrigerantLiquidProps(thermo.refrigerantId, inputs.Tc);
   const geoRaw = geometry.raw as Record<string, unknown> | undefined;
   const finCorr = Number(geoRaw?.FatCorAl ?? geoRaw?.fin_correction_factor);
-  const raw = runSimulationV2({
+
+  // Estimativa iterativa da vazão mássica do refrigerante no condensador.
+  //
+  // O condensador não tem distribuidor — o refrigerante entra pelo coletor
+  // de entrada (vapor superaquecido) e sai pelo coletor de saída (líquido
+  // subresfriado). O NrCircuiti (UNILAB) divide a vazão total em ramificações
+  // paralelas, exatamente como no evaporador DX.
+  //
+  // Se o usuário informar fluidMassFlowKgH, esse valor é usado diretamente.
+  // Caso contrário, a vazão é estimada iterativamente:
+  //   1ª iteração: ṁ = 0 → motor usa h_fluid_fallback = 35 W/(m²K)
+  //   2ª iteração: ṁ = Q_1 / h_fg → Re e h_fluid reais
+  //   3ª iteração: ṁ = Q_2 / h_fg → convergência típica em 2-3 iterações
+  //
+  // Fonte: ASHRAE Fundamentals 2017, Cap. 23 — método NTU-ε para condensadores.
+  const h_fg_kJkg = fluidData.h_fg_kJkg;
+  const finCorrFactor = Number.isFinite(finCorr) && finCorr > 0 ? finCorr : 1;
+  const simParams = {
     physical,
     thermo,
-    componentType: "condenser_air",
+    componentType: "condenser_air" as const,
     tubeMaterialConductivity: tubeMaterial.conductivityWmK,
     fluidProps: {
       rho_kg_m3: fluidData.rho_kg_m3,
@@ -121,11 +139,30 @@ export function calculateCondenserResult(
       cp_J_kgK: fluidData.cp_J_kgK,
       k_W_mK: fluidData.k_W_mK,
     },
-    fluidMassFlowKgS: (inputs.fluidMassFlowKgH ?? DEFAULT_FLUID_MASS_KGH) / 3600,
     subcoolingK: inputs.subcooling,
-    finCorrectionFactor: Number.isFinite(finCorr) && finCorr > 0 ? finCorr : 1,
-    h_fg_kJkg: fluidData.h_fg_kJkg,
-  });
+    finCorrectionFactor: finCorrFactor,
+    h_fg_kJkg,
+  };
+
+  let fluidMassFlowKgS: number;
+  let raw: ReturnType<typeof runSimulationV2>;
+
+  if (inputs.fluidMassFlowKgH && inputs.fluidMassFlowKgH > 0) {
+    // Vazão mássica fornecida pelo usuário — usar diretamente.
+    fluidMassFlowKgS = inputs.fluidMassFlowKgH / 3600;
+    raw = runSimulationV2({ ...simParams, fluidMassFlowKgS });
+  } else {
+    // Iteração 1: ṁ = 0 → motor usa fallback h_fluid = 35 W/(m²K)
+    const raw1 = runSimulationV2({ ...simParams, fluidMassFlowKgS: 0 });
+    // Iteração 2: ṁ estimado a partir de Q_1
+    const m2 = (raw1.totalCapacityKw * 1000) / Math.max(h_fg_kJkg * 1000, 1);
+    const raw2 = runSimulationV2({ ...simParams, fluidMassFlowKgS: m2 });
+    // Iteração 3: ṁ estimado a partir de Q_2 (convergência)
+    const m3 = (raw2.totalCapacityKw * 1000) / Math.max(h_fg_kJkg * 1000, 1);
+    raw = runSimulationV2({ ...simParams, fluidMassFlowKgS: m3 });
+    fluidMassFlowKgS = m3;
+  }
+  void fluidMassFlowKgS; // usado implicitamente via raw
   const qCondW = raw.totalCapacityKw * 1000;
   const lmtd = raw.lmtdK ?? calculateLmtd(inputs.Tc, inputs.Tc - inputs.subcooling, inputs.Tair_in);
   const ua = lmtd > 0 ? qCondW / lmtd : 0;
