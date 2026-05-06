@@ -87,9 +87,11 @@ export function FanLibraryBrowser() {
     () =>
       data.map((f) => ({
         ...f,
+        sph_coefficients: f.sph_coefficients ?? [],
+        power_coefficients: f.power_coefficients ?? [],
         facets: decodeModel(f.model),
         freeFlowM3h: estimateMaxAirflow(f.sph_coefficients),
-        sphAt0Pa: f.sph_coefficients[0] ?? 0,
+        sphAt0Pa: f.sph_coefficients?.[0] ?? 0,
       })),
     [data],
   );
