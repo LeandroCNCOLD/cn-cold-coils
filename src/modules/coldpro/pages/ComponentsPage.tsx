@@ -238,6 +238,8 @@ export function ComponentsPage() {
         return <ReheatCoilForm onSaved={onSaved} />;
       case "frost":
         return <FrostConfigForm onSaved={onSaved} />;
+      case "refrigerant":
+        return null;
     }
   };
 
