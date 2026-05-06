@@ -50,7 +50,7 @@ export function FanForm({ onSaved }: FanFormProps) {
 
   // Construção
   const [family, setFamily] = useState<FanFamily | "">("");
-  const [drive, setDrive] = useState<FanDrive | "">("");
+  const [drive, setDrive] = useState<FanDriveType | "">("");
   const [diameter, setDiameter] = useState<number | undefined>();
   const [bladeCount, setBladeCount] = useState<number | undefined>();
   const [rpm, setRpm] = useState<number | undefined>();
@@ -215,7 +215,7 @@ export function FanForm({ onSaved }: FanFormProps) {
             </label>
             <select
               value={drive}
-              onChange={(e) => setDrive(e.target.value as FanDrive | "")}
+              onChange={(e) => setDrive(e.target.value as FanDriveType | "")}
               className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm"
             >
               <option value="">—</option>
