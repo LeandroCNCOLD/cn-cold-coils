@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { TechnicalField } from "../ui/TechnicalField";
 import { useComponentStore } from "../../stores/useComponentStore";
-import type { FanSpec } from "@/modules/coldpro_v2";
+import type { FanSpec, FanFamily, FanDriveType } from "@/modules/coldpro_v2";
 import { useTranslation } from "@/i18n/useTranslation";
 
 interface FanFormProps {
@@ -9,8 +9,6 @@ interface FanFormProps {
 }
 
 type FanRole = "evaporator_fan" | "condenser_fan";
-type FanFamily = "axial" | "centrifugal" | "mixed_flow" | "ec_radial";
-type FanDrive = "direct" | "belt";
 
 const num = (v: string): number | undefined => {
   if (v === "") return undefined;
