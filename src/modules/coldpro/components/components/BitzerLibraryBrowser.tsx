@@ -153,7 +153,7 @@ export function BitzerLibraryBrowser() {
             className="rounded-md border border-slate-200 bg-slate-50 px-2 py-1.5 text-xs outline-none focus:border-[#1E6FD9] focus:bg-white"
           >
             <option value="ALL">Todas as rotações</option>
-            {meta?.rpms.map((r) => (
+            {meta?.rpms?.map((r) => (
               <option key={r} value={String(r)}>
                 {r} rpm
               </option>
