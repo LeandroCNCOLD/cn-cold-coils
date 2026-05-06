@@ -208,6 +208,8 @@ export function ComponentsPage() {
       case "frost":
         store.deleteFrostConfig(id);
         return;
+      case "refrigerant":
+        return;
     }
   };
 
