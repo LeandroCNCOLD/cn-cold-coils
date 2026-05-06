@@ -119,7 +119,7 @@ export function BitzerLibraryBrowser() {
             </h3>
             <p className="text-xs text-slate-500">
               Polinômios nativos BITZER (λ + corrente + potência específica) ·
-              {" "}{meta?.refrigerants.length ?? 0} refrigerantes · {meta?.rpms.length ?? 0} rotações.
+              {" "}{meta?.refrigerants?.length ?? 0} refrigerantes · {meta?.rpms?.length ?? 0} rotações.
             </p>
           </div>
         </div>
@@ -141,7 +141,7 @@ export function BitzerLibraryBrowser() {
             className="rounded-md border border-slate-200 bg-slate-50 px-2 py-1.5 text-xs outline-none focus:border-[#1E6FD9] focus:bg-white"
           >
             <option value="ALL">Todos os refrigerantes</option>
-            {meta?.refrigerants.map((r) => (
+            {meta?.refrigerants?.map((r) => (
               <option key={r} value={r}>
                 {r}
               </option>
@@ -153,7 +153,7 @@ export function BitzerLibraryBrowser() {
             className="rounded-md border border-slate-200 bg-slate-50 px-2 py-1.5 text-xs outline-none focus:border-[#1E6FD9] focus:bg-white"
           >
             <option value="ALL">Todas as rotações</option>
-            {meta?.rpms.map((r) => (
+            {meta?.rpms?.map((r) => (
               <option key={r} value={String(r)}>
                 {r} rpm
               </option>
