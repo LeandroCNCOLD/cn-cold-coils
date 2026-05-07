@@ -312,6 +312,40 @@ export async function evaluateCompressor(
   warnings.push(...evapProps.warnings, ...condProps.warnings);
   const satProps = { evap: evapProps, cond: condProps };
 
+  if (compressor.en12900) {
+    const d = compressor.en12900;
+    const evalC = (c: EN12900Coefficients) =>
+      eval10(
+        [c.c1, c.c2, c.c3, c.c4, c.c5, c.c6, c.c7, c.c8, c.c9, c.c10],
+        Te_C,
+        Tc_C,
+      );
+    const en12900Warnings: string[] = [];
+    if (Te_C < d.validity.evap_min_c || Te_C > d.validity.evap_max_c) {
+      en12900Warnings.push(
+        `Te=${Te_C}°C fora do range EN12900 [${d.validity.evap_min_c}..${d.validity.evap_max_c}°C]`,
+      );
+    }
+    if (Tc_C < d.validity.cond_min_c || Tc_C > d.validity.cond_max_c) {
+      en12900Warnings.push(
+        `Tc=${Tc_C}°C fora do range EN12900 [${d.validity.cond_min_c}..${d.validity.cond_max_c}°C]`,
+      );
+    }
+    const Q_W = Math.max(0, evalC(d.Q_W));
+    const W_comp_W = Math.max(0, evalC(d.P_W));
+    const m_dot_kgS = Math.max(0, evalC(d.m_kgh) / 3600);
+    return {
+      Q_evap_W: Q_W,
+      W_comp_W,
+      Q_cond_W: Q_W + W_comp_W,
+      m_dot_kgS,
+      COP: W_comp_W > 0 ? Q_W / W_comp_W : 0,
+      compressionRatio: compressionRatio(satProps),
+      mode: "en12900",
+      warnings: [...warnings, ...en12900Warnings],
+    };
+  }
+
   if (compressor.ari540) {
     const result = evaluateARI540(inputs, compressor.ari540, satProps, compressor.ari540Power);
     return { ...result, warnings: [...warnings, ...result.warnings] };
