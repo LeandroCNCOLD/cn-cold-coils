@@ -155,8 +155,8 @@ export function runSimulationV2(inputs: SimulationV2Inputs): SimulationV2Result 
     componentType,
   });
 
-  // 5. h_ar via Wang-Chi-Chang / Mihailovic / Granryd (calculado dinamicamente)
-  const airH = computeAirSideH(physical, faceVelocityMs);
+  // 5. h_ar: Rich(1975) para condensadores, Wang-Chi-Chang para evaporadores
+  const airH = computeAirSideH(physical, faceVelocityMs, componentType, thermo.airInletTempC);
   warnings.push(...airH.warnings);
 
   // M6 — Validar e aplicar multiplicadores de correção

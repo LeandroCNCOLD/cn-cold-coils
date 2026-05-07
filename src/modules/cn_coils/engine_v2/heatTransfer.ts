@@ -18,8 +18,8 @@
 //   1/U_o = 1/(η_o · h_air) + R_wall + (Do/Di)/h_fluid + R_fouling
 
 import type { FluidPhase } from "./phaseLogic";
-import { calculateWangChiChang } from "../engine/wangChiChang";
-import type { CnCoilsPhysicalInputs } from "../types/cncoils.types";
+import { calculateWangChiChang, rich1975 } from "../engine/wangChiChang";
+import type { CnCoilsPhysicalInputs, CnCoilsComponentType } from "../types/cncoils.types";
 
 // ============================================================================
 // M2 — Eficiência de aleta: Método de Schmidt (McQuiston & Parker 1982)
@@ -143,29 +143,56 @@ export interface AirSideHResult {
 export function computeAirSideH(
   physical: CnCoilsPhysicalInputs,
   faceVelocityMs: number,
+  componentType?: CnCoilsComponentType,
+  airTempC?: number,
 ): AirSideHResult {
   const warnings: string[] = [];
+  const isCondenser =
+    componentType === "condenser_air" || componentType === "condenser_shell_tube";
 
-  const wcc = calculateWangChiChang({
-    tubeOdMm: physical.tubeOuterDiameterMm,
-    finThicknessMm: physical.finThicknessMm,
-    finPitchMm: physical.finPitchMm,
-    rowPitchMm: physical.tubePitchLongitudinalMm,
-    tubePitchMm: physical.tubePitchTransverseMm,
-    numberOfRows: physical.rows,
-    airFaceVelocityMs: faceVelocityMs,
-  });
+  let h_air: number;
 
-  warnings.push(...wcc.warnings);
-
-  if (!Number.isFinite(wcc.hAirWm2K) || wcc.hAirWm2K <= 0) {
-    warnings.push(
-      `Wang-Chi-Chang retornou h_ar inválido (${wcc.hAirWm2K}). Usando fallback = 25 W/(m²·K).`,
-    );
-    return { h_air_Wm2K: 25, eta_surface: 0.85, eta_fin: 0.85, warnings };
+  if (isCondenser) {
+    // Rich (1975) — calibrado para condensadores a ar com aletas planas
+    // Faixa: Re_Dc = 500–10000, Fp/Dc = 0.10–0.50, N = 1–6
+    const res = rich1975({
+      finType: "plain",
+      D_o: physical.tubeOuterDiameterMm / 1000,
+      P_t: physical.tubePitchTransverseMm / 1000,
+      P_l: physical.tubePitchLongitudinalMm / 1000,
+      F_p: physical.finPitchMm / 1000,
+      N: physical.rows,
+      V_face: faceVelocityMs,
+      T_air_C: airTempC ?? 35,
+    });
+    if (res.outOfRange) warnings.push(`Rich(1975): ${res.outOfRange}`);
+    if (!Number.isFinite(res.h_air_W_m2K) || res.h_air_W_m2K <= 0) {
+      warnings.push(`Rich(1975) retornou h_ar inválido. Usando fallback = 40 W/(m²·K).`);
+      h_air = 40;
+    } else {
+      h_air = res.h_air_W_m2K;
+    }
+  } else {
+    // Wang-Chi-Chang (2000) — evaporadores e serpentinas de resfriamento
+    const wcc = calculateWangChiChang({
+      tubeOdMm: physical.tubeOuterDiameterMm,
+      finThicknessMm: physical.finThicknessMm,
+      finPitchMm: physical.finPitchMm,
+      rowPitchMm: physical.tubePitchLongitudinalMm,
+      tubePitchMm: physical.tubePitchTransverseMm,
+      numberOfRows: physical.rows,
+      airFaceVelocityMs: faceVelocityMs,
+      airTempC: airTempC,
+    });
+    warnings.push(...wcc.warnings);
+    if (!Number.isFinite(wcc.hAirWm2K) || wcc.hAirWm2K <= 0) {
+      warnings.push(
+        `Wang-Chi-Chang retornou h_ar inválido (${wcc.hAirWm2K}). Usando fallback = 25 W/(m²·K).`,
+      );
+      return { h_air_Wm2K: 25, eta_surface: 0.85, eta_fin: 0.85, warnings };
+    }
+    h_air = wcc.hAirWm2K;
   }
-
-  const h_air = wcc.hAirWm2K;
 
   // M2 — Eficiência de aleta pelo método de Schmidt
   const finEff = schmidtFinEfficiency({

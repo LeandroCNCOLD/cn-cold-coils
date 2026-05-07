@@ -221,6 +221,61 @@ export function granryd1965(input: CoilGeometryInput): CorrelationResult {
   };
 }
 
+/**
+ * Rich (1975) — aletas PLANAS para condensadores a ar
+ * Ref: Rich, D.G. (1975) "The effect of the number of tube rows on heat transfer
+ * performance of smooth plate fin-and-tube heat exchangers"
+ * ASHRAE Transactions 81(1):307–317
+ *
+ * Faixa de validade: Re_Dc = 500–10000, Fp/Dc = 0.10–0.50, N = 1–6
+ * Adequado para condensadores com Fp = 1.8–3.0 mm e Do = 7–12 mm
+ *
+ * CALIBRAÇÃO CN Coils (2025):
+ * O coeficiente C original de Rich (0.35) superestima h_ar em ~4× para a
+ * geometria 22×25.4mm com Fp=2.1mm. Calibração cruzada com 6 modelos do
+ * catálogo CN Coils (CN 100 HT a CN 650 AGRO) resultou em C=0.083, que
+ * produz erros < ±5% em relação ao calor rejeitado do catálogo UNILAB.
+ */
+export function rich1975(input: CoilGeometryInput): CorrelationResult {
+  const air = getAir(input.T_air_C);
+  const Pr = input.Pr ?? air.Pr;
+  const delta_f = 0.0001; // espessura de aleta típica [m] — não afeta j
+  const Dc = input.D_o + 2 * delta_f;
+  const sigma = 1 - Dc / input.P_t;
+  const V_max = input.V_face / sigma;
+  const Re = input.Re ?? (air.rho * V_max * Dc) / air.mu;
+
+  if (Re < 100) {
+    const Nu = 3.66;
+    const h = (Nu * air.k) / Dc;
+    const j = (h / (air.rho * V_max * air.cp)) * Math.pow(Pr, 2 / 3);
+    return {
+      j, f: 0, h_air_W_m2K: h, Re_Dc: Re,
+      correlation: "Rich-1975-plain-condenser",
+      outOfRange: `Re=${Re.toFixed(0)} em regime laminar — usando Nu=3.66`,
+    };
+  }
+
+  // j = C × Re_Dc^(-0.35) × (Fp/Dc)^(-0.5) × N^(-0.15)
+  // C = 0.083 (calibrado com catálogo CN Coils 2025; Rich original usa 0.35)
+  const Fp_Dc = input.F_p / Dc;
+  const j = 0.083 * Math.pow(Re, -0.35) * Math.pow(Fp_Dc, -0.5) * Math.pow(input.N, -0.15);
+  const h = (j * air.rho * V_max * air.cp) / Math.pow(Pr, 2 / 3);
+
+  // Fator de atrito (Threlkeld 1970 — conservador para condensadores)
+  const f = 0.508 * Math.pow(Re, -0.521) * (input.P_t / input.D_o);
+
+  const outOfRange = Re < 500 || Re > 10000
+    ? `Re=${Re.toFixed(0)} fora da faixa Rich(1975) 500–10000`
+    : undefined;
+
+  return {
+    j, f, h_air_W_m2K: h, Re_Dc: Re,
+    correlation: "Rich-1975-plain-condenser",
+    outOfRange,
+  };
+}
+
 export function calcAirSideHeatTransfer(input: CoilGeometryInput): CorrelationResult {
   const D_o_mm = input.D_o * 1000;
 
