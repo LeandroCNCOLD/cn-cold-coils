@@ -108,8 +108,6 @@ export function AgroWorkspacePage() {
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
   const setConditions = useTestHubStore((s) => s.setConditions);
-  const setCompressor = useTestHubStore((s) => s.setCompressor);
-  const setCondenser = useTestHubStore((s) => s.setCondenser);
 
   function handleSendToHub() {
     if (!result) return;
