@@ -39,9 +39,9 @@ import {
   type ProductTechnicalRecord,
   type StartupReferenceSheet,
   type StartupParameterStatus,
-  type CommissioningReport,
   type SystemComponentsInput,
 } from "@/modules/coldpro_v2";
+import type { CommissioningReport } from "@/modules/coldpro_v2/domain/types";
 import type { CatalogEquipmentRow } from "@/modules/coldpro_catalog/data/equipmentCatalog.types";
 import type { EvaporatorFormValue } from "../../components/forms/EvaporatorForm";
 import type { SystemConditions } from "../../components/forms/SystemConditionsForm";
