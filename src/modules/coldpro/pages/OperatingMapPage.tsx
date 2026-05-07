@@ -69,6 +69,41 @@ export function OperatingMapPage() {
       gridConfig.cond_temps.length > 0,
   );
 
+  // Hidrata a partir do useTestHubStore (Hub de Testes) e auto-dispara
+  const hubCompressor = useTestHubStore((s) => s.compressor);
+  const hubCondenser = useTestHubStore((s) => s.condenser);
+  const hubConditions = useTestHubStore((s) => s.conditions);
+  const didHydrateFromHub = useRef(false);
+  useEffect(() => {
+    if (didHydrateFromHub.current) return;
+    const hasHubData =
+      Boolean(hubCompressor?.cooling_capacity_w) ||
+      Boolean(hubCondenser?.heat_rejection_capacity_w) ||
+      hubConditions?.ambient_temp_c !== undefined;
+    if (!hasHubData) return;
+    if (hubCompressor && Object.keys(hubCompressor).length > 0)
+      setCompressor((prev) => ({ ...prev, ...hubCompressor }));
+    if (hubCondenser && Object.keys(hubCondenser).length > 0)
+      setCondenser((prev) => ({ ...prev, ...hubCondenser }));
+    if (hubConditions && Object.keys(hubConditions).length > 0)
+      setConditions((prev) => ({ ...prev, ...hubConditions }));
+    const evapNom = hubCompressor?.evap_temp_c;
+    const condNom = hubCompressor?.cond_temp_c;
+    if (evapNom !== undefined || condNom !== undefined) {
+      setGridConfig((prev) => ({
+        evap_temps:
+          evapNom !== undefined
+            ? [evapNom - 15, evapNom - 10, evapNom - 5, evapNom, evapNom + 5, evapNom + 10].map((t) => Math.round(t))
+            : prev.evap_temps,
+        cond_temps:
+          condNom !== undefined
+            ? [condNom - 10, condNom - 5, condNom, condNom + 5, condNom + 10, condNom + 15].map((t) => Math.round(t))
+            : prev.cond_temps,
+      }));
+    }
+    didHydrateFromHub.current = true;
+  }, [hubCompressor, hubCondenser, hubConditions]);
+
   const handleCalculate = () => {
     if (!canCalculate) return;
     calculate({
