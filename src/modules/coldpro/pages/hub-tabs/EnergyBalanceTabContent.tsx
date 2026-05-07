@@ -19,8 +19,14 @@ import { useMemo } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { CheckCircle2, AlertCircle, XCircle, Flame, Zap, Snowflake, ArrowRight } from "lucide-react";
-import type { CompressorSpec, CondenserSpec } from "@/modules/coldpro_v2";
+import { CheckCircle2, AlertCircle, XCircle, Flame, Zap, Snowflake, ArrowRight, Cpu } from "lucide-react";
+import {
+  calculateElectricalAnalysis,
+  type CompressorSpec,
+  type CondenserSpec,
+  type ElectricalAnalysis,
+  type SystemComponentsInput,
+} from "@/modules/coldpro_v2";
 import type { PhDiagramResult } from "../../stores/useTestHubStore";
 
 interface Props {
@@ -30,6 +36,27 @@ interface Props {
 }
 
 export function EnergyBalanceTabContent({ compressor, condenser, phResult }: Props) {
+  // ── Motor v2: análise elétrica real ───────────────────────────────────────
+  const electricalResult = useMemo<ElectricalAnalysis | null>(() => {
+    const Q_evap_W = compressor.cooling_capacity_w ?? 0;
+    const W_comp_W = compressor.power_w ?? 0;
+    if (Q_evap_W <= 0 || W_comp_W <= 0) return null;
+    try {
+      // Apenas os campos consumidos pelo motor elétrico precisam estar populados.
+      // O cast evita exigir o ProgressiveCoilInput completo para o evaporador.
+      const systemInput = {
+        compressor: compressor as CompressorSpec,
+        condenser: condenser as CondenserSpec,
+        evaporator: { progressive_input: {} },
+        system_conditions: { ambient_temp_c: 25, required_airflow_m3_h: 0 },
+      } as unknown as SystemComponentsInput;
+      return calculateElectricalAnalysis({ system: systemInput, q_evap_w: Q_evap_W });
+    } catch (e) {
+      console.warn("[EnergyBalanceTab] calculateElectricalAnalysis falhou — usando fallback manual:", e);
+      return null;
+    }
+  }, [compressor, condenser]);
+
   const balance = useMemo(() => {
     const Q_evap_W = compressor.cooling_capacity_w ?? 0;
     const W_comp_W = compressor.power_w ?? Q_evap_W / 2.5;
