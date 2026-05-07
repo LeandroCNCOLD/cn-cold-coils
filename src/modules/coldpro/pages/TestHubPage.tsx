@@ -81,6 +81,7 @@ const TABS: TabDef[] = [
   { id: "scenarios", label: "Cenários", icon: BarChart3, description: "9 cenários operacionais reais com análise comparativa", group: "diagnosis" },
   { id: "frost", label: "Degelo", icon: Snowflake, description: "Análise de formação de gelo e ciclo de degelo", group: "diagnosis" },
   { id: "comparison", label: "Comparar", icon: GitCompare, description: "Alternativas do catálogo com comparação de capacidade e COP", group: "diagnosis" },
+  { id: "startup", label: "Start-up", icon: ClipboardCheck, description: "Planilha de referência e relatório de comissionamento em campo", group: "diagnosis" },
   { id: "ai", label: "IA", icon: Brain, description: "Diagnóstico técnico com motor de regras termodinâmicas embarcadas", group: "ai" },
   { id: "report", label: "Relatório", icon: FileText, description: "Relatório técnico completo com exportação para clipboard e impressão", group: "ai" },
 ];
