@@ -20,6 +20,7 @@ import { formatCapacity, formatCOP } from "../utils/formatting";
 import type { CompressorSpec, CondenserSpec } from "@/modules/coldpro_v2";
 import { useCatalogSessionStore } from "@/modules/coldpro_catalog/store/useCatalogSessionStore";
 import { buildMotorComponentsFromCatalog } from "@/modules/coldpro_catalog/adapters/sessionToMotorInputAdapter";
+import { useTestHubStore } from "../stores/useTestHubStore";
 
 const METRIC_OPTIONS: { value: PerformanceMetric; label: string }[] = [
   { value: "capacity_w", label: "Capacidade" },
@@ -158,6 +159,47 @@ export function PerformanceCurvePage() {
   // alternar entre Equilíbrio e Curva sem perder os dados. Limpeza só via
   // botão "Limpar" ou ao salvar/excluir cálculo.
 
+  // Hidrata os formulários a partir do useTestHubStore (Hub de Testes).
+  const hubCompressor = useTestHubStore((s) => s.compressor);
+  const hubCondenser = useTestHubStore((s) => s.condenser);
+  const hubEvaporator = useTestHubStore((s) => s.evaporator);
+  const hubConditions = useTestHubStore((s) => s.conditions);
+  const didHydrateFromHub = useRef(false);
+  useEffect(() => {
+    if (didHydrateFromHub.current) return;
+    const hasHubData =
+      Boolean(hubCompressor?.cooling_capacity_w) ||
+      Boolean(hubCondenser?.heat_rejection_capacity_w) ||
+      Boolean(hubEvaporator && Object.keys(hubEvaporator).length > 0) ||
+      hubConditions?.ambient_temp_c !== undefined;
+    if (!hasHubData) return;
+    if (hubCompressor && Object.keys(hubCompressor).length > 0)
+      setCompressor((prev) => ({ ...prev, ...hubCompressor }));
+    if (hubCondenser && Object.keys(hubCondenser).length > 0)
+      setCondenser((prev) => ({ ...prev, ...hubCondenser }));
+    if (hubEvaporator && Object.keys(hubEvaporator).length > 0)
+      setEvaporator((prev) => ({ ...prev, ...hubEvaporator }));
+    if (hubConditions && Object.keys(hubConditions).length > 0)
+      setConditions((prev) => ({ ...prev, ...hubConditions }));
+    // Sugere grade ao redor de Te/Tc nominal do compressor herdado
+    const evapNom = hubCompressor?.evap_temp_c;
+    const condNom = hubCompressor?.cond_temp_c;
+    if (evapNom !== undefined || condNom !== undefined) {
+      setGridConfig((prev) => ({
+        evap_temps:
+          evapNom !== undefined
+            ? [evapNom - 10, evapNom - 5, evapNom, evapNom + 5].map((t) => Math.round(t))
+            : prev.evap_temps,
+        cond_temps:
+          condNom !== undefined
+            ? [condNom - 10, condNom - 5, condNom, condNom + 5].map((t) => Math.round(t))
+            : prev.cond_temps,
+      }));
+    }
+    didHydrateFromHub.current = true;
+  }, [hubCompressor, hubCondenser, hubEvaporator, hubConditions]);
+
+
   const handleClearAll = () => {
     clearSelection();
     lastAppliedCompressorId.current = undefined;
@@ -203,6 +245,17 @@ export function PerformanceCurvePage() {
       operating_points: generateGrid(gridConfig),
     });
   };
+
+  // Auto-disparo após hidratação completa do Hub
+  const didAutoRun = useRef(false);
+  useEffect(() => {
+    if (didAutoRun.current) return;
+    if (!didHydrateFromHub.current) return;
+    if (!canCalculate || isCalculating || result) return;
+    didAutoRun.current = true;
+    handleCalculate();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [canCalculate, isCalculating, result]);
 
   return (
     <PageContainer

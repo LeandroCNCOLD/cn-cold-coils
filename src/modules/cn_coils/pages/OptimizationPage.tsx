@@ -6,7 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Target } from "lucide-react";
 import { OptimizationPanel } from "../components/OptimizationPanel";
 import { listAvailableRefrigerants } from "../engines/refrigerant/refrigerantProperties";
-import { Slider } from "@/components/ui/slider";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -135,35 +135,10 @@ export function OptimizationPage() {
             )}
           </section>
 
-          <section className="space-y-2">
-            <Label className="text-xs text-gray-300">
-              Te (°C): <span className="font-mono text-emerald-400">{te}</span>
-            </Label>
-            <Slider min={-40} max={15} step={1} value={[te]} onValueChange={(v) => setTe(v[0])} />
-          </section>
-
-          <section className="space-y-2">
-            <Label className="text-xs text-gray-300">
-              Tc (°C): <span className="font-mono text-emerald-400">{tc}</span>
-            </Label>
-            <Slider min={20} max={70} step={1} value={[tc]} onValueChange={(v) => setTc(v[0])} />
-          </section>
-
-          <section className="space-y-2">
-            <Label className="text-xs text-gray-300">
-              Temperatura do ar (°C):{" "}
-              <span className="font-mono text-emerald-400">{airTempC}</span>
-            </Label>
-            <Slider min={-25} max={35} step={1} value={[airTempC]} onValueChange={(v) => setAirTempC(v[0])} />
-          </section>
-
-          <section className="space-y-2">
-            <Label className="text-xs text-gray-300">
-              Umidade relativa (%):{" "}
-              <span className="font-mono text-emerald-400">{airRH}</span>
-            </Label>
-            <Slider min={30} max={100} step={1} value={[airRH]} onValueChange={(v) => setAirRH(v[0])} />
-          </section>
+          <NumField label="Te (°C)" value={te} onChange={setTe} min={-40} max={15} step={1} />
+          <NumField label="Tc (°C)" value={tc} onChange={setTc} min={20} max={70} step={1} />
+          <NumField label="Temperatura do ar (°C)" value={airTempC} onChange={setAirTempC} min={-25} max={35} step={1} />
+          <NumField label="Umidade relativa (%)" value={airRH} onChange={setAirRH} min={30} max={100} step={1} />
 
           {appliedGeometry && (
             <section className="rounded border border-emerald-800/50 bg-emerald-950/20 p-3 text-xs space-y-1">
@@ -190,5 +165,36 @@ export function OptimizationPage() {
         </main>
       </div>
     </div>
+  );
+}
+
+interface NumFieldProps {
+  label: string;
+  value: number;
+  onChange: (n: number) => void;
+  min?: number;
+  max?: number;
+  step?: number;
+}
+
+function NumField({ label, value, onChange, min, max, step }: NumFieldProps) {
+  return (
+    <section className="space-y-1.5">
+      <Label className="text-xs text-gray-300">{label}</Label>
+      <Input
+        type="number"
+        inputMode="decimal"
+        value={Number.isFinite(value) ? value : ""}
+        min={min}
+        max={max}
+        step={step}
+        onFocus={(e) => e.target.select()}
+        onChange={(e) => {
+          const n = parseFloat(e.target.value);
+          if (!isNaN(n)) onChange(n);
+        }}
+        className="h-8 bg-gray-800 border-gray-700 text-white text-xs font-mono"
+      />
+    </section>
   );
 }

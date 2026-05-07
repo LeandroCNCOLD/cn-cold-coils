@@ -21,6 +21,7 @@ import type { CompressorSpec, CondenserSpec } from "@/modules/coldpro_v2";
 import { useCatalogSessionStore } from "@/modules/coldpro_catalog/store/useCatalogSessionStore";
 import { buildMotorComponentsFromCatalog } from "@/modules/coldpro_catalog/adapters/sessionToMotorInputAdapter";
 import { useCatalogRevisionStore } from "@/modules/coldpro_catalog/store/useCatalogRevisionStore";
+import { useTestHubStore } from "../stores/useTestHubStore";
 
 function isComplete(
   c: Partial<CompressorSpec>,
@@ -171,6 +172,38 @@ export function SimulationPage() {
   // sem perder os dados. A limpeza ocorre apenas via botão "Limpar" ou
   // ao salvar/excluir um cálculo.
 
+  // Hidrata os formulários a partir do useTestHubStore (Hub de Testes).
+  // Quando o usuário preenche o sidebar do Hub, essas condições são
+  // herdadas automaticamente nesta aba (Equilíbrio).
+  const hubCompressor = useTestHubStore((s) => s.compressor);
+  const hubCondenser = useTestHubStore((s) => s.condenser);
+  const hubEvaporator = useTestHubStore((s) => s.evaporator);
+  const hubConditions = useTestHubStore((s) => s.conditions);
+  const didHydrateFromHub = useRef(false);
+  useEffect(() => {
+    if (didHydrateFromHub.current) return;
+    const hasHubData =
+      Boolean(hubCompressor?.cooling_capacity_w) ||
+      Boolean(hubCondenser?.heat_rejection_capacity_w) ||
+      Boolean(hubEvaporator && Object.keys(hubEvaporator).length > 0) ||
+      hubConditions?.ambient_temp_c !== undefined;
+    if (!hasHubData) return;
+    if (hubCompressor && Object.keys(hubCompressor).length > 0) {
+      setCompressor((prev) => ({ ...prev, ...hubCompressor }));
+    }
+    if (hubCondenser && Object.keys(hubCondenser).length > 0) {
+      setCondenser((prev) => ({ ...prev, ...hubCondenser }));
+    }
+    if (hubEvaporator && Object.keys(hubEvaporator).length > 0) {
+      setEvaporator((prev) => ({ ...prev, ...hubEvaporator }));
+    }
+    if (hubConditions && Object.keys(hubConditions).length > 0) {
+      setConditions((prev) => ({ ...prev, ...hubConditions }));
+    }
+    didHydrateFromHub.current = true;
+  }, [hubCompressor, hubCondenser, hubEvaporator, hubConditions]);
+
+
   const handleClearAll = () => {
     clearSelection();
     lastAppliedCompressorId.current = undefined;
@@ -231,6 +264,18 @@ export function SimulationPage() {
       }
     }
   };
+
+  // Auto-disparo: assim que os dados herdados do Hub completarem todos os
+  // campos obrigatórios, executa o cálculo uma vez automaticamente.
+  const didAutoRun = useRef(false);
+  useEffect(() => {
+    if (didAutoRun.current) return;
+    if (!didHydrateFromHub.current) return;
+    if (!canCalculate || isCalculating || result) return;
+    didAutoRun.current = true;
+    handleCalculate();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [canCalculate, isCalculating, result]);
 
   return (
     <PageContainer
