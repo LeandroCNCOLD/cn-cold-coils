@@ -66,7 +66,7 @@ export function useCompressorLibrary(): EquipmentLibraryState<LibraryCompressor>
 
   useEffect(() => {
     let cancelled = false;
-    fetchJson<LibraryCompressor>("/data/equipment/compressors.json")
+    loadConsolidatedCompressorLibrary()
       .then((data) => {
         if (cancelled) return;
         setState({ loading: false, error: null, data });
