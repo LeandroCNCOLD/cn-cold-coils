@@ -1,29 +1,97 @@
 ## Objetivo
-Adicionar botão "Novo Aletado" na barra superior (ProjectHeaderBar) e na sidebar de Configurar (WorkspaceSidebar), conectando handlers que limpam o workspace nos dois pages (Evaporador e Condensador).
 
-## Mudanças
+Garantir que **todo workspace de cálculo** (CN Coils — Evaporador, Condensador, Compressor — e Hub de Testes / catálogo coldpro) seja **limpo automaticamente após salvar e sair** da tela, eliminando o risco de o próximo cálculo herdar dados do anterior.
 
-### 1. `src/modules/cn_coils/components/ProjectHeaderBar.tsx`
-- Adicionar prop opcional `onNovoAletado?: () => void` na interface.
-- Desestruturar a prop na assinatura da função.
-- Renderizar botão "Novo Aletado" (verde, ícone `Plus`) antes do botão "Catálogo" nos dois ramos do JSX (com e sem projeto ativo, ~linhas 204 e 233), exibido apenas quando `onNovoAletado` for fornecido.
+Hoje cada `handleSave` apenas exibe `toast.success("Projeto salvo (em memória).")` e abre o `PostSaveNextStepDialog`, mas **não limpa nenhum store**. Além disso, alguns stores são persistidos em `localStorage` (`coldpro-catalog-session`, `cncoils_last_inputs`), reinjetando dados antigos ao trocar de equipamento.
 
-### 2. `src/modules/cn_coils/pages/EvaporatorUnifiedWorkspacePage.tsx`
-- `useProjectStore` já importado (linha 70). Reaproveitar `setActiveProject` via selector.
-- Adicionar `const reset = useCnCoilsSimulationStore((s) => s.reset)` se ainda não existir.
-- Criar `handleNovoAletado` que faz `reset()`, `setActiveProject(null)` e `toast.success(...)`.
-- Passar `onNovoAletado={handleNovoAletado}` para `<ProjectHeaderBar>` (linha ~755).
+## Causa-raiz
 
-### 3. `src/modules/cn_coils/pages/CondenserWorkspacePage.tsx`
-- Importar `useProjectStore`.
-- Mesma lógica do Evaporador: selector de `setActiveProject`, selector de `reset`, `handleNovoAletado`, e prop no `<ProjectHeaderBar>` (linha ~725).
+Stores que mantêm estado entre telas:
 
-### 4. `src/modules/cn_coils/components/WorkspaceSidebar.tsx`
-- Importar `GeometryEditorModal`.
-- Adicionar estado local `geomEditorOpen`.
-- Adicionar item extra `<li>` "+ Novo Aletado…" depois do `MODAL_BUTTONS.map(...)` na seção Configurar.
-- Renderizar `<GeometryEditorModal open={geomEditorOpen} mode="create" baseGeometry={null} onClose={...} onSaved={...} />` antes do fechamento do `</aside>`.
+| Store | Local | Persistido? | API de limpeza |
+|---|---|---|---|
+| `useCnCoilsSimulationStore` | cn_coils | não | `reset()` (já existe) |
+| `useProjectStore` | cn_coils | sim (zustand persist) | `setActiveProject(null)` |
+| `useCatalogSessionStore` | coldpro_catalog | sim (`coldpro-catalog-session`) | `clearSelection()` |
+| `useTestHubStore` | coldpro | parcial | `clearAllAnalyses()` + limpar `selectedMachine` |
+| `useComponentStore` / `useSessionStore` | coldpro | sim | precisa adicionar `reset()` |
+| `lastInputsPersistence` | localStorage `cncoils_last_inputs` | sim | precisa `clearLastInputs()` |
 
-## Garantias
-- Sem alterações em lógica de cálculo, tipos, hooks ou outros componentes.
-- Apenas chamadas existentes de `reset` e `setActiveProject` são reutilizadas.
+## Plano
+
+### 1. Criar utilitário central `src/modules/cn_coils/utils/workspaceReset.ts`
+
+```ts
+export function resetCnCoilsWorkspace(opts?: { keepProject?: boolean }) {
+  useCnCoilsSimulationStore.getState().reset();
+  if (!opts?.keepProject) useProjectStore.getState().setActiveProject(null);
+  clearLastInputs(); // novo helper em lastInputsPersistence.ts
+}
+```
+
+E `src/modules/coldpro/utils/workspaceReset.ts`:
+```ts
+export function resetColdproWorkspace() {
+  useCatalogSessionStore.getState().clearSelection();
+  useTestHubStore.getState().clearAllAnalyses();
+  useTestHubStore.setState({ selectedMachine: null });
+  useComponentStore.getState().reset?.();
+  useSessionStore.getState().reset?.();
+}
+```
+
+### 2. Adicionar `clearLastInputs()` em `lastInputsPersistence.ts`
+
+Remove a chave `cncoils_last_inputs` do `localStorage`.
+
+### 3. Adicionar `reset()` aos stores que ainda não têm
+
+- `useComponentStore`, `useSessionStore` (coldpro): adicionar `reset: () => set(initialState)`.
+
+### 4. Conectar nos pontos de "salvar e sair"
+
+Em cada `handleSave` dos workspaces CN Coils:
+```ts
+const handleSave = () => {
+  toast.success("Projeto salvo (em memória).");
+  setNextStepOpen(true);
+};
+```
+Mudar para limpar **após** o usuário fechar o `PostSaveNextStepDialog` (sair = `onOpenChange(false)`):
+```tsx
+<PostSaveNextStepDialog
+  open={nextStepOpen}
+  onOpenChange={(open) => {
+    setNextStepOpen(open);
+    if (!open) resetCnCoilsWorkspace();
+  }}
+  ...
+/>
+```
+Aplicar em:
+- `EvaporatorUnifiedWorkspacePage.tsx`
+- `CondenserWorkspacePage.tsx`
+- `CompressorWorkspacePage.tsx`
+
+Para o Hub de Testes / catálogo coldpro: chamar `resetColdproWorkspace()` ao desmontar a página (`useEffect(() => () => resetColdproWorkspace(), [])`) em `TestHubPage.tsx` e `TestBenchPage.tsx`.
+
+### 5. Reset defensivo na **entrada** dos workspaces
+
+Mesmo que o save/sair anterior tenha falhado, garantir tela limpa quando o usuário entra "novo": se a URL não tem `projectId`/`equipmentId`, executar reset no `useEffect` de mount. Isso elimina qualquer herança residual de localStorage.
+
+```tsx
+useEffect(() => {
+  const hasContext = searchParams.get("projectId") || searchParams.get("loadFromProject");
+  if (!hasContext) resetCnCoilsWorkspace();
+}, []);
+```
+
+### 6. Validação
+
+- `bunx tsc --noEmit` → 0 erros
+- `bunx vitest run` → 645 testes passando
+- Teste manual: abrir Evaporador → preencher → salvar → fechar diálogo → abrir Condensador → confirmar campos zerados; idem Hub de Testes.
+
+## Garantia
+
+Combinação de **reset no save/sair** + **reset defensivo no mount** + **limpeza dos `localStorage` persistidos** assegura que nenhum dado do cálculo anterior seja herdado, eliminando a categoria de erros causados por estado residual.
