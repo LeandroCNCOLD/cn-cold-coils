@@ -50,7 +50,8 @@ import { PostSaveNextStepDialog } from "../components/PostSaveNextStepDialog";
 import { GeometryPickerModal } from "../components/GeometryPickerModal";
 import { MaterialCostConfigModal } from "../components/MaterialCostConfigModal";
 import { formatBRL } from "../engine/costCalculator";
-import { FAN_CATALOG, findOperatingPoint } from "@/data/fanCatalog";
+import { FAN_CATALOG } from "@/data/fanCatalog";
+import { findOperatingPoint } from "@/data/fanCatalogUtils";
 import {
   Dialog,
   DialogContent,

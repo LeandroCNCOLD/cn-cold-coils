@@ -1,73 +1,17 @@
 // Catálogo de Ventiladores — CN Coils (Schema v2)
 // Fabricantes: Ziehl-Abegg, EBM Papst, Sell Parts
-// Schema estendido: suporta curve_sets (múltiplas curvas por velocidade) e performance_data
 // Compatibilidade retroativa: curve_points mantido como curva I (100% velocidade)
+// Para tipos: ver fanCatalogTypes.ts
+// Para funções utilitárias: ver fanCatalogUtils.ts
+// Para os 69 modelos ZIEHL-ABEGG: ver fanCatalogZiehl.ts
 
-export interface FanCurvePoint {
-  q_m3h: number;      // Vazão em m³/h
-  psf_pa: number;     // Pressão estática em Pa
-  p1_w?: number;      // Potência elétrica em W (opcional)
-}
-
-/** Conjunto de curva Q×ΔP para uma velocidade específica (curva I = 100%, II = ~85%, III = ~70%, IV = ~60%) */
-export interface FanCurveSet {
-  curve_id: string;           // Identificador da curva (ex: 'I', 'II', 'III', 'IV')
-  points: FanCurvePoint[];    // Pontos Q×ΔP desta curva
-}
-
-/** Ponto de dados elétricos medido em campo para uma curva e ponto operacional específicos */
-export interface FanPerformanceDataPoint {
-  curve_id: string;           // Curva correspondente (ex: 'I', 'II')
-  connection?: string | null; // Ligação Y/Δ
-  voltage_v?: number;         // Tensão [V]
-  frequency_hz?: number;      // Frequência [Hz]
-  operating_point?: number;   // Índice do ponto operacional
-  current_a?: number;         // Corrente [A]
-  power_w?: number;           // Potência [W]
-  speed_rpm?: number;         // Velocidade [rpm]
-  sound_lwa_db?: number;      // Nível de potência sonora [dB(A)]
-}
-
-export interface FanModel {
-  model: string;              // Type key (ex: FN056-4DK.4M.V7P2)
-  manufacturer: string;       // Fabricante
-  article_number: string;     // Número de artigo
-  diameter_mm: number;        // Diâmetro em mm
-  electrical_nominal: string; // Dados elétricos nominais
-  rpm_nominal: number;        // RPM nominal
-  sound_lwa_db: number;       // Nível de potência sonora LwA [dB(A)]
-  erp_efficiency_pct: number; // Eficiência estática ErP [%]
-  q_max_m3h: number;          // Vazão máxima (pressão zero) [m³/h]
-  dp_max_pa: number;          // Pressão máxima (vazão zero) [Pa]
-  p1_nominal_w: number;       // Potência nominal [W]
-  num_curve_points?: number;  // Quantidade de pontos da curva
-  source_file?: string;       // Arquivo fonte do datasheet
-  curve_points: FanCurvePoint[]; // Pontos da curva Q×ΔP (curva I — compatibilidade retroativa)
-  // ── Campos estendidos ZIEHL-ABEGG ──────────────────────────────────────────
-  family?: string;            // Família do ventilador (ex: 'FE2owlet-ECblue')
-  application?: string;       // Aplicação (ex: 'Oil transformer cooling')
-  num_blades?: number;        // Número de pás
-  blade_material?: string;    // Material das pás
-  rotor_material?: string;    // Material do rotor
-  voltage?: string;           // Tensão nominal (ex: '3~400V')
-  frequency_hz?: number;      // Frequência nominal [Hz]
-  motor_technology?: string;  // Tecnologia do motor (AC / EC)
-  poles?: number | string;    // Número de polos (ex: 4 ou '4-4' para motores de 2 velocidades)
-  p_sys_w?: number;           // Potência do sistema [W]
-  current_nominal_a?: number; // Corrente nominal [A]
-  temp_min_c?: number;        // Temperatura mínima de operação [°C]
-  temp_max_c?: number;        // Temperatura máxima de operação [°C]
-  ip_protection?: string;     // Grau de proteção IP
-  thermal_class?: string;     // Classe térmica do motor
-  erp_n_actual?: number;      // η real ErP
-  erp_n_target?: number;      // η alvo ErP
-  weight_kg?: number;         // Peso [kg]
-  curve_available?: boolean;  // Se há curva aerodinâmica disponível
-  num_curve_sets?: number;    // Quantidade de curvas (velocidades)
-  curve_sets?: FanCurveSet[]; // NOVO: todas as curvas por velocidade (I, II, III, IV)
-  performance_data?: FanPerformanceDataPoint[]; // NOVO: pontos elétricos por curva
-  [key: string]: unknown;     // Permite campos extras dos datasheets
-}
+import type { FanModel } from './fanCatalogTypes';
+export type {
+  FanCurvePoint,
+  FanCurveSet,
+  FanPerformanceDataPoint,
+  FanModel,
+} from './fanCatalogTypes';
 
 export const FAN_CATALOG: FanModel[] = [
   {
@@ -1664,79 +1608,3 @@ export const FAN_CATALOG: FanModel[] = [
   }
 ];
 
-/** Interpola pressão estática para uma dada vazão */
-export function interpolatePressure(fan: FanModel, q_m3h: number): number {
-  const pts = fan.curve_points;
-  if (!pts || pts.length < 2) return 0;
-  if (q_m3h <= pts[0].q_m3h) return pts[0].psf_pa;
-  if (q_m3h >= pts[pts.length - 1].q_m3h) return 0;
-  for (let i = 0; i < pts.length - 1; i++) {
-    if (q_m3h >= pts[i].q_m3h && q_m3h <= pts[i + 1].q_m3h) {
-      const t = (q_m3h - pts[i].q_m3h) / (pts[i + 1].q_m3h - pts[i].q_m3h);
-      return pts[i].psf_pa + t * (pts[i + 1].psf_pa - pts[i].psf_pa);
-    }
-  }
-  return 0;
-}
-
-/** Interpola potência para uma dada vazão */
-export function interpolatePower(fan: FanModel, q_m3h: number): number {
-  const pts = fan.curve_points.filter(p => p.p1_w != null);
-  if (!pts || pts.length < 2) return fan.p1_nominal_w;
-  if (q_m3h <= pts[0].q_m3h) return pts[0].p1_w!;
-  if (q_m3h >= pts[pts.length - 1].q_m3h) return pts[pts.length - 1].p1_w!;
-  for (let i = 0; i < pts.length - 1; i++) {
-    if (q_m3h >= pts[i].q_m3h && q_m3h <= pts[i + 1].q_m3h) {
-      const t = (q_m3h - pts[i].q_m3h) / (pts[i + 1].q_m3h - pts[i].q_m3h);
-      return pts[i].p1_w! + t * (pts[i + 1].p1_w! - pts[i].p1_w!);
-    }
-  }
-  return fan.p1_nominal_w;
-}
-
-/** Encontra o ponto de operação: interseção curva do ventilador × curva do sistema (ΔP = R×Q²) */
-export function findOperatingPoint(
-  fan: FanModel,
-  systemResistance: number
-): { q_m3h: number; psf_pa: number; p1_w: number } | null {
-  const pts = fan.curve_points;
-  if (!pts || pts.length < 2) return null;
-  for (let i = 0; i < pts.length - 1; i++) {
-    const q1 = pts[i].q_m3h, q2 = pts[i + 1].q_m3h;
-    const dp1 = pts[i].psf_pa, dp2 = pts[i + 1].psf_pa;
-    const sys1 = systemResistance * q1 * q1, sys2 = systemResistance * q2 * q2;
-    if ((dp1 - sys1) * (dp2 - sys2) <= 0) {
-      const t = (dp1 - sys1) / ((sys2 - sys1) - (dp2 - dp1));
-      const q_op = q1 + t * (q2 - q1);
-      const dp_op = dp1 + t * (dp2 - dp1);
-      return { q_m3h: q_op, psf_pa: dp_op, p1_w: interpolatePower(fan, q_op) };
-    }
-  }
-  return null;
-}
-
-/** Filtra ventiladores por diâmetro e/ou fabricante */
-export function filterFans(opts: {
-  diameter_mm?: number;
-  manufacturer?: string;
-  min_q_m3h?: number;
-  min_dp_pa?: number;
-}): FanModel[] {
-  return FAN_CATALOG.filter(f => {
-    if (opts.diameter_mm && f.diameter_mm !== opts.diameter_mm) return false;
-    if (opts.manufacturer && !f.manufacturer.toLowerCase().includes(opts.manufacturer.toLowerCase())) return false;
-    if (opts.min_q_m3h && f.q_max_m3h < opts.min_q_m3h) return false;
-    if (opts.min_dp_pa && f.dp_max_pa < opts.min_dp_pa) return false;
-    return true;
-  });
-}
-
-/** Seleciona o ventilador mais adequado para um ponto de operação */
-export function selectFan(q_m3h: number, dp_pa: number): FanModel | null {
-  const candidates = FAN_CATALOG.filter(f =>
-    f.q_max_m3h >= q_m3h * 1.1 && f.dp_max_pa >= dp_pa * 1.1
-  );
-  if (!candidates.length) return null;
-  // Retorna o menor ventilador que atende ao requisito
-  return candidates.sort((a, b) => a.diameter_mm - b.diameter_mm)[0];
-}
