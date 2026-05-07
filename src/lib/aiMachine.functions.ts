@@ -64,8 +64,8 @@ REGRAS:
 
 // ─── JSON schemas (relaxados, sem strict deep) ───────────────────────────────
 
-const numberOrNull = { type: ["number", "null"] } as const;
-const stringOrNull = { type: ["string", "null"] } as const;
+const numberOrNull = { type: "number", nullable: true } as const;
+const stringOrNull = { type: "string", nullable: true } as const;
 
 const AUDIT_SCHEMA: Record<string, unknown> = {
   type: "object",
