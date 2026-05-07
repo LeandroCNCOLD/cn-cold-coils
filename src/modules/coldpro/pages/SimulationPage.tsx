@@ -21,6 +21,7 @@ import type { CompressorSpec, CondenserSpec } from "@/modules/coldpro_v2";
 import { useCatalogSessionStore } from "@/modules/coldpro_catalog/store/useCatalogSessionStore";
 import { buildMotorComponentsFromCatalog } from "@/modules/coldpro_catalog/adapters/sessionToMotorInputAdapter";
 import { useCatalogRevisionStore } from "@/modules/coldpro_catalog/store/useCatalogRevisionStore";
+import { useTestHubStore } from "../stores/useTestHubStore";
 
 function isComplete(
   c: Partial<CompressorSpec>,
