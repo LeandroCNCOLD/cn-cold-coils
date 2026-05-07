@@ -122,14 +122,6 @@ export function AgroWorkspacePage() {
     });
     navigate({ to: "/coldpro/hub-de-testes" });
   }
-      ambient_temp_c: form.T_air_in_c,
-      required_airflow_m3_h: form.air_mass_flow_kg_s * 3600 / 1.2, // ρ ≈ 1.2 kg/m³
-    });
-    toast.success("Cenário AGRO enviado ao Hub de Testes", {
-      description: `T_evap=${form.T_evaporating_c}°C · T_cond=${form.T_condensing_c}°C · β=${(result.bypass_fraction * 100).toFixed(0)}%`,
-    });
-    navigate({ to: "/coldpro/hub-de-testes" });
-  }
 
   function update<K extends keyof FormState>(key: K, value: FormState[K]) {
     setForm((f) => ({ ...f, [key]: value }));
