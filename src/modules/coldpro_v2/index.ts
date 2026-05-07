@@ -98,6 +98,11 @@ export type {
   ProductTechnicalRecordInput,
   ProductTechnicalRegistryHandle,
   ElectricalAnalysis,
+  MachineAcceptanceCriteria,
+  MachineSpec,
+  MachineValidationReport,
+  ValidationCriterionResult,
+  ValidationStatus,
   ProductValidationSummary,
   ProgressiveCoilInput,
   ProgressiveCoilResult,
@@ -270,3 +275,6 @@ export {
   validateEquipmentConfiguration,
   simulateEquipment,
 } from "./services/equipmentBuilder";
+
+// Engines — machine validation
+export { validateMachine } from "./engines/validation/machineValidationEngine";

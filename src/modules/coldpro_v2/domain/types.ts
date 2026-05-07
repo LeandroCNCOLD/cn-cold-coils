@@ -1064,6 +1064,121 @@ export interface ElectricalAnalysis {
   warnings: string[];
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// Machine Validation — Sprint 2
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Especificação nominal da máquina completa (plug-in, rack, split, etc.).
+ * Usada pelo machineValidationEngine para definir os critérios de aceitação.
+ */
+export interface MachineSpec {
+  /** Identificador único da máquina (número de série, código de produto, etc.). */
+  machine_id: string;
+  /** Modelo comercial da máquina. */
+  model: string;
+  /** Capacidade frigorífica nominal declarada pelo fabricante (W). */
+  nominal_capacity_w: number;
+  /** Potência elétrica total nominal declarada pelo fabricante (W). */
+  nominal_power_w: number;
+  /** COP nominal declarado pelo fabricante (adimensional). */
+  nominal_cop: number;
+  /** Temperatura de evaporação nominal de projeto (°C). */
+  nominal_evap_temp_c: number;
+  /** Temperatura de condensação nominal de projeto (°C). */
+  nominal_cond_temp_c: number;
+  /** Temperatura ambiente de projeto (°C). */
+  nominal_ambient_temp_c: number;
+  /** Critérios de aceitação configuráveis. Usa padrões da norma se omitido. */
+  acceptance_criteria?: Partial<MachineAcceptanceCriteria>;
+}
+
+/**
+ * Limiares de aceitação configuráveis por critério.
+ * Tolerâncias percentuais relativas ao nominal, exceto onde indicado.
+ */
+export interface MachineAcceptanceCriteria {
+  /** Desvio máximo da capacidade frigorífica em relação ao nominal (%). Default: 5. */
+  capacity_tolerance_pct: number;
+  /** Desvio máximo da potência elétrica total em relação ao nominal (%). Default: 8. */
+  power_tolerance_pct: number;
+  /** Desvio máximo do COP do sistema em relação ao nominal (%). Default: 10. */
+  cop_tolerance_pct: number;
+  /** Erro máximo de balanço térmico (%). Default: 5. */
+  balance_error_max_pct: number;
+  /** Utilização máxima do compressor (%). Default: 100. */
+  compressor_utilization_max_pct: number;
+  /** Utilização máxima do condensador (%). Default: 100. */
+  condenser_utilization_max_pct: number;
+  /** Utilização máxima do evaporador (%). Default: 110. */
+  evaporator_utilization_max_pct: number;
+  /** Temperatura máxima de descarga do compressor (°C). Default: 130. */
+  max_discharge_temp_c: number;
+}
+
+/** Status de um critério individual de validação. */
+export type ValidationStatus = "pass" | "warning" | "fail";
+
+/** Resultado de um critério individual de validação. */
+export interface ValidationCriterionResult {
+  /** Código único do critério (ex: "capacity_check"). */
+  criterion_id: string;
+  /** Nome legível do critério. */
+  label: string;
+  /** Valor calculado pelo simulador. */
+  calculated_value: number;
+  /** Valor de referência (nominal ou limiar). */
+  reference_value: number;
+  /** Unidade do valor (W, %, °C, adimensional). */
+  unit: string;
+  /** Desvio percentual em relação à referência. Positivo = acima, negativo = abaixo. */
+  deviation_pct: number;
+  /** Status do critério. */
+  status: ValidationStatus;
+  /** Mensagem explicativa do resultado. */
+  message: string;
+  /** Diagnóstico automático se o critério falhar ou gerar aviso. */
+  diagnosis?: string;
+}
+
+/**
+ * Relatório completo de validação de máquina.
+ * Gerado pelo machineValidationEngine a partir de MachineSpec + SystemComponentsInput.
+ */
+export interface MachineValidationReport {
+  /** Especificação da máquina validada. */
+  machine_spec: MachineSpec;
+  /** Status final da validação. */
+  final_status: "approved" | "conditional" | "rejected";
+  /** Resultado de cada critério individual. */
+  criteria: ValidationCriterionResult[];
+  /** Ponto de operação calculado pelo simulador. */
+  operating_point: {
+    evap_temp_c: number;
+    cond_temp_c: number;
+    capacity_w: number;
+    total_power_w: number;
+    cop_system: number;
+    balance_error_pct: number;
+  };
+  /** Análise elétrica completa no ponto de operação. */
+  electrical_analysis?: ElectricalAnalysis;
+  /** Resumo: quantos critérios passaram, falharam e geraram aviso. */
+  summary: {
+    total_criteria: number;
+    passed: number;
+    warnings: number;
+    failed: number;
+  };
+  /** Recomendações de ajuste quando status != approved. */
+  recommendations: string[];
+  /** Rastreabilidade. */
+  traceability: {
+    validated_at: string;
+    engine_version: string;
+  };
+}
+
 export interface ProductValidationSummary {
   equilibrium_status: "approved" | "warning" | "rejected";
   curve_status: "ok" | "warning" | "error";
@@ -1081,6 +1196,12 @@ export interface ProductTechnicalRecord {
    validation: ProductValidationSummary;
   /** Análise elétrica completa: compressor + ventiladores → COP real do sistema. */
   electrical_analysis?: ElectricalAnalysis;
+  /**
+   * Relatório de validação de máquina completa.
+   * Presente quando o registro foi gerado a partir de uma MachineSpec com critérios de aceitação.
+   * Contém 8 critérios PASS/WARNING/FAIL e o status final (approved | conditional | rejected).
+   */
+  machine_validation?: MachineValidationReport;
   warnings: string[];
   traceability: {
     generated_at: string;

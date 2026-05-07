@@ -1,5 +1,7 @@
 import type {
   ElectricalAnalysis,
+  MachineSpec,
+  MachineValidationReport,
   PerformanceEnvelope,
   PolynomialGenerationResult,
   ProductOperatingLimits,
@@ -12,6 +14,7 @@ import type {
 } from "../domain/types";
 import { evaluateSystemEquilibrium } from "../engines/equilibrium/systemEquilibriumEngine";
 import { calculateElectricalAnalysis } from "../engines/electrical/electricalAnalysisEngine";
+import { validateMachine } from "../engines/validation/machineValidationEngine";
 import { generateProductPerformanceCurve } from "../engines/performance/productPerformanceCurveEngine";
 import { generatePolynomialCoefficients } from "../engines/polynomial/polynomialCoefficientGenerator";
 
@@ -201,6 +204,8 @@ function mergeWarnings(...warningGroups: string[][]): string[] {
 
 export function buildProductTechnicalRecord(
   input: ProductTechnicalRecordInput,
+  /** Especificação nominal opcional da máquina. Quando fornecida, gera o relatório de validação completo com 8 critérios PASS/WARNING/FAIL. */
+  machineSpec?: MachineSpec,
 ): ProductTechnicalRecord {
   const initialWarnings = validateInput(input);
   const traceability = buildTraceability(input);
@@ -249,6 +254,12 @@ export function buildProductTechnicalRecord(
     q_evap_w: equilibrium.thermal_balance.q_evap_w,
   });
 
+  // Validação de máquina completa (opcional — apenas quando MachineSpec fornecida)
+  let machineValidation: MachineValidationReport | undefined;
+  if (machineSpec) {
+    machineValidation = validateMachine(machineSpec, input.system);
+  }
+
   const warnings = mergeWarnings(
     initialWarnings,
     equilibrium.warnings ?? [],
@@ -267,6 +278,7 @@ export function buildProductTechnicalRecord(
     operating_limits: operatingLimits,
     validation,
     electrical_analysis: electricalAnalysis,
+    machine_validation: machineValidation,
     warnings,
     traceability,
   };
