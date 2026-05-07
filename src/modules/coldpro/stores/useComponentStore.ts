@@ -180,6 +180,7 @@ interface ComponentStore {
   deleteAssembly: (id: string) => void;
 
   buildSystemInput: (assemblyId: string) => SystemComponentsInput | null;
+  reset: () => void;
 }
 
 const now = () => new Date().toISOString();
