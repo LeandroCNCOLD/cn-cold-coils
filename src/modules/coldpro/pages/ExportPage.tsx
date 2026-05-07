@@ -535,18 +535,28 @@ export function ExportPage() {
                 {datasheet.sheet.validation_status.toUpperCase()}
               </Badge>
             </div>
-            <Button
-              onClick={() =>
-                downloadJson(
-                  `datasheet_${datasheet.sheet.product.model.replace(/\s+/g, "_")}_${Date.now()}.json`,
-                  datasheet.sheet,
-                )
-              }
-              className="gap-2"
-            >
-              <Download className="h-4 w-4" />
-              Exportar JSON
-            </Button>
+            <div className="flex gap-2">
+              <Button
+                variant="outline"
+                onClick={() =>
+                  downloadJson(
+                    `datasheet_${datasheet.sheet.product.model.replace(/\s+/g, "_")}_${Date.now()}.json`,
+                    datasheet.sheet,
+                  )
+                }
+                className="gap-2"
+              >
+                <FileJson className="h-4 w-4" />
+                JSON
+              </Button>
+              <Button
+                onClick={() => downloadDatasheetPdf(datasheet.sheet)}
+                className="gap-2 bg-[#1E6FD9] hover:bg-[#1a5fb8]"
+              >
+                <FileText className="h-4 w-4" />
+                Exportar PDF
+              </Button>
+            </div>
           </div>
 
           {/* Identificação */}
