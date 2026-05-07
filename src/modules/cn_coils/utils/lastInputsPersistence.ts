@@ -49,6 +49,15 @@ export function saveLastInputs(): void {
   }
 }
 
+export function clearLastInputs(): void {
+  if (!isBrowser()) return;
+  try {
+    localStorage.removeItem(LAST_INPUTS_STORAGE_KEY);
+  } catch (err) {
+    console.warn("[cn_coils] Falha ao limpar últimos inputs:", err);
+  }
+}
+
 export function hasSavedLastInputs(): boolean {
   if (!isBrowser()) return false;
   try {
