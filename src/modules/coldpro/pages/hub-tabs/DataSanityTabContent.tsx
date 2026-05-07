@@ -336,7 +336,7 @@ export function DataSanityTabContent({ machine, compressor, condenser, evaporato
   // Validação de Máquina Completa (motor v2 — validateMachine)
   // ───────────────────────────────────────────────────────────────────────────
   const machineValidation = useMemo<
-    | { ok: true; report: MachineValidationReport }
+    | { ok: true; report: MachineValidationReport; spec: MachineSpec; components: SystemComponentsInput }
     | { ok: false; missing: string[] }
   >(() => {
     const missing: string[] = [];
