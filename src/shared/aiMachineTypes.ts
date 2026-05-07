@@ -9,7 +9,7 @@ import type {
   MachineSpec,
   MachineValidationReport,
   SystemComponentsInput,
-} from "../domain/types";
+} from "@/modules/coldpro_v2";
 
 // ─── Restrições de Reconstrução ──────────────────────────────────────────────
 
