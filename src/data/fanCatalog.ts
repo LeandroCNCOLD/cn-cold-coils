@@ -14436,7 +14436,7 @@ export const FAN_CATALOG: FanModel[] = [
     ],
     "has_50hz_performance": true,
     "has_60hz_performance": true
-  },,
+  },
   // ── Modelos adicionados a partir do ZIP Ventiladores (28 modelos) ──
   {
     "model": "S2D300-AP02-35",
