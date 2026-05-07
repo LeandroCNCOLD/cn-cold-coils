@@ -9,7 +9,8 @@ import { useCnCoilsSimulationStore } from "../store/useCnCoilsSimulationStore";
 import type { CnCoilsSimulationResult } from "../types/cncoils.types";
 import { FanPickerModal } from "./FanPickerModal";
 import { useEnrichedFanPickerItems } from "../hooks/useEnrichedFanPickerItems";
-import { FAN_CATALOG, findOperatingPoint } from "@/data/fanCatalog";
+import { FAN_CATALOG } from "@/data/fanCatalog";
+import { findOperatingPoint } from "@/data/fanCatalogUtils";
 import { useNumericInput } from "../hooks/useNumericInput";
 
 
