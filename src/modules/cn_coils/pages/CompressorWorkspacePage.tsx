@@ -512,7 +512,14 @@ export function CompressorWorkspacePage() {
       <WorkspaceAIPanel open={aiOpen} onClose={() => setAiOpen(false)} context={aiContext} />
       <PostSaveNextStepDialog
         open={nextStepOpen}
-        onOpenChange={setNextStepOpen}
+        onOpenChange={(open) => {
+          setNextStepOpen(open);
+          if (!open) {
+            resetCnCoilsWorkspace();
+            setInputs(DEFAULT_INPUTS);
+            setSelectedRow(null);
+          }
+        }}
         next="simulation"
       />
     </WorkspaceLayout>
