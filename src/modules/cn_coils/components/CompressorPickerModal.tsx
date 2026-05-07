@@ -99,14 +99,7 @@ export function CompressorPickerModal({ open, onClose, onSelect }: Props) {
           voltage: r.voltage ?? null,
         }));
         // eslint-disable-next-line no-console
-        console.log(
-          "[CompressorPicker] Total carregado:",
-          mapped.length,
-          "| Bitzer:",
-          mapped.filter((i) => i.brand === "Bitzer").length,
-          "| Copeland:",
-          mapped.filter((i) => i.brand === "Copeland").length,
-        );
+        console.log("[CompressorPicker] Total carregado:", mapped.length);
         setItems(mapped);
       })
       .catch((e) => {
