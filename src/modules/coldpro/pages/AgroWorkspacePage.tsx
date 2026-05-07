@@ -13,10 +13,13 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Sprout, Droplets, Thermometer, Wind, Zap, Play, AlertCircle, CheckCircle2 } from "lucide-react";
+import { Sprout, Droplets, Thermometer, Wind, Zap, Play, AlertCircle, CheckCircle2, Send } from "lucide-react";
+import { useNavigate } from "@tanstack/react-router";
+import { toast } from "sonner";
 
 import { calculateHotGasBypass } from "@/modules/coldpro_v2";
 import type { HotGasBypassInput, HotGasBypassResult } from "@/modules/coldpro_v2/domain/types";
+import { useTestHubStore } from "../stores/useTestHubStore";
 
 interface FormState {
   T_air_in_c: number;
@@ -103,6 +106,20 @@ export function AgroWorkspacePage() {
   const [form, setForm] = useState<FormState>(DEFAULTS);
   const [result, setResult] = useState<HotGasBypassResult | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
+  const setConditions = useTestHubStore((s) => s.setConditions);
+
+  function handleSendToHub() {
+    if (!result) return;
+    setConditions({
+      ambient_temp_c: form.T_air_in_c,
+      required_airflow_m3_h: (form.air_mass_flow_kg_s * 3600) / 1.2,
+    });
+    toast.success("Cenário AGRO enviado ao Hub de Testes", {
+      description: `T_evap=${form.T_evaporating_c}°C · T_cond=${form.T_condensing_c}°C · β=${(result.bypass_fraction * 100).toFixed(0)}%`,
+    });
+    navigate({ to: "/coldpro/hub-de-testes" });
+  }
 
   function update<K extends keyof FormState>(key: K, value: FormState[K]) {
     setForm((f) => ({ ...f, [key]: value }));
@@ -279,9 +296,14 @@ export function AgroWorkspacePage() {
                       <Zap className="h-4 w-4 text-violet-500" />
                       Ciclo com Hot Gas Bypass
                     </CardTitle>
-                    <Badge variant="outline" className={`${mode.className} text-xs`}>
-                      {mode.label}
-                    </Badge>
+                    <div className="flex items-center gap-2">
+                      <Badge variant="outline" className={`${mode.className} text-xs`}>
+                        {mode.label}
+                      </Badge>
+                      <Button size="sm" variant="outline" onClick={handleSendToHub} className="h-7 gap-1 text-xs">
+                        <Send className="h-3 w-3" /> Enviar ao Hub
+                      </Button>
+                    </div>
                   </div>
                 </CardHeader>
                 <CardContent className="grid gap-2 sm:grid-cols-2">
