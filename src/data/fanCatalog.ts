@@ -1,6 +1,6 @@
 // Catálogo de Ventiladores — CN Coils
 // Fonte única: ZIEHL-ABEGG consolidado (50/60 Hz)
-// Substitui completamente o catálogo antigo (modelos legados removidos)
+// Substitui o catálogo antigo (modelos legados removidos)
 // Gerado a partir de ziehl_abegg_consolidated_1.json
 
 import type { FanModel } from './fanCatalogTypes';
@@ -27,16 +27,14 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "A_ec_dual",
     "frequency_notes": "Motor EC: opera em 50 e 60 Hz via inversor interno. Curvas disponíveis apenas para 50 Hz.",
     "motor_technology": "EC",
-    "poles": null,
     "electrical_nominal": "3~380-480V / 50/60Hz / EC",
     "rpm_nominal": 1550,
     "sound_lwa_db": 78,
     "erp_efficiency_pct": 41.8,
-    "erp_n_actual": null,
     "erp_n_target": 40,
     "q_max_m3h": 7300,
     "dp_max_pa": 160,
@@ -197,7 +195,6 @@ export const FAN_CATALOG: FanModel[] = [
     "performance_data": [
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 2,
@@ -208,7 +205,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 3,
@@ -219,7 +215,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "II",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 4,
@@ -230,7 +225,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "II",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 5,
@@ -241,7 +235,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "III",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 6,
@@ -252,7 +245,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "III",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 7,
@@ -263,7 +255,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "IV",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 8,
@@ -274,7 +265,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "IV",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 9,
@@ -302,11 +292,10 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "A_ec_dual",
     "frequency_notes": "Motor EC: opera em 50 e 60 Hz via inversor interno. Curvas disponíveis apenas para 50 Hz.",
     "motor_technology": "EC",
-    "poles": null,
     "electrical_nominal": "3~380-480V / 50/60Hz / EC",
     "rpm_nominal": 1200,
     "sound_lwa_db": 0,
@@ -346,11 +335,10 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "A_ec_dual",
     "frequency_notes": "Motor EC: opera em 50 e 60 Hz via inversor interno. Curvas disponíveis apenas para 50 Hz.",
     "motor_technology": "EC",
-    "poles": null,
     "electrical_nominal": "3~380-480V / 50/60Hz / EC",
     "rpm_nominal": 960,
     "sound_lwa_db": 0,
@@ -390,11 +378,10 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "A_ec_dual",
     "frequency_notes": "Motor EC: opera em 50 e 60 Hz via inversor interno. Curvas disponíveis apenas para 50 Hz.",
     "motor_technology": "EC",
-    "poles": null,
     "electrical_nominal": "3~380-480V / 50/60Hz / EC",
     "rpm_nominal": 1150,
     "sound_lwa_db": 0,
@@ -508,7 +495,6 @@ export const FAN_CATALOG: FanModel[] = [
     "performance_data": [
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 2,
@@ -519,7 +505,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "II",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 3,
@@ -530,7 +515,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "III",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 6,
@@ -541,7 +525,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "IV",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 8,
@@ -552,7 +535,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "IV",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 9,
@@ -563,7 +545,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "IV",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 11,
@@ -574,7 +555,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "IV",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 12,
@@ -585,7 +565,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "IV",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 12,
@@ -613,11 +592,10 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "A_ec_dual",
     "frequency_notes": "Motor EC: opera em 50 e 60 Hz via inversor interno. Curvas disponíveis apenas para 50 Hz.",
     "motor_technology": "EC",
-    "poles": null,
     "electrical_nominal": "3~380-480V / 50/60Hz / EC",
     "rpm_nominal": 1400,
     "sound_lwa_db": 0,
@@ -739,7 +717,6 @@ export const FAN_CATALOG: FanModel[] = [
     "performance_data": [
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 2,
@@ -750,7 +727,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 3,
@@ -761,7 +737,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "II",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 5,
@@ -772,7 +747,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "II",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 6,
@@ -783,7 +757,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "III",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 8,
@@ -794,7 +767,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "III",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 9,
@@ -805,7 +777,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "IV",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 11,
@@ -816,7 +787,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "IV",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 12,
@@ -844,11 +814,10 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "A_ec_dual",
     "frequency_notes": "Motor EC: opera em 50 e 60 Hz via inversor interno. Curvas disponíveis apenas para 50 Hz.",
     "motor_technology": "EC",
-    "poles": null,
     "electrical_nominal": "3~380-480V / 50/60Hz / EC",
     "rpm_nominal": 700,
     "sound_lwa_db": 0,
@@ -970,7 +939,6 @@ export const FAN_CATALOG: FanModel[] = [
     "performance_data": [
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 2,
@@ -981,7 +949,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 3,
@@ -992,7 +959,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "II",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 5,
@@ -1003,7 +969,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "II",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 6,
@@ -1014,7 +979,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "III",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 8,
@@ -1025,7 +989,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "III",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 9,
@@ -1036,7 +999,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "IV",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 11,
@@ -1047,7 +1009,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "IV",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 12,
@@ -1075,11 +1036,10 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "A_ec_dual",
     "frequency_notes": "Motor EC: opera em 50 e 60 Hz via inversor interno. Curvas disponíveis apenas para 50 Hz.",
     "motor_technology": "EC",
-    "poles": null,
     "electrical_nominal": "3~380-480V / 50/60Hz / EC",
     "rpm_nominal": 940,
     "sound_lwa_db": 81,
@@ -1229,7 +1189,6 @@ export const FAN_CATALOG: FanModel[] = [
     "performance_data": [
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 1,
@@ -1240,7 +1199,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 2,
@@ -1251,7 +1209,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "II",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 3,
@@ -1262,7 +1219,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "II",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 4,
@@ -1273,7 +1229,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "III",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 5,
@@ -1284,7 +1239,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "III",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 6,
@@ -1295,7 +1249,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "IV",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 7,
@@ -1306,7 +1259,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "IV",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 8,
@@ -1334,11 +1286,10 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "A_ec_dual",
     "frequency_notes": "Motor EC: opera em 50 e 60 Hz via inversor interno. Curvas disponíveis apenas para 50 Hz.",
     "motor_technology": "EC",
-    "poles": null,
     "electrical_nominal": "3~380-480V / 50/60Hz / EC",
     "rpm_nominal": 940,
     "sound_lwa_db": 81,
@@ -1488,7 +1439,6 @@ export const FAN_CATALOG: FanModel[] = [
     "performance_data": [
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 1,
@@ -1499,7 +1449,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 2,
@@ -1510,7 +1459,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "II",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 3,
@@ -1521,7 +1469,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "II",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 4,
@@ -1532,7 +1479,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "III",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 5,
@@ -1543,7 +1489,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "III",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 6,
@@ -1554,7 +1499,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "IV",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 7,
@@ -1565,7 +1509,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "IV",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 8,
@@ -1593,11 +1536,10 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "A_ec_dual",
     "frequency_notes": "Motor EC: opera em 50 e 60 Hz via inversor interno. Curvas disponíveis apenas para 50 Hz.",
     "motor_technology": "EC",
-    "poles": null,
     "electrical_nominal": "3~380-480V / 50/60Hz / EC",
     "rpm_nominal": 710,
     "sound_lwa_db": 84,
@@ -1747,7 +1689,6 @@ export const FAN_CATALOG: FanModel[] = [
     "performance_data": [
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 1,
@@ -1758,7 +1699,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 2,
@@ -1769,7 +1709,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "II",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 3,
@@ -1780,7 +1719,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "II",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 4,
@@ -1791,7 +1729,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "III",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 5,
@@ -1802,7 +1739,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "III",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 6,
@@ -1813,7 +1749,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "IV",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 7,
@@ -1824,7 +1759,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "IV",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 8,
@@ -1852,11 +1786,10 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "A_ec_dual",
     "frequency_notes": "Motor EC: opera em 50 e 60 Hz via inversor interno. Curvas disponíveis apenas para 50 Hz.",
     "motor_technology": "EC",
-    "poles": null,
     "electrical_nominal": "3~380-480V / 50/60Hz / EC",
     "rpm_nominal": 710,
     "sound_lwa_db": 84,
@@ -2006,7 +1939,6 @@ export const FAN_CATALOG: FanModel[] = [
     "performance_data": [
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 1,
@@ -2017,7 +1949,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 2,
@@ -2028,7 +1959,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "II",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 3,
@@ -2039,7 +1969,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "II",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 4,
@@ -2050,7 +1979,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "III",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 5,
@@ -2061,7 +1989,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "III",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 6,
@@ -2072,7 +1999,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "IV",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 7,
@@ -2083,7 +2009,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "IV",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 8,
@@ -2111,11 +2036,10 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "A_ec_dual",
     "frequency_notes": "Motor EC: opera em 50 e 60 Hz via inversor interno. Curvas disponíveis apenas para 50 Hz.",
     "motor_technology": "EC",
-    "poles": null,
     "electrical_nominal": "3~380-480V / 50/60Hz / EC",
     "rpm_nominal": 710,
     "sound_lwa_db": 84,
@@ -2277,7 +2201,6 @@ export const FAN_CATALOG: FanModel[] = [
     "performance_data": [
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 1,
@@ -2288,7 +2211,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 2,
@@ -2299,7 +2221,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "II",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 3,
@@ -2310,7 +2231,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "II",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 4,
@@ -2321,7 +2241,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "III",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 5,
@@ -2332,7 +2251,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "III",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 6,
@@ -2343,7 +2261,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "IV",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 7,
@@ -2354,7 +2271,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "IV",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 8,
@@ -2382,11 +2298,10 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "A_ec_dual",
     "frequency_notes": "Motor EC: opera em 50 e 60 Hz via inversor interno. Curvas disponíveis apenas para 50 Hz.",
     "motor_technology": "EC",
-    "poles": null,
     "electrical_nominal": "3~380-480V / 50/60Hz / EC",
     "rpm_nominal": 650,
     "sound_lwa_db": 87,
@@ -2544,7 +2459,6 @@ export const FAN_CATALOG: FanModel[] = [
     "performance_data": [
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 1,
@@ -2555,7 +2469,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 2,
@@ -2566,7 +2479,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "II",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 3,
@@ -2577,7 +2489,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "II",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 4,
@@ -2588,7 +2499,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "III",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 5,
@@ -2599,7 +2509,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "III",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 6,
@@ -2610,7 +2519,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "IV",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 7,
@@ -2621,7 +2529,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "IV",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 8,
@@ -2648,9 +2555,8 @@ export const FAN_CATALOG: FanModel[] = [
     "frequencies": [
       50
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "C_50_only",
-    "frequency_notes": null,
     "motor_technology": "AC",
     "poles": "4-4",
     "electrical_nominal": "3~400V (Δ/Y) / 50Hz / AC",
@@ -2662,7 +2568,6 @@ export const FAN_CATALOG: FanModel[] = [
     "q_max_m3h": 6948,
     "dp_max_pa": 350,
     "p1_nominal_w": "540/390",
-    "p_sys_w": null,
     "current_nominal_a": "1.05/0.68",
     "temp_min_c": -40,
     "temp_max_c": 70,
@@ -2797,7 +2702,7 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "B_ac_dual_with_60hz",
     "frequency_notes": "Motor AC: dados de performance disponíveis para 50 Hz (4 pontos) e 60 Hz (8 pontos).",
     "motor_technology": "AC",
@@ -2811,7 +2716,6 @@ export const FAN_CATALOG: FanModel[] = [
     "q_max_m3h": 5400,
     "dp_max_pa": 330,
     "p1_nominal_w": "200/120 | 280/110 | 310/150",
-    "p_sys_w": null,
     "current_nominal_a": "0.50/0.27 | 0.62/0.28 | 0.60/0.31",
     "temp_min_c": -40,
     "temp_max_c": 70,
@@ -3084,7 +2988,7 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "B_ac_dual_with_60hz",
     "frequency_notes": "Motor AC: dados de performance disponíveis para 50 Hz (4 pontos) e 60 Hz (8 pontos).",
     "motor_technology": "AC",
@@ -3093,12 +2997,9 @@ export const FAN_CATALOG: FanModel[] = [
     "rpm_nominal": "590/370 | 560/300 | 640/360",
     "sound_lwa_db": 0,
     "erp_efficiency_pct": 0,
-    "erp_n_actual": null,
-    "erp_n_target": null,
     "q_max_m3h": 3500,
     "dp_max_pa": 120,
     "p1_nominal_w": "75/34 | 85/30 | 100/40",
-    "p_sys_w": null,
     "current_nominal_a": "0.16/0.072 | 0.18/0.071 | 0.19/0.08",
     "temp_min_c": -40,
     "temp_max_c": 70,
@@ -3363,7 +3264,7 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "B_ac_dual_with_60hz",
     "frequency_notes": "Motor AC: dados de performance disponíveis para 50 Hz (4 pontos) e 60 Hz (8 pontos).",
     "motor_technology": "AC",
@@ -3377,7 +3278,6 @@ export const FAN_CATALOG: FanModel[] = [
     "q_max_m3h": 10224,
     "dp_max_pa": 200,
     "p1_nominal_w": "740/460 | 1.00/0.54 kW | 1.15/0.66 kW",
-    "p_sys_w": null,
     "current_nominal_a": "1.70/0.76 | 1.80/0.90 | 1.90/0.94",
     "temp_min_c": -40,
     "temp_max_c": 70,
@@ -3650,7 +3550,7 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "B_ac_dual_with_60hz",
     "frequency_notes": "Motor AC: dados de performance disponíveis para 50 Hz (4 pontos) e 60 Hz (8 pontos).",
     "motor_technology": "AC",
@@ -3664,7 +3564,6 @@ export const FAN_CATALOG: FanModel[] = [
     "q_max_m3h": 10224,
     "dp_max_pa": 200,
     "p1_nominal_w": "690/430 | 0.96/0.51 kW | 1.05/0.62 kW",
-    "p_sys_w": null,
     "current_nominal_a": "1.60/0.75 | 1.75/0.88 | 1.80/0.92",
     "temp_min_c": -40,
     "temp_max_c": 70,
@@ -3937,7 +3836,7 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "B_ac_dual_with_60hz",
     "frequency_notes": "Motor AC: dados de performance disponíveis para 50 Hz (4 pontos) e 60 Hz (8 pontos).",
     "motor_technology": "AC",
@@ -3951,7 +3850,6 @@ export const FAN_CATALOG: FanModel[] = [
     "q_max_m3h": 7000,
     "dp_max_pa": 350,
     "p1_nominal_w": "270/160 | 380/140 | 420/190",
-    "p_sys_w": null,
     "current_nominal_a": "0.68/0.35 | 0.83/0.35 | 0.83/0.40",
     "temp_min_c": -40,
     "temp_max_c": 70,
@@ -4236,7 +4134,7 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "B_ac_dual_with_60hz",
     "frequency_notes": "Motor AC: dados de performance disponíveis para 50 Hz (4 pontos) e 60 Hz (8 pontos).",
     "motor_technology": "AC",
@@ -4245,12 +4143,9 @@ export const FAN_CATALOG: FanModel[] = [
     "rpm_nominal": "670/510 | 720/450 | 760/520",
     "sound_lwa_db": 0,
     "erp_efficiency_pct": 0,
-    "erp_n_actual": null,
-    "erp_n_target": null,
     "q_max_m3h": 3500,
     "dp_max_pa": 160,
     "p1_nominal_w": "130/80 | 170/85 | 190/110",
-    "p_sys_w": null,
     "current_nominal_a": "0.29/0.14 | 0.32/0.16 | 0.33/0.17",
     "temp_min_c": -40,
     "temp_max_c": 70,
@@ -4527,7 +4422,7 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "B_ac_dual_with_60hz",
     "frequency_notes": "Motor AC: dados de performance disponíveis para 50 Hz (4 pontos) e 60 Hz (8 pontos).",
     "motor_technology": "AC",
@@ -4536,12 +4431,9 @@ export const FAN_CATALOG: FanModel[] = [
     "rpm_nominal": "670/510 | 720/450 | 770/520",
     "sound_lwa_db": 0,
     "erp_efficiency_pct": 0,
-    "erp_n_actual": null,
-    "erp_n_target": null,
     "q_max_m3h": 3500,
     "dp_max_pa": 160,
     "p1_nominal_w": "130/80 | 170/85 | 190/110",
-    "p_sys_w": null,
     "current_nominal_a": "0.29/0.14 | 0.33/0.165 | 0.33/0.175",
     "temp_min_c": -40,
     "temp_max_c": 70,
@@ -4818,7 +4710,7 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "B_ac_dual_with_60hz",
     "frequency_notes": "Motor AC: dados de performance disponíveis para 50 Hz (4 pontos) e 60 Hz (1 pontos).",
     "motor_technology": "AC",
@@ -4832,13 +4724,11 @@ export const FAN_CATALOG: FanModel[] = [
     "q_max_m3h": 0,
     "dp_max_pa": 350,
     "p1_nominal_w": "1750 | 2700 | 2800",
-    "p_sys_w": null,
     "current_nominal_a": "3.70/2.20 | 4.60/2.80 | 4.60/2.80",
     "temp_min_c": -40,
     "temp_max_c": 70,
     "ip_protection": "IP54",
     "thermal_class": "THCL155",
-    "weight_kg": null,
     "curve_available": true,
     "num_curve_sets": 4,
     "curve_sets": [
@@ -5036,7 +4926,7 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "B_ac_dual_with_60hz",
     "frequency_notes": "Motor AC: dados de performance disponíveis para 50 Hz (4 pontos) e 60 Hz (6 pontos).",
     "motor_technology": "AC",
@@ -5045,13 +4935,9 @@ export const FAN_CATALOG: FanModel[] = [
     "rpm_nominal": 0,
     "sound_lwa_db": 0,
     "erp_efficiency_pct": 0,
-    "erp_n_actual": null,
-    "erp_n_target": null,
     "q_max_m3h": 0,
     "dp_max_pa": 350,
     "p1_nominal_w": 0,
-    "p_sys_w": null,
-    "current_nominal_a": null,
     "temp_min_c": -40,
     "temp_max_c": 70,
     "ip_protection": "IP54",
@@ -5309,7 +5195,7 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "B_ac_dual_with_60hz",
     "frequency_notes": "Motor AC: dados de performance disponíveis para 50 Hz (4 pontos) e 60 Hz (6 pontos).",
     "motor_technology": "AC",
@@ -5323,13 +5209,11 @@ export const FAN_CATALOG: FanModel[] = [
     "q_max_m3h": 0,
     "dp_max_pa": 180,
     "p1_nominal_w": "630/440 | 940/520 | 1.00/0.64 kW",
-    "p_sys_w": null,
     "current_nominal_a": "1.25/0.72 | 1.55/0.87 | 1.55/0.91 A",
     "temp_min_c": -40,
     "temp_max_c": 50,
     "ip_protection": "IP54",
     "thermal_class": "THCL155",
-    "weight_kg": null,
     "curve_available": true,
     "num_curve_sets": 4,
     "curve_sets": [
@@ -5582,7 +5466,7 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "B_ac_dual_with_60hz",
     "frequency_notes": "Motor AC: dados de performance disponíveis para 50 Hz (4 pontos) e 60 Hz (8 pontos).",
     "motor_technology": "AC",
@@ -5591,13 +5475,9 @@ export const FAN_CATALOG: FanModel[] = [
     "rpm_nominal": 0,
     "sound_lwa_db": 0,
     "erp_efficiency_pct": 0,
-    "erp_n_actual": null,
-    "erp_n_target": null,
     "q_max_m3h": 0,
     "dp_max_pa": 240,
     "p1_nominal_w": 0,
-    "p_sys_w": null,
-    "current_nominal_a": null,
     "temp_min_c": -40,
     "temp_max_c": 70,
     "ip_protection": "IP54",
@@ -5861,7 +5741,7 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "B_ac_dual_with_60hz",
     "frequency_notes": "Motor AC: dados de performance disponíveis para 50 Hz (4 pontos) e 60 Hz (8 pontos).",
     "motor_technology": "AC",
@@ -5870,13 +5750,9 @@ export const FAN_CATALOG: FanModel[] = [
     "rpm_nominal": 0,
     "sound_lwa_db": 0,
     "erp_efficiency_pct": 0,
-    "erp_n_actual": null,
-    "erp_n_target": null,
     "q_max_m3h": 0,
     "dp_max_pa": 240,
     "p1_nominal_w": 0,
-    "p_sys_w": null,
-    "current_nominal_a": null,
     "temp_min_c": -40,
     "temp_max_c": 70,
     "ip_protection": "IP54",
@@ -6140,7 +6016,7 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "B_ac_dual_with_60hz",
     "frequency_notes": "Motor AC: dados de performance disponíveis para 50 Hz (5 pontos) e 60 Hz (7 pontos).",
     "motor_technology": "AC",
@@ -6154,13 +6030,11 @@ export const FAN_CATALOG: FanModel[] = [
     "q_max_m3h": 0,
     "dp_max_pa": 120,
     "p1_nominal_w": "470/330 | 700/350 | 740/450 W",
-    "p_sys_w": null,
     "current_nominal_a": "1.05/0.61 | 1.30/0.72 | 1.25/0.77 A",
     "temp_min_c": -40,
     "temp_max_c": 70,
     "ip_protection": "IP54",
     "thermal_class": "THCL155",
-    "weight_kg": null,
     "curve_available": true,
     "num_curve_sets": 4,
     "curve_sets": [
@@ -6427,7 +6301,7 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "B_ac_dual_with_60hz",
     "frequency_notes": "Motor AC: dados de performance disponíveis para 50 Hz (4 pontos) e 60 Hz (8 pontos).",
     "motor_technology": "AC",
@@ -6436,13 +6310,9 @@ export const FAN_CATALOG: FanModel[] = [
     "rpm_nominal": 0,
     "sound_lwa_db": 0,
     "erp_efficiency_pct": 0,
-    "erp_n_actual": null,
-    "erp_n_target": null,
     "q_max_m3h": 0,
     "dp_max_pa": 120,
     "p1_nominal_w": 0,
-    "p_sys_w": null,
-    "current_nominal_a": null,
     "temp_min_c": -40,
     "temp_max_c": 70,
     "ip_protection": "IP54",
@@ -6714,7 +6584,7 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "B_ac_dual_with_60hz",
     "frequency_notes": "Motor AC: dados de performance disponíveis para 50 Hz (5 pontos) e 60 Hz (7 pontos).",
     "motor_technology": "AC",
@@ -6728,13 +6598,11 @@ export const FAN_CATALOG: FanModel[] = [
     "q_max_m3h": 0,
     "dp_max_pa": 120,
     "p1_nominal_w": "470/330 | 700/350 | 740/450 W",
-    "p_sys_w": null,
     "current_nominal_a": "1.05/0.61 | 1.30/0.72 | 1.25/0.77 A",
     "temp_min_c": -40,
     "temp_max_c": 70,
     "ip_protection": "IP54",
     "thermal_class": "THCL155",
-    "weight_kg": null,
     "curve_available": true,
     "num_curve_sets": 4,
     "curve_sets": [
@@ -7000,9 +6868,8 @@ export const FAN_CATALOG: FanModel[] = [
     "frequencies": [
       50
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "C_50_only",
-    "frequency_notes": null,
     "motor_technology": "AC",
     "poles": "6-6",
     "electrical_nominal": "3~400 V (Δ/Y) / 50Hz / AC",
@@ -7014,13 +6881,11 @@ export const FAN_CATALOG: FanModel[] = [
     "q_max_m3h": "22680/17640",
     "dp_max_pa": 170,
     "p1_nominal_w": "1.90/1.10 kW",
-    "p_sys_w": null,
     "current_nominal_a": "3.80/2.00 A",
     "temp_min_c": -40,
     "temp_max_c": 60,
     "ip_protection": "IP54",
     "thermal_class": "THCL155",
-    "weight_kg": null,
     "curve_available": true,
     "num_curve_sets": 2,
     "curve_sets": [
@@ -7167,22 +7032,17 @@ export const FAN_CATALOG: FanModel[] = [
     "frequencies": [
       50
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "C_50_only",
-    "frequency_notes": null,
     "motor_technology": "AC",
     "poles": "6-6",
     "electrical_nominal": "3~400V / 50Hz / AC",
     "rpm_nominal": 0,
     "sound_lwa_db": 0,
     "erp_efficiency_pct": 0,
-    "erp_n_actual": null,
-    "erp_n_target": null,
     "q_max_m3h": 0,
     "dp_max_pa": 170,
     "p1_nominal_w": 0,
-    "p_sys_w": null,
-    "current_nominal_a": null,
     "temp_min_c": -40,
     "temp_max_c": 60,
     "ip_protection": "IP54",
@@ -7324,7 +7184,7 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "B_ac_dual_with_60hz",
     "frequency_notes": "Motor AC: dados de performance disponíveis para 50 Hz (5 pontos) e 60 Hz (5 pontos).",
     "motor_technology": "AC",
@@ -7338,13 +7198,11 @@ export const FAN_CATALOG: FanModel[] = [
     "q_max_m3h": "22680/17640",
     "dp_max_pa": 170,
     "p1_nominal_w": "1.65/0.82 kW | 2.00/0.86 kW | 2.40/1.10 kW",
-    "p_sys_w": null,
     "current_nominal_a": "3.50/1.55 A | 3.80/1.60 A | 4.00/1.75 A",
     "temp_min_c": -40,
     "temp_max_c": 70,
     "ip_protection": "IP54",
     "thermal_class": "THCL155",
-    "weight_kg": null,
     "curve_available": true,
     "num_curve_sets": 2,
     "curve_sets": [
@@ -7546,22 +7404,17 @@ export const FAN_CATALOG: FanModel[] = [
     "frequencies": [
       50
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "C_50_only",
-    "frequency_notes": null,
     "motor_technology": "AC",
     "poles": "6-6",
     "electrical_nominal": "3~400V / 50Hz / AC",
     "rpm_nominal": 0,
     "sound_lwa_db": 0,
     "erp_efficiency_pct": 0,
-    "erp_n_actual": null,
-    "erp_n_target": null,
     "q_max_m3h": 0,
     "dp_max_pa": 170,
     "p1_nominal_w": 0,
-    "p_sys_w": null,
-    "current_nominal_a": null,
     "temp_min_c": -40,
     "temp_max_c": 60,
     "ip_protection": "IP54",
@@ -7791,7 +7644,7 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "B_ac_dual_with_60hz",
     "frequency_notes": "Motor AC: dados de performance disponíveis para 50 Hz (5 pontos) e 60 Hz (7 pontos).",
     "motor_technology": "AC",
@@ -7805,13 +7658,11 @@ export const FAN_CATALOG: FanModel[] = [
     "q_max_m3h": 0,
     "dp_max_pa": 100,
     "p1_nominal_w": "860/480 W | 1.10/0.52 kW | 1.30/0.64 kW",
-    "p_sys_w": null,
     "current_nominal_a": "2.10/0.98 A | 2.30/1.00 A | 2.50/1.10 A",
     "temp_min_c": -40,
     "temp_max_c": 65,
     "ip_protection": "IP54",
     "thermal_class": "THCL155",
-    "weight_kg": null,
     "curve_available": true,
     "num_curve_sets": 4,
     "curve_sets": [
@@ -8078,7 +7929,7 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "B_ac_dual_with_60hz",
     "frequency_notes": "Motor AC: dados de performance disponíveis para 50 Hz (4 pontos) e 60 Hz (8 pontos).",
     "motor_technology": "AC",
@@ -8087,13 +7938,9 @@ export const FAN_CATALOG: FanModel[] = [
     "rpm_nominal": 0,
     "sound_lwa_db": 0,
     "erp_efficiency_pct": 0,
-    "erp_n_actual": null,
-    "erp_n_target": null,
     "q_max_m3h": 0,
     "dp_max_pa": 100,
     "p1_nominal_w": 0,
-    "p_sys_w": null,
-    "current_nominal_a": null,
     "temp_min_c": -40,
     "temp_max_c": 65,
     "ip_protection": "IP54",
@@ -8365,7 +8212,7 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "B_ac_dual_with_60hz",
     "frequency_notes": "Motor AC: dados de performance disponíveis para 50 Hz (5 pontos) e 60 Hz (7 pontos).",
     "motor_technology": "AC",
@@ -8374,18 +8221,14 @@ export const FAN_CATALOG: FanModel[] = [
     "rpm_nominal": "250/150 min⁻¹ | 210/120 min⁻¹ | 250/140 min⁻¹",
     "sound_lwa_db": 0,
     "erp_efficiency_pct": 0,
-    "erp_n_actual": null,
-    "erp_n_target": null,
     "q_max_m3h": 0,
     "dp_max_pa": 12,
     "p1_nominal_w": "120/40 W | 110/40 W | 150/50 W",
-    "p_sys_w": null,
     "current_nominal_a": "0.24/0.09 A | 0.24/0.09 A | 0.27/0.10 A",
     "temp_min_c": -40,
     "temp_max_c": 70,
     "ip_protection": "IP54",
     "thermal_class": "THCL155",
-    "weight_kg": null,
     "curve_available": true,
     "num_curve_sets": 4,
     "curve_sets": [
@@ -8651,22 +8494,17 @@ export const FAN_CATALOG: FanModel[] = [
     "frequencies": [
       50
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "C_50_only",
-    "frequency_notes": null,
     "motor_technology": "AC",
     "poles": "12-12",
     "electrical_nominal": "3~400V / 50Hz / AC",
     "rpm_nominal": 0,
     "sound_lwa_db": 0,
     "erp_efficiency_pct": 0,
-    "erp_n_actual": null,
-    "erp_n_target": null,
     "q_max_m3h": 0,
     "dp_max_pa": 12,
     "p1_nominal_w": 0,
-    "p_sys_w": null,
-    "current_nominal_a": null,
     "temp_min_c": -40,
     "temp_max_c": 70,
     "ip_protection": "IP54",
@@ -8938,11 +8776,10 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "A_ec_dual",
     "frequency_notes": "Motor EC: opera em 50 e 60 Hz via inversor interno. Curvas disponíveis apenas para 50 Hz.",
     "motor_technology": "EC",
-    "poles": null,
     "electrical_nominal": "3~380-480V / 50/60Hz / EC",
     "rpm_nominal": 950,
     "sound_lwa_db": 0,
@@ -9080,7 +8917,6 @@ export const FAN_CATALOG: FanModel[] = [
     "performance_data": [
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 2,
@@ -9091,7 +8927,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 3,
@@ -9102,7 +8937,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "II",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 5,
@@ -9113,7 +8947,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "II",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 6,
@@ -9124,7 +8957,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "III",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 8,
@@ -9135,7 +8967,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "III",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 9,
@@ -9146,7 +8977,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "IV",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 11,
@@ -9157,7 +8987,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "IV",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 12,
@@ -9185,11 +9014,10 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "A_ec_dual",
     "frequency_notes": "Motor EC: opera em 50 e 60 Hz via inversor interno. Curvas disponíveis apenas para 50 Hz.",
     "motor_technology": "EC",
-    "poles": null,
     "electrical_nominal": "3~380-480V / 50/60Hz / EC",
     "rpm_nominal": 950,
     "sound_lwa_db": 0,
@@ -9327,7 +9155,6 @@ export const FAN_CATALOG: FanModel[] = [
     "performance_data": [
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 2,
@@ -9338,7 +9165,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 3,
@@ -9349,7 +9175,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "II",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 5,
@@ -9360,7 +9185,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "II",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 6,
@@ -9371,7 +9195,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "III",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 8,
@@ -9382,7 +9205,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "III",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 9,
@@ -9393,7 +9215,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "IV",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 11,
@@ -9404,7 +9225,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "IV",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 12,
@@ -9432,11 +9252,10 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "A_ec_dual",
     "frequency_notes": "Motor EC: opera em 50 e 60 Hz via inversor interno. Curvas disponíveis apenas para 50 Hz.",
     "motor_technology": "EC",
-    "poles": null,
     "electrical_nominal": "3~380-480V / 50/60Hz / EC",
     "rpm_nominal": 1100,
     "sound_lwa_db": 0,
@@ -9612,7 +9431,6 @@ export const FAN_CATALOG: FanModel[] = [
     "performance_data": [
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 2,
@@ -9623,7 +9441,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 3,
@@ -9634,7 +9451,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "II",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 5,
@@ -9645,7 +9461,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "II",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 6,
@@ -9656,7 +9471,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "III",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 8,
@@ -9667,7 +9481,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "III",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 9,
@@ -9678,7 +9491,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "IV",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 11,
@@ -9689,7 +9501,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "IV",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 12,
@@ -9700,7 +9511,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "V",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 14,
@@ -9711,7 +9521,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "V",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 15,
@@ -9722,7 +9531,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "VI",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 17,
@@ -9733,7 +9541,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "VI",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 18,
@@ -9761,17 +9568,14 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "A_ec_dual",
     "frequency_notes": "Motor EC: opera em 50 e 60 Hz via inversor interno. Curvas disponíveis apenas para 50 Hz.",
     "motor_technology": "EC",
-    "poles": null,
     "electrical_nominal": "3~380-480V / 50/60Hz / EC",
     "rpm_nominal": 1100,
     "sound_lwa_db": 87,
     "erp_efficiency_pct": 0,
-    "erp_n_actual": null,
-    "erp_n_target": null,
     "q_max_m3h": 25000,
     "dp_max_pa": 320,
     "p1_nominal_w": 2900,
@@ -9941,7 +9745,6 @@ export const FAN_CATALOG: FanModel[] = [
     "performance_data": [
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 2,
@@ -9952,7 +9755,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 3,
@@ -9963,7 +9765,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "II",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 5,
@@ -9974,7 +9775,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "II",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 6,
@@ -9985,7 +9785,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "III",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 8,
@@ -9996,7 +9795,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "III",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 9,
@@ -10007,7 +9805,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "IV",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 11,
@@ -10018,7 +9815,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "IV",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 12,
@@ -10029,7 +9825,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "V",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 14,
@@ -10040,7 +9835,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "V",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 15,
@@ -10051,7 +9845,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "VI",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 17,
@@ -10062,7 +9855,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "VI",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 18,
@@ -10090,17 +9882,14 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "A_ec_dual",
     "frequency_notes": "Motor EC: opera em 50 e 60 Hz via inversor interno. Curvas disponíveis apenas para 50 Hz.",
     "motor_technology": "EC",
-    "poles": null,
     "electrical_nominal": "3~380-480V / 50/60Hz / EC",
     "rpm_nominal": 1100,
     "sound_lwa_db": 87,
     "erp_efficiency_pct": 0,
-    "erp_n_actual": null,
-    "erp_n_target": null,
     "q_max_m3h": 25000,
     "dp_max_pa": 320,
     "p1_nominal_w": 2900,
@@ -10270,7 +10059,6 @@ export const FAN_CATALOG: FanModel[] = [
     "performance_data": [
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 2,
@@ -10281,7 +10069,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 3,
@@ -10292,7 +10079,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "II",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 5,
@@ -10303,7 +10089,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "II",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 6,
@@ -10314,7 +10099,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "III",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 8,
@@ -10325,7 +10109,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "III",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 9,
@@ -10336,7 +10119,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "IV",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 11,
@@ -10347,7 +10129,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "IV",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 12,
@@ -10358,7 +10139,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "V",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 14,
@@ -10369,7 +10149,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "V",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 15,
@@ -10380,7 +10159,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "VI",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 17,
@@ -10391,7 +10169,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "VI",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 18,
@@ -10419,11 +10196,10 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "A_ec_dual",
     "frequency_notes": "Motor EC: opera em 50 e 60 Hz via inversor interno. Curvas disponíveis apenas para 50 Hz.",
     "motor_technology": "EC",
-    "poles": null,
     "electrical_nominal": "3~380-480V / 50/60Hz / EC",
     "rpm_nominal": 1100,
     "sound_lwa_db": 0,
@@ -10599,7 +10375,6 @@ export const FAN_CATALOG: FanModel[] = [
     "performance_data": [
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 2,
@@ -10610,7 +10385,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 3,
@@ -10621,7 +10395,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "II",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 5,
@@ -10632,7 +10405,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "II",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 6,
@@ -10643,7 +10415,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "III",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 8,
@@ -10654,7 +10425,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "III",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 9,
@@ -10665,7 +10435,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "IV",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 11,
@@ -10676,7 +10445,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "IV",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 12,
@@ -10687,7 +10455,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "V",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 14,
@@ -10698,7 +10465,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "V",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 15,
@@ -10709,7 +10475,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "VI",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 17,
@@ -10720,7 +10485,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "VI",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 18,
@@ -10748,11 +10512,10 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "A_ec_dual",
     "frequency_notes": "Motor EC: opera em 50 e 60 Hz via inversor interno. Curvas disponíveis apenas para 50 Hz.",
     "motor_technology": "EC",
-    "poles": null,
     "electrical_nominal": "3~380-480V / 50/60Hz / EC",
     "rpm_nominal": 930,
     "sound_lwa_db": 0,
@@ -10886,7 +10649,6 @@ export const FAN_CATALOG: FanModel[] = [
     "performance_data": [
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 2,
@@ -10897,7 +10659,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 3,
@@ -10908,7 +10669,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "II",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 5,
@@ -10919,7 +10679,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "II",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 6,
@@ -10930,7 +10689,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "III",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 8,
@@ -10941,7 +10699,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "III",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 9,
@@ -10952,7 +10709,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "IV",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 11,
@@ -10963,7 +10719,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "IV",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 12,
@@ -10974,7 +10729,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "V",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 14,
@@ -11002,11 +10756,10 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "A_ec_dual",
     "frequency_notes": "Motor EC: opera em 50 e 60 Hz via inversor interno. Curvas disponíveis apenas para 50 Hz.",
     "motor_technology": "EC",
-    "poles": null,
     "electrical_nominal": "3~380-480V / 50/60Hz / EC",
     "rpm_nominal": 930,
     "sound_lwa_db": 0,
@@ -11140,7 +10893,6 @@ export const FAN_CATALOG: FanModel[] = [
     "performance_data": [
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 2,
@@ -11151,7 +10903,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 3,
@@ -11162,7 +10913,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "II",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 5,
@@ -11173,7 +10923,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "II",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 6,
@@ -11184,7 +10933,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "III",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 8,
@@ -11195,7 +10943,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "III",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 9,
@@ -11206,7 +10953,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "IV",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 11,
@@ -11217,7 +10963,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "IV",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 12,
@@ -11228,7 +10973,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "V",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 14,
@@ -11256,11 +11000,10 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "A_ec_dual",
     "frequency_notes": "Motor EC: opera em 50 e 60 Hz via inversor interno. Curvas disponíveis apenas para 50 Hz.",
     "motor_technology": "EC",
-    "poles": null,
     "electrical_nominal": "3~380-480V / 50/60Hz / EC",
     "rpm_nominal": 1110,
     "sound_lwa_db": 0,
@@ -11415,7 +11158,6 @@ export const FAN_CATALOG: FanModel[] = [
     "performance_data": [
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 2,
@@ -11426,7 +11168,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 3,
@@ -11437,7 +11178,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "II",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 5,
@@ -11448,7 +11188,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "II",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 6,
@@ -11459,7 +11198,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "III",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 8,
@@ -11470,7 +11208,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "III",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 9,
@@ -11481,7 +11218,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "IV",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 11,
@@ -11492,7 +11228,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "IV",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 12,
@@ -11503,7 +11238,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "V",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 14,
@@ -11514,7 +11248,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "V",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 15,
@@ -11525,7 +11258,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "VI",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 17,
@@ -11553,11 +11285,10 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "A_ec_dual",
     "frequency_notes": "Motor EC: opera em 50 e 60 Hz via inversor interno. Curvas disponíveis apenas para 50 Hz.",
     "motor_technology": "EC",
-    "poles": null,
     "electrical_nominal": "3~380-480V / 50/60Hz / EC",
     "rpm_nominal": 1110,
     "sound_lwa_db": 0,
@@ -11712,7 +11443,6 @@ export const FAN_CATALOG: FanModel[] = [
     "performance_data": [
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 2,
@@ -11723,7 +11453,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 3,
@@ -11734,7 +11463,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "II",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 5,
@@ -11745,7 +11473,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "II",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 6,
@@ -11756,7 +11483,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "III",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 8,
@@ -11767,7 +11493,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "III",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 9,
@@ -11778,7 +11503,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "IV",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 11,
@@ -11789,7 +11513,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "IV",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 12,
@@ -11800,7 +11523,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "V",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 14,
@@ -11811,7 +11533,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "V",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 15,
@@ -11822,7 +11543,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "VI",
-        "connection": null,
         "voltage_v": 400,
         "frequency_hz": 50,
         "operating_point": 17,
@@ -11849,7 +11569,7 @@ export const FAN_CATALOG: FanModel[] = [
     "frequencies": [
       50
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "C_ac_dual_no_60hz",
     "frequency_notes": "Motor AC: declarado para 50/60 Hz mas apenas dados de 50 Hz disponíveis no catálogo.",
     "motor_technology": "AC",
@@ -11869,7 +11589,6 @@ export const FAN_CATALOG: FanModel[] = [
     "temp_max_c": 70,
     "ip_protection": "IP54",
     "thermal_class": "THCL155",
-    "weight_kg": null,
     "curve_available": false,
     "num_curve_sets": 0,
     "curve_sets": [],
@@ -11885,34 +11604,20 @@ export const FAN_CATALOG: FanModel[] = [
     "family": "FE2owlet with ZAplus AC 3~",
     "application": "Oil transformer cooling",
     "diameter_mm": 710,
-    "num_blades": null,
-    "blade_material": null,
-    "rotor_material": null,
-    "voltage": null,
     "frequencies": [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "B_ac_dual_with_60hz",
     "frequency_notes": "Motor AC: dados de performance disponíveis para 50 Hz (4 pontos) e 60 Hz (8 pontos).",
-    "motor_technology": null,
-    "poles": null,
     "electrical_nominal": "50/60Hz",
     "rpm_nominal": 0,
     "sound_lwa_db": 0,
     "erp_efficiency_pct": 0,
-    "erp_n_actual": null,
-    "erp_n_target": null,
     "q_max_m3h": 0,
     "dp_max_pa": 0,
     "p1_nominal_w": 0,
-    "p_sys_w": null,
-    "current_nominal_a": null,
-    "temp_min_c": null,
-    "temp_max_c": null,
-    "ip_protection": null,
-    "thermal_class": null,
     "weight_kg": 29.5,
     "curve_available": false,
     "num_curve_sets": 0,
@@ -12069,9 +11774,8 @@ export const FAN_CATALOG: FanModel[] = [
     "frequencies": [
       50
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "C_50_only",
-    "frequency_notes": null,
     "motor_technology": "AC",
     "poles": "6-6",
     "electrical_nominal": "3~ 400 V (Δ/Y) / 50Hz / AC",
@@ -12083,13 +11787,11 @@ export const FAN_CATALOG: FanModel[] = [
     "q_max_m3h": 0,
     "dp_max_pa": 0,
     "p1_nominal_w": 1950.0,
-    "p_sys_w": null,
     "current_nominal_a": 3.8,
     "temp_min_c": -40,
     "temp_max_c": 60,
     "ip_protection": "IP54",
     "thermal_class": "THCL155",
-    "weight_kg": null,
     "curve_available": false,
     "num_curve_sets": 0,
     "curve_sets": [],
@@ -12105,33 +11807,19 @@ export const FAN_CATALOG: FanModel[] = [
     "family": "FE2owlet with ZAplus AC 3~",
     "application": "Oil transformer cooling",
     "diameter_mm": 800,
-    "num_blades": null,
-    "blade_material": null,
-    "rotor_material": null,
-    "voltage": null,
     "frequencies": [
       50
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "D_no_data",
     "frequency_notes": "Frequência não informada no catálogo. Assumido 50 Hz (padrão europeu).",
-    "motor_technology": null,
-    "poles": null,
     "electrical_nominal": "50Hz",
     "rpm_nominal": 0,
     "sound_lwa_db": 0,
     "erp_efficiency_pct": 0,
-    "erp_n_actual": null,
-    "erp_n_target": null,
     "q_max_m3h": 0,
     "dp_max_pa": 0,
     "p1_nominal_w": 0,
-    "p_sys_w": null,
-    "current_nominal_a": null,
-    "temp_min_c": null,
-    "temp_max_c": null,
-    "ip_protection": null,
-    "thermal_class": null,
     "weight_kg": 42.8,
     "curve_available": false,
     "num_curve_sets": 0,
@@ -12200,7 +11888,7 @@ export const FAN_CATALOG: FanModel[] = [
     "frequencies": [
       50
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "C_ac_dual_no_60hz",
     "frequency_notes": "Motor AC: declarado para 50/60 Hz mas apenas dados de 50 Hz disponíveis no catálogo.",
     "motor_technology": "AC",
@@ -12220,7 +11908,6 @@ export const FAN_CATALOG: FanModel[] = [
     "temp_max_c": 65,
     "ip_protection": "IP54",
     "thermal_class": "THCL155",
-    "weight_kg": null,
     "curve_available": false,
     "num_curve_sets": 0,
     "curve_sets": [],
@@ -12243,9 +11930,8 @@ export const FAN_CATALOG: FanModel[] = [
     "frequencies": [
       50
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "C_50_only",
-    "frequency_notes": null,
     "motor_technology": "AC",
     "poles": "4-4",
     "electrical_nominal": "3~ 400 V (Δ/Y) / 50Hz / AC",
@@ -12263,7 +11949,6 @@ export const FAN_CATALOG: FanModel[] = [
     "temp_max_c": 45,
     "ip_protection": "IP54",
     "thermal_class": "THCL155",
-    "weight_kg": null,
     "curve_available": false,
     "num_curve_sets": 0,
     "curve_sets": [],
@@ -12287,7 +11972,7 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "B_ac_dual_with_60hz",
     "frequency_notes": "Motor AC: dados de performance disponíveis para 50 Hz (4 pontos) e 60 Hz (8 pontos).",
     "motor_technology": "AC",
@@ -12307,7 +11992,6 @@ export const FAN_CATALOG: FanModel[] = [
     "temp_max_c": 40,
     "ip_protection": "IP54",
     "thermal_class": "THCL155",
-    "weight_kg": null,
     "curve_available": false,
     "num_curve_sets": 0,
     "curve_sets": [],
@@ -12464,7 +12148,7 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "B_ac_dual_with_60hz",
     "frequency_notes": "Motor AC: dados de performance disponíveis para 50 Hz (4 pontos) e 60 Hz (8 pontos).",
     "motor_technology": "AC",
@@ -12484,7 +12168,6 @@ export const FAN_CATALOG: FanModel[] = [
     "temp_max_c": 70,
     "ip_protection": "IP54",
     "thermal_class": "THCL155",
-    "weight_kg": null,
     "curve_available": false,
     "num_curve_sets": 0,
     "curve_sets": [],
@@ -12641,7 +12324,7 @@ export const FAN_CATALOG: FanModel[] = [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "B_ac_dual_with_60hz",
     "frequency_notes": "Motor AC: dados de performance disponíveis para 50 Hz (4 pontos) e 60 Hz (4 pontos).",
     "motor_technology": "AC",
@@ -12661,7 +12344,6 @@ export const FAN_CATALOG: FanModel[] = [
     "temp_max_c": 70,
     "ip_protection": "IP54",
     "thermal_class": "THCL155",
-    "weight_kg": null,
     "curve_available": false,
     "num_curve_sets": 0,
     "curve_sets": [],
@@ -12766,14 +12448,12 @@ export const FAN_CATALOG: FanModel[] = [
     "family": "Cross Flow Fan",
     "application": "Dry transformer cooling",
     "diameter_mm": 92,
-    "num_blades": null,
     "blade_material": "aluminium",
-    "rotor_material": null,
     "voltage": "1~ 230 V ±10%",
     "frequencies": [
       50
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "C_ac_dual_no_60hz",
     "frequency_notes": "Motor AC: declarado para 50/60 Hz mas apenas dados de 50 Hz disponíveis no catálogo.",
     "motor_technology": "AC",
@@ -12782,18 +12462,14 @@ export const FAN_CATALOG: FanModel[] = [
     "rpm_nominal": "2440/2600",
     "sound_lwa_db": 75,
     "erp_efficiency_pct": 0,
-    "erp_n_actual": null,
-    "erp_n_target": null,
     "q_max_m3h": 850,
     "dp_max_pa": 200,
     "p1_nominal_w": "160/220",
-    "p_sys_w": null,
     "current_nominal_a": "0.72/0.94",
     "temp_min_c": -20,
     "temp_max_c": 70,
     "ip_protection": "IP10",
     "thermal_class": "THCL130",
-    "weight_kg": null,
     "curve_available": true,
     "num_curve_sets": 2,
     "curve_sets": [
@@ -12881,29 +12557,23 @@ export const FAN_CATALOG: FanModel[] = [
     "family": "Cross Flow Fan",
     "application": "Dry transformer cooling",
     "diameter_mm": 92,
-    "num_blades": null,
     "blade_material": "aluminium",
-    "rotor_material": null,
     "voltage": "1~ 230V",
     "frequencies": [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "B_ac_dual_with_60hz",
     "frequency_notes": "Motor AC: dados de performance disponíveis para 50 Hz (3 pontos) e 60 Hz (3 pontos).",
     "motor_technology": "AC",
-    "poles": null,
     "electrical_nominal": "1~ 230V / 50/60Hz / AC",
     "rpm_nominal": "2440/2600",
     "sound_lwa_db": 76,
     "erp_efficiency_pct": 0,
-    "erp_n_actual": null,
-    "erp_n_target": null,
     "q_max_m3h": 0,
     "dp_max_pa": 0,
     "p1_nominal_w": "150/200",
-    "p_sys_w": null,
     "current_nominal_a": "0.66/0.88",
     "temp_min_c": -20,
     "temp_max_c": 70,
@@ -12917,7 +12587,6 @@ export const FAN_CATALOG: FanModel[] = [
     "performance_data": [
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 50,
         "operating_point": 1,
@@ -12928,7 +12597,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 50,
         "operating_point": 2,
@@ -12939,7 +12607,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 50,
         "operating_point": 3,
@@ -12950,7 +12617,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 60,
         "operating_point": 1,
@@ -12961,7 +12627,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 60,
         "operating_point": 2,
@@ -12972,7 +12637,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 60,
         "operating_point": 3,
@@ -12992,14 +12656,12 @@ export const FAN_CATALOG: FanModel[] = [
     "family": "Cross Flow Fan",
     "application": "Dry transformer cooling",
     "diameter_mm": 92,
-    "num_blades": null,
     "blade_material": "aluminium",
-    "rotor_material": null,
     "voltage": "1~ 230 V ±10%",
     "frequencies": [
       50
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "C_ac_dual_no_60hz",
     "frequency_notes": "Motor AC: declarado para 50/60 Hz mas apenas dados de 50 Hz disponíveis no catálogo.",
     "motor_technology": "AC",
@@ -13008,18 +12670,14 @@ export const FAN_CATALOG: FanModel[] = [
     "rpm_nominal": "1380/1580",
     "sound_lwa_db": 68,
     "erp_efficiency_pct": 0,
-    "erp_n_actual": null,
-    "erp_n_target": null,
     "q_max_m3h": 1000,
     "dp_max_pa": 45,
     "p1_nominal_w": "90/130",
-    "p_sys_w": null,
     "current_nominal_a": "0.39/0.56",
     "temp_min_c": -20,
     "temp_max_c": 70,
     "ip_protection": "IP10",
     "thermal_class": "THCL130",
-    "weight_kg": null,
     "curve_available": true,
     "num_curve_sets": 3,
     "curve_sets": [
@@ -13148,29 +12806,23 @@ export const FAN_CATALOG: FanModel[] = [
     "family": "Cross Flow Fan",
     "application": "Dry transformer cooling",
     "diameter_mm": 92,
-    "num_blades": null,
     "blade_material": "aluminium",
-    "rotor_material": null,
     "voltage": "1~ 230V",
     "frequencies": [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "B_ac_dual_with_60hz",
     "frequency_notes": "Motor AC: dados de performance disponíveis para 50 Hz (3 pontos) e 60 Hz (3 pontos).",
     "motor_technology": "AC",
-    "poles": null,
     "electrical_nominal": "1~ 230V / 50/60Hz / AC",
     "rpm_nominal": "1380/1580",
     "sound_lwa_db": 68,
     "erp_efficiency_pct": 0,
-    "erp_n_actual": null,
-    "erp_n_target": null,
     "q_max_m3h": 0,
     "dp_max_pa": 0,
     "p1_nominal_w": "85/120",
-    "p_sys_w": null,
     "current_nominal_a": "0.37/0.54",
     "temp_min_c": -20,
     "temp_max_c": 70,
@@ -13184,7 +12836,6 @@ export const FAN_CATALOG: FanModel[] = [
     "performance_data": [
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 50,
         "operating_point": 1,
@@ -13195,7 +12846,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 50,
         "operating_point": 2,
@@ -13206,7 +12856,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 50,
         "operating_point": 3,
@@ -13217,7 +12866,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 60,
         "operating_point": 1,
@@ -13228,7 +12876,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 60,
         "operating_point": 2,
@@ -13239,7 +12886,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 60,
         "operating_point": 3,
@@ -13259,14 +12905,12 @@ export const FAN_CATALOG: FanModel[] = [
     "family": "Cross Flow Fan",
     "application": "Dry transformer cooling",
     "diameter_mm": 138,
-    "num_blades": null,
     "blade_material": "aluminium",
-    "rotor_material": null,
     "voltage": "1~ 230 V ±10%",
     "frequencies": [
       50
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "C_ac_dual_no_60hz",
     "frequency_notes": "Motor AC: declarado para 50/60 Hz mas apenas dados de 50 Hz disponíveis no catálogo.",
     "motor_technology": "AC",
@@ -13280,13 +12924,11 @@ export const FAN_CATALOG: FanModel[] = [
     "q_max_m3h": 1800,
     "dp_max_pa": 370,
     "p1_nominal_w": "640/720",
-    "p_sys_w": null,
     "current_nominal_a": "2.80/3.10",
     "temp_min_c": -20,
     "temp_max_c": 70,
     "ip_protection": "IP10",
     "thermal_class": "THCL155",
-    "weight_kg": null,
     "curve_available": true,
     "num_curve_sets": 3,
     "curve_sets": [
@@ -13415,29 +13057,23 @@ export const FAN_CATALOG: FanModel[] = [
     "family": "Cross Flow Fan",
     "application": "Dry transformer cooling",
     "diameter_mm": 138,
-    "num_blades": null,
     "blade_material": "aluminium",
-    "rotor_material": null,
     "voltage": "1~ 230V",
     "frequencies": [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "B_ac_dual_with_60hz",
     "frequency_notes": "Motor AC: dados de performance disponíveis para 50 Hz (3 pontos) e 60 Hz (3 pontos).",
     "motor_technology": "AC",
-    "poles": null,
     "electrical_nominal": "1~ 230V / 50/60Hz / AC",
     "rpm_nominal": "2630/2900",
     "sound_lwa_db": 86,
     "erp_efficiency_pct": 0,
-    "erp_n_actual": null,
-    "erp_n_target": null,
     "q_max_m3h": 0,
     "dp_max_pa": 0,
     "p1_nominal_w": "500/720",
-    "p_sys_w": null,
     "current_nominal_a": "2.20/3.10",
     "temp_min_c": -20,
     "temp_max_c": 70,
@@ -13451,7 +13087,6 @@ export const FAN_CATALOG: FanModel[] = [
     "performance_data": [
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 50,
         "operating_point": 1,
@@ -13462,7 +13097,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 50,
         "operating_point": 2,
@@ -13473,7 +13107,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 50,
         "operating_point": 3,
@@ -13484,7 +13117,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 60,
         "operating_point": 1,
@@ -13495,7 +13127,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 60,
         "operating_point": 2,
@@ -13506,7 +13137,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 60,
         "operating_point": 3,
@@ -13526,14 +13156,12 @@ export const FAN_CATALOG: FanModel[] = [
     "family": "Cross Flow Fan",
     "application": "Dry transformer cooling",
     "diameter_mm": 138,
-    "num_blades": null,
     "blade_material": "aluminium",
-    "rotor_material": null,
     "voltage": "1~ 230 V ±10%",
     "frequencies": [
       50
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "C_ac_dual_no_60hz",
     "frequency_notes": "Motor AC: declarado para 50/60 Hz mas apenas dados de 50 Hz disponíveis no catálogo.",
     "motor_technology": "AC",
@@ -13542,18 +13170,14 @@ export const FAN_CATALOG: FanModel[] = [
     "rpm_nominal": "1130/1110",
     "sound_lwa_db": 68,
     "erp_efficiency_pct": 0,
-    "erp_n_actual": null,
-    "erp_n_target": null,
     "q_max_m3h": 1300,
     "dp_max_pa": 82,
     "p1_nominal_w": "130/160",
-    "p_sys_w": null,
     "current_nominal_a": "0.58/0.68",
     "temp_min_c": -20,
     "temp_max_c": 70,
     "ip_protection": "IP10",
     "thermal_class": "THCL130",
-    "weight_kg": null,
     "curve_available": true,
     "num_curve_sets": 3,
     "curve_sets": [
@@ -13714,29 +13338,23 @@ export const FAN_CATALOG: FanModel[] = [
     "family": "Cross Flow Fan",
     "application": "Dry transformer cooling",
     "diameter_mm": 138,
-    "num_blades": null,
     "blade_material": "aluminium",
-    "rotor_material": null,
     "voltage": "1~ 230V",
     "frequencies": [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "B_ac_dual_with_60hz",
     "frequency_notes": "Motor AC: dados de performance disponíveis para 50 Hz (3 pontos) e 60 Hz (3 pontos).",
     "motor_technology": "AC",
-    "poles": null,
     "electrical_nominal": "1~ 230V / 50/60Hz / AC",
     "rpm_nominal": "1130/1110",
     "sound_lwa_db": 66,
     "erp_efficiency_pct": 0,
-    "erp_n_actual": null,
-    "erp_n_target": null,
     "q_max_m3h": 0,
     "dp_max_pa": 0,
     "p1_nominal_w": "120/160",
-    "p_sys_w": null,
     "current_nominal_a": "0.54/0.68",
     "temp_min_c": -20,
     "temp_max_c": 70,
@@ -13750,7 +13368,6 @@ export const FAN_CATALOG: FanModel[] = [
     "performance_data": [
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 50,
         "operating_point": 1,
@@ -13761,7 +13378,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 50,
         "operating_point": 2,
@@ -13772,7 +13388,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 50,
         "operating_point": 3,
@@ -13783,7 +13398,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 60,
         "operating_point": 1,
@@ -13794,7 +13408,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 60,
         "operating_point": 2,
@@ -13805,7 +13418,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 60,
         "operating_point": 3,
@@ -13825,15 +13437,13 @@ export const FAN_CATALOG: FanModel[] = [
     "family": "Cross Flow Fan",
     "application": "Dry transformer cooling",
     "diameter_mm": 138,
-    "num_blades": null,
     "blade_material": "aluminium",
-    "rotor_material": null,
     "voltage": "1~ 230V",
     "frequencies": [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "B_ac_dual_with_60hz",
     "frequency_notes": "Motor AC: dados de performance disponíveis para 50 Hz (3 pontos) e 60 Hz (3 pontos).",
     "motor_technology": "AC",
@@ -13842,12 +13452,9 @@ export const FAN_CATALOG: FanModel[] = [
     "rpm_nominal": "1130/1110",
     "sound_lwa_db": 66,
     "erp_efficiency_pct": 0,
-    "erp_n_actual": null,
-    "erp_n_target": null,
     "q_max_m3h": 1300,
     "dp_max_pa": 82,
     "p1_nominal_w": "120/160",
-    "p_sys_w": null,
     "current_nominal_a": "0.54/0.68",
     "temp_min_c": -20,
     "temp_max_c": 70,
@@ -14006,7 +13613,6 @@ export const FAN_CATALOG: FanModel[] = [
     "performance_data": [
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 50,
         "operating_point": 1,
@@ -14017,7 +13623,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 50,
         "operating_point": 2,
@@ -14028,7 +13633,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 50,
         "operating_point": 3,
@@ -14039,7 +13643,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 60,
         "operating_point": 1,
@@ -14050,7 +13653,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 60,
         "operating_point": 2,
@@ -14061,7 +13663,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 60,
         "operating_point": 3,
@@ -14081,28 +13682,21 @@ export const FAN_CATALOG: FanModel[] = [
     "family": "Cross Flow Fan",
     "application": "Dry transformer cooling",
     "diameter_mm": 125,
-    "num_blades": null,
     "blade_material": "aluminium",
-    "rotor_material": null,
     "voltage": "1~ 230V",
     "frequencies": [
       50
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "C_50_only",
-    "frequency_notes": null,
     "motor_technology": "AC",
-    "poles": null,
     "electrical_nominal": "1~ 230V / 50Hz / AC",
     "rpm_nominal": "1320",
     "sound_lwa_db": 79,
     "erp_efficiency_pct": 0,
-    "erp_n_actual": null,
-    "erp_n_target": null,
     "q_max_m3h": 0,
     "dp_max_pa": 0,
     "p1_nominal_w": "350",
-    "p_sys_w": null,
     "current_nominal_a": "1.60",
     "temp_min_c": -20,
     "temp_max_c": 70,
@@ -14116,7 +13710,6 @@ export const FAN_CATALOG: FanModel[] = [
     "performance_data": [
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 50,
         "operating_point": 1,
@@ -14127,7 +13720,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 50,
         "operating_point": 2,
@@ -14138,7 +13730,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 50,
         "operating_point": 3,
@@ -14165,21 +13756,17 @@ export const FAN_CATALOG: FanModel[] = [
     "frequencies": [
       50
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "C_50_only",
-    "frequency_notes": null,
     "motor_technology": "AC",
     "poles": "2",
     "electrical_nominal": "1~230V / 50Hz / AC",
     "rpm_nominal": 2450,
     "sound_lwa_db": 72,
     "erp_efficiency_pct": 0,
-    "erp_n_actual": null,
-    "erp_n_target": null,
     "q_max_m3h": 1800,
     "dp_max_pa": 110,
     "p1_nominal_w": 150,
-    "p_sys_w": null,
     "current_nominal_a": 0.68,
     "temp_min_c": -40,
     "temp_max_c": 40,
@@ -14280,7 +13867,6 @@ export const FAN_CATALOG: FanModel[] = [
     "performance_data": [
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 50,
         "operating_point": 1,
@@ -14291,7 +13877,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 50,
         "operating_point": 2,
@@ -14302,7 +13887,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 50,
         "operating_point": 3,
@@ -14313,7 +13897,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 50,
         "operating_point": 4,
@@ -14340,21 +13923,17 @@ export const FAN_CATALOG: FanModel[] = [
     "frequencies": [
       50
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "C_50_only",
-    "frequency_notes": null,
     "motor_technology": "AC",
     "poles": "4",
     "electrical_nominal": "1~230V / 50Hz / AC",
     "rpm_nominal": 1200,
     "sound_lwa_db": 66,
     "erp_efficiency_pct": 0,
-    "erp_n_actual": null,
-    "erp_n_target": null,
     "q_max_m3h": 3200,
     "dp_max_pa": 110,
     "p1_nominal_w": 150,
-    "p_sys_w": null,
     "current_nominal_a": 0.66,
     "temp_min_c": -40,
     "temp_max_c": 40,
@@ -14447,7 +14026,6 @@ export const FAN_CATALOG: FanModel[] = [
     "performance_data": [
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 50,
         "operating_point": 1,
@@ -14458,7 +14036,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 50,
         "operating_point": 2,
@@ -14469,7 +14046,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 50,
         "operating_point": 3,
@@ -14480,7 +14056,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 50,
         "operating_point": 4,
@@ -14500,29 +14075,22 @@ export const FAN_CATALOG: FanModel[] = [
     "family": "S-series ECblue",
     "application": "Dry transformer cooling",
     "diameter_mm": 0,
-    "num_blades": null,
-    "blade_material": null,
-    "rotor_material": null,
     "voltage": "3~200-240V",
     "frequencies": [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "A_ec_dual",
     "frequency_notes": "Motor EC: opera em 50 e 60 Hz via inversor interno. Curvas disponíveis apenas para 50 Hz.",
     "motor_technology": "EC",
-    "poles": null,
     "electrical_nominal": "3~200-240V / 50/60Hz / EC",
     "rpm_nominal": 1400,
     "sound_lwa_db": 65,
     "erp_efficiency_pct": 0,
-    "erp_n_actual": null,
-    "erp_n_target": null,
     "q_max_m3h": 800,
     "dp_max_pa": 350,
     "p1_nominal_w": 150,
-    "p_sys_w": null,
     "current_nominal_a": 1.1,
     "temp_min_c": -30,
     "temp_max_c": 60,
@@ -14615,7 +14183,6 @@ export const FAN_CATALOG: FanModel[] = [
     "performance_data": [
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 50,
         "operating_point": 1,
@@ -14626,7 +14193,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 50,
         "operating_point": 2,
@@ -14637,7 +14203,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 50,
         "operating_point": 3,
@@ -14657,15 +14222,12 @@ export const FAN_CATALOG: FanModel[] = [
     "family": "S-series",
     "application": "Dry transformer cooling",
     "diameter_mm": 0,
-    "num_blades": null,
-    "blade_material": null,
-    "rotor_material": null,
     "voltage": "1~230V",
     "frequencies": [
       50,
       60
     ],
-    "frequency_hz": 50,
+    "frequency_hz": 50.0,
     "frequency_source_group": "B_ac_dual_with_60hz",
     "frequency_notes": "Motor AC: dados de performance disponíveis para 50 Hz (3 pontos) e 60 Hz (3 pontos).",
     "motor_technology": "AC",
@@ -14674,16 +14236,12 @@ export const FAN_CATALOG: FanModel[] = [
     "rpm_nominal": 1450,
     "sound_lwa_db": 65,
     "erp_efficiency_pct": 0,
-    "erp_n_actual": null,
-    "erp_n_target": null,
     "q_max_m3h": 800,
     "dp_max_pa": 280,
     "p1_nominal_w": 180,
-    "p_sys_w": null,
     "current_nominal_a": 0.8,
     "temp_min_c": -20,
     "temp_max_c": 70,
-    "ip_protection": null,
     "thermal_class": "THCL155",
     "weight_kg": 4.1,
     "curve_available": true,
@@ -14772,7 +14330,6 @@ export const FAN_CATALOG: FanModel[] = [
     "performance_data": [
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 50,
         "operating_point": 1,
@@ -14783,7 +14340,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 50,
         "operating_point": 2,
@@ -14794,7 +14350,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 50,
         "operating_point": 3,
@@ -14805,7 +14360,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 60,
         "operating_point": 1,
@@ -14816,7 +14370,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 60,
         "operating_point": 2,
@@ -14827,7 +14380,6 @@ export const FAN_CATALOG: FanModel[] = [
       },
       {
         "curve_id": "I",
-        "connection": null,
         "voltage_v": 230,
         "frequency_hz": 60,
         "operating_point": 3,
