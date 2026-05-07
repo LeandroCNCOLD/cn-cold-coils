@@ -36,6 +36,7 @@ import { AutoOptimizationTabContent } from "./hub-tabs/AutoOptimizationTabConten
 import { AIAnalysisTabContent } from "./hub-tabs/AIAnalysisTabContent";
 import { ExecutiveSummaryTabContent } from "./hub-tabs/ExecutiveSummaryTabContent";
 import { TechnicalReportTabContent } from "./hub-tabs/TechnicalReportTabContent";
+import { StartupTabContent } from "./hub-tabs/StartupTabContent";
 
 import { useCatalogSessionStore } from "@/modules/coldpro_catalog/store/useCatalogSessionStore";
 import { useCoilEnvelopeStore } from "@/modules/cn_coils/store/useCoilEnvelopeStore";
@@ -52,7 +53,7 @@ type TabId =
   | "ph" | "equilibrium" | "performance" | "map"
   | "montecarlo" | "polynomial" | "autoopt" | "envelope" | "energy" | "fancoil"
   | "sanity" | "bottleneck" | "scenarios" | "frost" | "comparison"
-  | "ai" | "report";
+  | "startup" | "ai" | "report";
 
 interface TabDef {
   id: TabId;
@@ -80,6 +81,7 @@ const TABS: TabDef[] = [
   { id: "scenarios", label: "Cenários", icon: BarChart3, description: "9 cenários operacionais reais com análise comparativa", group: "diagnosis" },
   { id: "frost", label: "Degelo", icon: Snowflake, description: "Análise de formação de gelo e ciclo de degelo", group: "diagnosis" },
   { id: "comparison", label: "Comparar", icon: GitCompare, description: "Alternativas do catálogo com comparação de capacidade e COP", group: "diagnosis" },
+  { id: "startup", label: "Start-up", icon: ClipboardCheck, description: "Planilha de referência e relatório de comissionamento em campo", group: "diagnosis" },
   { id: "ai", label: "IA", icon: Brain, description: "Diagnóstico técnico com motor de regras termodinâmicas embarcadas", group: "ai" },
   { id: "report", label: "Relatório", icon: FileText, description: "Relatório técnico completo com exportação para clipboard e impressão", group: "ai" },
 ];
@@ -325,6 +327,9 @@ export function TestHubPage() {
         </TabsContent>
         <TabsContent value="comparison" className="mt-0">
           <MachineComparisonTabContent machine={selectedMachine} compressor={compressor} />
+        </TabsContent>
+        <TabsContent value="startup" className="mt-0">
+          <StartupTabContent machine={selectedMachine} compressor={compressor} condenser={condenser} evaporator={evaporator} conditions={conditions} />
         </TabsContent>
         <TabsContent value="ai" className="mt-0">
           <AIAnalysisTabContent />
