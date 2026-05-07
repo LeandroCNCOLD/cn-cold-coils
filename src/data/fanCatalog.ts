@@ -278,6 +278,73 @@ export const FAN_CATALOG: FanModel[] = [
     "has_60hz_performance": false
   },
   {
+    "model": "FN063-4DW.6N.A7P6",
+    "manufacturer": "Ziehl-Abegg",
+    "article_number": "172786",
+    "family": "FN",
+    "application": "Axial fan with sickle blades",
+    "diameter_mm": 630,
+    "num_blades": 6,
+    "blade_material": "Alumínio",
+    "rotor_material": "Alumínio",
+    "voltage": "3~230/400V±10% D/Y",
+    "frequencies": [50, 60],
+    "frequency_hz": 60,
+    "motor_technology": "AC",
+    "poles": 4,
+    "electrical_nominal": "3~230/400V D/Y 50/60Hz",
+    "rpm_nominal": 1580,
+    "sound_lwa_db": 85,
+    "erp_efficiency_pct": 37.5,
+    "erp_n_actual": 42.5,
+    "erp_n_target": 40,
+    "q_max_m3h": 20000,
+    "dp_max_pa": 400,
+    "p1_nominal_w": 2800,
+    "p_sys_w": 2800,
+    "current_nominal_a": 8.4,
+    "temp_min_c": -40,
+    "temp_max_c": 60,
+    "ip_protection": "IP54",
+    "thermal_class": "THCL155",
+    "weight_kg": 25.9,
+    "curve_available": true,
+    "num_curve_sets": 1,
+    "curve_sets": [
+      {
+        "curve_id": "I",
+        "points": [
+          { "q_m3h": 8000, "psf_pa": 200, "p1_w": 500 },
+          { "q_m3h": 10000, "psf_pa": 350, "p1_w": 1100 },
+          { "q_m3h": 12000, "psf_pa": 300, "p1_w": 1700 },
+          { "q_m3h": 14000, "psf_pa": 250, "p1_w": 2000 },
+          { "q_m3h": 16000, "psf_pa": 200, "p1_w": 2700 },
+          { "q_m3h": 18000, "psf_pa": 100, "p1_w": 2800 },
+          { "q_m3h": 20000, "psf_pa": 0, "p1_w": 2800 }
+        ]
+      }
+    ],
+    "curve_points": [
+      { "q_m3h": 8000, "psf_pa": 200, "p1_w": 500 },
+      { "q_m3h": 10000, "psf_pa": 350, "p1_w": 1100 },
+      { "q_m3h": 12000, "psf_pa": 300, "p1_w": 1700 },
+      { "q_m3h": 14000, "psf_pa": 250, "p1_w": 2000 },
+      { "q_m3h": 16000, "psf_pa": 200, "p1_w": 2700 },
+      { "q_m3h": 18000, "psf_pa": 100, "p1_w": 2800 },
+      { "q_m3h": 20000, "psf_pa": 0, "p1_w": 2800 }
+    ],
+    "performance_data": [
+      { "curve_id": "50Hz-D", "connection": "Δ", "voltage_v": 230, "frequency_hz": 50, "current_a": 6.40, "power_w": 1750, "speed_rpm": 1400 },
+      { "curve_id": "50Hz-Y", "connection": "Y", "voltage_v": 400, "frequency_hz": 50, "current_a": 3.70, "power_w": 1750, "speed_rpm": 1400 },
+      { "curve_id": "60Hz-D", "connection": "Δ", "voltage_v": 230, "frequency_hz": 60, "current_a": 8.40, "power_w": 2800, "speed_rpm": 1580 },
+      { "curve_id": "60Hz-Y", "connection": "Y", "voltage_v": 400, "frequency_hz": 60, "current_a": 4.80, "power_w": 2800, "speed_rpm": 1580 },
+      { "curve_id": "60Hz-D-460", "connection": "Δ", "voltage_v": 265, "frequency_hz": 60, "current_a": 8.00, "power_w": 2900, "speed_rpm": 1640 },
+      { "curve_id": "60Hz-Y-460", "connection": "Y", "voltage_v": 460, "frequency_hz": 60, "current_a": 4.60, "power_w": 2900, "speed_rpm": 1640 }
+    ],
+    "has_50hz_performance": true,
+    "has_60hz_performance": true
+  },
+  {
     "model": "FN063-ZIL.DG.A7P2",
     "manufacturer": "Ziehl-Abegg",
     "article_number": "175936/10C1",
