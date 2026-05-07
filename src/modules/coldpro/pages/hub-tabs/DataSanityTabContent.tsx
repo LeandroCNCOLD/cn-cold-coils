@@ -16,9 +16,17 @@ import { useMemo } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { CheckCircle2, AlertCircle, XCircle, Shield, Database, Zap, Wind, Thermometer } from "lucide-react";
+import { CheckCircle2, AlertCircle, XCircle, Shield, Database, Zap, Wind, Thermometer, ShieldCheck } from "lucide-react";
 import type { CatalogEquipmentRow } from "@/modules/coldpro_catalog/data/equipmentCatalog.types";
-import type { CompressorSpec, CondenserSpec } from "@/modules/coldpro_v2";
+import {
+  validateMachine,
+  type CompressorSpec,
+  type CondenserSpec,
+  type MachineSpec,
+  type MachineValidationReport,
+  type SystemComponentsInput,
+  type ValidationStatus,
+} from "@/modules/coldpro_v2";
 import type { EvaporatorFormValue } from "../../components/forms/EvaporatorForm";
 import type { SystemConditions } from "../../components/forms/SystemConditionsForm";
 
