@@ -456,6 +456,22 @@ export const useComponentStore = create<ComponentStore>()(
         };
         return input;
       },
+
+      reset: () =>
+        set({
+          compressors: [],
+          coils: [],
+          condensers: [],
+          fans: [],
+          expansionValves: [],
+          fourWayValves: [],
+          dripTrayCoils: [],
+          defrostConfigs: [],
+          agroConfigs: [],
+          reheatCoils: [],
+          frostConfigs: [],
+          assemblies: [],
+        }),
     }),
     { name: "coldpro-component-store" },
   ),
