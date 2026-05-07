@@ -1110,7 +1110,14 @@ export function EvaporatorUnifiedWorkspacePage() {
 
       <PostSaveNextStepDialog
         open={nextStepOpen}
-        onOpenChange={setNextStepOpen}
+        onOpenChange={(open) => {
+          setNextStepOpen(open);
+          if (!open) {
+            // Limpa workspace após o usuário fechar o diálogo "salvar e sair"
+            // para que o próximo cálculo não herde dados do anterior.
+            resetCnCoilsWorkspace();
+          }
+        }}
         next="condenser"
       />
     </WorkspaceLayout>
