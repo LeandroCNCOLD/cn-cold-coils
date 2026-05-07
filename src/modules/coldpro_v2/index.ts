@@ -301,3 +301,28 @@ export {
   summarizeCommissioningReport,
 } from "./services/startupHubService";
 export { createStartupHubHandlers } from "./services/startupHubRouter";
+// ─── Sprint 6 — Workspace AGRO ────────────────────────────────────────────────
+export { calculateHotGasBypass } from "./engines/agro/hotGasBypassEngine";
+export { calculateAgroWorkspace } from "./engines/agro/agroWorkspaceEngine";
+export type { AgroWorkspaceInput } from "./engines/agro/agroWorkspaceEngine";
+// ─── Sprint 7 — Ponte Workspace → Hub ────────────────────────────────────────
+export { mapWorkspaceToHub } from "./adapters/workspaceToHubMapper";
+export type {
+  WorkspaceProjectData,
+  WorkspaceCoilGeometry,
+  WorkspaceAirConditions,
+  WorkspaceRefrigerationData,
+  WorkspaceFanData,
+} from "./adapters/workspaceToHubMapper";
+// ─── Sprint 8 — UX: Análise de Sensibilidade, Semáforo, Wizard ───────────────
+export {
+  calculateSensitivityAnalysis,
+  calculateMultiParameterSensitivity,
+} from "./engines/analysis/sensitivityAnalysisEngine";
+export { calculateQualitySemaphore } from "./engines/analysis/qualitySemaphoreEngine";
+export {
+  buildWizardConfig,
+  validateWizardStep,
+  getStepIndex,
+  getWizardProgress,
+} from "./engines/wizard/wizardConfigEngine";

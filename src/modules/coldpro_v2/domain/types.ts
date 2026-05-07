@@ -1975,3 +1975,217 @@ export interface CommissioningReportInput {
   location: string;
   technician_notes?: string;
 }
+
+// ─────────────────────────────────────────────────────────────────────────────────
+// Sprint 6 — Workspace AGRO: Hot Gas Bypass + Controle de UR
+// ─────────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Modo de operação do ciclo com gás quente.
+ * - `cooling_only`   : sem reaquecimento (UR de saída ≤ alvo)
+ * - `hot_gas_bypass` : reaquecimento via gás quente (ciclo DX)
+ * - `electric_reheat`: reaquecimento elétrico (resistência)
+ * - `invalid`        : entradas fora de faixa ou não convergiu
+ */
+export type HotGasBypassMode =
+  | "cooling_only"
+  | "hot_gas_bypass"
+  | "electric_reheat"
+  | "invalid";
+
+export interface HotGasBypassInput {
+  /** Temperatura de entrada do ar [°C] */
+  T_air_in_c: number;
+  /** Umidade relativa de entrada [fração 0..1] */
+  RH_air_in: number;
+  /** Temperatura de saída desejada [°C] */
+  T_air_out_setpoint_c: number;
+  /** Umidade relativa de saída desejada [fração 0..1] */
+  RH_air_out_setpoint: number;
+  /** Vazão mássica de ar [kg/s] */
+  air_mass_flow_kg_s: number;
+  /** Temperatura de evaporação [°C] */
+  T_evaporating_c: number;
+  /** Temperatura de condensação [°C] */
+  T_condensing_c: number;
+  /** Fração máxima de gás quente desviado [0..1] — padrão: 0.5 */
+  max_bypass_fraction?: number;
+  /** Pressão atmosférica [Pa] — padrão: 101325 */
+  P_atm?: number;
+  /** Máximo de iterações — padrão: 100 */
+  max_iterations?: number;
+  /** Tolerância de convergência [W] — padrão: 1.0 */
+  tolerance_w?: number;
+}
+
+export interface HotGasBypassResult {
+  mode: HotGasBypassMode;
+  /** Fração de gás quente desviado [0..1] */
+  bypass_fraction: number;
+  /** Capacidade de resfriamento do evaporador [W] */
+  Q_evap_w: number;
+  /** Calor de reaquecimento fornecido pelo gás quente [W] */
+  Q_reheat_w: number;
+  /** Potência total do compressor necessária [W] */
+  W_compressor_w: number;
+  /** COP do ciclo com reaquecimento */
+  cop_cycle: number;
+  /** Temperatura de saída do ar após reaquecimento [°C] */
+  T_air_out_c: number;
+  /** Umidade relativa de saída após reaquecimento [fração 0..1] */
+  RH_air_out: number;
+  /** Razão de mistura de saída [kg/kg ar seco] */
+  W_air_out: number;
+  /** Água removida [kg/h] */
+  water_removed_kg_h: number;
+  /** Temperatura do ponto de orvalho de saída [°C] */
+  T_dew_out_c: number;
+  /** Entalpia de entrada do ar [kJ/kg ar seco] */
+  h_air_in_kj_kg: number;
+  /** Entalpia de saída do ar [kJ/kg ar seco] */
+  h_air_out_kj_kg: number;
+  /** Convergiu dentro do limite de iterações */
+  converged: boolean;
+  /** Número de iterações até convergência */
+  iterations: number;
+  warnings: string[];
+  status: "ok" | "warning" | "error";
+}
+
+/**
+ * Resultado consolidado do Workspace AGRO.
+ */
+export interface AgroWorkspaceResult {
+  agro_cycle: AgroCycleResult;
+  hot_gas_bypass?: HotGasBypassResult;
+  reheat_coil?: ReheatCoilSizingResult;
+  recommended_mode: "cooling_only" | "hot_gas_bypass" | "electric_reheat";
+  status: "ok" | "warning" | "error";
+  warnings: string[];
+}
+
+// ─────────────────────────────────────────────────────────────────────────────────
+// Sprint 7 — Ponte Workspace → Hub
+// ─────────────────────────────────────────────────────────────────────────────────
+
+export interface WorkspaceHubPayload {
+  workspace_id: string;
+  workspace_model: string;
+  workspace_type: "evaporator" | "condenser" | "agro" | "custom";
+  system_components: SystemComponentsInput;
+  machine_spec?: MachineSpec;
+  mapped_at: string;
+  mapping_warnings: string[];
+}
+
+export interface WorkspaceMappingResult {
+  success: boolean;
+  payload?: WorkspaceHubPayload;
+  errors: string[];
+  warnings: string[];
+}
+
+// ─────────────────────────────────────────────────────────────────────────────────
+// Sprint 8 — UX: Análise de Sensibilidade, Semáforo de Qualidade, Wizard
+// ─────────────────────────────────────────────────────────────────────────────────
+
+export type SensitivityParameter =
+  | "evap_temp_c"
+  | "cond_temp_c"
+  | "air_velocity_ms"
+  | "fin_pitch_mm"
+  | "superheat_k"
+  | "subcooling_k"
+  | "ambient_temp_c";
+
+export interface SensitivityAnalysisInput {
+  parameter: SensitivityParameter;
+  nominal_value: number;
+  range: number;
+  n_points?: number;
+  nominal_capacity_w: number;
+  nominal_cop: number;
+  nominal_power_w: number;
+}
+
+export interface SensitivityPoint {
+  parameter_value: number;
+  capacity_w: number;
+  cop: number;
+  power_w: number;
+  delta_capacity_pct: number;
+  delta_cop_pct: number;
+  delta_power_pct: number;
+}
+
+export interface SensitivityAnalysisResult {
+  parameter: SensitivityParameter;
+  nominal_value: number;
+  points: SensitivityPoint[];
+  sensitivity_capacity: number;
+  sensitivity_cop: number;
+  is_dominant: boolean;
+  warnings: string[];
+}
+
+export type QualityLevel = "green" | "yellow" | "red";
+
+export interface QualitySemaphoreInput {
+  simulated_capacity_w: number;
+  catalog_capacity_w: number;
+  simulated_cop: number;
+  catalog_cop: number;
+  simulated_power_w: number;
+  catalog_power_w: number;
+  thresholds?: {
+    green_pct: number;
+    yellow_pct: number;
+  };
+}
+
+export interface QualitySemaphoreResult {
+  capacity_level: QualityLevel;
+  cop_level: QualityLevel;
+  power_level: QualityLevel;
+  overall_level: QualityLevel;
+  capacity_delta_pct: number;
+  cop_delta_pct: number;
+  power_delta_pct: number;
+  capacity_diagnosis: string;
+  cop_diagnosis: string;
+  power_diagnosis: string;
+  overall_diagnosis: string;
+}
+
+export type WizardStepId =
+  | "application"
+  | "refrigerant"
+  | "geometry"
+  | "thermal_conditions"
+  | "compressor"
+  | "fans"
+  | "review";
+
+export interface WizardStep {
+  id: WizardStepId;
+  title: string;
+  description: string;
+  required_fields: string[];
+  optional_fields: string[];
+  next_step: WizardStepId | null;
+  prev_step: WizardStepId | null;
+}
+
+export interface WizardConfig {
+  steps: WizardStep[];
+  total_steps: number;
+  profile: "design" | "sales" | "production";
+}
+
+export interface WizardValidationResult {
+  step_id: WizardStepId;
+  is_valid: boolean;
+  missing_required: string[];
+  warnings: string[];
+  can_advance: boolean;
+}
