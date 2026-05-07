@@ -16,6 +16,7 @@ import {
   Package,
   ChevronDown,
   ChevronRight,
+  Sprout,
 } from "lucide-react";
 import { useState } from "react";
 import { CnLogo } from "@/components/cn-logo";
