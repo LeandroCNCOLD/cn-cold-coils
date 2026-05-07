@@ -6,7 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Target } from "lucide-react";
 import { OptimizationPanel } from "../components/OptimizationPanel";
 import { listAvailableRefrigerants } from "../engines/refrigerant/refrigerantProperties";
-import { Slider } from "@/components/ui/slider";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
   Select,
