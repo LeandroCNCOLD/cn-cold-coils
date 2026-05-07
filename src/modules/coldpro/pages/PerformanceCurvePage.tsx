@@ -20,6 +20,7 @@ import { formatCapacity, formatCOP } from "../utils/formatting";
 import type { CompressorSpec, CondenserSpec } from "@/modules/coldpro_v2";
 import { useCatalogSessionStore } from "@/modules/coldpro_catalog/store/useCatalogSessionStore";
 import { buildMotorComponentsFromCatalog } from "@/modules/coldpro_catalog/adapters/sessionToMotorInputAdapter";
+import { useTestHubStore } from "../stores/useTestHubStore";
 
 const METRIC_OPTIONS: { value: PerformanceMetric; label: string }[] = [
   { value: "capacity_w", label: "Capacidade" },
