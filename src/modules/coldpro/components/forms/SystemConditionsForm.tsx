@@ -4,6 +4,10 @@ import { validateRequired } from "../../utils/validation";
 export interface SystemConditions {
   ambient_temp_c: number;
   required_airflow_m3_h: number;
+  /** ΔT nominal do evaporador (K) — opcional. Habilita critério `delta_t_evap_check`. */
+  nominal_delta_t_evap_k?: number;
+  /** ΔT nominal do condensador (K) — opcional. Habilita critério `delta_t_cond_check`. */
+  nominal_delta_t_cond_k?: number;
 }
 
 interface SystemConditionsFormProps {
@@ -51,6 +55,36 @@ export function SystemConditionsForm({ value, onChange }: SystemConditionsFormPr
             typicalRange: "500 m³/h a 20.000 m³/h",
             example: "3000",
             impact: "Usada para verificar utilização do ventilador e transferência de calor.",
+          }}
+        />
+        <TechnicalField
+          label="ΔT Evaporador nominal"
+          value={value.nominal_delta_t_evap_k}
+          onChange={(v) => set("nominal_delta_t_evap_k", v)}
+          type="number"
+          unit="K"
+          help={{
+            description:
+              "T_ambiente − T_evaporação nominal. Exemplo: câmara −20 °C, T_evap −27 °C → ΔT = 7 K.",
+            unit: "Kelvin [K]",
+            typicalRange: "5 K a 10 K",
+            example: "7",
+            impact: "Quando preenchido, habilita o critério de validação ΔT do evaporador.",
+          }}
+        />
+        <TechnicalField
+          label="ΔT Condensador nominal"
+          value={value.nominal_delta_t_cond_k}
+          onChange={(v) => set("nominal_delta_t_cond_k", v)}
+          type="number"
+          unit="K"
+          help={{
+            description:
+              "T_condensação − T_ambiente nominal. Exemplo: T_cond 40 °C, T_amb 32 °C → ΔT = 8 K.",
+            unit: "Kelvin [K]",
+            typicalRange: "5 K a 15 K",
+            example: "8",
+            impact: "Quando preenchido, habilita o critério de validação ΔT do condensador.",
           }}
         />
       </div>
