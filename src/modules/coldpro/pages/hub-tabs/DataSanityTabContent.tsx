@@ -29,6 +29,7 @@ import {
 } from "@/modules/coldpro_v2";
 import type { EvaporatorFormValue } from "../../components/forms/EvaporatorForm";
 import type { SystemConditions } from "../../components/forms/SystemConditionsForm";
+import { AIEngineerPanel } from "../../components/ai/AIEngineerPanel";
 
 interface Props {
   machine: CatalogEquipmentRow | null;
