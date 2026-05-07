@@ -2,6 +2,7 @@ import type {
   ARI540Coefficients,
   CompressorInputs,
   CompressorRecord,
+  EN12900CompressorData,
 } from "./compressorModel";
 import { evaluateCompressor } from "./compressorModel";
 
