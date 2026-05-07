@@ -2,8 +2,9 @@
  * FrostAnalysisPage — página dedicada de análise de geada (Tarefa 4).
  * Reusa CycleEngine + useFrostAnalysis + FrostAnalysisPanel.
  */
-import { useEffect, useMemo, useState } from "react";
-import { Snowflake } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Snowflake, Database } from "lucide-react";
+import { useTestHubStore } from "@/modules/coldpro/stores/useTestHubStore";
 import { useCycleSimulation } from "../hooks/useCycleSimulation";
 import { useFrostAnalysis } from "../hooks/useFrostAnalysis";
 import { FrostAnalysisPanel } from "../components/FrostAnalysisPanel";
