@@ -34,12 +34,12 @@ export interface FanModel {
   article_number: string;
   diameter_mm: number;
   electrical_nominal: string;
-  rpm_nominal: number | string;
-  sound_lwa_db: number | string;
+  rpm_nominal: number;
+  sound_lwa_db: number;
   erp_efficiency_pct: number;
-  q_max_m3h: number | string;
-  dp_max_pa: number | string;
-  p1_nominal_w: number | string;
+  q_max_m3h: number;
+  dp_max_pa: number;
+  p1_nominal_w: number;
   num_curve_points?: number;
   source_file?: string;
   curve_points: FanCurvePoint[];
@@ -53,8 +53,8 @@ export interface FanModel {
   frequency_hz?: number;
   motor_technology?: string;
   poles?: number | string;
-  p_sys_w?: number | string;
-  current_nominal_a?: number | string;
+  p_sys_w?: number;
+  current_nominal_a?: number;
   temp_min_c?: number;
   temp_max_c?: number;
   ip_protection?: string;
