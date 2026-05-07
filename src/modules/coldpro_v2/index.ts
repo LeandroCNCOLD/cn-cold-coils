@@ -103,6 +103,10 @@ export type {
   MachineValidationReport,
   ValidationCriterionResult,
   ValidationStatus,
+  StartupParameter,
+  StartupParameterGroup,
+  StartupParameterStatus,
+  StartupReferenceSheet,
   ProductValidationSummary,
   ProgressiveCoilInput,
   ProgressiveCoilResult,
@@ -278,3 +282,5 @@ export {
 
 // Engines — machine validation
 export { validateMachine } from "./engines/validation/machineValidationEngine";
+// Engines — startup reference (Sprint 3)
+export { generateStartupReference, applyFieldMeasurements } from "./engines/startup/startupReferenceEngine";

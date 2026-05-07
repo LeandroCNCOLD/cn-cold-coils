@@ -15,6 +15,7 @@ import type {
 import { evaluateSystemEquilibrium } from "../engines/equilibrium/systemEquilibriumEngine";
 import { calculateElectricalAnalysis } from "../engines/electrical/electricalAnalysisEngine";
 import { validateMachine } from "../engines/validation/machineValidationEngine";
+import { generateStartupReference } from "../engines/startup/startupReferenceEngine";
 import { generateProductPerformanceCurve } from "../engines/performance/productPerformanceCurveEngine";
 import { generatePolynomialCoefficients } from "../engines/polynomial/polynomialCoefficientGenerator";
 
@@ -269,7 +270,8 @@ export function buildProductTechnicalRecord(
     electricalAnalysis.warnings ?? [],
   );
 
-  return {
+  // Referências de start-up para comissionamento em campo
+  const partialRecord: ProductTechnicalRecord = {
     identity: input.identity,
     components: input.system,
     equilibrium,
@@ -281,5 +283,10 @@ export function buildProductTechnicalRecord(
     machine_validation: machineValidation,
     warnings,
     traceability,
+  };
+
+  return {
+    ...partialRecord,
+    startup_reference: generateStartupReference(partialRecord),
   };
 }

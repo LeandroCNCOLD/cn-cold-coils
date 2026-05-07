@@ -1202,6 +1202,12 @@ export interface ProductTechnicalRecord {
    * Contém 8 critérios PASS/WARNING/FAIL e o status final (approved | conditional | rejected).
    */
   machine_validation?: MachineValidationReport;
+  /**
+   * Referências de start-up para comissionamento em campo.
+   * Contém todos os parâmetros esperados (pressões, temperaturas, correntes, carga de fluido)
+   * com tolerancias e diagnósticos automáticos para o técnico comparar com as medições reais.
+   */
+  startup_reference?: StartupReferenceSheet;
   warnings: string[];
   traceability: {
     generated_at: string;
@@ -1683,6 +1689,83 @@ export interface Equipment {
 
   performance_points: PerformancePoint[];
   metadata: Record<string, unknown>;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────────
+// Startup Reference — Sprint 3
+// ─────────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Status de um parâmetro de start-up após comparação com o valor medido em campo.
+ */
+export type StartupParameterStatus = "pass" | "warning" | "fail" | "not_measured";
+
+/**
+ * Um parâmetro individual de referência de start-up.
+ * Contém o valor de referência calculado pelo simulador, as tolerâncias aceitáveis
+ * e o diagnóstico automático caso o valor medido esteja fora da faixa.
+ */
+export interface StartupParameter {
+  /** Identificador único do parâmetro (ex: "suction_pressure_bar"). */
+  id: string;
+  /** Nome legível do parâmetro (ex: "Pressão de sucção"). */
+  label: string;
+  /** Unidade de medida (ex: "bar", "°C", "A", "kg"). */
+  unit: string;
+  /** Valor de referência calculado pelo simulador. */
+  reference_value: number;
+  /** Limite inferior aceitável (reference_value - tolerância). */
+  tolerance_min: number;
+  /** Limite superior aceitável (reference_value + tolerância). */
+  tolerance_max: number;
+  /** Valor medido em campo pelo técnico. Null se ainda não medido. */
+  measured_value: number | null;
+  /** Status após comparação com o valor medido. */
+  status: StartupParameterStatus;
+  /** Diagnóstico automático exibido quando o valor está fora da faixa. */
+  diagnosis_if_out_of_range: string;
+  /** Instrução de medição para o técnico. */
+  measurement_instruction: string;
+}
+
+/**
+ * Grupo de parâmetros de start-up (pressões, temperaturas, elétrico, etc.).
+ */
+export interface StartupParameterGroup {
+  /** Identificador do grupo (ex: "pressures"). */
+  group_id: string;
+  /** Nome legível do grupo (ex: "Pressões"). */
+  group_label: string;
+  /** Parâmetros do grupo. */
+  parameters: StartupParameter[];
+}
+
+/**
+ * Planilha completa de referências de start-up.
+ * Gerada pelo startupReferenceEngine a partir do ProductTechnicalRecord.
+ * Usada pelo Hub de Start-up para guiar o técnico durante o comissionamento em campo.
+ */
+export interface StartupReferenceSheet {
+  /** Modelo da máquina. */
+  machine_model: string;
+  /** Refrigerante utilizado. */
+  refrigerant: string;
+  /** Temperatura de evaporão de projeto (°C). */
+  design_evap_temp_c: number;
+  /** Temperatura de condensação de projeto (°C). */
+  design_cond_temp_c: number;
+  /** Temperatura ambiente de projeto (°C). */
+  design_ambient_temp_c: number;
+  /** Grupos de parâmetros de referência. */
+  groups: StartupParameterGroup[];
+  /** Estimativa de carga de fluido (kg). */
+  estimated_charge_kg: number;
+  /** Tolerância na carga de fluido (± kg). */
+  charge_tolerance_kg: number;
+  /** Avisos gerados durante o cálculo das referências. */
+  warnings: string[];
+  /** Data/hora de geração das referências (ISO 8601 UTC). */
+  generated_at: string;
 }
 
 export interface SimulationAssembly {
