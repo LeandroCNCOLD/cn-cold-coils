@@ -111,10 +111,18 @@ function perturbInputs(
   };
 }
 
+export class UncertaintyAbortError extends Error {
+  constructor() {
+    super("Uncertainty analysis aborted");
+    this.name = "UncertaintyAbortError";
+  }
+}
+
 export async function runUncertaintyAnalysis(
   nominalInputs: CoilCycleInputs,
   nominalResult: CoilCycleResult,
   config: Partial<UncertaintyConfig> = {},
+  signal?: AbortSignal,
 ): Promise<UncertaintyResult> {
   const cfg: UncertaintyConfig = {
     ...DEFAULT_UNCERTAINTY_CONFIG,
@@ -134,7 +142,17 @@ export async function runUncertaintyAnalysis(
   let successCount = 0;
   const maxAttempts = cfg.samples * 2;
 
+  // Cede a main thread a cada N iterações para manter a UI responsiva
+  // e permitir que um abort externo seja detectado rapidamente.
+  const YIELD_EVERY = 25;
+
   for (let attempt = 0; attempt < maxAttempts && successCount < cfg.samples; attempt++) {
+    if (signal?.aborted) throw new UncertaintyAbortError();
+    if (attempt > 0 && attempt % YIELD_EVERY === 0) {
+      // Cede a thread; abre janela para abort/UI updates.
+      await new Promise<void>((resolve) => setTimeout(resolve, 0));
+      if (signal?.aborted) throw new UncertaintyAbortError();
+    }
     const perturbedInputs = perturbInputs(nominalInputs, rng, cfg.correlationUncertainties);
     try {
       const result = await runCoilForCycle(perturbedInputs);
