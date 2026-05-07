@@ -43,7 +43,7 @@ import { evaluateSystemEquilibrium } from "../equilibrium/systemEquilibriumEngin
 // Versão do motor
 // ─────────────────────────────────────────────────────────────────────────────
 
-const ENGINE_VERSION = "2.0.0";
+const ENGINE_VERSION = "2.1.0";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Critérios de aceitação padrão (norma interna CN Coils)
@@ -58,6 +58,8 @@ const DEFAULT_ACCEPTANCE_CRITERIA: MachineAcceptanceCriteria = {
   condenser_utilization_max_pct: 100,
   evaporator_utilization_max_pct: 110,
   max_discharge_temp_c: 130,
+  delta_t_evap_tolerance_k: 2,
+  delta_t_cond_tolerance_k: 3,
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -441,6 +443,134 @@ function checkEquilibriumStatus(
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// Critérios 9 e 10 — ΔT do evaporador e do condensador
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Critério 9 — ΔT do evaporador
+ *
+ * O ΔT do evaporador é uma informação de projeto da máquina:
+ *   ΔT_evap = T_ambiente − T_evap
+ *
+ * Exemplo: câmara a −20 °C com T_evap = −27 °C → ΔT_evap = 7 K.
+ *
+ * Um ΔT real maior que o nominal indica que o evaporador está operando com
+ * temperatura de evaporção mais baixa que o projeto, o que pode significar:
+ *   - Evaporador subdimensionado (força o compressor a puxar mais vazio)
+ *   - Carga térmica maior que o previsto
+ *   - Compressor superdimensionado (puxa T_evap para baixo)
+ *
+ * Um ΔT real menor que o nominal indica:
+ *   - Evaporador superdimensionado (oportunidade de reduzir o compressor)
+ *   - Carga térmica menor que o previsto
+ *
+ * Só avalia quando `spec.nominal_delta_t_evap_k` está definido.
+ */
+function checkDeltaTEvap(
+  t_ambient_c: number,
+  t_evap_c: number,
+  nominal_delta_t_k: number,
+  tolerance_k: number,
+): ValidationCriterionResult {
+  const delta_t_real = t_ambient_c - t_evap_c;
+  const desvio_k = delta_t_real - nominal_delta_t_k;
+  const absDesvio = Math.abs(desvio_k);
+
+  let status: ValidationStatus;
+  let message: string;
+  let diagnosis: string | undefined;
+
+  if (absDesvio <= tolerance_k) {
+    status = "pass";
+    message = `ΔT evaporador real ${delta_t_real.toFixed(1)} K — dentro da tolerância ±${tolerance_k} K do nominal ${nominal_delta_t_k} K (desvio: ${desvio_k > 0 ? "+" : ""}${desvio_k.toFixed(1)} K).`;
+  } else if (absDesvio <= tolerance_k * 2) {
+    status = "warning";
+    message = `ΔT evaporador real ${delta_t_real.toFixed(1)} K — desvio de ${desvio_k > 0 ? "+" : ""}${desvio_k.toFixed(1)} K em relação ao nominal ${nominal_delta_t_k} K (aviso).`;
+    diagnosis = desvio_k > 0
+      ? `ΔT acima do nominal: evaporador pode estar subdimensionado ou a carga térmica é maior que o projeto. Verificar área de troca do evaporador e condições reais de operação. T_evap real = ${t_evap_c.toFixed(1)} °C.`
+      : `ΔT abaixo do nominal: evaporador pode estar superdimensionado ou a carga térmica é menor que o projeto. Avaliar redução do compressor para ganho de eficiência. T_evap real = ${t_evap_c.toFixed(1)} °C.`;
+  } else {
+    status = "fail";
+    message = `ΔT evaporador real ${delta_t_real.toFixed(1)} K — desvio de ${desvio_k > 0 ? "+" : ""}${desvio_k.toFixed(1)} K excede o dobro da tolerância (${tolerance_k * 2} K). Nominal: ${nominal_delta_t_k} K.`;
+    diagnosis = desvio_k > 0
+      ? `ΔT significativamente acima do nominal (T_evap = ${t_evap_c.toFixed(1)} °C). O compressor está puxando temperatura de evaporação muito abaixo do projeto. Ações recomendadas: (1) aumentar área do evaporador; (2) reduzir espaçamento de aletas; (3) aumentar vazão de ar; (4) verificar se a carga térmica real está correta.`
+      : `ΔT significativamente abaixo do nominal (T_evap = ${t_evap_c.toFixed(1)} °C). O evaporador está superdimensionado para a carga real. Ações recomendadas: (1) reduzir capacidade do compressor; (2) revisar carga térmica do projeto; (3) avaliar operação em part-load.`;
+  }
+
+  return buildCriterion({
+    criterion_id: "delta_t_evap_check",
+    label: "\u0394T Evaporador",
+    calculated_value: delta_t_real,
+    reference_value: nominal_delta_t_k,
+    unit: "K",
+    status,
+    message,
+    diagnosis,
+  });
+}
+
+/**
+ * Critério 10 — ΔT do condensador
+ *
+ * O ΔT do condensador é uma informação de projeto da máquina:
+ *   ΔT_cond = T_cond − T_ambiente
+ *
+ * Um ΔT real maior que o nominal indica que o condensador está operando com
+ * temperatura de condensação mais alta que o projeto:
+ *   - Condensador subdimensionado
+ *   - Temperatura ambiente real acima do projeto
+ *   - Aletas sujas ou obstruidas
+ *
+ * Um ΔT real menor que o nominal indica:
+ *   - Condensador superdimensionado (oportunidade de otimização)
+ *   - Temperatura ambiente real abaixo do projeto
+ *
+ * Só avalia quando `spec.nominal_delta_t_cond_k` está definido.
+ */
+function checkDeltaTCond(
+  t_cond_c: number,
+  t_ambient_c: number,
+  nominal_delta_t_k: number,
+  tolerance_k: number,
+): ValidationCriterionResult {
+  const delta_t_real = t_cond_c - t_ambient_c;
+  const desvio_k = delta_t_real - nominal_delta_t_k;
+  const absDesvio = Math.abs(desvio_k);
+
+  let status: ValidationStatus;
+  let message: string;
+  let diagnosis: string | undefined;
+
+  if (absDesvio <= tolerance_k) {
+    status = "pass";
+    message = `ΔT condensador real ${delta_t_real.toFixed(1)} K — dentro da tolerância ±${tolerance_k} K do nominal ${nominal_delta_t_k} K (desvio: ${desvio_k > 0 ? "+" : ""}${desvio_k.toFixed(1)} K).`;
+  } else if (absDesvio <= tolerance_k * 2) {
+    status = "warning";
+    message = `ΔT condensador real ${delta_t_real.toFixed(1)} K — desvio de ${desvio_k > 0 ? "+" : ""}${desvio_k.toFixed(1)} K em relação ao nominal ${nominal_delta_t_k} K (aviso).`;
+    diagnosis = desvio_k > 0
+      ? `ΔT acima do nominal: condensador pode estar subdimensionado ou a temperatura ambiente real é maior que o projeto. Verificar limpeza das aletas e vazão de ar do condensador. T_cond real = ${t_cond_c.toFixed(1)} °C.`
+      : `ΔT abaixo do nominal: condensador pode estar superdimensionado ou a temperatura ambiente real é menor que o projeto. Avaliar redução do condensador para otimização de custo. T_cond real = ${t_cond_c.toFixed(1)} °C.`;
+  } else {
+    status = "fail";
+    message = `ΔT condensador real ${delta_t_real.toFixed(1)} K — desvio de ${desvio_k > 0 ? "+" : ""}${desvio_k.toFixed(1)} K excede o dobro da tolerância (${tolerance_k * 2} K). Nominal: ${nominal_delta_t_k} K.`;
+    diagnosis = desvio_k > 0
+      ? `ΔT significativamente acima do nominal (T_cond = ${t_cond_c.toFixed(1)} °C). O condensador está operando com pressão de condensação muito acima do projeto, prejudicando COP e vida útil do compressor. Ações recomendadas: (1) aumentar área do condensador; (2) aumentar vazão de ar; (3) verificar obstruções e limpeza; (4) revisar temperatura ambiente de projeto.`
+      : `ΔT significativamente abaixo do nominal (T_cond = ${t_cond_c.toFixed(1)} °C). O condensador está superdimensionado para as condições reais. Ações recomendadas: (1) revisar seleção do condensador; (2) verificar temperatura ambiente de projeto.`;
+  }
+
+  return buildCriterion({
+    criterion_id: "delta_t_cond_check",
+    label: "\u0394T Condensador",
+    calculated_value: delta_t_real,
+    reference_value: nominal_delta_t_k,
+    unit: "K",
+    status,
+    message,
+    diagnosis,
+  });
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // Determinação do status final
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -513,7 +643,7 @@ export function validateMachine(
   const total_power_w = electrical.total_electrical_power_w;
   const cop_system = electrical.cop_system;
 
-  // 5. Avaliar os 8 critérios
+  // 5. Avaliar os critérios (8 fixos + até 2 condicionais de ΔT)
   const criteriaResults: ValidationCriterionResult[] = [
     checkCapacity(
       equilibrium.thermal_balance.q_evap_w,
@@ -550,6 +680,24 @@ export function validateMachine(
       equilibrium.status,
       equilibrium.bottleneck_codes,
     ),
+    // Critério 9 — ΔT evaporador (condicional: só quando nominal_delta_t_evap_k informado)
+    ...(spec.nominal_delta_t_evap_k != null
+      ? [checkDeltaTEvap(
+          spec.nominal_ambient_temp_c,
+          components.compressor.evap_temp_c,
+          spec.nominal_delta_t_evap_k,
+          criteria_config.delta_t_evap_tolerance_k,
+        )]
+      : []),
+    // Critério 10 — ΔT condensador (condicional: só quando nominal_delta_t_cond_k informado)
+    ...(spec.nominal_delta_t_cond_k != null
+      ? [checkDeltaTCond(
+          components.compressor.cond_temp_c,
+          spec.nominal_ambient_temp_c,
+          spec.nominal_delta_t_cond_k,
+          criteria_config.delta_t_cond_tolerance_k,
+        )]
+      : []),
   ];
 
   // 6. Determinar status final

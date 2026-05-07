@@ -128,13 +128,37 @@ describe("Estrutura do MachineValidationReport", () => {
     expect(report.summary).toBeDefined();
     expect(report.recommendations).toBeInstanceOf(Array);
     expect(report.traceability).toBeDefined();
-    expect(report.traceability.engine_version).toBe("2.0.0");
+    expect(report.traceability.engine_version).toBe("2.1.0");
     expect(report.traceability.validated_at).toMatch(/^\d{4}-\d{2}-\d{2}T/);
   });
 
-  it("deve retornar exatamente 8 critérios de validação", () => {
+  it("deve retornar exatamente 8 critérios quando delta_T não informado", () => {
     const report = validateMachine(BASE_SPEC, BASE_COMPONENTS);
     expect(report.criteria).toHaveLength(8);
+  });
+
+  it("deve retornar 9 critérios quando nominal_delta_t_evap_k informado", () => {
+    const specComDeltaTEvap: MachineSpec = {
+      ...BASE_SPEC,
+      nominal_delta_t_evap_k: 7, // T_ambient(32) - T_evap(-8) = 40 K real vs 7 K nominal
+    };
+    const report = validateMachine(specComDeltaTEvap, BASE_COMPONENTS);
+    expect(report.criteria).toHaveLength(9);
+    const ids = report.criteria.map((c) => c.criterion_id);
+    expect(ids).toContain("delta_t_evap_check");
+  });
+
+  it("deve retornar 10 critérios quando ambos os delta_T informados", () => {
+    const specComAmbos: MachineSpec = {
+      ...BASE_SPEC,
+      nominal_delta_t_evap_k: 7,
+      nominal_delta_t_cond_k: 8,
+    };
+    const report = validateMachine(specComAmbos, BASE_COMPONENTS);
+    expect(report.criteria).toHaveLength(10);
+    const ids = report.criteria.map((c) => c.criterion_id);
+    expect(ids).toContain("delta_t_evap_check");
+    expect(ids).toContain("delta_t_cond_check");
   });
 
   it("deve conter todos os criterion_ids esperados", () => {
@@ -548,5 +572,188 @@ describe("Consistência interna do relatório", () => {
       report.electrical_analysis!.cop_system,
       2,
     );
+  });
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Testes dos critérios 9 e 10 — ΔT Evaporador e Condensador
+// ─────────────────────────────────────────────────────────────────────────────
+
+describe("Critério 9 — ΔT Evaporador (delta_t_evap_check)", () => {
+  // Fixture: T_ambient = 32 °C, T_evap = -8 °C → ΔT_real = 40 K
+  // Tolerância padrão: ±2 K
+
+  it("deve ter status PASS quando ΔT real está dentro da tolerância", () => {
+    // ΔT_nominal = 40 K (igual ao real) → desvio = 0 K → PASS
+    const spec: MachineSpec = {
+      ...BASE_SPEC,
+      nominal_delta_t_evap_k: 40,
+    };
+    const report = validateMachine(spec, BASE_COMPONENTS);
+    const criterion = report.criteria.find((c) => c.criterion_id === "delta_t_evap_check");
+    expect(criterion).toBeDefined();
+    expect(criterion!.status).toBe("pass");
+    expect(criterion!.calculated_value).toBeCloseTo(40, 0); // T_ambient(32) - T_evap(-8) = 40 K
+    expect(criterion!.reference_value).toBe(40);
+  });
+
+  it("deve ter status WARNING quando ΔT real está entre 1× e 2× a tolerância", () => {
+    // ΔT_real = 40 K, ΔT_nominal = 37 K → desvio = +3 K (> 2 K, ≤ 4 K) → WARNING
+    const spec: MachineSpec = {
+      ...BASE_SPEC,
+      nominal_delta_t_evap_k: 37,
+    };
+    const report = validateMachine(spec, BASE_COMPONENTS);
+    const criterion = report.criteria.find((c) => c.criterion_id === "delta_t_evap_check");
+    expect(criterion).toBeDefined();
+    expect(criterion!.status).toBe("warning");
+    expect(criterion!.diagnosis).toBeDefined();
+    expect(criterion!.diagnosis).toContain("subdimensionado");
+  });
+
+  it("deve ter status FAIL quando ΔT real excede 2× a tolerância", () => {
+    // ΔT_real = 40 K, ΔT_nominal = 30 K → desvio = +10 K (> 4 K) → FAIL
+    const spec: MachineSpec = {
+      ...BASE_SPEC,
+      nominal_delta_t_evap_k: 30,
+    };
+    const report = validateMachine(spec, BASE_COMPONENTS);
+    const criterion = report.criteria.find((c) => c.criterion_id === "delta_t_evap_check");
+    expect(criterion).toBeDefined();
+    expect(criterion!.status).toBe("fail");
+    expect(criterion!.diagnosis).toContain("Ações recomendadas");
+  });
+
+  it("deve ter status WARNING com diagnóstico de superdimensionamento quando ΔT real < nominal", () => {
+    // ΔT_real = 40 K, ΔT_nominal = 43 K → desvio = -3 K → WARNING (superdimensionado)
+    const spec: MachineSpec = {
+      ...BASE_SPEC,
+      nominal_delta_t_evap_k: 43,
+    };
+    const report = validateMachine(spec, BASE_COMPONENTS);
+    const criterion = report.criteria.find((c) => c.criterion_id === "delta_t_evap_check");
+    expect(criterion).toBeDefined();
+    expect(criterion!.status).toBe("warning");
+    expect(criterion!.diagnosis).toContain("superdimensionado");
+  });
+
+  it("deve incluir o critério no summary quando delta_T informado", () => {
+    const spec: MachineSpec = {
+      ...BASE_SPEC,
+      nominal_delta_t_evap_k: 30, // FAIL → rejected
+    };
+    const report = validateMachine(spec, BASE_COMPONENTS);
+    expect(report.summary.total_criteria).toBe(9);
+    expect(report.summary.failed).toBeGreaterThan(0);
+    expect(report.final_status).toBe("rejected");
+  });
+
+  it("deve incluir diagnóstico de ΔT nas recomendações quando FAIL", () => {
+    const spec: MachineSpec = {
+      ...BASE_SPEC,
+      nominal_delta_t_evap_k: 30,
+    };
+    const report = validateMachine(spec, BASE_COMPONENTS);
+    const hasRec = report.recommendations.some((r) => r.includes("ΔT Evaporador") || r.includes("Evaporador"));
+    expect(hasRec).toBe(true);
+  });
+
+  it("não deve incluir o critério quando nominal_delta_t_evap_k não informado", () => {
+    const report = validateMachine(BASE_SPEC, BASE_COMPONENTS);
+    const criterion = report.criteria.find((c) => c.criterion_id === "delta_t_evap_check");
+    expect(criterion).toBeUndefined();
+    expect(report.criteria).toHaveLength(8);
+  });
+
+  it("deve aceitar tolerância customizada via acceptance_criteria", () => {
+    // ΔT_real = 40 K, ΔT_nominal = 37 K → desvio = +3 K
+    // Com tolerância customizada de 5 K → desvio dentro da tolerância → PASS
+    const spec: MachineSpec = {
+      ...BASE_SPEC,
+      nominal_delta_t_evap_k: 37,
+      acceptance_criteria: { delta_t_evap_tolerance_k: 5 },
+    };
+    const report = validateMachine(spec, BASE_COMPONENTS);
+    const criterion = report.criteria.find((c) => c.criterion_id === "delta_t_evap_check");
+    expect(criterion).toBeDefined();
+    expect(criterion!.status).toBe("pass");
+  });
+});
+
+describe("Critério 10 — ΔT Condensador (delta_t_cond_check)", () => {
+  // Fixture: T_cond = 35 °C, T_ambient = 32 °C → ΔT_real = 3 K
+  // Tolerância padrão: ±3 K
+
+  it("deve ter status PASS quando ΔT real está dentro da tolerância", () => {
+    // ΔT_nominal = 3 K (igual ao real) → desvio = 0 K → PASS
+    const spec: MachineSpec = {
+      ...BASE_SPEC,
+      nominal_delta_t_cond_k: 3,
+    };
+    const report = validateMachine(spec, BASE_COMPONENTS);
+    const criterion = report.criteria.find((c) => c.criterion_id === "delta_t_cond_check");
+    expect(criterion).toBeDefined();
+    expect(criterion!.status).toBe("pass");
+    expect(criterion!.calculated_value).toBeCloseTo(3, 0); // T_cond(35) - T_ambient(32) = 3 K
+  });
+
+  it("deve ter status WARNING quando ΔT real excede a tolerância mas não o dobro", () => {
+    // ΔT_real = 3 K, ΔT_nominal = -1 K → desvio = +4 K (> 3 K, ≤ 6 K) → WARNING
+    const spec: MachineSpec = {
+      ...BASE_SPEC,
+      nominal_delta_t_cond_k: -1,
+    };
+    const report = validateMachine(spec, BASE_COMPONENTS);
+    const criterion = report.criteria.find((c) => c.criterion_id === "delta_t_cond_check");
+    expect(criterion).toBeDefined();
+    expect(criterion!.status).toBe("warning");
+  });
+
+  it("deve ter status FAIL quando ΔT real excede 2× a tolerância", () => {
+    // ΔT_real = 3 K, ΔT_nominal = -10 K → desvio = +13 K (> 6 K) → FAIL
+    const spec: MachineSpec = {
+      ...BASE_SPEC,
+      nominal_delta_t_cond_k: -10,
+    };
+    const report = validateMachine(spec, BASE_COMPONENTS);
+    const criterion = report.criteria.find((c) => c.criterion_id === "delta_t_cond_check");
+    expect(criterion).toBeDefined();
+    expect(criterion!.status).toBe("fail");
+    expect(criterion!.diagnosis).toContain("Ações recomendadas");
+  });
+
+  it("deve ter 10 critérios e summary correto quando ambos os delta_T informados", () => {
+    const spec: MachineSpec = {
+      ...BASE_SPEC,
+      nominal_delta_t_evap_k: 40,  // PASS
+      nominal_delta_t_cond_k: 3,   // PASS
+    };
+    const report = validateMachine(spec, BASE_COMPONENTS);
+    expect(report.criteria).toHaveLength(10);
+    expect(report.summary.total_criteria).toBe(10);
+    const evapCrit = report.criteria.find((c) => c.criterion_id === "delta_t_evap_check");
+    const condCrit = report.criteria.find((c) => c.criterion_id === "delta_t_cond_check");
+    expect(evapCrit!.status).toBe("pass");
+    expect(condCrit!.status).toBe("pass");
+  });
+
+  it("não deve incluir o critério quando nominal_delta_t_cond_k não informado", () => {
+    const report = validateMachine(BASE_SPEC, BASE_COMPONENTS);
+    const criterion = report.criteria.find((c) => c.criterion_id === "delta_t_cond_check");
+    expect(criterion).toBeUndefined();
+  });
+
+  it("deve aceitar tolerância customizada via acceptance_criteria", () => {
+    // ΔT_real = 3 K, ΔT_nominal = 7 K → desvio = -4 K
+    // Com tolerância customizada de 5 K → desvio dentro da tolerância → PASS
+    const spec: MachineSpec = {
+      ...BASE_SPEC,
+      nominal_delta_t_cond_k: 7,
+      acceptance_criteria: { delta_t_cond_tolerance_k: 5 },
+    };
+    const report = validateMachine(spec, BASE_COMPONENTS);
+    const criterion = report.criteria.find((c) => c.criterion_id === "delta_t_cond_check");
+    expect(criterion).toBeDefined();
+    expect(criterion!.status).toBe("pass");
   });
 });

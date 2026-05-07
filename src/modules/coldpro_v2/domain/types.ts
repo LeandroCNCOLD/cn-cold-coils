@@ -1091,6 +1091,20 @@ export interface MachineSpec {
   nominal_ambient_temp_c: number;
   /** Critérios de aceitação configuráveis. Usa padrões da norma se omitido. */
   acceptance_criteria?: Partial<MachineAcceptanceCriteria>;
+  /**
+   * ΔT nominal de projeto do evaporador (K).
+   * Definido como: ΔT_evap = T_ambiente − T_evap_nominal.
+   * Exemplo: câmara a −20 °C com T_evap = −27 °C → nominal_delta_t_evap_k = 7.
+   * Quando informado, habilita o critério `delta_t_evap_check` na validação.
+   */
+  nominal_delta_t_evap_k?: number;
+  /**
+   * ΔT nominal de projeto do condensador (K).
+   * Definido como: ΔT_cond = T_cond_nominal − T_ambiente_nominal.
+   * Exemplo: T_cond = +40 °C, T_ambiente = +32 °C → nominal_delta_t_cond_k = 8.
+   * Quando informado, habilita o critério `delta_t_cond_check` na validação.
+   */
+  nominal_delta_t_cond_k?: number;
 }
 
 /**
@@ -1114,6 +1128,16 @@ export interface MachineAcceptanceCriteria {
   evaporator_utilization_max_pct: number;
   /** Temperatura máxima de descarga do compressor (°C). Default: 130. */
   max_discharge_temp_c: number;
+  /**
+   * Tolerância máxima de desvio do ΔT do evaporador em relação ao nominal (K).
+   * Default: 2 K. Entre 0 e tolerance_k → PASS; entre tolerance_k e 2× → WARNING; acima de 2× → FAIL.
+   */
+  delta_t_evap_tolerance_k: number;
+  /**
+   * Tolerância máxima de desvio do ΔT do condensador em relação ao nominal (K).
+   * Default: 3 K.
+   */
+  delta_t_cond_tolerance_k: number;
 }
 
 /** Status de um critério individual de validação. */
