@@ -121,7 +121,7 @@ export function StartupTabContent({
     const identity: ProductIdentity = {
       id: machine?.id ?? "current",
       model: machine?.modelo ?? "Máquina atual",
-      family: machine?.familia ?? "—",
+      family: machine?.family ?? "—",
       line: machine?.linha ?? "—",
       refrigerant: compressor.refrigerant!,
     };
