@@ -19,8 +19,14 @@ import { useMemo } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { CheckCircle2, AlertCircle, XCircle, Flame, Zap, Snowflake, ArrowRight } from "lucide-react";
-import type { CompressorSpec, CondenserSpec } from "@/modules/coldpro_v2";
+import { CheckCircle2, AlertCircle, XCircle, Flame, Zap, Snowflake, ArrowRight, Cpu } from "lucide-react";
+import {
+  calculateElectricalAnalysis,
+  type CompressorSpec,
+  type CondenserSpec,
+  type ElectricalAnalysis,
+  type SystemComponentsInput,
+} from "@/modules/coldpro_v2";
 import type { PhDiagramResult } from "../../stores/useTestHubStore";
 
 interface Props {
@@ -30,6 +36,27 @@ interface Props {
 }
 
 export function EnergyBalanceTabContent({ compressor, condenser, phResult }: Props) {
+  // ── Motor v2: análise elétrica real ───────────────────────────────────────
+  const electricalResult = useMemo<ElectricalAnalysis | null>(() => {
+    const Q_evap_W = compressor.cooling_capacity_w ?? 0;
+    const W_comp_W = compressor.power_w ?? 0;
+    if (Q_evap_W <= 0 || W_comp_W <= 0) return null;
+    try {
+      // Apenas os campos consumidos pelo motor elétrico precisam estar populados.
+      // O cast evita exigir o ProgressiveCoilInput completo para o evaporador.
+      const systemInput = {
+        compressor: compressor as CompressorSpec,
+        condenser: condenser as CondenserSpec,
+        evaporator: { progressive_input: {} },
+        system_conditions: { ambient_temp_c: 25, required_airflow_m3_h: 0 },
+      } as unknown as SystemComponentsInput;
+      return calculateElectricalAnalysis({ system: systemInput, q_evap_w: Q_evap_W });
+    } catch (e) {
+      console.warn("[EnergyBalanceTab] calculateElectricalAnalysis falhou — usando fallback manual:", e);
+      return null;
+    }
+  }, [compressor, condenser]);
+
   const balance = useMemo(() => {
     const Q_evap_W = compressor.cooling_capacity_w ?? 0;
     const W_comp_W = compressor.power_w ?? Q_evap_W / 2.5;
@@ -87,6 +114,16 @@ export function EnergyBalanceTabContent({ compressor, condenser, phResult }: Pro
 
   return (
     <div className="space-y-5">
+      {/* Cabeçalho com badge do motor v2 */}
+      {electricalResult && (
+        <div className="flex items-center justify-end">
+          <Badge className="gap-1.5 bg-emerald-100 text-emerald-700 hover:bg-emerald-100">
+            <Cpu className="h-3 w-3" />
+            Motor v2 ativo
+          </Badge>
+        </div>
+      )}
+
       {/* Equação do balanço */}
       <Card className={`border-2 ${statusBg}`}>
         <CardContent className="p-5">
@@ -179,6 +216,63 @@ export function EnergyBalanceTabContent({ compressor, condenser, phResult }: Pro
           </Card>
         ))}
       </div>
+
+      {/* Análise Elétrica (Motor v2) */}
+      {electricalResult ? (
+        <Card className="border border-emerald-200">
+          <CardHeader className="pb-2">
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle className="text-sm">Análise Elétrica</CardTitle>
+                <CardDescription className="text-xs">
+                  Calculada por <code>calculateElectricalAnalysis</code> (coldpro_v2). Inclui
+                  potência de ventiladores quando informados.
+                </CardDescription>
+              </div>
+              <Badge variant="outline" className="text-[10px] text-emerald-700">Motor v2</Badge>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+              {[
+                { label: "Potência total do sistema", value: fmt(electricalResult.total_electrical_power_w) },
+                { label: "Potência do compressor", value: fmt(electricalResult.compressor_power_w) },
+                { label: "Potência total dos ventiladores", value: fmt(electricalResult.evap_fan_power_w + electricalResult.cond_fan_power_w) },
+                { label: "COP real do sistema", value: electricalResult.cop_system.toFixed(3) },
+                { label: "EER (BTU/W·h)", value: (electricalResult.cop_system * 3.41214).toFixed(3) },
+                { label: "Corrente total", value: `${electricalResult.total_current_a.toFixed(2)} A` },
+                { label: "Corrente do compressor", value: `${electricalResult.compressor_current_a.toFixed(2)} A` },
+                { label: "Tensão", value: `${electricalResult.voltage_v} V` },
+                { label: "Fases", value: `${electricalResult.phases}φ` },
+                { label: "Fator de potência", value: electricalResult.power_factor.toFixed(2) },
+              ].map(({ label, value }) => (
+                <div key={label} className="rounded-md border border-slate-200 bg-slate-50 p-3">
+                  <p className="text-[10px] uppercase tracking-wide text-slate-500">{label}</p>
+                  <p className="text-sm font-bold text-slate-800">{value}</p>
+                </div>
+              ))}
+            </div>
+            {electricalResult.warnings.length > 0 && (
+              <div className="mt-3 space-y-1">
+                {electricalResult.warnings.map((w, i) => (
+                  <Alert key={i} className="border-amber-200 bg-amber-50 py-2">
+                    <AlertCircle className="h-3.5 w-3.5 text-amber-500" />
+                    <AlertDescription className="text-xs text-amber-700">{w}</AlertDescription>
+                  </Alert>
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      ) : (
+        <Alert className="border-slate-200 bg-slate-50">
+          <AlertCircle className="h-4 w-4 text-slate-500" />
+          <AlertDescription className="text-xs text-slate-600">
+            Análise elétrica do motor v2 indisponível: preencha capacidade frigorífica e
+            potência do compressor para habilitar. Usando fallback manual abaixo.
+          </AlertDescription>
+        </Alert>
+      )}
 
       {/* Análise de Exergia */}
       <Card>
