@@ -217,6 +217,63 @@ export function EnergyBalanceTabContent({ compressor, condenser, phResult }: Pro
         ))}
       </div>
 
+      {/* Análise Elétrica (Motor v2) */}
+      {electricalResult ? (
+        <Card className="border border-emerald-200">
+          <CardHeader className="pb-2">
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle className="text-sm">Análise Elétrica</CardTitle>
+                <CardDescription className="text-xs">
+                  Calculada por <code>calculateElectricalAnalysis</code> (coldpro_v2). Inclui
+                  potência de ventiladores quando informados.
+                </CardDescription>
+              </div>
+              <Badge variant="outline" className="text-[10px] text-emerald-700">Motor v2</Badge>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+              {[
+                { label: "Potência total do sistema", value: fmt(electricalResult.total_electrical_power_w) },
+                { label: "Potência do compressor", value: fmt(electricalResult.compressor_power_w) },
+                { label: "Potência total dos ventiladores", value: fmt(electricalResult.evap_fan_power_w + electricalResult.cond_fan_power_w) },
+                { label: "COP real do sistema", value: electricalResult.cop_system.toFixed(3) },
+                { label: "EER (BTU/W·h)", value: (electricalResult.cop_system * 3.41214).toFixed(3) },
+                { label: "Corrente total", value: `${electricalResult.total_current_a.toFixed(2)} A` },
+                { label: "Corrente do compressor", value: `${electricalResult.compressor_current_a.toFixed(2)} A` },
+                { label: "Tensão", value: `${electricalResult.voltage_v} V` },
+                { label: "Fases", value: `${electricalResult.phases}φ` },
+                { label: "Fator de potência", value: electricalResult.power_factor.toFixed(2) },
+              ].map(({ label, value }) => (
+                <div key={label} className="rounded-md border border-slate-200 bg-slate-50 p-3">
+                  <p className="text-[10px] uppercase tracking-wide text-slate-500">{label}</p>
+                  <p className="text-sm font-bold text-slate-800">{value}</p>
+                </div>
+              ))}
+            </div>
+            {electricalResult.warnings.length > 0 && (
+              <div className="mt-3 space-y-1">
+                {electricalResult.warnings.map((w, i) => (
+                  <Alert key={i} className="border-amber-200 bg-amber-50 py-2">
+                    <AlertCircle className="h-3.5 w-3.5 text-amber-500" />
+                    <AlertDescription className="text-xs text-amber-700">{w}</AlertDescription>
+                  </Alert>
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      ) : (
+        <Alert className="border-slate-200 bg-slate-50">
+          <AlertCircle className="h-4 w-4 text-slate-500" />
+          <AlertDescription className="text-xs text-slate-600">
+            Análise elétrica do motor v2 indisponível: preencha capacidade frigorífica e
+            potência do compressor para habilitar. Usando fallback manual abaixo.
+          </AlertDescription>
+        </Alert>
+      )}
+
       {/* Análise de Exergia */}
       <Card>
         <CardHeader className="pb-2">
