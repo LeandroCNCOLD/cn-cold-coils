@@ -550,9 +550,27 @@ export function DataSanityTabContent({ machine, compressor, condenser, evaporato
             <div className="flex items-center gap-2">
               <ShieldCheck className="h-5 w-5 text-slate-600" />
               <div>
-                <CardTitle className="text-sm">Validação de Máquina Completa</CardTitle>
+                <div className="flex items-center gap-2">
+                  <CardTitle className="text-sm">Validação de Máquina Completa</CardTitle>
+                  {(conditions.nominal_delta_t_evap_k != null ||
+                    conditions.nominal_delta_t_cond_k != null) && (
+                    <Badge
+                      variant="outline"
+                      className="border-blue-300 bg-blue-50 text-[10px] text-blue-700"
+                    >
+                      ΔT ativo
+                    </Badge>
+                  )}
+                </div>
                 <CardDescription className="text-xs">
-                  8 critérios de aceitação calculados por <code>validateMachine</code> (coldpro_v2).
+                  {machineValidation.ok
+                    ? `${machineValidation.report.criteria.length} de ${
+                        8 +
+                        (conditions.nominal_delta_t_evap_k != null ? 1 : 0) +
+                        (conditions.nominal_delta_t_cond_k != null ? 1 : 0)
+                      } critérios`
+                    : "8 critérios base"}{" "}
+                  de aceitação calculados por <code>validateMachine</code> (coldpro_v2).
                 </CardDescription>
               </div>
             </div>
