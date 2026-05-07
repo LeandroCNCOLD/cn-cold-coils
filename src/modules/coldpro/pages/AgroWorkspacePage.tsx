@@ -15,11 +15,8 @@ import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Sprout, Droplets, Thermometer, Wind, Zap, Play, AlertCircle, CheckCircle2 } from "lucide-react";
 
-import {
-  calculateHotGasBypass,
-  type HotGasBypassInput,
-  type HotGasBypassResult,
-} from "@/modules/coldpro_v2";
+import { calculateHotGasBypass } from "@/modules/coldpro_v2";
+import type { HotGasBypassInput, HotGasBypassResult } from "@/modules/coldpro_v2/domain/types";
 
 interface FormState {
   T_air_in_c: number;
