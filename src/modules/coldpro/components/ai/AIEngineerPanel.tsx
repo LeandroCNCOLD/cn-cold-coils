@@ -335,7 +335,12 @@ export function AIEngineerPanel({ spec, components, onOpenInWorkspace }: Props) 
                   <span className="text-xs text-slate-500">/100</span>
                 </div>
               </div>
-              <Progress value={audit.indice_saude} className="h-2" indicatorClassName={classifColor(audit.classificacao)} />
+              <div className="h-2 w-full overflow-hidden rounded-full bg-slate-200">
+                <div
+                  className={`h-full transition-all ${classifColor(audit.classificacao)}`}
+                  style={{ width: `${audit.indice_saude}%` }}
+                />
+              </div>
               <div className="mt-2 flex items-center gap-2 text-[10px] text-slate-500">
                 <span>Gargalo dominante: <strong className="text-slate-700">{audit.gargalo_dominante}</strong></span>
                 <span>·</span>
