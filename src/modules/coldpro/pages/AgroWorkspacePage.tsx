@@ -106,6 +106,25 @@ export function AgroWorkspacePage() {
   const [form, setForm] = useState<FormState>(DEFAULTS);
   const [result, setResult] = useState<HotGasBypassResult | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
+  const setConditions = useTestHubStore((s) => s.setConditions);
+  const setCompressor = useTestHubStore((s) => s.setCompressor);
+  const setCondenser = useTestHubStore((s) => s.setCondenser);
+
+  function handleSendToHub() {
+    if (!result) return;
+    // Hidrata Hub com condições de evaporação/condensação derivadas do AGRO
+    setCompressor({ refrigerant: "R404A", T_evap_c: form.T_evaporating_c });
+    setCondenser({ T_cond_c: form.T_condensing_c });
+    setConditions({
+      ambient_temp_c: form.T_air_in_c,
+      required_airflow_m3_h: form.air_mass_flow_kg_s * 3600 / 1.2, // ρ ≈ 1.2 kg/m³
+    });
+    toast.success("Cenário AGRO enviado ao Hub de Testes", {
+      description: `T_evap=${form.T_evaporating_c}°C · T_cond=${form.T_condensing_c}°C · β=${(result.bypass_fraction * 100).toFixed(0)}%`,
+    });
+    navigate({ to: "/coldpro/hub-de-testes" });
+  }
 
   function update<K extends keyof FormState>(key: K, value: FormState[K]) {
     setForm((f) => ({ ...f, [key]: value }));
