@@ -4,7 +4,26 @@ import { getRefrigerantSatProps } from "../refrigerant/refrigerantProperties";
 export type CompressorModelType =
   | "ari540"
   | "bitzer_native"
+  | "en12900"
   | "constant_efficiency";
+
+export interface EN12900Coefficients {
+  c1: number; c2: number; c3: number; c4: number; c5: number;
+  c6: number; c7: number; c8: number; c9: number; c10: number;
+}
+
+export interface EN12900CompressorData {
+  Q_W: EN12900Coefficients;
+  P_W: EN12900Coefficients;
+  m_kgh: EN12900Coefficients;
+  I_A: EN12900Coefficients;
+  validity: {
+    evap_min_c: number;
+    evap_max_c: number;
+    cond_min_c: number;
+    cond_max_c: number;
+  };
+}
 
 export interface ARI540Coefficients {
   c1: number;
