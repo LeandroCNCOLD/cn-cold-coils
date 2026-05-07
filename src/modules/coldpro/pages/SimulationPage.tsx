@@ -265,6 +265,18 @@ export function SimulationPage() {
     }
   };
 
+  // Auto-disparo: assim que os dados herdados do Hub completarem todos os
+  // campos obrigatórios, executa o cálculo uma vez automaticamente.
+  const didAutoRun = useRef(false);
+  useEffect(() => {
+    if (didAutoRun.current) return;
+    if (!didHydrateFromHub.current) return;
+    if (!canCalculate || isCalculating || result) return;
+    didAutoRun.current = true;
+    handleCalculate();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [canCalculate, isCalculating, result]);
+
   return (
     <PageContainer
       title="Equilíbrio do Sistema"
