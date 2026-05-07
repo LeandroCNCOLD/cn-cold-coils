@@ -4,7 +4,26 @@ import { getRefrigerantSatProps } from "../refrigerant/refrigerantProperties";
 export type CompressorModelType =
   | "ari540"
   | "bitzer_native"
+  | "en12900"
   | "constant_efficiency";
+
+export interface EN12900Coefficients {
+  c1: number; c2: number; c3: number; c4: number; c5: number;
+  c6: number; c7: number; c8: number; c9: number; c10: number;
+}
+
+export interface EN12900CompressorData {
+  Q_W: EN12900Coefficients;
+  P_W: EN12900Coefficients;
+  m_kgh: EN12900Coefficients;
+  I_A: EN12900Coefficients;
+  validity: {
+    evap_min_c: number;
+    evap_max_c: number;
+    cond_min_c: number;
+    cond_max_c: number;
+  };
+}
 
 export interface ARI540Coefficients {
   c1: number;
@@ -46,11 +65,13 @@ export interface CompressorRecord {
   model: string;
   manufacturer: string;
   refrigerant: string;
+  power_supply?: string;
   modelType: CompressorModelType;
   ari540?: ARI540Coefficients;
   ari540Power?: ARI540PowerCoefficients;
   bitzerNative?: BitzerNativeCoefficients;
   constantEfficiency?: ConstantEfficiencyCoefficients;
+  en12900?: EN12900CompressorData;
 }
 
 export interface CompressorInputs {
@@ -290,6 +311,40 @@ export async function evaluateCompressor(
   ]);
   warnings.push(...evapProps.warnings, ...condProps.warnings);
   const satProps = { evap: evapProps, cond: condProps };
+
+  if (compressor.en12900) {
+    const d = compressor.en12900;
+    const evalC = (c: EN12900Coefficients) =>
+      eval10(
+        [c.c1, c.c2, c.c3, c.c4, c.c5, c.c6, c.c7, c.c8, c.c9, c.c10],
+        Te_C,
+        Tc_C,
+      );
+    const en12900Warnings: string[] = [];
+    if (Te_C < d.validity.evap_min_c || Te_C > d.validity.evap_max_c) {
+      en12900Warnings.push(
+        `Te=${Te_C}°C fora do range EN12900 [${d.validity.evap_min_c}..${d.validity.evap_max_c}°C]`,
+      );
+    }
+    if (Tc_C < d.validity.cond_min_c || Tc_C > d.validity.cond_max_c) {
+      en12900Warnings.push(
+        `Tc=${Tc_C}°C fora do range EN12900 [${d.validity.cond_min_c}..${d.validity.cond_max_c}°C]`,
+      );
+    }
+    const Q_W = Math.max(0, evalC(d.Q_W));
+    const W_comp_W = Math.max(0, evalC(d.P_W));
+    const m_dot_kgS = Math.max(0, evalC(d.m_kgh) / 3600);
+    return {
+      Q_evap_W: Q_W,
+      W_comp_W,
+      Q_cond_W: Q_W + W_comp_W,
+      m_dot_kgS,
+      COP: W_comp_W > 0 ? Q_W / W_comp_W : 0,
+      compressionRatio: compressionRatio(satProps),
+      mode: "en12900",
+      warnings: [...warnings, ...en12900Warnings],
+    };
+  }
 
   if (compressor.ari540) {
     const result = evaluateARI540(inputs, compressor.ari540, satProps, compressor.ari540Power);

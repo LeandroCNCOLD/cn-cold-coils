@@ -2,6 +2,7 @@ import type {
   ARI540Coefficients,
   CompressorInputs,
   CompressorRecord,
+  EN12900CompressorData,
 } from "./compressorModel";
 import { evaluateCompressor } from "./compressorModel";
 
@@ -43,20 +44,33 @@ export async function loadBitzerCatalog(): Promise<CompressorRecord[]> {
   );
   const compressors = Array.isArray(data.compressors) ? data.compressors : [];
 
-  return compressors.map((c) => ({
-    id: String(c.id),
-    model: String(c.model ?? c.id),
-    manufacturer: String(c.manufacturer ?? "BITZER"),
-    refrigerant: String(c.refrigerant ?? ""),
-    modelType: "bitzer_native" as const,
-    bitzerNative: {
-      displacement_m3h: Number(c.displacement_m3h ?? 0),
-      coeff_lambda: toTriple(c.coeff_lambda),
-      coeff_current: toTriple(c.coeff_current),
-      coeff_specific_power: toTriple(c.coeff_specific_power),
-      rpm: Number(c.rpm ?? 0),
-    },
-  }));
+  return compressors.map((c) => {
+    if (c.modelType === "en12900" && c.en12900) {
+      return {
+        id: String(c.id),
+        model: String(c.model ?? c.id),
+        manufacturer: String(c.manufacturer ?? "BITZER"),
+        refrigerant: String(c.refrigerant ?? ""),
+        power_supply: String(c.power_supply ?? ""),
+        modelType: "en12900" as const,
+        en12900: c.en12900 as EN12900CompressorData,
+      };
+    }
+    return {
+      id: String(c.id),
+      model: String(c.model ?? c.id),
+      manufacturer: String(c.manufacturer ?? "BITZER"),
+      refrigerant: String(c.refrigerant ?? ""),
+      modelType: "bitzer_native" as const,
+      bitzerNative: {
+        displacement_m3h: Number(c.displacement_m3h ?? 0),
+        coeff_lambda: toTriple(c.coeff_lambda),
+        coeff_current: toTriple(c.coeff_current),
+        coeff_specific_power: toTriple(c.coeff_specific_power),
+        rpm: Number(c.rpm ?? 0),
+      },
+    };
+  });
 }
 
 export async function loadCnCoilsCompressorCatalog(): Promise<CompressorRecord[]> {
