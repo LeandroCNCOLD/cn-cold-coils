@@ -39,6 +39,7 @@ const NAV_ENGENHARIA: NavItem[] = [
   { to: "/coldpro/catalog", label: "navigation.catalogSelection", Icon: Database },
   { to: "/coldpro/cncoils", label: "navigation.cnCoilsSimulator", Icon: Gauge },
   { to: "/coldpro/hub-de-testes", label: "navigation.testHub", Icon: FlaskConical },
+  { to: "/coldpro/agro", label: "AGRO", Icon: Sprout },
 ];
 
 const NAV_CADASTROS: NavItem[] = [
