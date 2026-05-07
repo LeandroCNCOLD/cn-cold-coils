@@ -291,3 +291,13 @@ export { validateMachine } from "./engines/validation/machineValidationEngine";
 export { generateStartupReference, applyFieldMeasurements } from "./engines/startup/startupReferenceEngine";
 // Adapters — machine datasheet export (Sprint 4)
 export { exportMachineDatasheet } from "./adapters/machineDatasheetExportAdapter";
+// Services — startup hub (Sprint 5)
+export {
+  compareParameterWithReference,
+  resolveGroupStatus,
+  resolveCommissioningStatus,
+  generateCommissioningReport,
+  validateCommissioningInput,
+  summarizeCommissioningReport,
+} from "./services/startupHubService";
+export { createStartupHubHandlers } from "./services/startupHubRouter";

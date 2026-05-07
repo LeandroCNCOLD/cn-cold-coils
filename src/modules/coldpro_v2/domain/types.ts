@@ -1898,3 +1898,80 @@ export interface MachineDatasheetExport {
     source: "calculated" | "imported" | "hybrid";
   };
 }
+
+// ============================================================
+// Sprint 5 — Hub de Start-up: Medições em Campo e Relatório de Comissionamento
+// ============================================================
+
+/**
+ * Medições reais informadas pelo técnico em campo durante o start-up.
+ * Cada chave corresponde ao `id` de um `StartupParameter`.
+ */
+export type StartupFieldMeasurements = Record<string, number>;
+
+/**
+ * Resultado individual de um parâmetro após comparação com a referência.
+ */
+export interface CommissioningParameterResult {
+  parameter_id: string;
+  label: string;
+  unit: string;
+  reference_value: number;
+  measured_value: number;
+  deviation: number;
+  deviation_pct: number;
+  status: StartupParameterStatus;
+  diagnosis: string | null;
+  measurement_instruction: string;
+}
+
+/**
+ * Resultado de um grupo de parâmetros no relatório de comissionamento.
+ */
+export interface CommissioningGroupResult {
+  group_id: string;
+  group_label: string;
+  group_status: StartupParameterStatus;
+  parameters: CommissioningParameterResult[];
+}
+
+/**
+ * Status geral do comissionamento.
+ */
+export type CommissioningStatus = "approved" | "conditional" | "rejected" | "incomplete";
+
+/**
+ * Relatório completo de comissionamento gerado após o técnico informar as medições.
+ */
+export interface CommissioningReport {
+  report_id: string;
+  machine_model: string;
+  serial_number: string;
+  technician_name: string;
+  commissioned_at: string;
+  location: string;
+  final_status: CommissioningStatus;
+  summary: {
+    total_parameters: number;
+    measured: number;
+    passed: number;
+    warnings: number;
+    failed: number;
+  };
+  groups: CommissioningGroupResult[];
+  technician_notes: string;
+  system_warnings: string[];
+  generated_at: string;
+}
+
+/**
+ * Entrada para geração do relatório de comissionamento.
+ */
+export interface CommissioningReportInput {
+  reference_sheet: StartupReferenceSheet;
+  measurements: StartupFieldMeasurements;
+  serial_number: string;
+  technician_name: string;
+  location: string;
+  technician_notes?: string;
+}
