@@ -331,6 +331,92 @@ export function DataSanityTabContent({ machine, compressor, condenser, evaporato
     return groups;
   }, [machine, compressor, condenser, evaporator, conditions]);
 
+  // ───────────────────────────────────────────────────────────────────────────
+  // Validação de Máquina Completa (motor v2 — validateMachine)
+  // ───────────────────────────────────────────────────────────────────────────
+  const machineValidation = useMemo<
+    | { ok: true; report: MachineValidationReport }
+    | { ok: false; missing: string[] }
+  >(() => {
+    const missing: string[] = [];
+    const row = machine;
+    const nominal_capacity_w =
+      compressor.cooling_capacity_w ??
+      (row?.capacidadeFrigorificaKcalH ? row.capacidadeFrigorificaKcalH * KCALH_TO_W : undefined);
+    const nominal_power_w =
+      compressor.power_w ??
+      (row?.potenciaCompressorKw ? row.potenciaCompressorKw * 1000 : undefined);
+    const nominal_evap = compressor.evap_temp_c ?? row?.tempEvaporacaoC;
+    const nominal_cond = compressor.cond_temp_c ?? row?.tempCondensacaoC;
+    const nominal_ambient = conditions.ambient_temp_c ?? row?.tempCamaraC;
+
+    if (!nominal_capacity_w) missing.push("Capacidade frigorífica nominal");
+    if (!nominal_power_w) missing.push("Potência elétrica nominal");
+    if (nominal_evap == null) missing.push("Temperatura de evaporação nominal");
+    if (nominal_cond == null) missing.push("Temperatura de condensação nominal");
+    if (nominal_ambient == null) missing.push("Temperatura ambiente");
+    if (!compressor.power_w || !compressor.cooling_capacity_w) {
+      missing.push("Compressor (capacidade + potência) para rodar o equilíbrio");
+    }
+
+    if (missing.length > 0) return { ok: false, missing };
+
+    const nominal_cop = nominal_capacity_w! / nominal_power_w!;
+    const machine_id = machine?.id ?? "current";
+    const model = machine?.modelo ?? "Máquina atual";
+
+    const machineSpec: MachineSpec = {
+      machine_id,
+      model,
+      nominal_capacity_w: nominal_capacity_w!,
+      nominal_power_w: nominal_power_w!,
+      nominal_cop,
+      nominal_evap_temp_c: nominal_evap!,
+      nominal_cond_temp_c: nominal_cond!,
+      nominal_ambient_temp_c: nominal_ambient!,
+    };
+
+    const systemInput = {
+      compressor: compressor as CompressorSpec,
+      condenser: condenser as CondenserSpec,
+      evaporator: { progressive_input: {} },
+      system_conditions: {
+        ambient_temp_c: nominal_ambient!,
+        required_airflow_m3_h: evaporator.airflow_m3_h ?? row?.vazaoArEvaporadorM3H ?? 0,
+      },
+    } as unknown as SystemComponentsInput;
+
+    try {
+      const report = validateMachine(machineSpec, systemInput);
+      return { ok: true, report };
+    } catch (e) {
+      console.warn("[DataSanityTab] validateMachine falhou:", e);
+      return { ok: false, missing: ["Equilíbrio falhou — verifique especificação do evaporador"] };
+    }
+  }, [machine, compressor, condenser, evaporator, conditions]);
+
+  const finalStatusBadge = (status: "approved" | "conditional" | "rejected") => {
+    const map = {
+      approved: { label: "APROVADA", className: "bg-emerald-100 text-emerald-700 border-emerald-300" },
+      conditional: { label: "CONDICIONAL", className: "bg-amber-100 text-amber-700 border-amber-300" },
+      rejected: { label: "REJEITADA", className: "bg-red-100 text-red-700 border-red-300" },
+    } as const;
+    return map[status];
+  };
+
+  const statusIcon = (s: ValidationStatus) => {
+    if (s === "pass") return <CheckCircle2 className="h-4 w-4 text-emerald-500" />;
+    if (s === "warning") return <AlertCircle className="h-4 w-4 text-amber-500" />;
+    return <XCircle className="h-4 w-4 text-red-500" />;
+  };
+
+  const fmtVal = (v: number, unit: string) => {
+    if (unit === "W") return v >= 1000 ? `${(v / 1000).toFixed(2)} kW` : `${v.toFixed(0)} W`;
+    if (unit === "%") return `${v.toFixed(1)}%`;
+    if (unit === "°C") return `${v.toFixed(1)} °C`;
+    return v.toFixed(3);
+  };
+
   const criticalCount = groups.reduce((s, g) => s + g.fields.filter((f) => f.status === "critical").length, 0);
   const estimatedCount = groups.reduce((s, g) => s + g.fields.filter((f) => f.status === "estimated").length, 0);
   const completeCount = groups.reduce((s, g) => s + g.fields.filter((f) => f.status === "complete").length, 0);
