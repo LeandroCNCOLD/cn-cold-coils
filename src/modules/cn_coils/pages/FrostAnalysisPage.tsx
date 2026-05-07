@@ -198,9 +198,16 @@ export function FrostAnalysisPage() {
   return (
     <div className="min-h-screen bg-gray-950 text-white">
       <div className="border-b border-gray-800 px-6 py-3">
-        <div className="flex items-center gap-2">
-          <Snowflake className="h-5 w-5 text-cyan-400" />
-          <h1 className="text-lg font-bold">Análise de Geada</h1>
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <Snowflake className="h-5 w-5 text-cyan-400" />
+            <h1 className="text-lg font-bold">Análise de Geada</h1>
+          </div>
+          {inheritedFromHub && (
+            <span className="inline-flex items-center gap-1 rounded border border-cyan-700/50 bg-cyan-900/30 px-2 py-0.5 text-[10px] font-medium text-cyan-300">
+              <Database className="h-3 w-3" /> Herdado do Hub de Testes
+            </span>
+          )}
         </div>
         <p className="text-xs text-gray-400">
           Curva Q(t) de degradação · Tempo até degelo necessário · {refrigerantId}
