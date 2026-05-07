@@ -328,6 +328,9 @@ export function TestHubPage() {
         <TabsContent value="comparison" className="mt-0">
           <MachineComparisonTabContent machine={selectedMachine} compressor={compressor} />
         </TabsContent>
+        <TabsContent value="startup" className="mt-0">
+          <StartupTabContent machine={selectedMachine} compressor={compressor} condenser={condenser} evaporator={evaporator} conditions={conditions} />
+        </TabsContent>
         <TabsContent value="ai" className="mt-0">
           <AIAnalysisTabContent />
         </TabsContent>
