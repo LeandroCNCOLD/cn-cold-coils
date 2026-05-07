@@ -296,9 +296,14 @@ export function AgroWorkspacePage() {
                       <Zap className="h-4 w-4 text-violet-500" />
                       Ciclo com Hot Gas Bypass
                     </CardTitle>
-                    <Badge variant="outline" className={`${mode.className} text-xs`}>
-                      {mode.label}
-                    </Badge>
+                    <div className="flex items-center gap-2">
+                      <Badge variant="outline" className={`${mode.className} text-xs`}>
+                        {mode.label}
+                      </Badge>
+                      <Button size="sm" variant="outline" onClick={handleSendToHub} className="h-7 gap-1 text-xs">
+                        <Send className="h-3 w-3" /> Enviar ao Hub
+                      </Button>
+                    </div>
                   </div>
                 </CardHeader>
                 <CardContent className="grid gap-2 sm:grid-cols-2">
