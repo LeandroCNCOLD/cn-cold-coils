@@ -125,9 +125,9 @@ export function FanLibraryBrowser() {
       if (minPressure > 0 && f.sphAt0Pa < minPressure) return false;
       if (!q) return true;
       return (
-        f.model.toLowerCase().includes(q) ||
-        f.manufacturer.toLowerCase().includes(q) ||
-        f.facets.motorLabel.toLowerCase().includes(q)
+        (f.model ?? "").toLowerCase().includes(q) ||
+        (f.manufacturer ?? "").toLowerCase().includes(q) ||
+        (f.facets?.motorLabel ?? "").toLowerCase().includes(q)
       );
     });
   }, [enriched, search, seriesFilter, motorFilter, sizeFilter, minFlow, minPressure]);
