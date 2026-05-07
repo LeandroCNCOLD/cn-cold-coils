@@ -51,4 +51,6 @@ export const useSessionStore = create<SessionStore>((set, get) => ({
       activeSessionId: state.activeSessionId === id ? null : state.activeSessionId,
     }));
   },
+
+  reset: () => set({ sessions: [], activeSessionId: null }),
 }));
