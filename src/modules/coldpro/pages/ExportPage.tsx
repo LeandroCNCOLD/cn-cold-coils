@@ -61,6 +61,188 @@ function downloadJson(filename: string, payload: unknown) {
   URL.revokeObjectURL(url);
 }
 
+function downloadDatasheetPdf(sheet: MachineDatasheetExport) {
+  const doc = new jsPDF({ unit: "mm", format: "a4" });
+  const margin = 14;
+  const pageW = doc.internal.pageSize.getWidth();
+  let y = margin;
+
+  // Header
+  doc.setFillColor(30, 111, 217);
+  doc.rect(0, 0, pageW, 22, "F");
+  doc.setTextColor(255, 255, 255);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(14);
+  doc.text("CN COLD — Data Sheet Técnico", margin, 10);
+  doc.setFontSize(9);
+  doc.setFont("helvetica", "normal");
+  doc.text(
+    `${sheet.product.model}  ·  ${sheet.product.refrigerant}  ·  ${sheet.schema_version}`,
+    margin,
+    16,
+  );
+  doc.setTextColor(0, 0, 0);
+  y = 28;
+
+  // Status badge
+  doc.setFontSize(8);
+  doc.text(
+    `Gerado em: ${new Date(sheet.exported_at).toLocaleString("pt-BR")}   |   Status: ${sheet.validation_status.toUpperCase()}`,
+    margin,
+    y,
+  );
+  y += 6;
+
+  // Identidade
+  autoTable(doc, {
+    startY: y,
+    head: [["Identificação", ""]],
+    body: [
+      ["ID", sheet.product.id],
+      ["Modelo", sheet.product.model],
+      ["Família", sheet.product.family],
+      ["Linha", sheet.product.line],
+      ["Refrigerante", sheet.product.refrigerant],
+      ...(sheet.product.application ? [["Aplicação", sheet.product.application]] : []),
+    ],
+    styles: { fontSize: 8, cellPadding: 1.5 },
+    headStyles: { fillColor: [30, 111, 217], textColor: 255 },
+    margin: { left: margin, right: margin },
+    theme: "grid",
+  });
+  y = (doc as unknown as { lastAutoTable: { finalY: number } }).lastAutoTable.finalY + 5;
+
+  // Elétrica
+  if (sheet.electrical) {
+    const e = sheet.electrical;
+    autoTable(doc, {
+      startY: y,
+      head: [["Análise Elétrica", ""]],
+      body: [
+        ["Potência total", `${e.total_power_w.toFixed(0)} W`],
+        ["Compressor", `${e.compressor_power_w.toFixed(0)} W`],
+        ["Ventiladores", `${e.fans_total_power_w.toFixed(0)} W`],
+        ["Corrente total", `${e.estimated_current_a.toFixed(2)} A`],
+        ["Tensão / Fases", `${e.voltage_v} V / ${e.phases}∅`],
+        ["Fator de potência", e.power_factor.toFixed(2)],
+        ["COP sistema", e.cop_system.toFixed(2)],
+        ["EER", `${e.eer_btu_wh.toFixed(2)} BTU/W·h`],
+      ],
+      styles: { fontSize: 8, cellPadding: 1.5 },
+      headStyles: { fillColor: [245, 158, 11], textColor: 255 },
+      margin: { left: margin, right: margin },
+      theme: "grid",
+    });
+    y = (doc as unknown as { lastAutoTable: { finalY: number } }).lastAutoTable.finalY + 5;
+  }
+
+  // Performance
+  if (sheet.performance_curve && sheet.performance_curve.length > 0) {
+    autoTable(doc, {
+      startY: y,
+      head: [["Te (°C)", "Tc (°C)", "Cap (W)", "W comp", "W tot", "COP c", "COP s", "Q cond", "Status"]],
+      body: sheet.performance_curve.map((p) => [
+        p.evap_temp_c.toFixed(1),
+        p.cond_temp_c.toFixed(1),
+        p.capacity_w.toFixed(0),
+        p.compressor_power_w.toFixed(0),
+        p.total_power_w.toFixed(0),
+        p.cop_compressor.toFixed(2),
+        p.cop_system.toFixed(2),
+        p.q_cond_w.toFixed(0),
+        p.status,
+      ]),
+      styles: { fontSize: 7, cellPadding: 1 },
+      headStyles: { fillColor: [59, 130, 246], textColor: 255 },
+      margin: { left: margin, right: margin },
+      theme: "striped",
+    });
+    y = (doc as unknown as { lastAutoTable: { finalY: number } }).lastAutoTable.finalY + 5;
+  }
+
+  // Polinômios
+  if (sheet.polynomial_sets && sheet.polynomial_sets.length > 0) {
+    autoTable(doc, {
+      startY: y,
+      head: [["Alvo", "Unidade", "R²", "Pontos", "Qualidade"]],
+      body: sheet.polynomial_sets.map((p) => [
+        p.target_label,
+        p.unit,
+        p.r_squared.toFixed(4),
+        String(p.used_points),
+        p.fit_quality,
+      ]),
+      styles: { fontSize: 8, cellPadding: 1.5 },
+      headStyles: { fillColor: [139, 92, 246], textColor: 255 },
+      margin: { left: margin, right: margin },
+      theme: "grid",
+    });
+    y = (doc as unknown as { lastAutoTable: { finalY: number } }).lastAutoTable.finalY + 5;
+  }
+
+  // Start-up
+  if (sheet.startup_reference) {
+    const rows: (string | number)[][] = [];
+    sheet.startup_reference.groups.forEach((g) => {
+      g.parameters.forEach((p) => {
+        rows.push([g.group_label, p.label, `${p.reference_value.toFixed(2)} ${p.unit}`]);
+      });
+    });
+    autoTable(doc, {
+      startY: y,
+      head: [["Grupo", "Parâmetro", "Referência"]],
+      body: rows,
+      styles: { fontSize: 8, cellPadding: 1.5 },
+      headStyles: { fillColor: [16, 185, 129], textColor: 255 },
+      margin: { left: margin, right: margin },
+      theme: "grid",
+    });
+    y = (doc as unknown as { lastAutoTable: { finalY: number } }).lastAutoTable.finalY + 5;
+    doc.setFontSize(8);
+    doc.text(
+      `Carga estimada: ${sheet.startup_reference.estimated_charge_kg.toFixed(2)} kg ± ${sheet.startup_reference.charge_tolerance_kg.toFixed(2)} kg`,
+      margin,
+      y,
+    );
+    y += 6;
+  }
+
+  // Avisos
+  if (sheet.warnings.length > 0) {
+    if (y > 250) {
+      doc.addPage();
+      y = margin;
+    }
+    doc.setFontSize(9);
+    doc.setFont("helvetica", "bold");
+    doc.text("Avisos:", margin, y);
+    y += 4;
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(8);
+    sheet.warnings.forEach((w) => {
+      const lines = doc.splitTextToSize(`• ${w}`, pageW - margin * 2);
+      doc.text(lines, margin, y);
+      y += lines.length * 4;
+    });
+  }
+
+  // Footer em todas as páginas
+  const pageCount = (doc as unknown as { internal: { getNumberOfPages: () => number } }).internal.getNumberOfPages();
+  for (let i = 1; i <= pageCount; i++) {
+    doc.setPage(i);
+    doc.setFontSize(7);
+    doc.setTextColor(120, 120, 120);
+    doc.text(
+      `CN COLD Engenharia · Data Sheet ${sheet.schema_version} · Página ${i}/${pageCount}`,
+      margin,
+      doc.internal.pageSize.getHeight() - 6,
+    );
+  }
+
+  doc.save(`datasheet_${sheet.product.model.replace(/\s+/g, "_")}_${Date.now()}.pdf`);
+}
+
+
 // ── Picker ───────────────────────────────────────────────────────────────────
 function MachinePicker({
   selectedId,
