@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { PlaceholderPage } from "@/modules/coldpro/pages/PlaceholderPage";
+import { CommissioningPage } from "@/modules/coldpro/pages/CommissioningPage";
 
 export const Route = createFileRoute("/_app/coldpro/audit")({
-  component: () => <PlaceholderPage title="Auditoria CN COLD" />,
+  component: CommissioningPage,
 });
