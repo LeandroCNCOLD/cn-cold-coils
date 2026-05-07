@@ -356,7 +356,7 @@ export function AgroWorkspacePage() {
                     <div className="rounded border border-amber-200 bg-amber-50/60 p-2">
                       <p className="font-bold text-amber-700">Avisos do motor:</p>
                       <ul className="ml-4 list-disc text-amber-700">
-                        {result.warnings.map((w, i) => (
+                        {result.warnings.map((w: string, i: number) => (
                           <li key={i}>{w}</li>
                         ))}
                       </ul>
