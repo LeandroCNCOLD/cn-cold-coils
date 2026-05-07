@@ -12,7 +12,7 @@ import {
   Settings2, Activity, TrendingUp, Map, BarChart3, Snowflake,
   AlertCircle, CheckCircle2, Clock, Zap, Brain,
   FileText, Wind, Shield, Target, GitCompare, BarChart2,
-  Gauge, FlaskConical, Play, Loader2, LayoutDashboard,
+  Gauge, FlaskConical, Play, Loader2, LayoutDashboard, ClipboardCheck,
 } from "lucide-react";
 import { HubConfigSidebar } from "../components/HubConfigSidebar";
 import { useHubStoreSync } from "../hooks/useHubStoreSync";
