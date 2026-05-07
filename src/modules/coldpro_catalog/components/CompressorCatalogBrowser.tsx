@@ -168,7 +168,7 @@ export function CompressorCatalogBrowser({ onSelect, selectedId }: Props) {
   if (!index) {
     return (
       <div className="rounded-md border border-border bg-muted/30 p-4 text-sm text-muted-foreground">
-        Carregando catálogo de compressores (12 mil modelos)...
+        Carregando catálogo de compressores...
       </div>
     );
   }
@@ -201,7 +201,11 @@ export function CompressorCatalogBrowser({ onSelect, selectedId }: Props) {
         >
           <option value="all">Todos fabricantes</option>
           <option value="Copeland">Copeland</option>
+          <option value="Maneurop">Maneurop</option>
           <option value="Bitzer">Bitzer</option>
+          <option value="Tecumseh">Tecumseh</option>
+          <option value="Danfoss">Danfoss</option>
+          <option value="Refcomp">Refcomp</option>
         </select>
         <select
           value={application}

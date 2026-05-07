@@ -232,7 +232,7 @@ export function CompressorPickerModal({ open, onClose, onSelect }: Props) {
           {/* Lista */}
           <div className="max-h-72 overflow-auto rounded-lg border border-slate-200">
             {loading ? (
-              <div className="p-4 text-center text-xs text-slate-500">Carregando 12.251 compressores…</div>
+              <div className="p-4 text-center text-xs text-slate-500">Carregando catálogo de compressores…</div>
             ) : filtered.length === 0 ? (
               <div className="p-4 text-center text-xs text-slate-500">
                 Nenhum compressor encontrado ({items.length.toLocaleString("pt-BR")} no catálogo).
