@@ -80,6 +80,7 @@ import { catalogRowToEvaporatorInputs } from "@/modules/coldpro_catalog/utils/ca
 import { loadCompressorIndex, getCompressorById } from "@/modules/coldpro_catalog/data/compressorCatalog.service";
 import type { CompressorCatalogRow } from "@/modules/coldpro_catalog/data/compressorCatalog.types";
 import { useProjectStore } from "../store/useProjectStore";
+import { resetCnCoilsWorkspace } from "../utils/workspaceReset";
 import type { AIContext } from "../components/WorkspaceAIChat";
 import type { StructuredWarning } from "../types/warnings";
 import type { OperatingMapPoint } from "../engines/operatingMap/operatingMapTypes";
