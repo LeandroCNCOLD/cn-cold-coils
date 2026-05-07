@@ -536,6 +536,113 @@ export function DataSanityTabContent({ machine, compressor, condenser, evaporato
           );
         })}
       </div>
+
+      {/* ── Validação de Máquina Completa (motor v2) ───────────────────── */}
+      <Card className="border-2 border-slate-200">
+        <CardHeader className="pb-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <ShieldCheck className="h-5 w-5 text-slate-600" />
+              <div>
+                <CardTitle className="text-sm">Validação de Máquina Completa</CardTitle>
+                <CardDescription className="text-xs">
+                  8 critérios de aceitação calculados por <code>validateMachine</code> (coldpro_v2).
+                </CardDescription>
+              </div>
+            </div>
+            {machineValidation.ok && (() => {
+              const b = finalStatusBadge(machineValidation.report.final_status);
+              return <Badge variant="outline" className={`${b.className} text-xs`}>{b.label}</Badge>;
+            })()}
+          </div>
+        </CardHeader>
+        <CardContent>
+          {!machineValidation.ok ? (
+            <Alert className="border-amber-200 bg-amber-50">
+              <AlertCircle className="h-4 w-4 text-amber-500" />
+              <AlertDescription className="text-xs text-amber-700">
+                <strong>Dados insuficientes para validação completa.</strong> Faltam:
+                <ul className="ml-4 mt-1 list-disc">
+                  {machineValidation.missing.map((m, i) => <li key={i}>{m}</li>)}
+                </ul>
+              </AlertDescription>
+            </Alert>
+          ) : (
+            <div className="space-y-4">
+              {/* Resumo de critérios */}
+              <div className="flex flex-wrap gap-3 text-xs">
+                <span className="flex items-center gap-1.5">
+                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
+                  {machineValidation.report.summary.passed} aprovados
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <AlertCircle className="h-3.5 w-3.5 text-amber-500" />
+                  {machineValidation.report.summary.warnings} avisos
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <XCircle className="h-3.5 w-3.5 text-red-500" />
+                  {machineValidation.report.summary.failed} falhas
+                </span>
+                <span className="ml-auto text-slate-400">
+                  Ponto de operação: Te {machineValidation.report.operating_point.evap_temp_c.toFixed(1)} °C ·
+                  Tc {machineValidation.report.operating_point.cond_temp_c.toFixed(1)} °C
+                </span>
+              </div>
+
+              {/* Cards por critério */}
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {machineValidation.report.criteria.map((c) => (
+                  <div
+                    key={c.criterion_id}
+                    className={`rounded-lg border p-3 ${
+                      c.status === "pass"
+                        ? "border-emerald-200 bg-emerald-50/40"
+                        : c.status === "warning"
+                        ? "border-amber-200 bg-amber-50/40"
+                        : "border-red-200 bg-red-50/40"
+                    }`}
+                  >
+                    <div className="flex items-start gap-2">
+                      {statusIcon(c.status)}
+                      <div className="min-w-0 flex-1">
+                        <p className="text-xs font-bold text-slate-800">{c.label}</p>
+                        <p className="mt-0.5 font-mono text-[11px] text-slate-600">
+                          {fmtVal(c.calculated_value, c.unit)} <span className="text-slate-400">vs.</span>{" "}
+                          {fmtVal(c.reference_value, c.unit)} nominal
+                        </p>
+                        <p className="text-[10px] text-slate-500">
+                          Desvio: {c.deviation_pct >= 0 ? "+" : ""}
+                          {c.deviation_pct.toFixed(2)}%
+                        </p>
+                        <p className="mt-1 text-[10px] text-slate-600">{c.message}</p>
+                        {c.diagnosis && c.status !== "pass" && (
+                          <p className="mt-1 text-[10px] italic text-slate-500">↳ {c.diagnosis}</p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Recomendações consolidadas */}
+              {machineValidation.report.recommendations.length > 0 &&
+                machineValidation.report.final_status !== "approved" && (
+                  <Alert className="border-slate-200 bg-slate-50">
+                    <AlertCircle className="h-4 w-4 text-slate-500" />
+                    <AlertDescription className="text-xs text-slate-700">
+                      <strong>Recomendações de ajuste:</strong>
+                      <ul className="ml-4 mt-1 list-disc space-y-0.5">
+                        {machineValidation.report.recommendations.map((r, i) => (
+                          <li key={i}>{r}</li>
+                        ))}
+                      </ul>
+                    </AlertDescription>
+                  </Alert>
+                )}
+            </div>
+          )}
+        </CardContent>
+      </Card>
     </div>
   );
 }
