@@ -29,6 +29,7 @@ import {
 } from "@/modules/coldpro_v2";
 import type { EvaporatorFormValue } from "../../components/forms/EvaporatorForm";
 import type { SystemConditions } from "../../components/forms/SystemConditionsForm";
+import { AIEngineerPanel } from "../../components/ai/AIEngineerPanel";
 
 interface Props {
   machine: CatalogEquipmentRow | null;
@@ -335,7 +336,7 @@ export function DataSanityTabContent({ machine, compressor, condenser, evaporato
   // Validação de Máquina Completa (motor v2 — validateMachine)
   // ───────────────────────────────────────────────────────────────────────────
   const machineValidation = useMemo<
-    | { ok: true; report: MachineValidationReport }
+    | { ok: true; report: MachineValidationReport; spec: MachineSpec; components: SystemComponentsInput }
     | { ok: false; missing: string[] }
   >(() => {
     const missing: string[] = [];
@@ -394,7 +395,7 @@ export function DataSanityTabContent({ machine, compressor, condenser, evaporato
 
     try {
       const report = validateMachine(machineSpec, systemInput);
-      return { ok: true, report };
+      return { ok: true, report, spec: machineSpec, components: systemInput };
     } catch (e) {
       console.warn("[DataSanityTab] validateMachine falhou:", e);
       return { ok: false, missing: ["Equilíbrio falhou — verifique especificação do evaporador"] };
@@ -667,6 +668,12 @@ export function DataSanityTabContent({ machine, compressor, condenser, evaporato
           )}
         </CardContent>
       </Card>
+
+      {/* ── IA Engenheira de Produto (Sprint 9) ─────────────────────────── */}
+      <AIEngineerPanel
+        spec={machineValidation.ok ? machineValidation.spec : null}
+        components={machineValidation.ok ? machineValidation.components : null}
+      />
     </div>
   );
 }
