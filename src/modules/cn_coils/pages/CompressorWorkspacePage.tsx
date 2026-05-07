@@ -68,6 +68,16 @@ export function CompressorWorkspacePage() {
   const [activeTab, setActiveTab] = useState("operation");
   const [aiOpen, setAiOpen] = useState(false);
 
+  // Garantia defensiva: workspace limpo ao entrar sem projeto ativo.
+  useEffect(() => {
+    if (!useProjectStore.getState().activeProjectId) {
+      resetCnCoilsWorkspace();
+      setInputs(DEFAULT_INPUTS);
+      setSelectedRow(null);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   useEffect(() => {
     if (!selectedCompressorId || selectedCompressorId === inputs.compressorId) return;
     let cancelled = false;
