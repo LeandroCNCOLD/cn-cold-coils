@@ -833,7 +833,10 @@ export function CondenserWorkspacePage() {
       />
       <PostSaveNextStepDialog
         open={nextStepOpen}
-        onOpenChange={setNextStepOpen}
+        onOpenChange={(open) => {
+          setNextStepOpen(open);
+          if (!open) resetCnCoilsWorkspace();
+        }}
         next="compressor"
       />
       <GeometryPickerModal
