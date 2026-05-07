@@ -4,6 +4,10 @@ import { validateRequired } from "../../utils/validation";
 export interface SystemConditions {
   ambient_temp_c: number;
   required_airflow_m3_h: number;
+  /** ΔT nominal do evaporador (K) — opcional. Habilita critério `delta_t_evap_check`. */
+  nominal_delta_t_evap_k?: number;
+  /** ΔT nominal do condensador (K) — opcional. Habilita critério `delta_t_cond_check`. */
+  nominal_delta_t_cond_k?: number;
 }
 
 interface SystemConditionsFormProps {
