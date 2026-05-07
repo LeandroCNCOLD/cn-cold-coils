@@ -113,16 +113,45 @@ function buildConfig(opts: {
 }
 
 export function FrostAnalysisPage() {
-  const [refrigerantId, setRefrigerantId] = useState("R404A");
-  const [te, setTe] = useState(-10);
-  const [tc, setTc] = useState(40);
-  const [airTempC, setAirTempC] = useState(2);
-  const [airRH, setAirRH] = useState(85);
+  const hubCompressor = useTestHubStore((s) => s.compressor);
+  const hubEvaporator = useTestHubStore((s) => s.evaporator);
+  const hubConditions = useTestHubStore((s) => s.conditions);
+
+  const [refrigerantId, setRefrigerantId] = useState(hubCompressor?.refrigerant ?? "R404A");
+  const [te, setTe] = useState(hubCompressor?.evap_temp_c ?? -10);
+  const [tc, setTc] = useState(hubCompressor?.cond_temp_c ?? 40);
+  const [airTempC, setAirTempC] = useState(hubEvaporator?.air_temperature_in_c ?? 2);
+  const [airRH, setAirRH] = useState(
+    hubEvaporator?.air_relative_humidity_in !== undefined
+      ? Math.round(hubEvaporator.air_relative_humidity_in * 100)
+      : 85,
+  );
   const [operationTimeH, setOperationTimeH] = useState(6);
   const [defrostThresholdMm, setDefrostThresholdMm] = useState(3);
   const [refrigerantsMeta, setRefrigerantsMeta] = useState<
     Array<{ id: string; name: string }>
   >([]);
+
+  // Hidrata uma única vez do Hub de Testes (evita sobrescrever edições do usuário).
+  const didHydrate = useRef(false);
+  useEffect(() => {
+    if (didHydrate.current) return;
+    const hasHub =
+      Boolean(hubCompressor?.refrigerant) ||
+      hubCompressor?.evap_temp_c !== undefined ||
+      hubCompressor?.cond_temp_c !== undefined ||
+      hubEvaporator?.air_temperature_in_c !== undefined ||
+      hubConditions?.ambient_temp_c !== undefined;
+    if (!hasHub) return;
+    if (hubCompressor?.refrigerant) setRefrigerantId(hubCompressor.refrigerant);
+    if (hubCompressor?.evap_temp_c !== undefined) setTe(hubCompressor.evap_temp_c);
+    if (hubCompressor?.cond_temp_c !== undefined) setTc(hubCompressor.cond_temp_c);
+    if (hubEvaporator?.air_temperature_in_c !== undefined)
+      setAirTempC(hubEvaporator.air_temperature_in_c);
+    if (hubEvaporator?.air_relative_humidity_in !== undefined)
+      setAirRH(Math.round(hubEvaporator.air_relative_humidity_in * 100));
+    didHydrate.current = true;
+  }, [hubCompressor, hubEvaporator, hubConditions]);
 
   useEffect(() => {
     listAvailableRefrigerants()
@@ -138,9 +167,16 @@ export function FrostAnalysisPage() {
   const simState = useCycleSimulation(config);
   const cycleResult = simState.status === "success" ? simState.result : null;
 
-  // Estimativa simples da área externa do evaporador para o frost
-  const evaporatorAreaM2 = 35;
-  const airMassFlowKgS = (5000 / 3600) * 1.2;
+  // Vazão de ar e área externa: deriva do Evaporador do Hub quando disponível.
+  const airflowM3H = hubEvaporator?.airflow_m3_h ?? 5000;
+  const airMassFlowKgS = (airflowM3H / 3600) * 1.2;
+  const evaporatorAreaM2 = useMemo(() => {
+    const w = hubEvaporator?.coil_width_m;
+    const h = hubEvaporator?.coil_height_m;
+    const rows = hubEvaporator?.rows_total;
+    if (w && h && rows) return Math.max(5, w * h * rows * 8); // aproximação grosseira
+    return 35;
+  }, [hubEvaporator]);
 
   const frostResult = useFrostAnalysis({
     cycleResult,
@@ -153,6 +189,11 @@ export function FrostAnalysisPage() {
   });
 
   const meta = refrigerantsMeta.find((r) => r.id === refrigerantId);
+  const inheritedFromHub =
+    Boolean(hubCompressor?.refrigerant) ||
+    hubCompressor?.evap_temp_c !== undefined ||
+    hubEvaporator?.air_temperature_in_c !== undefined;
+
 
   return (
     <div className="min-h-screen bg-gray-950 text-white">
