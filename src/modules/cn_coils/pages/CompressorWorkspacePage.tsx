@@ -35,6 +35,8 @@ import {
 import { useCycleSimulation } from "../hooks/useCycleSimulation";
 import { usePdfExport } from "../hooks/usePdfExport";
 import { useCnCoilsSimulationStore } from "../store/useCnCoilsSimulationStore";
+import { useProjectStore } from "../store/useProjectStore";
+import { resetCnCoilsWorkspace } from "../utils/workspaceReset";
 import { WorkspaceAIButton, WorkspaceAIPanel } from "../components/WorkspaceAIPanel";
 import { PostSaveNextStepDialog } from "../components/PostSaveNextStepDialog";
 import { DrawingTab } from "../components/drawing/DrawingTab";
