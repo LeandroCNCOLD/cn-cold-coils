@@ -173,7 +173,7 @@ function resolveIsolineCount(
   if (value === undefined) return 5;
 
   if (value < 2) {
-    warnings.push(`${optionName}=${value} is invalid (minimum 2). Using default of 5.`);
+    warnings.push(`${optionName}=${value} é inválido (mínimo 2). Usando valor padrão de 5.`);
     return 5;
   }
 

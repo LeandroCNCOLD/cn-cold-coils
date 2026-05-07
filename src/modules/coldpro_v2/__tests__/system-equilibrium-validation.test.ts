@@ -67,8 +67,8 @@ describe("Teste 2: Condensador insuficiente", () => {
 
     expect(result.utilization.condenser_pct).toBeGreaterThan(100);
     expect(result.bottleneck_codes).toContain("condenser_undersized");
-    expect(result.bottlenecks.some((b) => b.includes("Condenser"))).toBe(true);
-    expect(result.recommendations.some((r) => r.toLowerCase().includes("condenser"))).toBe(true);
+    expect(result.bottlenecks.some((b) => b.toLowerCase().includes("condensador"))).toBe(true);
+    expect(result.recommendations.some((r) => r.toLowerCase().includes("condensador"))).toBe(true);
   });
 });
 
@@ -94,7 +94,7 @@ describe("Teste 4: Válvula de expansão limitante", () => {
 
     expect(result.utilization.expansion_valve_pct).toBeGreaterThan(100);
     expect(result.bottleneck_codes).toContain("expansion_valve_undersized");
-    expect(result.bottlenecks.some((b) => /[Vv]alve/.test(b))).toBe(true);
+    expect(result.bottlenecks.some((b) => /[Vv]álvula|[Vv]alve/.test(b))).toBe(true);
   });
 });
 
@@ -107,7 +107,7 @@ describe("Teste 5: Ventilador do evaporador insuficiente", () => {
 
     expect(result.utilization.evaporator_fan_pct).toBeGreaterThan(100);
     expect(result.bottleneck_codes).toContain("evaporator_fan_undersized");
-    expect(result.bottlenecks.some((b) => /[Ff]an/.test(b))).toBe(true);
+    expect(result.bottlenecks.some((b) => /[Vv]entilador|[Ff]an/.test(b))).toBe(true);
   });
 });
 

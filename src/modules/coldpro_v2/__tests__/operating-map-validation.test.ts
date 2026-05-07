@@ -149,6 +149,6 @@ describe("Operating Map Engine", () => {
 
     expect(result.capacity_isolines.length).toBeGreaterThanOrEqual(1);
     expect(result.cop_isolines.length).toBeGreaterThanOrEqual(1);
-    expect(result.warnings.some((warning) => warning.includes("invalid"))).toBe(true);
+    expect(result.warnings.some((warning) => /inválido|invalid/i.test(warning))).toBe(true);
   });
 });

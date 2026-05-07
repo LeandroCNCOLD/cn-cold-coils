@@ -10,7 +10,7 @@ import { calculateProgressiveCoil } from "../progressive/progressiveCoilSolver";
 function safeDivide(num: number, den: number, field: string, warnings: string[]): number {
   if (!den || den === 0) {
     warnings.push(
-      `evaluateSystemEquilibrium: division by zero avoided for "${field}". Returning 0.`,
+      `evaluateSystemEquilibrium: divisão por zero evitada para "${field}". Retornando 0.`,
     );
     return 0;
   }
@@ -65,7 +65,7 @@ export function evaluateSystemEquilibrium(input: SystemComponentsInput): SystemE
   if (input.compressor.cooling_capacity_w <= 0) {
     return buildRejected(
       ["invalid_compressor_capacity"],
-      ["Compressor cooling capacity must be greater than zero."],
+      ["Capacidade de refrigeração do compressor deve ser maior que zero."],
       warnings,
       null,
     );
@@ -73,7 +73,7 @@ export function evaluateSystemEquilibrium(input: SystemComponentsInput): SystemE
   if (input.compressor.power_w <= 0) {
     return buildRejected(
       ["invalid_compressor_power"],
-      ["Compressor power must be greater than zero."],
+      ["Potência elétrica do compressor deve ser maior que zero."],
       warnings,
       null,
     );
@@ -81,7 +81,7 @@ export function evaluateSystemEquilibrium(input: SystemComponentsInput): SystemE
   if (input.condenser.heat_rejection_capacity_w <= 0) {
     return buildRejected(
       ["invalid_condenser_capacity"],
-      ["Condenser heat rejection capacity must be greater than zero."],
+      ["Capacidade de rejeição de calor do condensador deve ser maior que zero."],
       warnings,
       null,
     );
@@ -89,13 +89,13 @@ export function evaluateSystemEquilibrium(input: SystemComponentsInput): SystemE
   if (!input.evaporator?.progressive_input) {
     return buildRejected(
       ["missing_evaporator_input"],
-      ["Evaporator progressive_input is required."],
+      ["Dados do evaporador (progressive_input) são obrigatórios."],
       warnings,
       null,
     );
   }
   if (input.system_conditions.required_airflow_m3_h <= 0) {
-    warnings.push("Required airflow must be greater than zero.");
+    warnings.push("Vazão de ar requerida deve ser maior que zero.");
   }
 
   const evapResult = calculateProgressiveCoil(input.evaporator.progressive_input);
@@ -104,7 +104,7 @@ export function evaluateSystemEquilibrium(input: SystemComponentsInput): SystemE
   if (evapResult.status === "error") {
     return buildRejected(
       ["evaporator_solver_error"],
-      ["Evaporator solver returned error."],
+      ["Solver do evaporador retornou erro."],
       warnings,
       evapResult,
     );
@@ -114,7 +114,7 @@ export function evaluateSystemEquilibrium(input: SystemComponentsInput): SystemE
   if (q_evap <= 0) {
     return buildRejected(
       ["evaporator_invalid_capacity"],
-      ["Evaporator returned zero or negative capacity."],
+      ["Evaporador retornou capacidade zero ou negativa."],
       warnings,
       evapResult,
     );
@@ -126,7 +126,7 @@ export function evaluateSystemEquilibrium(input: SystemComponentsInput): SystemE
   if (q_cond_required <= 0) {
     return buildRejected(
       ["invalid_thermal_balance"],
-      ["Thermal balance is physically invalid: q_cond_required <= 0."],
+      ["Balanço térmico fisicamente inválido: Q_cond_requerido ≤ 0."],
       warnings,
       evapResult,
     );
@@ -184,7 +184,7 @@ export function evaluateSystemEquilibrium(input: SystemComponentsInput): SystemE
     if (dp > input.evaporator_fan.available_static_pressure_pa) {
       bottleneck_codes.push("evaporator_fan_pressure_insufficient");
       bottlenecks.push(
-        `Evaporator fan static pressure insufficient: required ${Math.round(dp)} Pa, available ${input.evaporator_fan.available_static_pressure_pa} Pa.`,
+        `Pressão estática do ventilador do evaporador insuficiente: requerido ${Math.round(dp)} Pa, disponível ${input.evaporator_fan.available_static_pressure_pa} Pa.`,
       );
     }
   }
@@ -203,62 +203,62 @@ export function evaluateSystemEquilibrium(input: SystemComponentsInput): SystemE
   if (compressor_pct > 100) {
     bottleneck_codes.push("compressor_undersized");
     bottlenecks.push(
-      `Compressor undersized: evaporator delivers ${Math.round(compressor_pct)}% of compressor capacity.`,
+      `Compressor subdimensionado: evaporador entrega ${Math.round(compressor_pct)}% da capacidade nominal do compressor.`,
     );
   }
   if (condenser_pct > 100) {
     bottleneck_codes.push("condenser_undersized");
     bottlenecks.push(
-      `Condenser undersized: requires ${Math.round(condenser_pct)}% of available heat rejection.`,
+      `Condensador subdimensionado: requer ${Math.round(condenser_pct)}% da capacidade de rejeição disponível.`,
     );
   }
   if (utilization.expansion_valve_pct !== undefined && utilization.expansion_valve_pct > 100) {
     bottleneck_codes.push("expansion_valve_undersized");
     bottlenecks.push(
-      `Expansion valve undersized: operating at ${Math.round(utilization.expansion_valve_pct)}% of nominal capacity.`,
+      `Válvula de expansão subdimensionada: operando a ${Math.round(utilization.expansion_valve_pct)}% da capacidade nominal.`,
     );
   }
   if (utilization.evaporator_fan_pct !== undefined && utilization.evaporator_fan_pct > 100) {
     bottleneck_codes.push("evaporator_fan_undersized");
     bottlenecks.push(
-      `Evaporator fan undersized: requires ${Math.round(utilization.evaporator_fan_pct)}% of available airflow.`,
+      `Ventilador do evaporador subdimensionado: requer ${Math.round(utilization.evaporator_fan_pct)}% da vazão disponível.`,
     );
   }
   if (utilization.condenser_fan_pct !== undefined && utilization.condenser_fan_pct > 100) {
     bottleneck_codes.push("condenser_fan_undersized");
     bottlenecks.push(
-      `Condenser fan undersized: requires ${Math.round(utilization.condenser_fan_pct)}% of estimated thermal capacity.`,
+      `Ventilador do condensador subdimensionado: requer ${Math.round(utilization.condenser_fan_pct)}% da capacidade térmica estimada.`,
     );
   }
   if (utilization.four_way_valve_pct !== undefined && utilization.four_way_valve_pct > 100) {
     bottleneck_codes.push("four_way_valve_undersized");
     bottlenecks.push(
-      `Four-way valve undersized: operating at ${Math.round(utilization.four_way_valve_pct)}% of max capacity.`,
+      `Válvula de quatro vias subdimensionada: operando a ${Math.round(utilization.four_way_valve_pct)}% da capacidade máxima.`,
     );
   }
   if (balance_error_pct > 10) {
     bottleneck_codes.push("thermal_balance_error");
     bottlenecks.push(
-      `Thermal balance error ${Math.round(balance_error_pct)}%: components rated for different conditions.`,
+      `Erro de balanço térmico ${Math.round(balance_error_pct)}%: componentes dimensionados para condições diferentes.`,
     );
   }
 
   if (balance_error_pct > 5 && balance_error_pct <= 10) {
     warnings.push(
-      `Thermal balance error ${Math.round(balance_error_pct)}%. Components may be rated for different conditions.`,
+      `Erro de balanço térmico ${Math.round(balance_error_pct)}%. Componentes podem estar dimensionados para condições diferentes.`,
     );
   }
   if (condenser_pct > 95 && condenser_pct <= 100)
-    warnings.push(`Condenser near limit: ${Math.round(condenser_pct)}% utilization.`);
+    warnings.push(`Condensador próximo ao limite: ${Math.round(condenser_pct)}% de utilização.`);
   if (compressor_pct > 95 && compressor_pct <= 100)
-    warnings.push(`Compressor near limit: ${Math.round(compressor_pct)}% utilization.`);
+    warnings.push(`Compressor próximo ao limite: ${Math.round(compressor_pct)}% de utilização.`);
   if (
     utilization.expansion_valve_pct !== undefined &&
     utilization.expansion_valve_pct > 95 &&
     utilization.expansion_valve_pct <= 100
   )
     warnings.push(
-      `Expansion valve near limit: ${Math.round(utilization.expansion_valve_pct)}% utilization.`,
+      `Válvula de expansão próxima ao limite: ${Math.round(utilization.expansion_valve_pct)}% de utilização.`,
     );
   if (
     utilization.evaporator_fan_pct !== undefined &&
@@ -266,7 +266,7 @@ export function evaluateSystemEquilibrium(input: SystemComponentsInput): SystemE
     utilization.evaporator_fan_pct <= 100
   )
     warnings.push(
-      `Evaporator fan near limit: ${Math.round(utilization.evaporator_fan_pct)}% utilization.`,
+      `Ventilador do evaporador próximo ao limite: ${Math.round(utilization.evaporator_fan_pct)}% de utilização.`,
     );
   if (
     utilization.condenser_fan_pct !== undefined &&
@@ -274,34 +274,34 @@ export function evaluateSystemEquilibrium(input: SystemComponentsInput): SystemE
     utilization.condenser_fan_pct <= 100
   )
     warnings.push(
-      `Condenser fan near limit: ${Math.round(utilization.condenser_fan_pct)}% utilization.`,
+      `Ventilador do condensador próximo ao limite: ${Math.round(utilization.condenser_fan_pct)}% de utilização.`,
     );
   if (input.compressor.cond_temp_c > input.condenser.max_cond_temp_c) {
     warnings.push(
-      `Compressor rated condensing temp (${input.compressor.cond_temp_c}°C) exceeds condenser max (${input.condenser.max_cond_temp_c}°C).`,
+      `Temperatura de condensação nominal do compressor (${input.compressor.cond_temp_c}°C) excede o máximo do condensador (${input.condenser.max_cond_temp_c}°C).`,
     );
   }
 
   if (condenser_pct > 100)
-    recommendations.push("Increase condenser heat rejection capacity or reduce compressor power.");
+    recommendations.push("Aumente a capacidade de rejeição do condensador ou reduza a potência do compressor.");
   if (compressor_pct > 100)
-    recommendations.push("Reduce evaporator load or select a larger compressor.");
+    recommendations.push("Reduza a carga do evaporador ou selecione um compressor maior.");
   if (utilization.expansion_valve_pct !== undefined && utilization.expansion_valve_pct > 100)
     recommendations.push(
-      `Select expansion valve with higher nominal capacity (min ${Math.round(q_evap * 1.1)} W).`,
+      `Selecione válvula de expansão com capacidade nominal maior (mín. ${Math.round(q_evap * 1.1)} W).`,
     );
   if (utilization.evaporator_fan_pct !== undefined && utilization.evaporator_fan_pct > 100)
     recommendations.push(
-      `Increase evaporator fan airflow to at least ${Math.round(input.system_conditions.required_airflow_m3_h * 1.1)} m³/h.`,
+      `Aumente a vazão do ventilador do evaporador para pelo menos ${Math.round(input.system_conditions.required_airflow_m3_h * 1.1)} m³/h.`,
     );
   if (utilization.condenser_fan_pct !== undefined && utilization.condenser_fan_pct > 100)
-    recommendations.push("Increase condenser fan airflow or reduce ambient temperature.");
+    recommendations.push("Aumente a vazão do ventilador do condensador ou reduza a temperatura ambiente.");
   if (balance_error_pct > 5)
     recommendations.push(
-      "Verify that all components are rated for the same evaporating and condensing temperatures.",
+      "Verifique se todos os componentes estão dimensionados para as mesmas temperaturas de evaporação e condensação.",
     );
   if (bottleneck_codes.length === 0 && warnings.length === 0)
-    recommendations.push("System is well balanced. No adjustments required.");
+    recommendations.push("Sistema bem balanceado. Nenhum ajuste necessário.");
 
   const anyOver110 =
     compressor_pct > 110 ||
