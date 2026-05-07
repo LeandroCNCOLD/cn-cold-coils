@@ -53,7 +53,7 @@ type TabId =
   | "ph" | "equilibrium" | "performance" | "map"
   | "montecarlo" | "polynomial" | "autoopt" | "envelope" | "energy" | "fancoil"
   | "sanity" | "bottleneck" | "scenarios" | "frost" | "comparison"
-  | "ai" | "report";
+  | "startup" | "ai" | "report";
 
 interface TabDef {
   id: TabId;
