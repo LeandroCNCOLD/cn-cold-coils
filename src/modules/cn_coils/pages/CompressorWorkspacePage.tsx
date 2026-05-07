@@ -35,6 +35,8 @@ import {
 import { useCycleSimulation } from "../hooks/useCycleSimulation";
 import { usePdfExport } from "../hooks/usePdfExport";
 import { useCnCoilsSimulationStore } from "../store/useCnCoilsSimulationStore";
+import { useProjectStore } from "../store/useProjectStore";
+import { resetCnCoilsWorkspace } from "../utils/workspaceReset";
 import { WorkspaceAIButton, WorkspaceAIPanel } from "../components/WorkspaceAIPanel";
 import { PostSaveNextStepDialog } from "../components/PostSaveNextStepDialog";
 import { DrawingTab } from "../components/drawing/DrawingTab";
@@ -65,6 +67,16 @@ export function CompressorWorkspacePage() {
   const [selectedRow, setSelectedRow] = useState<CompressorCatalogRow | null>(null);
   const [activeTab, setActiveTab] = useState("operation");
   const [aiOpen, setAiOpen] = useState(false);
+
+  // Garantia defensiva: workspace limpo ao entrar sem projeto ativo.
+  useEffect(() => {
+    if (!useProjectStore.getState().activeProjectId) {
+      resetCnCoilsWorkspace();
+      setInputs(DEFAULT_INPUTS);
+      setSelectedRow(null);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (!selectedCompressorId || selectedCompressorId === inputs.compressorId) return;
@@ -500,7 +512,14 @@ export function CompressorWorkspacePage() {
       <WorkspaceAIPanel open={aiOpen} onClose={() => setAiOpen(false)} context={aiContext} />
       <PostSaveNextStepDialog
         open={nextStepOpen}
-        onOpenChange={setNextStepOpen}
+        onOpenChange={(open) => {
+          setNextStepOpen(open);
+          if (!open) {
+            resetCnCoilsWorkspace();
+            setInputs(DEFAULT_INPUTS);
+            setSelectedRow(null);
+          }
+        }}
         next="simulation"
       />
     </WorkspaceLayout>

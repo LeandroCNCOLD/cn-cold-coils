@@ -9,6 +9,7 @@ interface SessionStore {
   setActiveSession: (id: string) => void;
   getActiveSession: () => CalculationSession | undefined;
   deleteSession: (id: string) => void;
+  reset: () => void;
 }
 
 export const useSessionStore = create<SessionStore>((set, get) => ({
@@ -50,4 +51,6 @@ export const useSessionStore = create<SessionStore>((set, get) => ({
       activeSessionId: state.activeSessionId === id ? null : state.activeSessionId,
     }));
   },
+
+  reset: () => set({ sessions: [], activeSessionId: null }),
 }));

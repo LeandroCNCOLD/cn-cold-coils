@@ -41,6 +41,7 @@ import { StartupTabContent } from "./hub-tabs/StartupTabContent";
 import { useCatalogSessionStore } from "@/modules/coldpro_catalog/store/useCatalogSessionStore";
 import { useCoilEnvelopeStore } from "@/modules/cn_coils/store/useCoilEnvelopeStore";
 import { useTestHubStore } from "../stores/useTestHubStore";
+import { resetColdproWorkspace } from "../utils/workspaceReset";
 import {
   computePhDiagram,
   computeMonteCarlo,
@@ -172,6 +173,14 @@ export function TestHubPage() {
 
   // Sincroniza useTestHubStore → useCatalogSessionStore para que Equilíbrio/Desempenho/Mapa herdem os dados
   useHubStoreSync();
+
+  // Garantia: ao desmontar (usuário sai do Hub), limpa todo o estado
+  // do hub/catálogo para que o próximo cálculo comece do zero.
+  useEffect(() => {
+    return () => {
+      resetColdproWorkspace();
+    };
+  }, []);
 
   const runAllAnalyses = useCallback(async () => {
     setIsRunningAll(true);

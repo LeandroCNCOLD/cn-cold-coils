@@ -74,6 +74,7 @@ import { useCnCoilsSimulationV2 } from "../hooks/useCnCoilsSimulationV2";
 import { enrichWarnings } from "../utils/warningEnricher";
 import { useCnCoilsSimulationStore } from "../store/useCnCoilsSimulationStore";
 import { useProjectStore } from "../store/useProjectStore";
+import { resetCnCoilsWorkspace } from "../utils/workspaceReset";
 import { useCnCoilsInputBridge } from "../hooks/useCnCoilsInputBridge";
 import { useCycleSimulation } from "../hooks/useCycleSimulation";
 import { useOperatingMap } from "../hooks/useOperatingMap";
@@ -251,10 +252,15 @@ export function CondenserWorkspacePage() {
   const resetSimStore = useCnCoilsSimulationStore((s) => s.reset);
   const setActiveProjectGlobal = useProjectStore((s) => s.setActiveProject);
   const handleNovoAletado = () => {
-    resetSimStore();
-    setActiveProjectGlobal(null);
+    resetCnCoilsWorkspace();
     toast.success("Workspace limpo. Configure um novo aletado do zero.");
   };
+  useEffect(() => {
+    if (!useProjectStore.getState().activeProjectId) {
+      resetCnCoilsWorkspace();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const [selectedCompressorRow, setSelectedCompressorRow] = useState<CompressorCatalogRow | null>(null);
   useEffect(() => {
     if (!selectedCompressorId) { setSelectedCompressorRow(null); return; }
@@ -827,7 +833,10 @@ export function CondenserWorkspacePage() {
       />
       <PostSaveNextStepDialog
         open={nextStepOpen}
-        onOpenChange={setNextStepOpen}
+        onOpenChange={(open) => {
+          setNextStepOpen(open);
+          if (!open) resetCnCoilsWorkspace();
+        }}
         next="compressor"
       />
       <GeometryPickerModal

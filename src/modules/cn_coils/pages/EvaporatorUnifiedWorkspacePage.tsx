@@ -80,6 +80,7 @@ import { catalogRowToEvaporatorInputs } from "@/modules/coldpro_catalog/utils/ca
 import { loadCompressorIndex, getCompressorById } from "@/modules/coldpro_catalog/data/compressorCatalog.service";
 import type { CompressorCatalogRow } from "@/modules/coldpro_catalog/data/compressorCatalog.types";
 import { useProjectStore } from "../store/useProjectStore";
+import { resetCnCoilsWorkspace } from "../utils/workspaceReset";
 import type { AIContext } from "../components/WorkspaceAIChat";
 import type { StructuredWarning } from "../types/warnings";
 import type { OperatingMapPoint } from "../engines/operatingMap/operatingMapTypes";
@@ -340,10 +341,17 @@ export function EvaporatorUnifiedWorkspacePage() {
   const resetSimStore = useCnCoilsSimulationStore((s) => s.reset);
   const setActiveProjectGlobal = useProjectStore((s) => s.setActiveProject);
   const handleNovoAletado = () => {
-    resetSimStore();
-    setActiveProjectGlobal(null);
+    resetCnCoilsWorkspace();
     toast.success("Workspace limpo. Configure um novo aletado do zero.");
   };
+  // Garantia defensiva: se entrar no workspace sem um projeto ativo,
+  // limpa qualquer estado residual de um cálculo anterior.
+  useEffect(() => {
+    if (!useProjectStore.getState().activeProjectId) {
+      resetCnCoilsWorkspace();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const [selectedCompressorRow, setSelectedCompressorRow] = useState<CompressorCatalogRow | null>(null);
   useEffect(() => {
     if (!selectedCompressorId) {
@@ -1110,7 +1118,14 @@ export function EvaporatorUnifiedWorkspacePage() {
 
       <PostSaveNextStepDialog
         open={nextStepOpen}
-        onOpenChange={setNextStepOpen}
+        onOpenChange={(open) => {
+          setNextStepOpen(open);
+          if (!open) {
+            // Limpa workspace após o usuário fechar o diálogo "salvar e sair"
+            // para que o próximo cálculo não herde dados do anterior.
+            resetCnCoilsWorkspace();
+          }
+        }}
         next="condenser"
       />
     </WorkspaceLayout>
