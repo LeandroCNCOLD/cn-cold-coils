@@ -14,7 +14,18 @@ type FitPoint = {
   y: number;
 };
 
-const DEFAULT_TARGETS: PolynomialTarget[] = ["capacity_w", "compressor_power_w", "cop", "q_cond_w"];
+/**
+ * Targets padrão para ajuste de polinômio ARI 540 / EN 12900.
+ * Inclui total_power_w e cop_system para análise elétrica completa do sistema.
+ */
+const DEFAULT_TARGETS: PolynomialTarget[] = [
+  "capacity_w",
+  "compressor_power_w",
+  "cop",
+  "q_cond_w",
+  "total_power_w",
+  "cop_system",
+];
 
 function evaluatePolynomial(
   coeffs: PolynomialCoefficients,
@@ -177,6 +188,12 @@ function getTargetValue(point: ProductPerformancePoint, target: PolynomialTarget
       return point.cop;
     case "q_cond_w":
       return point.q_cond_w;
+    case "total_power_w":
+      // Potência elétrica total do sistema (compressor + ventiladores)
+      return point.total_power_w;
+    case "cop_system":
+      // COP real do sistema incluindo ventiladores
+      return point.cop_system;
   }
 }
 

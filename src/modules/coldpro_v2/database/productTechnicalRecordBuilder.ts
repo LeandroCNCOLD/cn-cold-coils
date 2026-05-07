@@ -1,4 +1,5 @@
 import type {
+  ElectricalAnalysis,
   PerformanceEnvelope,
   PolynomialGenerationResult,
   ProductOperatingLimits,
@@ -10,6 +11,7 @@ import type {
   SystemEquilibriumResult,
 } from "../domain/types";
 import { evaluateSystemEquilibrium } from "../engines/equilibrium/systemEquilibriumEngine";
+import { calculateElectricalAnalysis } from "../engines/electrical/electricalAnalysisEngine";
 import { generateProductPerformanceCurve } from "../engines/performance/productPerformanceCurveEngine";
 import { generatePolynomialCoefficients } from "../engines/polynomial/polynomialCoefficientGenerator";
 
@@ -240,12 +242,20 @@ export function buildProductTechnicalRecord(
   const { limits: operatingLimits, warnings: limitWarnings } =
     calculateOperatingLimits(performanceCurve);
   const validation = calculateValidation(equilibrium, performanceCurve, polynomialCoefficients);
+
+  // Análise elétrica completa: compressor + ventiladores → COP real do sistema
+  const electricalAnalysis: ElectricalAnalysis = calculateElectricalAnalysis({
+    system: input.system,
+    q_evap_w: equilibrium.thermal_balance.q_evap_w,
+  });
+
   const warnings = mergeWarnings(
     initialWarnings,
     equilibrium.warnings ?? [],
     performanceCurve.warnings ?? [],
     polynomialCoefficients.warnings ?? [],
     limitWarnings,
+    electricalAnalysis.warnings ?? [],
   );
 
   return {
@@ -256,6 +266,7 @@ export function buildProductTechnicalRecord(
     polynomial_coefficients: polynomialCoefficients,
     operating_limits: operatingLimits,
     validation,
+    electrical_analysis: electricalAnalysis,
     warnings,
     traceability,
   };

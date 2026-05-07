@@ -97,6 +97,7 @@ export type {
   ProductTechnicalRecord,
   ProductTechnicalRecordInput,
   ProductTechnicalRegistryHandle,
+  ElectricalAnalysis,
   ProductValidationSummary,
   ProgressiveCoilInput,
   ProgressiveCoilResult,
@@ -223,6 +224,13 @@ export { calculateDripTrayCoil } from "./engines/subcooling/dripTrayCoil";
 
 // Engines — equilibrium
 export { evaluateSystemEquilibrium } from "./engines/equilibrium/systemEquilibriumEngine";
+
+// Engines — electrical
+export {
+  calculateElectricalAnalysis,
+  calculateFansTotalPower,
+} from "./engines/electrical/electricalAnalysisEngine";
+export type { ElectricalAnalysisInput } from "./engines/electrical/electricalAnalysisEngine";
 
 // Engines — performance
 export { generateProductPerformanceCurve } from "./engines/performance/productPerformanceCurveEngine";

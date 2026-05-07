@@ -29,6 +29,8 @@ function makeExportRecord(overrides?: {
           utilization: { compressor_pct: 100, evaporator_pct: 100, condenser_pct: 91 },
           warnings: [],
           bottleneck_codes: [],
+          total_power_w: 2000,
+          cop_system: 2.0,
         },
         {
           evap_temp_c: -8,
@@ -42,6 +44,8 @@ function makeExportRecord(overrides?: {
           utilization: { compressor_pct: 90, evaporator_pct: 90, condenser_pct: 85 },
           warnings: [],
           bottleneck_codes: [],
+          total_power_w: 2000,
+          cop_system: 2.0,
         },
       ]
     : [];

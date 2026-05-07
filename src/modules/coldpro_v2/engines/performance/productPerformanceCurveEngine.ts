@@ -7,6 +7,7 @@ import type {
   SystemComponentsInput,
 } from "../../domain/types";
 import { evaluateSystemEquilibrium } from "../equilibrium/systemEquilibriumEngine";
+import { calculateFansTotalPower } from "../electrical/electricalAnalysisEngine";
 
 function safeDivide(num: number, den: number): number {
   if (!den || den === 0) return 0;
@@ -131,13 +132,22 @@ export function generateProductPerformanceCurve(
     const capacity_w = equilibriumResult.thermal_balance.q_evap_w;
     const compressor_power_w = equilibriumResult.thermal_balance.compressor_power_w;
 
+    // Calcula potência total do sistema (compressor + ventiladores) para COP correto
+    const fans_power_w = calculateFansTotalPower(systemForPoint);
+    const total_power_w = compressor_power_w + fans_power_w;
+
     points.push({
       evap_temp_c: point.evap_temp_c,
       cond_temp_c: point.cond_temp_c,
       capacity_w,
       compressor_power_w,
+      /** COP do compressor isolado: Q / W_comp (valor de catálogo) */
       cop: safeDivide(capacity_w, compressor_power_w),
       q_cond_w: equilibriumResult.thermal_balance.q_cond_required_w,
+      /** Potência elétrica total: W_comp + W_fans */
+      total_power_w,
+      /** COP real do sistema: Q / (W_comp + W_fans) */
+      cop_system: safeDivide(capacity_w, total_power_w),
       balance_error_pct: equilibriumResult.thermal_balance.balance_error_pct,
       status: equilibriumResult.status,
       utilization: equilibriumResult.utilization,

@@ -124,7 +124,8 @@ describe("Polynomial Coefficient Generator", () => {
     });
 
     expect(["ok", "warning"]).toContain(result.status);
-    expect(result.coefficients).toHaveLength(4);
+    // DEFAULT_TARGETS agora inclui total_power_w e cop_system além dos 4 originais
+    expect(result.coefficients).toHaveLength(6);
     expect(result.used_points).toBeGreaterThanOrEqual(6);
     result.coefficients.forEach((set) => {
       expect(Number.isFinite(set.fit_quality.r2)).toBe(true);
@@ -149,6 +150,8 @@ describe("Polynomial Coefficient Generator", () => {
         utilization: {} as ComponentUtilization,
         warnings: [],
         bottleneck_codes: [],
+        total_power_w: 2000,
+        cop_system: 2.0,
       },
       {
         evap_temp_c: -8,
@@ -162,6 +165,8 @@ describe("Polynomial Coefficient Generator", () => {
         utilization: {} as ComponentUtilization,
         warnings: [],
         bottleneck_codes: [],
+        total_power_w: 2000,
+        cop_system: 2.0,
       },
       {
         evap_temp_c: -5,
@@ -175,6 +180,8 @@ describe("Polynomial Coefficient Generator", () => {
         utilization: {} as ComponentUtilization,
         warnings: [],
         bottleneck_codes: [],
+        total_power_w: 2000,
+        cop_system: 2.0,
       },
     ];
 
@@ -216,6 +223,8 @@ describe("Polynomial Coefficient Generator", () => {
         utilization: {} as ComponentUtilization,
         warnings: [],
         bottleneck_codes: [],
+        total_power_w: 2000,
+        cop_system: 2.0,
       },
       {
         evap_temp_c: -15,
@@ -229,6 +238,8 @@ describe("Polynomial Coefficient Generator", () => {
         utilization: {} as ComponentUtilization,
         warnings: [],
         bottleneck_codes: [],
+        total_power_w: 2000,
+        cop_system: 2.0,
       },
       {
         evap_temp_c: -10,
@@ -242,6 +253,8 @@ describe("Polynomial Coefficient Generator", () => {
         utilization: {} as ComponentUtilization,
         warnings: [],
         bottleneck_codes: [],
+        total_power_w: 2000,
+        cop_system: 2.0,
       },
       {
         evap_temp_c: -10,
@@ -255,6 +268,8 @@ describe("Polynomial Coefficient Generator", () => {
         utilization: {} as ComponentUtilization,
         warnings: [],
         bottleneck_codes: [],
+        total_power_w: 2000,
+        cop_system: 2.0,
       },
       {
         evap_temp_c: -5,
@@ -268,6 +283,8 @@ describe("Polynomial Coefficient Generator", () => {
         utilization: {} as ComponentUtilization,
         warnings: [],
         bottleneck_codes: [],
+        total_power_w: 2000,
+        cop_system: 2.0,
       },
       {
         evap_temp_c: -5,
@@ -281,6 +298,8 @@ describe("Polynomial Coefficient Generator", () => {
         utilization: {} as ComponentUtilization,
         warnings: [],
         bottleneck_codes: [],
+        total_power_w: 2000,
+        cop_system: 2.0,
       },
       {
         evap_temp_c: -2,
@@ -294,6 +313,8 @@ describe("Polynomial Coefficient Generator", () => {
         utilization: {} as ComponentUtilization,
         warnings: [],
         bottleneck_codes: ["condenser_undersized"],
+        total_power_w: 2000,
+        cop_system: 2.0,
       },
       {
         evap_temp_c: -2,
@@ -307,6 +328,8 @@ describe("Polynomial Coefficient Generator", () => {
         utilization: {} as ComponentUtilization,
         warnings: [],
         bottleneck_codes: ["condenser_undersized"],
+        total_power_w: 2000,
+        cop_system: 2.0,
       },
     ];
 

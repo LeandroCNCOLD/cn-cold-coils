@@ -749,6 +749,20 @@ export interface CompressorSpec {
   refrigerant: string;
   evap_temp_c: number;
   cond_temp_c: number;
+  /** Corrente nominal do motor do compressor (A). Necessário para análise elétrica do sistema. */
+  motor_current_a?: number;
+  /** Tensão nominal de alimentação (V). Ex: 220, 380, 440. */
+  voltage_v?: number;
+  /** Número de fases (1 = monofásico, 3 = trifásico). */
+  phases?: 1 | 3;
+  /** Fator de potência (cos φ). Típico: 0.85 para compressores herméticos. */
+  power_factor?: number;
+  /** Frequência nominal (Hz). Ex: 50 ou 60. */
+  frequency_hz?: number;
+  /** Modelo comercial do compressor. */
+  model?: string;
+  /** Fabricante do compressor. */
+  manufacturer?: string;
 }
 
 export interface CondenserSpec {
@@ -875,8 +889,21 @@ export interface ProductPerformancePoint {
   cond_temp_c: number;
   capacity_w: number;
   compressor_power_w: number;
+  /** COP do compressor isolado: Q_evap / W_comp. Valor de catálogo do compressor. */
   cop: number;
   q_cond_w: number;
+  /**
+   * Potência elétrica total do sistema: W_comp + W_fan_evap + W_fan_cond (W).
+   * Calculado quando ventiladores estão definidos em SystemComponentsInput.
+   * Igual a compressor_power_w quando ventiladores não estão definidos.
+   */
+  total_power_w: number;
+  /**
+   * COP real do sistema: Q_evap / (W_comp + W_fans).
+   * Valor correto para dimensionamento elétrico e integração com ferramentas de carga térmica.
+   * Igual a cop quando ventiladores não estão definidos.
+   */
+  cop_system: number;
   balance_error_pct: number;
   status: "approved" | "warning" | "rejected";
   utilization: ComponentUtilization;
@@ -915,7 +942,22 @@ export interface ProductPerformanceCurveResult {
   warnings: string[];
 }
 
-export type PolynomialTarget = "capacity_w" | "compressor_power_w" | "cop" | "q_cond_w";
+/**
+ * Targets disponíveis para ajuste de polinômio ARI 540 / EN 12900.
+ * - `capacity_w`: capacidade frigorífica do evaporador (W)
+ * - `compressor_power_w`: potência absorvida pelo compressor (W)
+ * - `cop`: COP do compressor isolado (Q_evap / W_comp)
+ * - `q_cond_w`: capacidade de rejeição do condensador (W)
+ * - `total_power_w`: potência elétrica total do sistema, incluindo ventiladores (W)
+ * - `cop_system`: COP real do sistema, incluindo ventiladores (Q_evap / W_total)
+ */
+export type PolynomialTarget =
+  | "capacity_w"
+  | "compressor_power_w"
+  | "cop"
+  | "q_cond_w"
+  | "total_power_w"
+  | "cop_system";
 
 export interface PolynomialCoefficients {
   a0: number;
@@ -979,6 +1021,49 @@ export interface ProductOperatingLimits {
   max_cop: number;
 }
 
+/**
+ * Análise elétrica completa do sistema de refrigeração.
+ * Inclui compressor + todos os ventiladores para o COP real do conjunto.
+ * Essencial para dimensionamento de circuito elétrico e integração com
+ * ferramentas de cálculo de carga térmica.
+ */
+export interface ElectricalAnalysis {
+  /** Potência absorvida pelo compressor (W). */
+  compressor_power_w: number;
+  /** Potência absorvida pelo(s) ventilador(es) do evaporador (W). Zero se não definido. */
+  evap_fan_power_w: number;
+  /** Potência absorvida pelo(s) ventilador(es) do condensador (W). Zero se não definido. */
+  cond_fan_power_w: number;
+  /** Potência elétrica total do sistema: W_comp + W_fan_evap + W_fan_cond (W). */
+  total_electrical_power_w: number;
+  /** Corrente total estimada do sistema (A). */
+  total_current_a: number;
+  /** Corrente do compressor (A). Calculada ou fornecida pelo CompressorSpec. */
+  compressor_current_a: number;
+  /** Corrente dos ventiladores (A). */
+  fans_current_a: number;
+  /** Tensão de alimentação (V). */
+  voltage_v: number;
+  /** Número de fases. */
+  phases: 1 | 3;
+  /** Fator de potência do sistema. */
+  power_factor: number;
+  /**
+   * COP do compressor isolado: Q_evap / W_comp.
+   * Valor que aparece nos catálogos de compressores.
+   */
+  cop_compressor: number;
+  /**
+   * COP real do sistema: Q_evap / (W_comp + W_fans).
+   * Valor correto para dimensionamento elétrico e cálculo de carga térmica.
+   */
+  cop_system: number;
+  /** Capacidade frigorífica do evaporador no ponto de equilíbrio (W). */
+  q_evap_w: number;
+  /** Avisos gerados durante o cálculo. */
+  warnings: string[];
+}
+
 export interface ProductValidationSummary {
   equilibrium_status: "approved" | "warning" | "rejected";
   curve_status: "ok" | "warning" | "error";
@@ -993,7 +1078,9 @@ export interface ProductTechnicalRecord {
   performance_curve: ProductPerformanceCurveResult;
   polynomial_coefficients: PolynomialGenerationResult;
   operating_limits: ProductOperatingLimits;
-  validation: ProductValidationSummary;
+   validation: ProductValidationSummary;
+  /** Análise elétrica completa: compressor + ventiladores → COP real do sistema. */
+  electrical_analysis?: ElectricalAnalysis;
   warnings: string[];
   traceability: {
     generated_at: string;
@@ -1001,7 +1088,6 @@ export interface ProductTechnicalRecord {
     source: "calculated" | "imported" | "hybrid";
   };
 }
-
 export interface ProductTechnicalRecordInput {
   identity: ProductIdentity;
   system: SystemComponentsInput;
