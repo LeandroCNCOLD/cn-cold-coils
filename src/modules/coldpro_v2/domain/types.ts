@@ -1778,3 +1778,123 @@ export interface SimulationAssembly {
   };
   results: CoilResult[];
 }
+
+// ============================================================
+// Sprint 4 — Exportação de Catálogo e Data Sheet
+// ============================================================
+
+/** Opções de exportação do data sheet da máquina. */
+export interface CatalogExportOptions {
+  /** Versão do schema de exportação. Default: 'cncoils-catalog-v1'. */
+  schema_version?: string;
+  /** Incluir referências de start-up no export. Default: true. */
+  include_startup_reference?: boolean;
+  /** Incluir análise elétrica detalhada. Default: true. */
+  include_electrical?: boolean;
+  /** Incluir relatório de validação da máquina. Default: true. */
+  include_validation?: boolean;
+  /** Incluir curva de performance completa. Default: true. */
+  include_performance_curve?: boolean;
+}
+
+/** Ponto da curva de performance enriquecido com dados elétricos do sistema. */
+export interface CatalogPerformancePoint {
+  evap_temp_c: number;
+  cond_temp_c: number;
+  /** Capacidade frigorífica (W). */
+  capacity_w: number;
+  /** Potência do compressor isolado (W). */
+  compressor_power_w: number;
+  /** Potência total do sistema: compressor + ventiladores (W). */
+  total_power_w: number;
+  /** COP do compressor isolado: Q / W_comp. */
+  cop_compressor: number;
+  /** COP real do sistema: Q / (W_comp + W_fans). Valor correto para carga térmica. */
+  cop_system: number;
+  /** Calor rejeitado no condensador (W). */
+  q_cond_w: number;
+  /** Status do ponto de operação. */
+  status: "approved" | "warning" | "rejected";
+}
+
+/** Conjunto de coeficientes polinomiais enriquecido com metadados. */
+export interface CatalogPolynomialSet {
+  /** Alvo do polinômio. */
+  target: PolynomialTarget;
+  /** Descrição legível do alvo. */
+  target_label: string;
+  /** Unidade do valor calculado pelo polinômio. */
+  unit: string;
+  /** Coeficientes C1–C10 (ARI 540 / EN 12900). */
+  coefficients: number[];
+  /** R² do ajuste (qualidade do fit). */
+  r_squared: number;
+  /** Número de pontos usados no ajuste. */
+  used_points: number;
+  /** Qualidade do fit: 'excellent' | 'good' | 'acceptable' | 'poor'. */
+  fit_quality: string;
+}
+
+/** Dados elétricos completos da máquina para integração com ferramentas de carga térmica. */
+export interface CatalogElectricalData {
+  /** Potência total do sistema no ponto nominal (W). */
+  total_power_w: number;
+  /** Potência do compressor isolado (W). */
+  compressor_power_w: number;
+  /** Potência total dos ventiladores (W). */
+  fans_total_power_w: number;
+  /** Corrente total estimada (A). */
+  estimated_current_a: number;
+  /** Tensão de alimentação (V). */
+  voltage_v: number;
+  /** Número de fases (1 ou 3). */
+  phases: 1 | 3;
+  /** Fator de potência do compressor. */
+  power_factor: number;
+  /** COP real do sistema no ponto nominal. */
+  cop_system: number;
+  /** Eficiência energética (EER = COP × 3,412 BTU/W·h). */
+  eer_btu_wh: number;
+}
+
+/** Data sheet completo da máquina para exportação e integração com terceiros. */
+export interface MachineDatasheetExport {
+  /** Versão do schema de exportação. */
+  schema_version: string;
+  /** Data/hora de exportação (ISO 8601 UTC). */
+  exported_at: string;
+  /** Identidade do produto. */
+  product: {
+    id: string;
+    model: string;
+    family: string;
+    line: string;
+    refrigerant: string;
+    application?: string;
+    description?: string;
+  };
+  /** Limites de operação do envelope. */
+  operating_limits: ProductOperatingLimits;
+  /** Status de validação do produto. */
+  validation_status: "approved" | "warning" | "rejected";
+  /** Análise elétrica completa no ponto nominal. */
+  electrical?: CatalogElectricalData;
+  /** Curva de performance com dados elétricos do sistema. */
+  performance_curve?: CatalogPerformancePoint[];
+  /** Coeficientes polinomiais com metadados (inclui cop_system e total_power_w). */
+  polynomial_sets?: CatalogPolynomialSet[];
+  /** @deprecated Use polynomial_sets. Mantido para compatibilidade. */
+  polynomial_coefficients?: CatalogPolynomialSet[];
+  /** Referências de start-up para comissionamento em campo. */
+  startup_reference?: StartupReferenceSheet;
+  /** Relatório de validação da máquina completa (quando MachineSpec fornecida). */
+  machine_validation?: MachineValidationReport;
+  /** Avisos gerados durante a exportação. */
+  warnings: string[];
+  /** Rastreabilidade do registro. */
+  traceability: {
+    generated_at: string;
+    engine_version: string;
+    source: "calculated" | "imported" | "hybrid";
+  };
+}

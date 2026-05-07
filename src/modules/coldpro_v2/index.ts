@@ -107,6 +107,11 @@ export type {
   StartupParameterGroup,
   StartupParameterStatus,
   StartupReferenceSheet,
+  MachineDatasheetExport,
+  CatalogExportOptions,
+  CatalogPerformancePoint,
+  CatalogPolynomialSet,
+  CatalogElectricalData,
   ProductValidationSummary,
   ProgressiveCoilInput,
   ProgressiveCoilResult,
@@ -284,3 +289,5 @@ export {
 export { validateMachine } from "./engines/validation/machineValidationEngine";
 // Engines — startup reference (Sprint 3)
 export { generateStartupReference, applyFieldMeasurements } from "./engines/startup/startupReferenceEngine";
+// Adapters — machine datasheet export (Sprint 4)
+export { exportMachineDatasheet } from "./adapters/machineDatasheetExportAdapter";

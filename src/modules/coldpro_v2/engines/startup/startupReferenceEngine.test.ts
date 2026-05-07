@@ -19,7 +19,6 @@ const BASE_INPUT: ProductTechnicalRecordInput = {
     family: "Plug-in",
     line: "Commercial",
     refrigerant: "R404A",
-    version: "1.0.0",
   },
   system: {
     compressor: {

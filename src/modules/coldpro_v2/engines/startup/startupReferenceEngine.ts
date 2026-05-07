@@ -100,7 +100,7 @@ function getSatPressureBar(refrigerant: string, temp_c: number): number {
   }
 
   const temps = Object.keys(table).map(Number).sort((a, b) => a - b);
-  const t0 = temps.findLast((t) => t <= temp_c) ?? temps[0];
+  const t0 = temps.reduce<number>((acc, t) => (t <= temp_c ? t : acc), temps[0]);
   const t1 = temps.find((t) => t > temp_c) ?? temps[temps.length - 1];
 
   if (t0 === t1) return table[t0];
