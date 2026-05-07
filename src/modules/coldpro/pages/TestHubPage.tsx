@@ -41,6 +41,7 @@ import { StartupTabContent } from "./hub-tabs/StartupTabContent";
 import { useCatalogSessionStore } from "@/modules/coldpro_catalog/store/useCatalogSessionStore";
 import { useCoilEnvelopeStore } from "@/modules/cn_coils/store/useCoilEnvelopeStore";
 import { useTestHubStore } from "../stores/useTestHubStore";
+import { resetColdproWorkspace } from "../utils/workspaceReset";
 import {
   computePhDiagram,
   computeMonteCarlo,
