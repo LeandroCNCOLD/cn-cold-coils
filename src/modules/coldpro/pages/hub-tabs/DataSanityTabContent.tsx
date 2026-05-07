@@ -668,6 +668,12 @@ export function DataSanityTabContent({ machine, compressor, condenser, evaporato
           )}
         </CardContent>
       </Card>
+
+      {/* ── IA Engenheira de Produto (Sprint 9) ─────────────────────────── */}
+      <AIEngineerPanel
+        spec={machineValidation.ok ? machineValidation.spec : null}
+        components={machineValidation.ok ? machineValidation.components : null}
+      />
     </div>
   );
 }
