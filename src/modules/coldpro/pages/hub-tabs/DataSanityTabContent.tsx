@@ -374,6 +374,12 @@ export function DataSanityTabContent({ machine, compressor, condenser, evaporato
       nominal_evap_temp_c: nominal_evap!,
       nominal_cond_temp_c: nominal_cond!,
       nominal_ambient_temp_c: nominal_ambient!,
+      ...(conditions.nominal_delta_t_evap_k != null
+        ? { nominal_delta_t_evap_k: conditions.nominal_delta_t_evap_k }
+        : {}),
+      ...(conditions.nominal_delta_t_cond_k != null
+        ? { nominal_delta_t_cond_k: conditions.nominal_delta_t_cond_k }
+        : {}),
     };
 
     const systemInput = {
