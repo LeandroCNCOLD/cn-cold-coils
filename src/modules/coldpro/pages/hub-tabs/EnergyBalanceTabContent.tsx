@@ -114,6 +114,16 @@ export function EnergyBalanceTabContent({ compressor, condenser, phResult }: Pro
 
   return (
     <div className="space-y-5">
+      {/* Cabeçalho com badge do motor v2 */}
+      {electricalResult && (
+        <div className="flex items-center justify-end">
+          <Badge className="gap-1.5 bg-emerald-100 text-emerald-700 hover:bg-emerald-100">
+            <Cpu className="h-3 w-3" />
+            Motor v2 ativo
+          </Badge>
+        </div>
+      )}
+
       {/* Equação do balanço */}
       <Card className={`border-2 ${statusBg}`}>
         <CardContent className="p-5">
