@@ -341,10 +341,17 @@ export function EvaporatorUnifiedWorkspacePage() {
   const resetSimStore = useCnCoilsSimulationStore((s) => s.reset);
   const setActiveProjectGlobal = useProjectStore((s) => s.setActiveProject);
   const handleNovoAletado = () => {
-    resetSimStore();
-    setActiveProjectGlobal(null);
+    resetCnCoilsWorkspace();
     toast.success("Workspace limpo. Configure um novo aletado do zero.");
   };
+  // Garantia defensiva: se entrar no workspace sem um projeto ativo,
+  // limpa qualquer estado residual de um cálculo anterior.
+  useEffect(() => {
+    if (!useProjectStore.getState().activeProjectId) {
+      resetCnCoilsWorkspace();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const [selectedCompressorRow, setSelectedCompressorRow] = useState<CompressorCatalogRow | null>(null);
   useEffect(() => {
     if (!selectedCompressorId) {
