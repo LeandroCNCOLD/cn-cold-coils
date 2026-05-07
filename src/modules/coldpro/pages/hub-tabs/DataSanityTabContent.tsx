@@ -395,7 +395,7 @@ export function DataSanityTabContent({ machine, compressor, condenser, evaporato
 
     try {
       const report = validateMachine(machineSpec, systemInput);
-      return { ok: true, report };
+      return { ok: true, report, spec: machineSpec, components: systemInput };
     } catch (e) {
       console.warn("[DataSanityTab] validateMachine falhou:", e);
       return { ok: false, missing: ["Equilíbrio falhou — verifique especificação do evaporador"] };
