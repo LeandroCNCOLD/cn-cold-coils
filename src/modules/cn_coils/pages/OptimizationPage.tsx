@@ -167,3 +167,34 @@ export function OptimizationPage() {
     </div>
   );
 }
+
+interface NumFieldProps {
+  label: string;
+  value: number;
+  onChange: (n: number) => void;
+  min?: number;
+  max?: number;
+  step?: number;
+}
+
+function NumField({ label, value, onChange, min, max, step }: NumFieldProps) {
+  return (
+    <section className="space-y-1.5">
+      <Label className="text-xs text-gray-300">{label}</Label>
+      <Input
+        type="number"
+        inputMode="decimal"
+        value={Number.isFinite(value) ? value : ""}
+        min={min}
+        max={max}
+        step={step}
+        onFocus={(e) => e.target.select()}
+        onChange={(e) => {
+          const n = parseFloat(e.target.value);
+          if (!isNaN(n)) onChange(n);
+        }}
+        className="h-8 bg-gray-800 border-gray-700 text-white text-xs font-mono"
+      />
+    </section>
+  );
+}
