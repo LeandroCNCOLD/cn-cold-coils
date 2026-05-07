@@ -36,6 +36,7 @@ import { AutoOptimizationTabContent } from "./hub-tabs/AutoOptimizationTabConten
 import { AIAnalysisTabContent } from "./hub-tabs/AIAnalysisTabContent";
 import { ExecutiveSummaryTabContent } from "./hub-tabs/ExecutiveSummaryTabContent";
 import { TechnicalReportTabContent } from "./hub-tabs/TechnicalReportTabContent";
+import { StartupTabContent } from "./hub-tabs/StartupTabContent";
 
 import { useCatalogSessionStore } from "@/modules/coldpro_catalog/store/useCatalogSessionStore";
 import { useCoilEnvelopeStore } from "@/modules/cn_coils/store/useCoilEnvelopeStore";
