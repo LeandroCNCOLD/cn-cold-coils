@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Play } from "lucide-react";
 import { PageContainer } from "../components/layout/PageContainer";
 import { CompressorForm } from "../components/forms/CompressorForm";
@@ -13,6 +13,7 @@ import { WarningBanner } from "../components/ui/WarningBanner";
 import { useOperatingMap } from "../hooks/useOperatingMap";
 import { formatCapacity, formatCOP, formatTemp } from "../utils/formatting";
 import type { CompressorSpec, CondenserSpec, OperatingEnvelope } from "@/modules/coldpro_v2";
+import { useTestHubStore } from "../stores/useTestHubStore";
 
 interface EnvelopeBounds {
   min_evap_temp_c: number | null;
