@@ -29,17 +29,70 @@ const EMPTY_ENVELOPE: PerformanceEnvelope = {
   max_cop: 0,
 };
 
+/**
+ * Avalia o polinômio ARI 540 / EN 12900 de 10 coeficientes.
+ * f(Te, Tc) = c1 + c2·Te + c3·Tc + c4·Te² + c5·Te·Tc + c6·Tc²
+ *           + c7·Te³ + c8·Tc·Te² + c9·Te·Tc² + c10·Tc³
+ * Retorna o valor em kW (coeficientes padrão ARI 540).
+ */
+function evalARI540(coeffs: number[], Te_C: number, Tc_C: number): number {
+  if (coeffs.length < 10) return 0;
+  const [c1, c2, c3, c4, c5, c6, c7, c8, c9, c10] = coeffs;
+  return (
+    c1 +
+    c2 * Te_C +
+    c3 * Tc_C +
+    c4 * Te_C * Te_C +
+    c5 * Te_C * Tc_C +
+    c6 * Tc_C * Tc_C +
+    c7 * Te_C * Te_C * Te_C +
+    c8 * Tc_C * Te_C * Te_C +
+    c9 * Te_C * Tc_C * Tc_C +
+    c10 * Tc_C * Tc_C * Tc_C
+  );
+}
+
+/**
+ * Monta o SystemComponentsInput para um ponto específico da grade.
+ *
+ * Quando o CompressorSpec tiver coeficientes ARI 540, interpola Q e P
+ * para o (evap_temp_c, cond_temp_c) do ponto — garantindo que tanto
+ * capacidade quanto potência variem corretamente com T_evap e T_cond.
+ *
+ * Sem coeficientes, usa os valores nominais fixos (comportamento legado).
+ */
 function buildSystemForPoint(
   input: ProductPerformanceCurveInput,
   evap_temp_c: number,
   cond_temp_c: number,
 ): SystemComponentsInput {
+  const baseCompressor = input.system.compressor;
+
+  // Interpolação ARI 540: recalcula Q e P para este ponto da grade
+  let cooling_capacity_w = baseCompressor.cooling_capacity_w;
+  let power_w = baseCompressor.power_w;
+
+  const capCoeffs = baseCompressor.ari540_capacity_coefficients;
+  const powCoeffs = baseCompressor.ari540_power_coefficients;
+
+  if (capCoeffs && capCoeffs.length >= 10) {
+    const q_kw = evalARI540(capCoeffs, evap_temp_c, cond_temp_c);
+    if (q_kw > 0) cooling_capacity_w = q_kw * 1000; // kW → W
+  }
+
+  if (powCoeffs && powCoeffs.length >= 10) {
+    const p_kw = evalARI540(powCoeffs, evap_temp_c, cond_temp_c);
+    if (p_kw > 0) power_w = p_kw * 1000; // kW → W
+  }
+
   return {
     ...input.system,
     compressor: {
-      ...input.system.compressor,
+      ...baseCompressor,
       evap_temp_c,
       cond_temp_c,
+      cooling_capacity_w,
+      power_w,
     },
     evaporator: {
       progressive_input: {
@@ -108,7 +161,7 @@ export function generateProductPerformanceCurve(
       points: [],
       summary: EMPTY_SUMMARY,
       envelope: EMPTY_ENVELOPE,
-      warnings: ["generateProductPerformanceCurve: system input is required."],
+      warnings: ["generateProductPerformanceCurve: entrada do sistema é obrigatória."],
     };
   }
 
@@ -118,7 +171,7 @@ export function generateProductPerformanceCurve(
       points: [],
       summary: EMPTY_SUMMARY,
       envelope: EMPTY_ENVELOPE,
-      warnings: ["generateProductPerformanceCurve: operating_points cannot be empty."],
+      warnings: ["generateProductPerformanceCurve: lista de pontos operacionais não pode ser vazia."],
     };
   }
 
@@ -156,7 +209,7 @@ export function generateProductPerformanceCurve(
     });
 
     if (input.options?.stop_on_rejection === true && equilibriumResult.status === "rejected") {
-      globalWarnings.push("Curve generation stopped at first rejected point.");
+      globalWarnings.push("Geração da curva interrompida no primeiro ponto rejeitado.");
       break;
     }
   }
@@ -173,7 +226,7 @@ export function generateProductPerformanceCurve(
       safeDivide(summary.rejected_points, summary.executed_points) * 100,
     );
     globalWarnings.push(
-      `${summary.rejected_points} of ${summary.executed_points} points rejected (>${rejectionPct}%). System may be undersized for part of the operating range.`,
+      `${summary.rejected_points} de ${summary.executed_points} pontos rejeitados (>${rejectionPct}%). O sistema pode estar subdimensionado para parte da faixa operacional.`,
     );
   }
 
@@ -181,7 +234,7 @@ export function generateProductPerformanceCurve(
     const copVariation = safeDivide(envelope.max_cop - envelope.min_cop, envelope.min_cop) * 100;
     if (copVariation > 50) {
       globalWarnings.push(
-        `COP varies by ${Math.round(copVariation)}% across operating points. Verify component sizing consistency.`,
+        `COP varia ${Math.round(copVariation)}% entre os pontos operacionais. Verifique a consistência do dimensionamento dos componentes.`,
       );
     }
 
@@ -189,7 +242,7 @@ export function generateProductPerformanceCurve(
       safeDivide(envelope.max_capacity_w - envelope.min_capacity_w, envelope.min_capacity_w) * 100;
     if (capacityVariation > 80) {
       globalWarnings.push(
-        `Capacity varies by ${Math.round(capacityVariation)}% across operating points. Large variation may indicate instability.`,
+        `Capacidade varia ${Math.round(capacityVariation)}% entre os pontos operacionais. Variação elevada pode indicar instabilidade no dimensionamento.`,
       );
     }
   }

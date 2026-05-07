@@ -142,3 +142,97 @@ describe("Product Performance Curve Engine", () => {
     expect(["rejected", "warning"]).toContain(result.points[0].status);
   });
 });
+
+describe("generateProductPerformanceCurve — interpolação ARI 540", () => {
+  // Coeficientes simplificados: Q(kW) = 5.0 + 0.15·Te, P(kW) = 1.8 + 0.02·Te + 0.01·Tc
+  const ARI540_CAPACITY = [5.0, 0.15, 0.0, 0, 0, 0, 0, 0, 0, 0];
+  const ARI540_POWER    = [1.8, 0.02, 0.01, 0, 0, 0, 0, 0, 0, 0];
+
+  it("pot\u00eancia do compressor varia com T_evap quando coeficientes ARI 540 est\u00e3o presentes", () => {
+    // Verifica compressor_power_w (n\u00e3o limitado pelo evaporador) para confirmar
+    // que a interpola\u00e7\u00e3o ARI 540 est\u00e1 sendo aplicada corretamente.
+    // P(kW) = 1.8 + 0.02\u00b7Te + 0.01\u00b7Tc
+    // Te=-20, Tc=40 \u2192 P = 1800 W; Te=-10 \u2192 2000 W; Te=0 \u2192 2200 W
+    const result = generateProductPerformanceCurve({
+      system: {
+        ...BASE_SYSTEM,
+        compressor: {
+          ...BASE_SYSTEM.compressor,
+          ari540_capacity_coefficients: ARI540_CAPACITY,
+          ari540_power_coefficients: ARI540_POWER,
+        },
+      },
+      operating_points: [
+        { evap_temp_c: -20, cond_temp_c: 40 },
+        { evap_temp_c: -10, cond_temp_c: 40 },
+        { evap_temp_c:   0, cond_temp_c: 40 },
+      ],
+    });
+    const powers = result.points.map((p) => p.compressor_power_w);
+    // P deve crescer com T_evap (coeficiente c2 = 0.02 > 0)
+    expect(powers[1]).toBeGreaterThan(powers[0]);
+    expect(powers[2]).toBeGreaterThan(powers[1]);
+    // Valores aproximados esperados: 1800, 2000, 2200 W
+    expect(powers[0]).toBeCloseTo(1800, -1);
+    expect(powers[1]).toBeCloseTo(2000, -1);
+    expect(powers[2]).toBeCloseTo(2200, -1);
+  });
+
+  it("potência varia com T_cond quando coeficientes ARI 540 estão presentes", () => {
+    const result = generateProductPerformanceCurve({
+      system: {
+        ...BASE_SYSTEM,
+        compressor: {
+          ...BASE_SYSTEM.compressor,
+          ari540_capacity_coefficients: ARI540_CAPACITY,
+          ari540_power_coefficients: ARI540_POWER,
+        },
+      },
+      operating_points: [
+        { evap_temp_c: -10, cond_temp_c: 30 },
+        { evap_temp_c: -10, cond_temp_c: 40 },
+        { evap_temp_c: -10, cond_temp_c: 50 },
+      ],
+    });
+    const powers = result.points.map((p) => p.compressor_power_w);
+    expect(powers[1]).toBeGreaterThan(powers[0]);
+    expect(powers[2]).toBeGreaterThan(powers[1]);
+  });
+
+  it("sem coeficientes ARI 540, potência permanece fixa em todos os pontos de T_cond", () => {
+    const result = generateProductPerformanceCurve({
+      system: BASE_SYSTEM,
+      operating_points: [
+        { evap_temp_c: -10, cond_temp_c: 30 },
+        { evap_temp_c: -10, cond_temp_c: 40 },
+        { evap_temp_c: -10, cond_temp_c: 50 },
+      ],
+    });
+    const powers = result.points.map((p) => p.compressor_power_w);
+    expect(powers[0]).toBe(powers[1]);
+    expect(powers[1]).toBe(powers[2]);
+  });
+
+  it("alertas globais são gerados em português", () => {
+    const result = generateProductPerformanceCurve({
+      system: {
+        ...BASE_SYSTEM,
+        condenser: { heat_rejection_capacity_w: 100, max_cond_temp_c: 50 },
+      },
+      operating_points: [
+        { evap_temp_c: -10, cond_temp_c: 35 },
+        { evap_temp_c: -10, cond_temp_c: 35 },
+        { evap_temp_c: -10, cond_temp_c: 35 },
+        { evap_temp_c: -10, cond_temp_c: 35 },
+      ],
+    });
+    const hasPortugueseWarning = result.warnings.some(
+      (w) => w.includes("pontos rejeitados") || w.includes("subdimensionado"),
+    );
+    expect(hasPortugueseWarning).toBe(true);
+    const hasEnglishWarning = result.warnings.some(
+      (w) => w.includes("undersized") || w.includes("rejected (>"),
+    );
+    expect(hasEnglishWarning).toBe(false);
+  });
+});

@@ -759,12 +759,24 @@ export interface CompressorSpec {
   power_factor?: number;
   /** Frequência nominal (Hz). Ex: 50 ou 60. */
   frequency_hz?: number;
-  /** Modelo comercial do compressor. */
+   /** Modelo comercial do compressor. */
   model?: string;
   /** Fabricante do compressor. */
   manufacturer?: string;
+  /**
+   * Coeficientes polinomiais ARI 540 / EN 12900 para interpolação de capacidade frigorífica
+   * em função de T_evap (Te_C) e T_cond (Tc_C). Formato: [c1..c10].
+   * Q(kW) = c1 + c2·Te + c3·Tc + c4·Te² + c5·Te·Tc + c6·Tc² + c7·Te³ + c8·Tc·Te² + c9·Te·Tc² + c10·Tc³
+   * Quando presentes, o motor de curva de desempenho usa esses coeficientes em vez do valor nominal fixo.
+   */
+  ari540_capacity_coefficients?: number[];
+  /**
+   * Coeficientes polinomiais ARI 540 / EN 12900 para interpolação de potência absorvida
+   * em função de T_evap (Te_C) e T_cond (Tc_C). Formato: [c1..c10].
+   * P(kW) = c1 + c2·Te + c3·Tc + c4·Te² + c5·Te·Tc + c6·Tc² + c7·Te³ + c8·Tc·Te² + c9·Te·Tc² + c10·Tc³
+   */
+  ari540_power_coefficients?: number[];
 }
-
 export interface CondenserSpec {
   heat_rejection_capacity_w: number;
   max_cond_temp_c: number;
