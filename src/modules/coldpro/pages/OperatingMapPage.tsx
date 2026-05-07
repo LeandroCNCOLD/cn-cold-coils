@@ -123,6 +123,17 @@ export function OperatingMapPage() {
     });
   };
 
+  // Auto-disparo após hidratação completa do Hub
+  const didAutoRun = useRef(false);
+  useEffect(() => {
+    if (didAutoRun.current) return;
+    if (!didHydrateFromHub.current) return;
+    if (!canCalculate || isCalculating || result) return;
+    didAutoRun.current = true;
+    handleCalculate();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [canCalculate, isCalculating, result]);
+
   const envelopeBounds = useMemo<EnvelopeBounds | null>(() => {
     if (!result?.success) return null;
     return computeEnvelopeBounds(result.data.envelope);
