@@ -1,12 +1,31 @@
-// Catálogo Completo de Ventiladores — CN Coils
-// Gerado automaticamente a partir dos datasheets oficiais
+// Catálogo de Ventiladores — CN Coils (Schema v2)
 // Fabricantes: Ziehl-Abegg, EBM Papst, Sell Parts
-// Total: 31 modelos com curvas de desempenho reais
+// Schema estendido: suporta curve_sets (múltiplas curvas por velocidade) e performance_data
+// Compatibilidade retroativa: curve_points mantido como curva I (100% velocidade)
 
 export interface FanCurvePoint {
   q_m3h: number;      // Vazão em m³/h
   psf_pa: number;     // Pressão estática em Pa
   p1_w?: number;      // Potência elétrica em W (opcional)
+}
+
+/** Conjunto de curva Q×ΔP para uma velocidade específica (curva I = 100%, II = ~85%, III = ~70%, IV = ~60%) */
+export interface FanCurveSet {
+  curve_id: string;           // Identificador da curva (ex: 'I', 'II', 'III', 'IV')
+  points: FanCurvePoint[];    // Pontos Q×ΔP desta curva
+}
+
+/** Ponto de dados elétricos medido em campo para uma curva e ponto operacional específicos */
+export interface FanPerformanceDataPoint {
+  curve_id: string;           // Curva correspondente (ex: 'I', 'II')
+  connection?: string | null; // Ligação Y/Δ
+  voltage_v?: number;         // Tensão [V]
+  frequency_hz?: number;      // Frequência [Hz]
+  operating_point?: number;   // Índice do ponto operacional
+  current_a?: number;         // Corrente [A]
+  power_w?: number;           // Potência [W]
+  speed_rpm?: number;         // Velocidade [rpm]
+  sound_lwa_db?: number;      // Nível de potência sonora [dB(A)]
 }
 
 export interface FanModel {
@@ -23,7 +42,30 @@ export interface FanModel {
   p1_nominal_w: number;       // Potência nominal [W]
   num_curve_points?: number;  // Quantidade de pontos da curva
   source_file?: string;       // Arquivo fonte do datasheet
-  curve_points: FanCurvePoint[]; // Pontos da curva Q×ΔP
+  curve_points: FanCurvePoint[]; // Pontos da curva Q×ΔP (curva I — compatibilidade retroativa)
+  // ── Campos estendidos ZIEHL-ABEGG ──────────────────────────────────────────
+  family?: string;            // Família do ventilador (ex: 'FE2owlet-ECblue')
+  application?: string;       // Aplicação (ex: 'Oil transformer cooling')
+  num_blades?: number;        // Número de pás
+  blade_material?: string;    // Material das pás
+  rotor_material?: string;    // Material do rotor
+  voltage?: string;           // Tensão nominal (ex: '3~400V')
+  frequency_hz?: number;      // Frequência nominal [Hz]
+  motor_technology?: string;  // Tecnologia do motor (AC / EC)
+  poles?: number | string;    // Número de polos (ex: 4 ou '4-4' para motores de 2 velocidades)
+  p_sys_w?: number;           // Potência do sistema [W]
+  current_nominal_a?: number; // Corrente nominal [A]
+  temp_min_c?: number;        // Temperatura mínima de operação [°C]
+  temp_max_c?: number;        // Temperatura máxima de operação [°C]
+  ip_protection?: string;     // Grau de proteção IP
+  thermal_class?: string;     // Classe térmica do motor
+  erp_n_actual?: number;      // η real ErP
+  erp_n_target?: number;      // η alvo ErP
+  weight_kg?: number;         // Peso [kg]
+  curve_available?: boolean;  // Se há curva aerodinâmica disponível
+  num_curve_sets?: number;    // Quantidade de curvas (velocidades)
+  curve_sets?: FanCurveSet[]; // NOVO: todas as curvas por velocidade (I, II, III, IV)
+  performance_data?: FanPerformanceDataPoint[]; // NOVO: pontos elétricos por curva
   [key: string]: unknown;     // Permite campos extras dos datasheets
 }
 
