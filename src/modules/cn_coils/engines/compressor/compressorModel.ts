@@ -65,11 +65,13 @@ export interface CompressorRecord {
   model: string;
   manufacturer: string;
   refrigerant: string;
+  power_supply?: string;
   modelType: CompressorModelType;
   ari540?: ARI540Coefficients;
   ari540Power?: ARI540PowerCoefficients;
   bitzerNative?: BitzerNativeCoefficients;
   constantEfficiency?: ConstantEfficiencyCoefficients;
+  en12900?: EN12900CompressorData;
 }
 
 export interface CompressorInputs {
