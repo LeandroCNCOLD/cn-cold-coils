@@ -99,6 +99,10 @@ export function FanLibraryBrowser() {
   );
 
   // Listas únicas para os selects (sempre baseadas no dataset bruto).
+  const allManufacturers = useMemo(
+    () => [...new Set(enriched.map((f) => f.manufacturer).filter(Boolean))].sort(),
+    [enriched],
+  );
   const allSeries = useMemo(
     () =>
       [...new Set(enriched.map((f) => f.facets.series).filter((s): s is string => !!s))].sort(),
@@ -120,9 +124,12 @@ export function FanLibraryBrowser() {
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
     return enriched.filter((f) => {
+      if (manufacturerFilter !== "ALL" && f.manufacturer !== manufacturerFilter) return false;
       if (seriesFilter !== "ALL" && f.facets.series !== seriesFilter) return false;
       if (motorFilter !== "ALL" && f.facets.motorCode !== motorFilter) return false;
       if (sizeFilter !== "ALL" && String(f.facets.sizeMm) !== sizeFilter) return false;
+      if (frequencyFilter === "50" && !f.supports_50hz) return false;
+      if (frequencyFilter === "60" && !f.supports_60hz) return false;
       if (minFlow > 0 && f.freeFlowM3h < minFlow) return false;
       if (minPressure > 0 && f.sphAt0Pa < minPressure) return false;
       if (!q) return true;
@@ -132,7 +139,7 @@ export function FanLibraryBrowser() {
         (f.facets?.motorLabel ?? "").toLowerCase().includes(q)
       );
     });
-  }, [enriched, search, seriesFilter, motorFilter, sizeFilter, minFlow, minPressure]);
+  }, [enriched, search, manufacturerFilter, seriesFilter, motorFilter, sizeFilter, frequencyFilter, minFlow, minPressure]);
 
   const grouped = useMemo(() => groupByManufacturer(filtered), [filtered]);
   const manufacturers = useMemo(() => [...grouped.keys()], [grouped]);
@@ -140,9 +147,11 @@ export function FanLibraryBrowser() {
 
   const resetFilters = () => {
     setSearch("");
+    setManufacturerFilter("ALL");
     setSeriesFilter("ALL");
     setMotorFilter("ALL");
     setSizeFilter("ALL");
+    setFrequencyFilter("ALL");
     setMinFlow(0);
     setMinPressure(0);
   };
