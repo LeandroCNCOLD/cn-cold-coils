@@ -42,6 +42,9 @@ export interface LibraryFan {
   power_coefficients: number[];
   coefficient_count: number;
   data_quality?: string;
+  frequency_hz?: number | null;
+  supports_50hz?: boolean;
+  supports_60hz?: boolean;
 }
 
 export interface EquipmentLibraryState<T> {
