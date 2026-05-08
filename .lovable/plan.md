@@ -1,97 +1,34 @@
-## Objetivo
+## Resumo
 
-Garantir que **todo workspace de cálculo** (CN Coils — Evaporador, Condensador, Compressor — e Hub de Testes / catálogo coldpro) seja **limpo automaticamente após salvar e sair** da tela, eliminando o risco de o próximo cálculo herdar dados do anterior.
+Incluir os 5 modelos Ziehl-Abegg do PDF (FN040, FP045, FG040, FN042, FG035 — ~10 variantes Hz/V) no `fanCatalog.ts`, anexar a imagem do gráfico Q×ΔP a cada um e calcular um polinômio aproximado da curva via leitura por visão.
 
-Hoje cada `handleSave` apenas exibe `toast.success("Projeto salvo (em memória).")` e abre o `PostSaveNextStepDialog`, mas **não limpa nenhum store**. Além disso, alguns stores são persistidos em `localStorage` (`coldpro-catalog-session`, `cncoils_last_inputs`), reinjetando dados antigos ao trocar de equipamento.
+**Importante:** nenhum desses modelos está hoje no catálogo (98 entradas atuais). Isto é **inclusão**, não atualização dos 70 instalados. O FN040 que você procurava entra agora.
 
-## Causa-raiz
+## Passos
 
-Stores que mantêm estado entre telas:
+1. **Extrair dados textuais do PDF** (já feito no parse): para cada variante coletar `model`, `article_number`, `family`, `diameter_mm`, `voltage`, `frequency_hz`, `motor_technology`, `p1_nominal_w`, `current_nominal_a`, `rpm_nominal`, `q_max_m3h`, `sound_lwa_db`, `erp_efficiency_pct`, ponto de operação (Q=2500, ΔP=50) e espectro acústico.
 
-| Store | Local | Persistido? | API de limpeza |
-|---|---|---|---|
-| `useCnCoilsSimulationStore` | cn_coils | não | `reset()` (já existe) |
-| `useProjectStore` | cn_coils | sim (zustand persist) | `setActiveProject(null)` |
-| `useCatalogSessionStore` | coldpro_catalog | sim (`coldpro-catalog-session`) | `clearSelection()` |
-| `useTestHubStore` | coldpro | parcial | `clearAllAnalyses()` + limpar `selectedMachine` |
-| `useComponentStore` / `useSessionStore` | coldpro | sim | precisa adicionar `reset()` |
-| `lastInputsPersistence` | localStorage `cncoils_last_inputs` | sim | precisa `clearLastInputs()` |
+2. **Copiar imagens para `public/data/fans/`:**
+   - `curves/{model}_{voltage}_{hz}.jpg` ← crop do gráfico principal Caudal×Pressão (`page_X_chart_1_v2.jpg`)
+   - `photos/{model}.jpg` ← foto do produto (`page_X_image_1_v2.jpg`)
 
-## Plano
+3. **Calcular polinômio Q×ΔP** (parte aproximada):
+   - Script Python no sandbox usando Lovable AI Gateway (gemini-3-flash) para ler 6-8 pontos `(Q, ΔP)` da curva de RPM nominal de cada chart.
+   - `numpy.polyfit(Q, ΔP, 2)` → `psf_coeffs: [c, b, a]`.
+   - Validação: o polinômio deve passar a ≤10% do ponto de operação conhecido (Q=2500, ΔP=50). Se desviar mais, marco `psf_coeffs: null` e mantenho só os pontos brutos.
+   - Demais rotações via leis de afinidade (`Q∝rpm`, `ΔP∝rpm²`).
 
-### 1. Criar utilitário central `src/modules/cn_coils/utils/workspaceReset.ts`
+4. **Atualizar `src/data/fanCatalog.ts`** acrescentando as ~10 entradas com:
+   - todos os campos extraídos
+   - `curve_points` (pontos lidos)
+   - `psf_coeffs` (quando aprovado pela validação)
+   - `curve_image` e `product_image` (caminhos relativos)
 
-```ts
-export function resetCnCoilsWorkspace(opts?: { keepProject?: boolean }) {
-  useCnCoilsSimulationStore.getState().reset();
-  if (!opts?.keepProject) useProjectStore.getState().setActiveProject(null);
-  clearLastInputs(); // novo helper em lastInputsPersistence.ts
-}
-```
+5. **Pequena edição em `FanLibraryBrowser`** para exibir o `curve_image` e `product_image` no card do produto, quando presentes.
 
-E `src/modules/coldpro/utils/workspaceReset.ts`:
-```ts
-export function resetColdproWorkspace() {
-  useCatalogSessionStore.getState().clearSelection();
-  useTestHubStore.getState().clearAllAnalyses();
-  useTestHubStore.setState({ selectedMachine: null });
-  useComponentStore.getState().reset?.();
-  useSessionStore.getState().reset?.();
-}
-```
+6. **Verificação final:** rodar `bunx tsc --noEmit` e abrir `/coldpro/components` para confirmar que os 10 novos ventiladores aparecem com gráfico e foto.
 
-### 2. Adicionar `clearLastInputs()` em `lastInputsPersistence.ts`
+## Limitações honestas
 
-Remove a chave `cncoils_last_inputs` do `localStorage`.
-
-### 3. Adicionar `reset()` aos stores que ainda não têm
-
-- `useComponentStore`, `useSessionStore` (coldpro): adicionar `reset: () => set(initialState)`.
-
-### 4. Conectar nos pontos de "salvar e sair"
-
-Em cada `handleSave` dos workspaces CN Coils:
-```ts
-const handleSave = () => {
-  toast.success("Projeto salvo (em memória).");
-  setNextStepOpen(true);
-};
-```
-Mudar para limpar **após** o usuário fechar o `PostSaveNextStepDialog` (sair = `onOpenChange(false)`):
-```tsx
-<PostSaveNextStepDialog
-  open={nextStepOpen}
-  onOpenChange={(open) => {
-    setNextStepOpen(open);
-    if (!open) resetCnCoilsWorkspace();
-  }}
-  ...
-/>
-```
-Aplicar em:
-- `EvaporatorUnifiedWorkspacePage.tsx`
-- `CondenserWorkspacePage.tsx`
-- `CompressorWorkspacePage.tsx`
-
-Para o Hub de Testes / catálogo coldpro: chamar `resetColdproWorkspace()` ao desmontar a página (`useEffect(() => () => resetColdproWorkspace(), [])`) em `TestHubPage.tsx` e `TestBenchPage.tsx`.
-
-### 5. Reset defensivo na **entrada** dos workspaces
-
-Mesmo que o save/sair anterior tenha falhado, garantir tela limpa quando o usuário entra "novo": se a URL não tem `projectId`/`equipmentId`, executar reset no `useEffect` de mount. Isso elimina qualquer herança residual de localStorage.
-
-```tsx
-useEffect(() => {
-  const hasContext = searchParams.get("projectId") || searchParams.get("loadFromProject");
-  if (!hasContext) resetCnCoilsWorkspace();
-}, []);
-```
-
-### 6. Validação
-
-- `bunx tsc --noEmit` → 0 erros
-- `bunx vitest run` → 645 testes passando
-- Teste manual: abrir Evaporador → preencher → salvar → fechar diálogo → abrir Condensador → confirmar campos zerados; idem Hub de Testes.
-
-## Garantia
-
-Combinação de **reset no save/sair** + **reset defensivo no mount** + **limpeza dos `localStorage` persistidos** assegura que nenhum dado do cálculo anterior seja herdado, eliminando a categoria de erros causados por estado residual.
+- Coeficientes via leitura por visão são **estimativa de engenharia** (±5%), não dados certificados. Marcados como tal no campo (ex.: `psf_coeffs_source: "vision-fit"`).
+- Charts secundários (Potência, Eficiência, Acústica) ficam só como imagem — não vou ajustar polinômios para eles, só para Q×ΔP que é o que o app consome.
