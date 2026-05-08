@@ -47,7 +47,18 @@ interface FanFacets {
   sizeMm: number | null;
 }
 
-function decodeModel(model: string): FanFacets {
+// Ziehl-Abegg: prefixo de 2 letras (FN, FE, FC, FG, FP…) + 3-4 dígitos
+const ZA_MODEL_REGEX = /^([A-Z]{2})(\d{3,4})/;
+
+function decodeModel(model: string, manufacturer?: string): FanFacets {
+  const isZiehl = (manufacturer ?? "").toLowerCase().includes("ziehl");
+  if (isZiehl) {
+    const z = ZA_MODEL_REGEX.exec(model);
+    if (z) {
+      const [, series, size] = z;
+      return { series, motorCode: null, motorLabel: "—", sizeMm: Number(size) };
+    }
+  }
   const m = MODEL_REGEX.exec(model);
   if (!m) {
     return { series: null, motorCode: null, motorLabel: "Outros", sizeMm: null };
@@ -91,7 +102,7 @@ export function FanLibraryBrowser() {
         ...f,
         sph_coefficients: f.sph_coefficients ?? [],
         power_coefficients: f.power_coefficients ?? [],
-        facets: decodeModel(f.model),
+        facets: decodeModel(f.model, f.manufacturer),
         freeFlowM3h: estimateMaxAirflow(f.sph_coefficients),
         sphAt0Pa: f.sph_coefficients?.[0] ?? 0,
       })),
@@ -103,11 +114,14 @@ export function FanLibraryBrowser() {
     () => [...new Set(enriched.map((f) => f.manufacturer).filter(Boolean))].sort(),
     [enriched],
   );
-  const allSeries = useMemo(
-    () =>
-      [...new Set(enriched.map((f) => f.facets.series).filter((s): s is string => !!s))].sort(),
-    [enriched],
-  );
+  // Séries disponíveis dependem do fabricante selecionado (cascata).
+  const allSeries = useMemo(() => {
+    const scope =
+      manufacturerFilter === "ALL"
+        ? enriched
+        : enriched.filter((f) => f.manufacturer === manufacturerFilter);
+    return [...new Set(scope.map((f) => f.facets.series).filter((s): s is string => !!s))].sort();
+  }, [enriched, manufacturerFilter]);
   const allMotors = useMemo(() => {
     const set = new Set<string>();
     for (const f of enriched) if (f.facets.motorCode) set.add(f.facets.motorCode);
@@ -252,6 +266,7 @@ export function FanLibraryBrowser() {
             value={manufacturerFilter}
             onChange={(v) => {
               setManufacturerFilter(v);
+              setSeriesFilter("ALL");
               setSelectedManufacturer(null);
             }}
             options={[
@@ -264,10 +279,17 @@ export function FanLibraryBrowser() {
             value={seriesFilter}
             onChange={setSeriesFilter}
             options={[
-              { value: "ALL", label: "Todas as séries" },
+              {
+                value: "ALL",
+                label:
+                  manufacturerFilter === "ALL"
+                    ? "Todas as séries"
+                    : `Todas as séries (${manufacturerFilter})`,
+              },
               ...allSeries.map((s) => ({ value: s, label: `Série ${s}` })),
             ]}
           />
+
           <FilterSelect
             label="Motor"
             value={motorFilter}
