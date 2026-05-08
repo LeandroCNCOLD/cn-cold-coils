@@ -11,6 +11,7 @@ export interface LibraryCompressor {
   type?: string;
   refrigerant: string[];
   application_type?: string;
+  power_supply?: string | null;
   cooling_capacity_kw: number;
   cooling_capacity_kcal_h?: number;
   power_input_kw: number;
