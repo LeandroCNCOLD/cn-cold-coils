@@ -246,7 +246,19 @@ export function FanLibraryBrowser() {
         </div>
 
         {/* Linha 2 — facets categóricos */}
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-5">
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-7">
+          <FilterSelect
+            label="Fabricante"
+            value={manufacturerFilter}
+            onChange={(v) => {
+              setManufacturerFilter(v);
+              setSelectedManufacturer(null);
+            }}
+            options={[
+              { value: "ALL", label: "Todos os fabricantes" },
+              ...allManufacturers.map((m) => ({ value: m, label: m })),
+            ]}
+          />
           <FilterSelect
             label="Série"
             value={seriesFilter}
@@ -275,6 +287,16 @@ export function FanLibraryBrowser() {
             options={[
               { value: "ALL", label: "Todos os diâmetros" },
               ...allSizes.map((s) => ({ value: String(s), label: `${s} mm` })),
+            ]}
+          />
+          <FilterSelect
+            label="Frequência"
+            value={frequencyFilter}
+            onChange={setFrequencyFilter}
+            options={[
+              { value: "ALL", label: "50 / 60 Hz" },
+              { value: "50", label: "50 Hz" },
+              { value: "60", label: "60 Hz" },
             ]}
           />
           <FilterNumber
