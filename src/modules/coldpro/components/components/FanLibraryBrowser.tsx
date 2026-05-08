@@ -266,6 +266,7 @@ export function FanLibraryBrowser() {
             value={manufacturerFilter}
             onChange={(v) => {
               setManufacturerFilter(v);
+              setSeriesFilter("ALL");
               setSelectedManufacturer(null);
             }}
             options={[
@@ -278,10 +279,17 @@ export function FanLibraryBrowser() {
             value={seriesFilter}
             onChange={setSeriesFilter}
             options={[
-              { value: "ALL", label: "Todas as séries" },
+              {
+                value: "ALL",
+                label:
+                  manufacturerFilter === "ALL"
+                    ? "Todas as séries"
+                    : `Todas as séries (${manufacturerFilter})`,
+              },
               ...allSeries.map((s) => ({ value: s, label: `Série ${s}` })),
             ]}
           />
+
           <FilterSelect
             label="Motor"
             value={motorFilter}
