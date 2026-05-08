@@ -169,6 +169,30 @@ export function useCompressorLibrary(): EquipmentLibraryState<LibraryCompressor>
   return state;
 }
 
+/**
+ * Catálogo único de ventiladores — FAN_CATALOG (Ziehl-Abegg + EBM atualizados,
+ * com curvas Q×ΔP reais). O JSON legado /data/equipment/fans.json (600 modelos
+ * sem curva) foi descontinuado.
+ *
+ * sph_coefficients é derivado por regressão linear sobre curve_points para
+ * manter compatibilidade com FanLibraryBrowser (estimativa de vazão livre e
+ * SPH@Q=0).
+ */
+function fitLinearSph(points: { q_m3h: number; psf_pa: number }[]): number[] {
+  const pts = points.filter((p) => Number.isFinite(p.q_m3h) && Number.isFinite(p.psf_pa));
+  if (pts.length < 2) return [];
+  const n = pts.length;
+  const sx = pts.reduce((a, p) => a + p.q_m3h, 0);
+  const sy = pts.reduce((a, p) => a + p.psf_pa, 0);
+  const sxx = pts.reduce((a, p) => a + p.q_m3h * p.q_m3h, 0);
+  const sxy = pts.reduce((a, p) => a + p.q_m3h * p.psf_pa, 0);
+  const denom = n * sxx - sx * sx;
+  if (denom === 0) return [];
+  const slope = (n * sxy - sx * sy) / denom;
+  const intercept = (sy - slope * sx) / n;
+  return [intercept, slope];
+}
+
 export function useFanLibrary(): EquipmentLibraryState<LibraryFan> {
   const [state, setState] = useState<EquipmentLibraryState<LibraryFan>>({
     loading: true,
@@ -178,9 +202,26 @@ export function useFanLibrary(): EquipmentLibraryState<LibraryFan> {
 
   useEffect(() => {
     let cancelled = false;
-    fetchJson<LibraryFan>("/data/equipment/fans.json")
-      .then((data) => {
+    import("@/data/fanCatalog")
+      .then(({ FAN_CATALOG }) => {
         if (cancelled) return;
+        const data: LibraryFan[] = FAN_CATALOG.map((f) => {
+          const sph = fitLinearSph(f.curve_points ?? []);
+          const fallback =
+            sph.length === 0 && f.dp_max_pa > 0 && f.q_max_m3h > 0
+              ? [f.dp_max_pa, -f.dp_max_pa / f.q_max_m3h]
+              : sph;
+          return {
+            id: `ZA_${f.model}`,
+            source: "FAN_CATALOG",
+            manufacturer: f.manufacturer,
+            model: f.model,
+            sph_coefficients: fallback,
+            power_coefficients: [],
+            coefficient_count: fallback.length,
+            data_quality: "curve_fitted",
+          };
+        });
         setState({ loading: false, error: null, data });
       })
       .catch((err) => {
