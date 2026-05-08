@@ -43,6 +43,8 @@ export interface CompressorCatalogRow {
   manufacturer: CompressorManufacturer;
   builder_normalized?: string;
   refrigerant: string;
+  /** Alimentação elétrica (ex.: "380V-3-60Hz") — opcional */
+  power_supply?: string | null;
   IdsFreon?: number;
   CompressorType?: string | null;
   application: CompressorApplication;
