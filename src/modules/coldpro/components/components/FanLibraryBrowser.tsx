@@ -188,9 +188,11 @@ export function FanLibraryBrowser() {
 
   const filtersActive =
     search.trim() !== "" ||
+    manufacturerFilter !== "ALL" ||
     seriesFilter !== "ALL" ||
     motorFilter !== "ALL" ||
     sizeFilter !== "ALL" ||
+    frequencyFilter !== "ALL" ||
     minFlow > 0 ||
     minPressure > 0;
 
