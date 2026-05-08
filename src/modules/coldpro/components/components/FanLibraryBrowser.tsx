@@ -102,7 +102,7 @@ export function FanLibraryBrowser() {
         ...f,
         sph_coefficients: f.sph_coefficients ?? [],
         power_coefficients: f.power_coefficients ?? [],
-        facets: decodeModel(f.model),
+        facets: decodeModel(f.model, f.manufacturer),
         freeFlowM3h: estimateMaxAirflow(f.sph_coefficients),
         sphAt0Pa: f.sph_coefficients?.[0] ?? 0,
       })),
@@ -114,11 +114,14 @@ export function FanLibraryBrowser() {
     () => [...new Set(enriched.map((f) => f.manufacturer).filter(Boolean))].sort(),
     [enriched],
   );
-  const allSeries = useMemo(
-    () =>
-      [...new Set(enriched.map((f) => f.facets.series).filter((s): s is string => !!s))].sort(),
-    [enriched],
-  );
+  // Séries disponíveis dependem do fabricante selecionado (cascata).
+  const allSeries = useMemo(() => {
+    const scope =
+      manufacturerFilter === "ALL"
+        ? enriched
+        : enriched.filter((f) => f.manufacturer === manufacturerFilter);
+    return [...new Set(scope.map((f) => f.facets.series).filter((s): s is string => !!s))].sort();
+  }, [enriched, manufacturerFilter]);
   const allMotors = useMemo(() => {
     const set = new Set<string>();
     for (const f of enriched) if (f.facets.motorCode) set.add(f.facets.motorCode);
