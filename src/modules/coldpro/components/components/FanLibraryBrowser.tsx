@@ -206,8 +206,8 @@ export function FanLibraryBrowser() {
               Biblioteca de ventiladores · {data.length} modelos · {allSizes.length} tamanhos
             </h3>
             <p className="text-xs text-slate-500">
-              Filtre por série, tipo de motor, diâmetro, vazão e pressão · selecione função e
-              importe.
+              Filtre por fabricante, série, motor, diâmetro, frequência, vazão e pressão ·
+              selecione função e importe.
             </p>
           </div>
           <div className="flex items-center gap-2">
