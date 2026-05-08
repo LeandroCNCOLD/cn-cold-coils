@@ -47,7 +47,18 @@ interface FanFacets {
   sizeMm: number | null;
 }
 
-function decodeModel(model: string): FanFacets {
+// Ziehl-Abegg: prefixo de 2 letras (FN, FE, FC, FG, FP…) + 3-4 dígitos
+const ZA_MODEL_REGEX = /^([A-Z]{2})(\d{3,4})/;
+
+function decodeModel(model: string, manufacturer?: string): FanFacets {
+  const isZiehl = (manufacturer ?? "").toLowerCase().includes("ziehl");
+  if (isZiehl) {
+    const z = ZA_MODEL_REGEX.exec(model);
+    if (z) {
+      const [, series, size] = z;
+      return { series, motorCode: null, motorLabel: "—", sizeMm: Number(size) };
+    }
+  }
   const m = MODEL_REGEX.exec(model);
   if (!m) {
     return { series: null, motorCode: null, motorLabel: "Outros", sizeMm: null };
