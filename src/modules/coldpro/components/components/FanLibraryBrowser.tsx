@@ -72,9 +72,11 @@ export function FanLibraryBrowser() {
   const addFan = useComponentStore((s) => s.addFan);
 
   const [search, setSearch] = useState("");
+  const [manufacturerFilter, setManufacturerFilter] = useState<string>("ALL");
   const [seriesFilter, setSeriesFilter] = useState<string>("ALL");
   const [motorFilter, setMotorFilter] = useState<string>("ALL");
   const [sizeFilter, setSizeFilter] = useState<string>("ALL");
+  const [frequencyFilter, setFrequencyFilter] = useState<string>("ALL");
   const [minFlow, setMinFlow] = useState<number>(0);
   const [minPressure, setMinPressure] = useState<number>(0);
 
