@@ -42,6 +42,9 @@ export interface LibraryFan {
   power_coefficients: number[];
   coefficient_count: number;
   data_quality?: string;
+  frequency_hz?: number | null;
+  supports_50hz?: boolean;
+  supports_60hz?: boolean;
 }
 
 export interface EquipmentLibraryState<T> {
@@ -211,6 +214,11 @@ export function useFanLibrary(): EquipmentLibraryState<LibraryFan> {
             sph.length === 0 && f.dp_max_pa > 0 && f.q_max_m3h > 0
               ? [f.dp_max_pa, -f.dp_max_pa / f.q_max_m3h]
               : sph;
+          const elec = String(f.electrical_nominal ?? "");
+          const supports_50hz =
+            f.frequency_hz === 50 || /50\s*\/?\s*60\s*Hz|50\s*Hz/i.test(elec);
+          const supports_60hz =
+            f.frequency_hz === 60 || /50\s*\/?\s*60\s*Hz|60\s*Hz/i.test(elec);
           return {
             id: `ZA_${f.model}`,
             source: "FAN_CATALOG",
@@ -220,6 +228,9 @@ export function useFanLibrary(): EquipmentLibraryState<LibraryFan> {
             power_coefficients: [],
             coefficient_count: fallback.length,
             data_quality: "curve_fitted",
+            frequency_hz: f.frequency_hz ?? null,
+            supports_50hz,
+            supports_60hz,
           };
         });
         setState({ loading: false, error: null, data });

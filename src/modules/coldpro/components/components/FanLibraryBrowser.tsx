@@ -72,9 +72,11 @@ export function FanLibraryBrowser() {
   const addFan = useComponentStore((s) => s.addFan);
 
   const [search, setSearch] = useState("");
+  const [manufacturerFilter, setManufacturerFilter] = useState<string>("ALL");
   const [seriesFilter, setSeriesFilter] = useState<string>("ALL");
   const [motorFilter, setMotorFilter] = useState<string>("ALL");
   const [sizeFilter, setSizeFilter] = useState<string>("ALL");
+  const [frequencyFilter, setFrequencyFilter] = useState<string>("ALL");
   const [minFlow, setMinFlow] = useState<number>(0);
   const [minPressure, setMinPressure] = useState<number>(0);
 
@@ -97,6 +99,10 @@ export function FanLibraryBrowser() {
   );
 
   // Listas únicas para os selects (sempre baseadas no dataset bruto).
+  const allManufacturers = useMemo(
+    () => [...new Set(enriched.map((f) => f.manufacturer).filter(Boolean))].sort(),
+    [enriched],
+  );
   const allSeries = useMemo(
     () =>
       [...new Set(enriched.map((f) => f.facets.series).filter((s): s is string => !!s))].sort(),
@@ -118,9 +124,12 @@ export function FanLibraryBrowser() {
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
     return enriched.filter((f) => {
+      if (manufacturerFilter !== "ALL" && f.manufacturer !== manufacturerFilter) return false;
       if (seriesFilter !== "ALL" && f.facets.series !== seriesFilter) return false;
       if (motorFilter !== "ALL" && f.facets.motorCode !== motorFilter) return false;
       if (sizeFilter !== "ALL" && String(f.facets.sizeMm) !== sizeFilter) return false;
+      if (frequencyFilter === "50" && !f.supports_50hz) return false;
+      if (frequencyFilter === "60" && !f.supports_60hz) return false;
       if (minFlow > 0 && f.freeFlowM3h < minFlow) return false;
       if (minPressure > 0 && f.sphAt0Pa < minPressure) return false;
       if (!q) return true;
@@ -130,7 +139,7 @@ export function FanLibraryBrowser() {
         (f.facets?.motorLabel ?? "").toLowerCase().includes(q)
       );
     });
-  }, [enriched, search, seriesFilter, motorFilter, sizeFilter, minFlow, minPressure]);
+  }, [enriched, search, manufacturerFilter, seriesFilter, motorFilter, sizeFilter, frequencyFilter, minFlow, minPressure]);
 
   const grouped = useMemo(() => groupByManufacturer(filtered), [filtered]);
   const manufacturers = useMemo(() => [...grouped.keys()], [grouped]);
@@ -138,9 +147,11 @@ export function FanLibraryBrowser() {
 
   const resetFilters = () => {
     setSearch("");
+    setManufacturerFilter("ALL");
     setSeriesFilter("ALL");
     setMotorFilter("ALL");
     setSizeFilter("ALL");
+    setFrequencyFilter("ALL");
     setMinFlow(0);
     setMinPressure(0);
   };
@@ -177,9 +188,11 @@ export function FanLibraryBrowser() {
 
   const filtersActive =
     search.trim() !== "" ||
+    manufacturerFilter !== "ALL" ||
     seriesFilter !== "ALL" ||
     motorFilter !== "ALL" ||
     sizeFilter !== "ALL" ||
+    frequencyFilter !== "ALL" ||
     minFlow > 0 ||
     minPressure > 0;
 
@@ -193,8 +206,8 @@ export function FanLibraryBrowser() {
               Biblioteca de ventiladores · {data.length} modelos · {allSizes.length} tamanhos
             </h3>
             <p className="text-xs text-slate-500">
-              Filtre por série, tipo de motor, diâmetro, vazão e pressão · selecione função e
-              importe.
+              Filtre por fabricante, série, motor, diâmetro, frequência, vazão e pressão ·
+              selecione função e importe.
             </p>
           </div>
           <div className="flex items-center gap-2">
@@ -233,7 +246,19 @@ export function FanLibraryBrowser() {
         </div>
 
         {/* Linha 2 — facets categóricos */}
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-5">
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-7">
+          <FilterSelect
+            label="Fabricante"
+            value={manufacturerFilter}
+            onChange={(v) => {
+              setManufacturerFilter(v);
+              setSelectedManufacturer(null);
+            }}
+            options={[
+              { value: "ALL", label: "Todos os fabricantes" },
+              ...allManufacturers.map((m) => ({ value: m, label: m })),
+            ]}
+          />
           <FilterSelect
             label="Série"
             value={seriesFilter}
@@ -262,6 +287,16 @@ export function FanLibraryBrowser() {
             options={[
               { value: "ALL", label: "Todos os diâmetros" },
               ...allSizes.map((s) => ({ value: String(s), label: `${s} mm` })),
+            ]}
+          />
+          <FilterSelect
+            label="Frequência"
+            value={frequencyFilter}
+            onChange={setFrequencyFilter}
+            options={[
+              { value: "ALL", label: "50 / 60 Hz" },
+              { value: "50", label: "50 Hz" },
+              { value: "60", label: "60 Hz" },
             ]}
           />
           <FilterNumber
