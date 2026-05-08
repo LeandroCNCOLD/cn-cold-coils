@@ -112,6 +112,7 @@ async function loadConsolidatedCompressorLibrary(): Promise<LibraryCompressor[]>
           ? raw.all_refrigerants.map(String)
           : [String(raw.refrigerant ?? "unknown")],
         application_type: raw.application ?? undefined,
+        power_supply: raw.power_supply ?? null,
         cooling_capacity_kw: capacity_kw,
         cooling_capacity_kcal_h: capacity_kw > 0 ? capacity_kw * 860 : undefined,
         power_input_kw: power_kw,
