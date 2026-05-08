@@ -32,6 +32,8 @@ export interface CompressorCalibrationPoint {
   pwr_coeffs: number[];
   /** Coeficientes EN12900 — 10 termos (corrente) */
   cur_coeffs: number[];
+  /** Coeficientes EN12900 — 10 termos (vazão mássica, kg/h) — opcional */
+  m_coeffs?: number[];
 }
 
 /** Registro completo de um compressor no catálogo (formato novo) */
