@@ -217,6 +217,11 @@ export function solveCoupledCoil(input: CoilAdvancedInput): CoupledCoilResult {
       h_air_w_m2k: h_air_corrected,
       finConductivity_w_mk: finCond,
       finThickness_m: finThick,
+      // Schmidt (1949): passar geometria real quando disponível
+      tube_diameter_m: tubeDiamM,
+      tube_pitch_transversal_m: input.tube_pitch_transverse_m,
+      tube_pitch_longitudinal_m: input.tube_pitch_longitudinal_m,
+      fin_pitch_m: input.fin_spacing_mm ? input.fin_spacing_mm / 1000 : undefined,
     });
     if (i === 0) warnings.push(...finResult.warnings);
 

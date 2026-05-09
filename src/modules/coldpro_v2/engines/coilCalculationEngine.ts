@@ -58,8 +58,14 @@ export function calculateCoil(input: CoilInput): CoilEngineResult {
 
   const fluid_pressure_drop_kpa = circuits * 5;
 
-  const effectiveCrossSection = Math.max(circuits * 0.0001, 0.0001);
-  const fluid_velocity_ms = massFlowKgs / effectiveCrossSection;
+  // Correção Bug3: v = ṁ / (ρ · A_flow) em vez de ṁ / 0.0001
+  const tubeDiamMm_basic = input.tube_diameter_mm ?? 9.52;
+  const tubeThickMm_basic = input.tube_thickness_mm ?? 0.35;
+  const tubeInnerDiam_basic = (tubeDiamMm_basic - 2 * tubeThickMm_basic) / 1000;
+  const A_tube_basic = Math.PI * (tubeInnerDiam_basic / 2) ** 2;
+  const A_flow_basic = Math.max(circuits * A_tube_basic, 1e-6);
+  const rho_fluid_basic = input.fluid_density_kg_m3 ?? 1190; // R-22 líquido a 5°C
+  const fluid_velocity_ms = massFlowKgs > 0 ? massFlowKgs / (rho_fluid_basic * A_flow_basic) : 0;
 
   if (exchange_area_m2 < 0.1 && rows > 0) {
     warnings.push("área de troca muito baixa");
@@ -245,9 +251,11 @@ export function calculateCoilAdvanced(input: CoilAdvancedInput): CoilAdvancedRes
 
   // Fluid side pressure drop (simplified)
   const tubeInnerDiamM = Math.max(tubeDiamM - 2 * wallThickM, 0.001);
-  const fluidCrossSection = Math.max(circuits * Math.PI * (tubeInnerDiamM / 2) ** 2, 0.0001);
+  const fluidCrossSection = Math.max(circuits * Math.PI * (tubeInnerDiamM / 2) ** 2, 1e-6);
   const massFlowKgs = input.mass_flow_kgs ?? 0;
-  const fluidVelocity = massFlowKgs / (fluidCrossSection * 1000);
+  // Correção Bug3 (advanced): v = ṁ / (ρ · A_flow) com densidade real do fluido
+  const rho_fluid_adv = input.fluid_density_kg_m3 ?? 1190; // R-22 líquido a 5°C
+  const fluidVelocity = massFlowKgs > 0 ? massFlowKgs / (rho_fluid_adv * fluidCrossSection) : 0;
 
   const fluidTubeLength = (rows * tubesPerRow * lengthM) / Math.max(circuits, 1);
   const f_fluid = calculateDarcyFrictionFactor({

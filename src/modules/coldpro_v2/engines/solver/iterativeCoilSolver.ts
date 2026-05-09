@@ -444,6 +444,11 @@ export function solveCoilIterative(input: CoilIterativeInput): CoilIterativeResu
       h_air_w_m2k: lastHAir,
       finConductivity_w_mk: finCond,
       finThickness_m: finThick,
+      // Schmidt (1949): passar geometria real quando disponível
+      tube_diameter_m: tubeOuterDiamM,
+      tube_pitch_transversal_m: pitchT,
+      tube_pitch_longitudinal_m: pitchL,
+      fin_pitch_m: input.fin_spacing_mm ? input.fin_spacing_mm / 1000 : undefined,
     });
     if (i === 0) warnings.push(...finResult.warnings);
 

@@ -99,6 +99,8 @@ export interface CoilInput {
   airflow_m3h: number | null;
   delta_t_k: number | null;
   mass_flow_kgs: number | null;
+  /** Densidade do fluido refrigerante [kg/m³] — usado para calcular velocidade real */
+  fluid_density_kg_m3?: number;
 }
 
 export interface CoilResult {
@@ -158,6 +160,8 @@ export interface CoilAdvancedInput {
   tube_length_m?: number;
   tube_material?: string;
   circuit_distribution_mode?: "uniform" | "estimated_imbalance";
+  /** Densidade do fluido refrigerante [kg/m³] — usado para calcular velocidade real */
+  fluid_density_kg_m3?: number;
   circuit_imbalance_factor?: number;
   two_phase_mode?: "disabled" | "auto" | "forced";
   phase_type?: "evaporator" | "condenser";

@@ -41,6 +41,7 @@ import { Route as AppColdproCnCoilsRouteImport } from './routes/_app/coldpro.cn-
 import { Route as AppColdproCatalogRouteImport } from './routes/_app/coldpro.catalog'
 import { Route as AppColdproAuditRouteImport } from './routes/_app/coldpro.audit'
 import { Route as AppColdproAssemblyRouteImport } from './routes/_app/coldpro.assembly'
+import { Route as AppColdproApplicationEngineeringRouteImport } from './routes/_app/coldpro.application-engineering'
 import { Route as AppColdproAgroRouteImport } from './routes/_app/coldpro.agro'
 import { Route as AppColdproUnilabIndexRouteImport } from './routes/_app/coldpro.unilab.index'
 import { Route as AppColdproUnilabWorkspaceRouteImport } from './routes/_app/coldpro.unilab.workspace'
@@ -216,6 +217,12 @@ const AppColdproAssemblyRoute = AppColdproAssemblyRouteImport.update({
   path: '/assembly',
   getParentRoute: () => AppColdproRoute,
 } as any)
+const AppColdproApplicationEngineeringRoute =
+  AppColdproApplicationEngineeringRouteImport.update({
+    id: '/application-engineering',
+    path: '/application-engineering',
+    getParentRoute: () => AppColdproRoute,
+  } as any)
 const AppColdproAgroRoute = AppColdproAgroRouteImport.update({
   id: '/agro',
   path: '/agro',
@@ -312,6 +319,7 @@ export interface FileRoutesByFullPath {
   '/coldpro': typeof AppColdproRouteWithChildren
   '/dashboard': typeof AppDashboardRoute
   '/coldpro/agro': typeof AppColdproAgroRoute
+  '/coldpro/application-engineering': typeof AppColdproApplicationEngineeringRoute
   '/coldpro/assembly': typeof AppColdproAssemblyRoute
   '/coldpro/audit': typeof AppColdproAuditRoute
   '/coldpro/catalog': typeof AppColdproCatalogRoute
@@ -359,6 +367,7 @@ export interface FileRoutesByTo {
   '/shared': typeof SharedRoute
   '/dashboard': typeof AppDashboardRoute
   '/coldpro/agro': typeof AppColdproAgroRoute
+  '/coldpro/application-engineering': typeof AppColdproApplicationEngineeringRoute
   '/coldpro/assembly': typeof AppColdproAssemblyRoute
   '/coldpro/audit': typeof AppColdproAuditRoute
   '/coldpro/catalog': typeof AppColdproCatalogRoute
@@ -409,6 +418,7 @@ export interface FileRoutesById {
   '/_app/coldpro': typeof AppColdproRouteWithChildren
   '/_app/dashboard': typeof AppDashboardRoute
   '/_app/coldpro/agro': typeof AppColdproAgroRoute
+  '/_app/coldpro/application-engineering': typeof AppColdproApplicationEngineeringRoute
   '/_app/coldpro/assembly': typeof AppColdproAssemblyRoute
   '/_app/coldpro/audit': typeof AppColdproAuditRoute
   '/_app/coldpro/catalog': typeof AppColdproCatalogRoute
@@ -459,6 +469,7 @@ export interface FileRouteTypes {
     | '/coldpro'
     | '/dashboard'
     | '/coldpro/agro'
+    | '/coldpro/application-engineering'
     | '/coldpro/assembly'
     | '/coldpro/audit'
     | '/coldpro/catalog'
@@ -506,6 +517,7 @@ export interface FileRouteTypes {
     | '/shared'
     | '/dashboard'
     | '/coldpro/agro'
+    | '/coldpro/application-engineering'
     | '/coldpro/assembly'
     | '/coldpro/audit'
     | '/coldpro/catalog'
@@ -555,6 +567,7 @@ export interface FileRouteTypes {
     | '/_app/coldpro'
     | '/_app/dashboard'
     | '/_app/coldpro/agro'
+    | '/_app/coldpro/application-engineering'
     | '/_app/coldpro/assembly'
     | '/_app/coldpro/audit'
     | '/_app/coldpro/catalog'
@@ -830,6 +843,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppColdproAssemblyRouteImport
       parentRoute: typeof AppColdproRoute
     }
+    '/_app/coldpro/application-engineering': {
+      id: '/_app/coldpro/application-engineering'
+      path: '/application-engineering'
+      fullPath: '/coldpro/application-engineering'
+      preLoaderRoute: typeof AppColdproApplicationEngineeringRouteImport
+      parentRoute: typeof AppColdproRoute
+    }
     '/_app/coldpro/agro': {
       id: '/_app/coldpro/agro'
       path: '/agro'
@@ -978,6 +998,7 @@ const AppColdproCncoilsRouteWithChildren =
 
 interface AppColdproRouteChildren {
   AppColdproAgroRoute: typeof AppColdproAgroRoute
+  AppColdproApplicationEngineeringRoute: typeof AppColdproApplicationEngineeringRoute
   AppColdproAssemblyRoute: typeof AppColdproAssemblyRoute
   AppColdproAuditRoute: typeof AppColdproAuditRoute
   AppColdproCatalogRoute: typeof AppColdproCatalogRoute
@@ -1014,6 +1035,7 @@ interface AppColdproRouteChildren {
 
 const AppColdproRouteChildren: AppColdproRouteChildren = {
   AppColdproAgroRoute: AppColdproAgroRoute,
+  AppColdproApplicationEngineeringRoute: AppColdproApplicationEngineeringRoute,
   AppColdproAssemblyRoute: AppColdproAssemblyRoute,
   AppColdproAuditRoute: AppColdproAuditRoute,
   AppColdproCatalogRoute: AppColdproCatalogRoute,
@@ -1073,3 +1095,12 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
