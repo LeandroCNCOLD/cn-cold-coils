@@ -455,13 +455,18 @@ export function ApplicationEngineeringPage() {
     try {
       const full = await getCompressorById(item.id);
       if (full) {
+        const calibrationPoint = full.calibration_points?.[0];
         const spec: Partial<CompressorSpec> = {
           evap_temp_c: evaporatorForm.T_evaporating_c ?? -30,
           cond_temp_c: (systemConditions.ambient_temp_c ?? 30) + (systemConditions.nominal_delta_t_cond_k ?? 10),
           refrigerant: item.refrigerant ?? "R404A",
-          nominal_cooling_capacity_w: item.nominalCapacityW ?? undefined,
-          nominal_power_w: item.nominalPowerW ?? undefined,
           cooling_capacity_w: item.nominalCapacityW ?? undefined,
+          power_w: item.nominalPowerW ?? undefined,
+          model: item.model,
+          manufacturer: item.brand,
+          frequency_hz: item.frequencyHz ?? full.frequency_hz ?? undefined,
+          ari540_capacity_coefficients: calibrationPoint?.cap_coeffs,
+          ari540_power_coefficients: calibrationPoint?.pwr_coeffs,
         };
         setCompressorSpec(spec);
         setCompressor(spec as CompressorSpec);
@@ -598,20 +603,9 @@ export function ApplicationEngineeringPage() {
               </TabsContent>
               <TabsContent value="capacity-curve" className="mt-0">
                 <CapacityCurvePanel
-                  compressorCoefficients={
-                    compressor && (compressor as any).c1 !== undefined
-                      ? {
-                          c1: (compressor as any).c1, c2: (compressor as any).c2,
-                          c3: (compressor as any).c3, c4: (compressor as any).c4,
-                          c5: (compressor as any).c5, c6: (compressor as any).c6,
-                          c7: (compressor as any).c7, c8: (compressor as any).c8,
-                          c9: (compressor as any).c9, c10: (compressor as any).c10,
-                        }
-                      : undefined
-                  }
-                  defaultTe={compressorSpec.evap_temp_c ?? -30}
-                  defaultTc={compressorSpec.cond_temp_c ?? 40}
-                  onProjectPointSelected={(pt) => {
+                  capacity_coefficients={compressorSpec.ari540_capacity_coefficients ?? []}
+                  power_coefficients={compressorSpec.ari540_power_coefficients ?? []}
+                  onDesignPointSelected={(pt) => {
                     setCompressorSpec((prev) => ({ ...prev, evap_temp_c: pt.te_c, cond_temp_c: pt.tc_c }));
                     setActiveTab("evap-sweep");
                   }}

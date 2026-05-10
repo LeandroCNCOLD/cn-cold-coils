@@ -257,7 +257,7 @@ function calcCoilCapacity(
     tube_pitch_transversal_m: pitch_t_m,
     tube_pitch_longitudinal_m: pitch_l_m,
   });
-  const total_area_m2 = areaResult.total_area_m2;
+  const total_area_m2 = areaResult.A_total_m2;
 
   // Coeficientes convectivos
   const h_ar = calcHAir(face_velocity_ms, tube_od_m, fin_pitch_m, rows);
