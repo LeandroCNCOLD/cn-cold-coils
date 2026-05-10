@@ -76,9 +76,16 @@ import { OptimizationTabContent } from "../hub-tabs/OptimizationTabContent";
 
 import type { CompressorSpec, CondenserSpec } from "@/modules/coldpro_v2";
 
+// ── Novos painéis de engenharia ──────────────────────────────────────────────
+import { CapacityCurvePanel } from "./components/CapacityCurvePanel";
+import { EvaporatorSweepPanel } from "./components/EvaporatorSweepPanel";
+import { CondenserSelectionPanel } from "./components/CondenserSelectionPanel";
+import type { EvaporatorSweepCandidate, CondenserSelectionCandidate } from "./services/coilSelectionService";
+
 // ── Tipos de abas (idêntico ao TestHubPage) ───────────────────────────────────
 type TabId =
   | "summary" | "config"
+  | "capacity-curve" | "evap-sweep" | "cond-select"
   | "ph" | "equilibrium" | "performance" | "map"
   | "montecarlo" | "polynomial" | "autoopt" | "envelope" | "energy" | "fancoil"
   | "sanity" | "bottleneck" | "scenarios" | "frost" | "comparison"
@@ -93,8 +100,11 @@ interface TabDef {
 }
 
 const TABS: TabDef[] = [
-  { id: "summary",     label: "Resumo",       icon: LayoutDashboard, description: "Visão consolidada de todas as análises do sistema",                                       group: "config" },
-  { id: "config",      label: "Configuração", icon: Settings2,       description: "Selecione compressor, evaporador, condensador e condições de operação",                  group: "config" },
+  { id: "summary",        label: "Resumo",          icon: LayoutDashboard, description: "Visão consolidada de todas as análises do sistema",                                       group: "config" },
+  { id: "config",         label: "Configuração",    icon: Settings2,       description: "Selecione compressor, evaporador, condensador e condições de operação",                  group: "config" },
+  { id: "capacity-curve", label: "Curva Capac.",    icon: TrendingUp,      description: "Curva de capacidade do compressor com N pontos configuráveis (Te range × Tc fixo)",    group: "config" },
+  { id: "evap-sweep",     label: "Varredura Evap.", icon: FlaskConical,    description: "Varredura automática de geometrias CN Lantery — encontra melhor ΔT do evaporador",    group: "config" },
+  { id: "cond-select",    label: "Seleção Cond.",   icon: Target,          description: "Seleção do condensador pelo ponto crítico (Tc_max + Q_rej máxima)",                    group: "config" },
   { id: "ph",          label: "P-H Diagram",  icon: Activity,        description: "Ciclo de Mollier com 4 pontos, curva de saturação e isóbaras",                           group: "thermo" },
   { id: "equilibrium", label: "Equilíbrio",   icon: Gauge,           description: "Balanço térmico entre compressor, evaporador e condensador",                             group: "thermo" },
   { id: "performance", label: "Desempenho",   icon: TrendingUp,      description: "Capacidade, COP e potência em função de Te e Tc",                                        group: "thermo" },
@@ -361,6 +371,8 @@ function SystemStatusBar({
 // ── Componente principal ──────────────────────────────────────────────────────
 export function ApplicationEngineeringPage() {
   const [activeTab, setActiveTab] = useState<TabId>("summary");
+  const [selectedEvapCandidate, setSelectedEvapCandidate] = useState<EvaporatorSweepCandidate | null>(null);
+  const [selectedCondCandidate, setSelectedCondCandidate] = useState<CondenserSelectionCandidate | null>(null);
   const [isRunningAll, setIsRunningAll] = useState(false);
   const [compressorPickerOpen, setCompressorPickerOpen] = useState(false);
   const [selectedCompressorItem, setSelectedCompressorItem] = useState<CompressorItem | null>(null);
@@ -583,6 +595,56 @@ export function ApplicationEngineeringPage() {
               </TabsContent>
               <TabsContent value="config" className="mt-0">
                 <SystemConfigTabContent onDone={() => setActiveTab("ph")} />
+              </TabsContent>
+              <TabsContent value="capacity-curve" className="mt-0">
+                <CapacityCurvePanel
+                  compressorCoefficients={
+                    compressor && (compressor as any).c1 !== undefined
+                      ? {
+                          c1: (compressor as any).c1, c2: (compressor as any).c2,
+                          c3: (compressor as any).c3, c4: (compressor as any).c4,
+                          c5: (compressor as any).c5, c6: (compressor as any).c6,
+                          c7: (compressor as any).c7, c8: (compressor as any).c8,
+                          c9: (compressor as any).c9, c10: (compressor as any).c10,
+                        }
+                      : undefined
+                  }
+                  defaultTe={compressorSpec.evap_temp_c ?? -30}
+                  defaultTc={compressorSpec.cond_temp_c ?? 40}
+                  onProjectPointSelected={(pt) => {
+                    setCompressorSpec((prev) => ({ ...prev, evap_temp_c: pt.te_c, cond_temp_c: pt.tc_c }));
+                    setActiveTab("evap-sweep");
+                  }}
+                />
+              </TabsContent>
+              <TabsContent value="evap-sweep" className="mt-0">
+                <EvaporatorSweepPanel
+                  required_capacity_w={
+                    compressor && (compressor as any).capacity_w
+                      ? (compressor as any).capacity_w
+                      : 9560
+                  }
+                  te_c={compressorSpec.evap_temp_c ?? -30}
+                  onSelected={(c) => {
+                    setSelectedEvapCandidate(c);
+                    setActiveTab("cond-select");
+                  }}
+                />
+              </TabsContent>
+              <TabsContent value="cond-select" className="mt-0">
+                <CondenserSelectionPanel
+                  required_heat_rejection_w={
+                    compressor
+                      ? ((compressor as any).capacity_w ?? 9560) + ((compressor as any).power_w ?? 6090)
+                      : 15650
+                  }
+                  tc_c={compressorSpec.cond_temp_c ?? 40}
+                  air_inlet_temp_c={systemConditions.ambient_temp_c ?? 30}
+                  onSelected={(c) => {
+                    setSelectedCondCandidate(c);
+                    setActiveTab("summary");
+                  }}
+                />
               </TabsContent>
               <TabsContent value="ph" className="mt-0">
                 <PhDiagramTabContent result={ph.result} loading={ph.loading} error={ph.error} />
