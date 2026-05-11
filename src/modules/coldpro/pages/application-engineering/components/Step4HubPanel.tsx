@@ -92,19 +92,17 @@ export function Step4HubPanel() {
     });
 
     hub.setEvaporator({
-      rows: step2.rows,
+      rows_total: step2.rows,
       tubes_per_row: step2.tubesPerRow,
       circuits: Math.ceil(step2.tubesPerRow / 2),
       fin_spacing_mm: step2.finSpacingMm,
       length_mm: step2.lengthMm,
-      airflow_m3h: step2.fan ? (step2.fan.airflow_m3h ?? 0) * step2.fanCount : null,
+      airflow_m3_h: step2.fan ? (step2.fan.airflow_m3h ?? 0) * step2.fanCount : undefined,
       air_inlet_temp_c: step2.airInletTempC,
       fluid_inlet_temp_c: dp.te_c,
     });
 
     hub.setConditions({
-      evap_temp_c: dp.te_c,
-      cond_temp_c: dp.tc_c,
       ambient_temp_c: step3.airInletTempC,
     });
   }
