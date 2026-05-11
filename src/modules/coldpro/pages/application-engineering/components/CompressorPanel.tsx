@@ -61,11 +61,14 @@ export function CompressorPanel() {
   const [selectedItem, setSelectedItem] = useState<CompressorItem | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
 
-  // Varredura de pontos operacionais (Te_inicial → Te_final, em passo °C, para um T_cond)
+  // Varredura de pontos operacionais (grade Te × Tc)
   const [teStart, setTeStart] = useState<number>(-10);
   const [teEnd, setTeEnd] = useState<number>(-30);
   const [teStep, setTeStep] = useState<number>(5);
-  const [tcValue, setTcValue] = useState<number>(40);
+  const [tcStart, setTcStart] = useState<number>(35);
+  const [tcEnd, setTcEnd] = useState<number>(50);
+  const [tcStep, setTcStep] = useState<number>(5);
+  const [unit, setUnit] = useState<PowerUnit>("kW");
   const [sweepPoints, setSweepPoints] = useState<CapacityCurvePoint[] | null>(null);
 
   /**
