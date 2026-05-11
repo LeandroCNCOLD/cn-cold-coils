@@ -57,6 +57,7 @@ export interface EvaporatorCandidateGeometry {
 
 export interface EvaporatorCandidate {
   geometry: EvaporatorCandidateGeometry;
+  fan: FanSuggestion;
   coverage: CoveragePoint[];
   pointsCovered: number;
   totalPoints: number;
@@ -68,8 +69,10 @@ export interface EvaporatorCandidate {
 
 export interface EvaporatorSearchInput {
   sweep: CapacityCurvePoint[];
-  airflow_m3h: number;
-  air_inlet_temp_c: number;
+  /** ΔT alvo (T_ar_in − Te) em K. T_ar_in é derivado por ponto: Te + ΔT. */
+  delta_t_target_k: number;
+  /** Quantidade máxima de ventiladores que o engenheiro aceita instalar. */
+  max_fan_count: number;
   refrigerant?: string;
   constraints: EvaporatorConstraints;
   criteria: EvaporatorCriterion[];
