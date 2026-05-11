@@ -229,6 +229,7 @@ function simulateCandidate(
           air_inlet_temp_c: t_air_in,
           airflow_m3h: airflow,
           coil_type: isCondenser ? "condenser" : "evaporator",
+          engine: input.engine ?? "advanced",
           geometry: {
             rows: geo.rows,
             tubes_per_row: geo.tubes_per_row,
