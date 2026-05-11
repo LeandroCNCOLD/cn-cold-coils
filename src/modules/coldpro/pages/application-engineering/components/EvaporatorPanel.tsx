@@ -73,7 +73,11 @@ interface EvaporatorPanelProps {
 export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = {}) {
   const isCondenser = mode === "condenser";
   const sweep = useAppEngineeringStore((s) => s.compressorSweep);
+  const refrigerant = useAppEngineeringStore((s) => s.step1.refrigerant);
   const { setEvaporatorInput, setCondenserInput } = useApplicationEngineering();
+  const { data: valves } = useExpansionValves(
+    isCondenser ? undefined : { refrigerant },
+  );
 
   // Restrições — cada uma com checkbox "fixar" + valor
   const [fixed, setFixed] = useState<Record<ConstraintKey, boolean>>({
