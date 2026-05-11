@@ -159,7 +159,17 @@ export function generateCandidates(
 function simulateCandidate(
   geo: EvaporatorCandidateGeometry,
   input: EvaporatorSearchInput,
-): { coverage: CoveragePoint[]; avgDeltaT: number; avgCop: number; pointsCovered: number } {
+): {
+  coverage: CoveragePoint[];
+  avgDeltaT: number;
+  avgCop: number;
+  pointsCovered: number;
+  fan: FanSuggestion;
+} {
+  const fan = suggestFans(geo.length_mm, geo.height_mm, input.max_fan_count);
+  const airflow = fan.total_airflow_m3h;
+  const dtTarget = input.delta_t_target_k;
+
   const coverage: CoveragePoint[] = [];
   let dtSum = 0;
   let copSum = 0;
@@ -167,28 +177,32 @@ function simulateCandidate(
   let covered = 0;
 
   for (const pt of input.sweep) {
+    // T_ar_in respeita o ΔT alvo de evaporação (ar entra em Te + ΔT)
+    const t_air_in = pt.te_c + dtTarget;
     let q_evap_w = 0;
-    try {
-      const r = sizeCoil({
-        required_capacity_w: pt.capacity_w,
-        fluid_inlet_temp_c: pt.te_c,
-        air_inlet_temp_c: input.air_inlet_temp_c,
-        airflow_m3h: input.airflow_m3h,
-        coil_type: "evaporator",
-        geometry: {
-          rows: geo.rows,
-          tubes_per_row: geo.tubes_per_row,
-          length_mm: geo.length_mm,
-          fin_spacing_mm: geo.fin_pitch_mm,
-          tube_diameter_mm: geo.tube_outer_diameter_mm,
-          circuits: Math.max(1, Math.ceil(geo.tubes_per_row / 2)),
-        },
-      });
-      q_evap_w = Number.isFinite(r.capacity_w) ? r.capacity_w : 0;
-    } catch {
-      q_evap_w = 0;
+    if (fan.fits && airflow > 0) {
+      try {
+        const r = sizeCoil({
+          required_capacity_w: pt.capacity_w,
+          fluid_inlet_temp_c: pt.te_c,
+          air_inlet_temp_c: t_air_in,
+          airflow_m3h: airflow,
+          coil_type: "evaporator",
+          geometry: {
+            rows: geo.rows,
+            tubes_per_row: geo.tubes_per_row,
+            length_mm: geo.length_mm,
+            fin_spacing_mm: geo.fin_pitch_mm,
+            tube_diameter_mm: geo.tube_outer_diameter_mm,
+            circuits: Math.max(1, Math.ceil(geo.tubes_per_row / 2)),
+          },
+        });
+        q_evap_w = Number.isFinite(r.capacity_w) ? r.capacity_w : 0;
+      } catch {
+        q_evap_w = 0;
+      }
     }
-    const dt = input.air_inlet_temp_c - pt.te_c;
+    const dt = t_air_in - pt.te_c;
     const meets = q_evap_w >= pt.capacity_w * 0.98;
     if (meets) {
       covered += 1;
@@ -211,6 +225,7 @@ function simulateCandidate(
     avgDeltaT: input.sweep.length ? dtSum / input.sweep.length : 0,
     avgCop: copCount ? copSum / copCount : 0,
     pointsCovered: covered,
+    fan,
   };
 }
 
