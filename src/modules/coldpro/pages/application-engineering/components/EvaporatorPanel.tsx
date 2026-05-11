@@ -248,18 +248,11 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
                 <Label className="text-[11px] text-muted-foreground">
                   Geometria (ferramenta de estampagem)
                 </Label>
-                <Select value={geometryId} onValueChange={setGeometryId}>
-                  <SelectTrigger className="h-7 text-xs">
-                    <SelectValue placeholder="Selecione a geometria…" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {geometries.map((g) => (
-                      <SelectItem key={g.id} value={g.id} className="text-xs">
-                        {g.description} — Ø{g.tube_outer_diameter_mm}mm · {g.tube_pitch_transverse_mm}×{g.row_pitch_mm}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <GeometryCatalogPicker
+                  application={mode}
+                  value={geometryId}
+                  onChange={(g) => setGeometryId(g.id)}
+                />
                 {selectedGeometry && (
                   <p className="mt-1 text-[10px] text-muted-foreground">
                     OD {selectedGeometry.tube_outer_diameter_mm} mm · passo
