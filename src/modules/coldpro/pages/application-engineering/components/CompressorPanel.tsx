@@ -16,12 +16,20 @@ import {
   Thermometer,
   Zap,
 } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { CompressorPickerModal } from "@/modules/cn_coils/components/CompressorPickerModal";
 import type { CompressorItem } from "@/modules/cn_coils/components/CompressorPickerModal";
 import { getCompressorById } from "@/modules/coldpro_catalog/data/compressorCatalog.service";
 import { useApplicationEngineering } from "../hooks/useApplicationEngineering";
 import { generateCapacityCurve } from "../services/capacityCurveService";
 import type { CapacityCurvePoint } from "../types/app-engineering.types";
+import { convertPower, fmtBR, type PowerUnit } from "@/utils/unitConversions";
 
 // ── Componente auxiliar ──────────────────────────────────────────────────────
 function ResultRow({
@@ -53,11 +61,14 @@ export function CompressorPanel() {
   const [selectedItem, setSelectedItem] = useState<CompressorItem | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
 
-  // Varredura de pontos operacionais (Te_inicial → Te_final, em passo °C, para um T_cond)
+  // Varredura de pontos operacionais (grade Te × Tc)
   const [teStart, setTeStart] = useState<number>(-10);
   const [teEnd, setTeEnd] = useState<number>(-30);
   const [teStep, setTeStep] = useState<number>(5);
-  const [tcValue, setTcValue] = useState<number>(40);
+  const [tcStart, setTcStart] = useState<number>(35);
+  const [tcEnd, setTcEnd] = useState<number>(50);
+  const [tcStep, setTcStep] = useState<number>(5);
+  const [unit, setUnit] = useState<PowerUnit>("kW");
   const [sweepPoints, setSweepPoints] = useState<CapacityCurvePoint[] | null>(null);
 
   /**
@@ -100,12 +111,30 @@ export function CompressorPanel() {
     (compressorInput.capacity_coefficients?.length ?? 0) >= 10 &&
     (compressorInput.power_coefficients?.length ?? 0) >= 10;
 
-  const sweepCount = useMemo(() => {
+  const teCount = useMemo(() => {
     const span = Math.abs(teEnd - teStart);
     const step = Math.abs(teStep);
     if (!step) return 0;
     return Math.floor(span / step) + 1;
   }, [teStart, teEnd, teStep]);
+
+  const tcCount = useMemo(() => {
+    const span = Math.abs(tcEnd - tcStart);
+    const step = Math.abs(tcStep);
+    if (!step) return 0;
+    return Math.floor(span / step) + 1;
+  }, [tcStart, tcEnd, tcStep]);
+
+  const sweepCount = teCount * tcCount;
+
+  const tcValues = useMemo(() => {
+    const step = Math.abs(tcStep) || 1;
+    const tcMin = Math.min(tcStart, tcEnd);
+    const tcMax = Math.max(tcStart, tcEnd);
+    const arr: number[] = [];
+    for (let v = tcMin; v <= tcMax + 1e-9; v += step) arr.push(Number(v.toFixed(2)));
+    return tcStart > tcEnd ? arr.slice().reverse() : arr;
+  }, [tcStart, tcEnd, tcStep]);
 
   const runSweep = useCallback(() => {
     if (!hasCoefficients) return;
@@ -119,13 +148,16 @@ export function CompressorPanel() {
       te_min_c: teMin,
       te_max_c: teMax,
       n_points: nPoints,
-      tc_values_c: [tcValue],
+      tc_values_c: tcValues,
     });
-    const points = series[0]?.points ?? [];
-    // Mostrar do Te_inicial → Te_final (respeitando direção do usuário)
-    const ordered = teStart > teEnd ? [...points].reverse() : points;
-    setSweepPoints(ordered);
-  }, [hasCoefficients, compressorInput, teStart, teEnd, teStep, tcValue]);
+    // Achatar todos os pontos (Te × Tc) — ordenados: para cada Tc, varrer Te
+    const all: CapacityCurvePoint[] = [];
+    for (const s of series) {
+      const pts = teStart > teEnd ? [...s.points].reverse() : s.points;
+      all.push(...pts);
+    }
+    setSweepPoints(all);
+  }, [hasCoefficients, compressorInput, teStart, teEnd, teStep, tcValues]);
 
 
   return (
@@ -252,7 +284,7 @@ export function CompressorPanel() {
                     />
                   </div>
                   <div className="space-y-1">
-                    <Label className="text-[11px] text-muted-foreground">Passo (°C)</Label>
+                    <Label className="text-[11px] text-muted-foreground">Passo Te (°C)</Label>
                     <Input
                       type="number"
                       min={0.5}
@@ -262,22 +294,58 @@ export function CompressorPanel() {
                       className="h-8 text-xs"
                     />
                   </div>
+                  <div />
                   <div className="space-y-1">
-                    <Label className="text-[11px] text-muted-foreground">T cond. (°C)</Label>
+                    <Label className="text-[11px] text-muted-foreground">T cond. inicial (°C)</Label>
                     <Input
                       type="number"
-                      value={tcValue}
-                      onChange={(e) => setTcValue(parseFloat(e.target.value))}
+                      value={tcStart}
+                      onChange={(e) => setTcStart(parseFloat(e.target.value))}
                       className="h-8 text-xs"
                     />
+                  </div>
+                  <div className="space-y-1">
+                    <Label className="text-[11px] text-muted-foreground">T cond. final (°C)</Label>
+                    <Input
+                      type="number"
+                      value={tcEnd}
+                      onChange={(e) => setTcEnd(parseFloat(e.target.value))}
+                      className="h-8 text-xs"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <Label className="text-[11px] text-muted-foreground">Passo Tc (°C)</Label>
+                    <Input
+                      type="number"
+                      min={0.5}
+                      step={0.5}
+                      value={tcStep}
+                      onChange={(e) => setTcStep(parseFloat(e.target.value))}
+                      className="h-8 text-xs"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <Label className="text-[11px] text-muted-foreground">Unidade</Label>
+                    <Select value={unit} onValueChange={(v) => setUnit(v as PowerUnit)}>
+                      <SelectTrigger className="h-8 text-xs">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="kW">kW</SelectItem>
+                        <SelectItem value="kcal/h">kcal/h</SelectItem>
+                        <SelectItem value="BTU/h">BTU/h</SelectItem>
+                        <SelectItem value="TR">TR</SelectItem>
+                        <SelectItem value="W">W</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                 </div>
 
                 <div className="flex items-center justify-between text-[11px] text-muted-foreground">
                   <span>
                     {sweepCount > 0
-                      ? `${sweepCount} pontos serão calculados`
-                      : "Defina um passo válido"}
+                      ? `${teCount} × ${tcCount} = ${sweepCount} pontos serão calculados`
+                      : "Defina passos válidos"}
                   </span>
                   <Button
                     size="sm"
@@ -291,12 +359,13 @@ export function CompressorPanel() {
                 </div>
 
                 {sweepPoints && sweepPoints.length > 0 && (
-                  <div className="overflow-hidden rounded-md border">
+                  <div className="max-h-[420px] overflow-auto rounded-md border">
                     <table className="w-full text-xs">
-                      <thead className="bg-muted/50 text-[10px] uppercase text-muted-foreground">
+                      <thead className="sticky top-0 bg-muted/80 backdrop-blur text-[10px] uppercase text-muted-foreground">
                         <tr>
                           <th className="px-2 py-1.5 text-left font-medium">Te (°C)</th>
-                          <th className="px-2 py-1.5 text-right font-medium">Q (kW)</th>
+                          <th className="px-2 py-1.5 text-left font-medium">Tc (°C)</th>
+                          <th className="px-2 py-1.5 text-right font-medium">Q ({unit})</th>
                           <th className="px-2 py-1.5 text-right font-medium">P (kW)</th>
                           <th className="px-2 py-1.5 text-right font-medium">COP</th>
                         </tr>
@@ -305,8 +374,9 @@ export function CompressorPanel() {
                         {sweepPoints.map((p, i) => (
                           <tr key={i} className="border-t border-border/40">
                             <td className="px-2 py-1 font-mono">{p.te_c.toFixed(1)}</td>
+                            <td className="px-2 py-1 font-mono">{p.tc_c.toFixed(1)}</td>
                             <td className="px-2 py-1 text-right font-mono">
-                              {(p.capacity_w / 1000).toFixed(2)}
+                              {fmtBR(convertPower(p.capacity_w, unit), unit === "W" || unit === "kcal/h" || unit === "BTU/h" ? 0 : 2)}
                             </td>
                             <td className="px-2 py-1 text-right font-mono">
                               {(p.power_w / 1000).toFixed(2)}
