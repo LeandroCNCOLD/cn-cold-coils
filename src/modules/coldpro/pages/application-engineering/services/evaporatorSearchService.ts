@@ -63,6 +63,10 @@ export interface EvaporatorCandidateGeometry {
   height_mm: number;
   frontal_area_m2: number;
   tube_outer_diameter_mm: number;
+  row_pitch_mm: number;
+  circuits: number;
+  header_side: HeaderSide;
+  geometry_id?: string;
 }
 
 export interface EvaporatorCandidate {
