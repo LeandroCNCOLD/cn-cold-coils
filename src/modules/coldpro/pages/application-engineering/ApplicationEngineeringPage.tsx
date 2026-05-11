@@ -114,7 +114,12 @@ export function ApplicationEngineeringPage() {
 
       {/* Conteúdo */}
       <ScrollArea className="flex-1">
-        <div className="mx-auto max-w-4xl space-y-4 p-6">
+        <div
+          className={cn(
+            "space-y-4 p-6",
+            mode === "guiado" ? "mx-auto max-w-4xl" : "mx-auto max-w-[1600px]",
+          )}
+        >
           {mode === "guiado" && (
             <>
               {currentStep === 1 && <Step1CompressorPanel onNext={() => setStep(2)} />}
