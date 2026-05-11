@@ -79,15 +79,20 @@ export function EvaporatorPanel() {
     max_frontal_area_m2: 0.5,
   });
 
-  // Condições do ar
-  const [airflow, setAirflow] = useState(5000);
-  const [tAirIn, setTAirIn] = useState(25);
+  // Limite de ventiladores (sistema sugere modelo + vazão a partir da geometria)
+  const [maxFanCount, setMaxFanCount] = useState(2);
 
-  // Critérios (pelo menos 1)
+  // Critérios (pelo menos 1) — o ΔT alvo deste critério também define T_ar_in por ponto
   const [criteria, setCriteria] = useState<EvaporatorCriterion[]>([
     { kind: "delta_t_target", target: 7, weight: 0.6 },
     { kind: "max_points_covered", weight: 0.4 },
   ]);
+
+  // ΔT alvo aplicado por ponto: usa o critério delta_t_target, fallback 7 K
+  const deltaTTargetK = useMemo(() => {
+    const c = criteria.find((c) => c.kind === "delta_t_target");
+    return c?.target ?? 7;
+  }, [criteria]);
 
   const [unit, setUnit] = useState<PowerUnit>("kW");
   const [running, setRunning] = useState(false);
