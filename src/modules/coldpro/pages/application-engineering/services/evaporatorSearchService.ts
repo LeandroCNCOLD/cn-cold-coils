@@ -83,7 +83,14 @@ export interface EvaporatorCandidate {
 
 export interface EvaporatorSearchInput {
   sweep: CapacityCurvePoint[];
-  /** ΔT alvo (T_ar_in − Te) em K. T_ar_in é derivado por ponto: Te + ΔT. */
+  /**
+   * Modo de operação:
+   *  - "evaporator": refrigerante a Te, ar a Te+ΔT, atende capacidade frigorífica;
+   *  - "condenser":  refrigerante a Tc, ar a Tc−ΔT, atende capacidade de condensação
+   *                  (Q = capacity_w + power_w do compressor).
+   */
+  mode?: "evaporator" | "condenser";
+  /** ΔT alvo em K (evap: T_ar−Te; cond: Tc−T_ar). */
   delta_t_target_k: number;
   /** Quantidade máxima de ventiladores que o engenheiro aceita instalar. */
   max_fan_count: number;
