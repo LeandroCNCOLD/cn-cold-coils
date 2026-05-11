@@ -6,6 +6,7 @@
  * combina critérios de seleção com pesos.
  */
 import { sizeCoil } from "./coilSizingService";
+import { suggestFans, type FanSuggestion } from "./fanSuggestionService";
 import type { CapacityCurvePoint } from "../types/app-engineering.types";
 
 // ── Tipos públicos ──────────────────────────────────────────────────────────
