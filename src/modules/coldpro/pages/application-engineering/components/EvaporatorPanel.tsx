@@ -593,6 +593,50 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
             </CardContent>
           </Card>
 
+          {valveSuggestion && (
+            <Card className="border-sky-300 bg-sky-50/40">
+              <CardHeader className="pb-2 flex flex-row items-center justify-between">
+                <CardTitle className="text-sm">
+                  Válvula de expansão sugerida ({refrigerant})
+                </CardTitle>
+                <Badge variant="outline" className="text-[10px]">
+                  Te {valveSuggestion.tevap_c.toFixed(1)}°C · Q méd{" "}
+                  {valveSuggestion.q_kw.toFixed(2)} kW · {result.best!.geometry.circuits} circ.
+                </Badge>
+              </CardHeader>
+              <CardContent className="space-y-1">
+                {valveSuggestion.top.map((v, i) => (
+                  <div
+                    key={v.valve.code}
+                    className={`grid grid-cols-5 gap-2 rounded border px-2 py-1 text-xs ${
+                      i === 0 ? "border-sky-400 bg-white" : "border-border/50 bg-background"
+                    }`}
+                  >
+                    <Field label="Modelo" value={v.valve.type} />
+                    <Field label="Código" value={v.valve.code} />
+                    <Field
+                      label="Orifício"
+                      value={v.valve.orifice_size_in ?? v.valve.orifice_size_mm ?? "—"}
+                    />
+                    <Field label="κ @ Te" value={v.kappa.toFixed(2)} />
+                    <Field
+                      label="Cap. estim."
+                      value={
+                        v.estimated_capacity_kw
+                          ? `${v.estimated_capacity_kw.toFixed(2)} kW`
+                          : "—"
+                      }
+                    />
+                  </div>
+                ))}
+                <p className="pt-1 text-[10px] text-muted-foreground">
+                  Seleção baseada em curvas κ Danfoss para {refrigerant}, faixa de circuitos
+                  e ponto médio de operação.
+                </p>
+              </CardContent>
+            </Card>
+          )}
+
           <CoveragePointsTable points={result.best.coverage} unit={unit} />
         </div>
       )}
