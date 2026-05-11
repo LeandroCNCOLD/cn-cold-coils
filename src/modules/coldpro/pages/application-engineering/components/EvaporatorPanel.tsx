@@ -220,8 +220,14 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
   return (
     <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
       <h2 className="mb-4 flex items-center gap-2 text-sm font-semibold text-slate-800">
-        <Wind className="h-4 w-4 text-emerald-500" />
-        2. Evaporador — Busca automática multi-critério
+        {isCondenser ? (
+          <Flame className="h-4 w-4 text-orange-500" />
+        ) : (
+          <Wind className="h-4 w-4 text-emerald-500" />
+        )}
+        {isCondenser
+          ? "3. Condensador — Busca automática multi-critério"
+          : "2. Evaporador — Busca automática multi-critério"}
       </h2>
 
       {!sweep.length && (
