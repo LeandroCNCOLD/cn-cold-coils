@@ -1,8 +1,10 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   AlertTriangle,
   CheckCircle2,
@@ -10,6 +12,7 @@ import {
   Cpu,
   Info,
   Loader2,
+  Play,
   Thermometer,
   Zap,
 } from "lucide-react";
@@ -17,6 +20,8 @@ import { CompressorPickerModal } from "@/modules/cn_coils/components/CompressorP
 import type { CompressorItem } from "@/modules/cn_coils/components/CompressorPickerModal";
 import { getCompressorById } from "@/modules/coldpro_catalog/data/compressorCatalog.service";
 import { useApplicationEngineering } from "../hooks/useApplicationEngineering";
+import { generateCapacityCurve } from "../services/capacityCurveService";
+import type { CapacityCurvePoint } from "../types/app-engineering.types";
 
 // ── Componente auxiliar ──────────────────────────────────────────────────────
 function ResultRow({
