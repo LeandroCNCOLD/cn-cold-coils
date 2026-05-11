@@ -54,9 +54,17 @@ function ResultRow({
 }
 
 // ── Componente principal ─────────────────────────────────────────────────────
+const REFRIGERANTS = [
+  "R404A", "R448A", "R449A", "R452A", "R407A", "R407C", "R407F", "R410A",
+  "R507A", "R134a", "R1234yf", "R1234ze(E)", "R290", "R600a", "R717", "R744",
+  "R32", "R22",
+];
+
 export function CompressorPanel() {
   const { compressorInput, compressorResult, setCompressorInput } = useApplicationEngineering();
   const setCompressorSweep = useAppEngineeringStore((s) => s.setCompressorSweep);
+  const refrigerant = useAppEngineeringStore((s) => s.step1.refrigerant);
+  const updateStep1 = useAppEngineeringStore((s) => s.updateStep1);
 
   const [pickerOpen, setPickerOpen] = useState(false);
   const [loadingId, setLoadingId] = useState<string | null>(null);
