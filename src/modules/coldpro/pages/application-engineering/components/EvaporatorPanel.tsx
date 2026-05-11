@@ -331,7 +331,7 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
               </div>
               <div>
                 <Label className="text-[11px] text-muted-foreground">
-                  ΔT alvo (T_ar − Te)
+                  ΔT alvo {isCondenser ? "(Tc − T_ar)" : "(T_ar − Te)"}
                 </Label>
                 <Input
                   type="number"
@@ -340,7 +340,8 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
                   className="h-7 text-xs"
                 />
                 <p className="mt-1 text-[10px] text-muted-foreground">
-                  Definido pelo critério ΔT alvo. T_ar_in = Te + ΔT por ponto.
+                  Definido pelo critério ΔT alvo. T_ar_in ={" "}
+                  {isCondenser ? "Tc − ΔT" : "Te + ΔT"} por ponto.
                 </p>
               </div>
             </div>
