@@ -30,6 +30,7 @@ import { useApplicationEngineering } from "../hooks/useApplicationEngineering";
 import { generateCapacityCurve } from "../services/capacityCurveService";
 import type { CapacityCurvePoint } from "../types/app-engineering.types";
 import { convertPower, fmtBR, type PowerUnit } from "@/utils/unitConversions";
+import { useAppEngineeringStore } from "../store/useAppEngineeringStore";
 
 // ── Componente auxiliar ──────────────────────────────────────────────────────
 function ResultRow({
