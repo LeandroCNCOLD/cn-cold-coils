@@ -79,15 +79,20 @@ export function EvaporatorPanel() {
     max_frontal_area_m2: 0.5,
   });
 
-  // Condições do ar
-  const [airflow, setAirflow] = useState(5000);
-  const [tAirIn, setTAirIn] = useState(25);
+  // Limite de ventiladores (sistema sugere modelo + vazão a partir da geometria)
+  const [maxFanCount, setMaxFanCount] = useState(2);
 
-  // Critérios (pelo menos 1)
+  // Critérios (pelo menos 1) — o ΔT alvo deste critério também define T_ar_in por ponto
   const [criteria, setCriteria] = useState<EvaporatorCriterion[]>([
     { kind: "delta_t_target", target: 7, weight: 0.6 },
     { kind: "max_points_covered", weight: 0.4 },
   ]);
+
+  // ΔT alvo aplicado por ponto: usa o critério delta_t_target, fallback 7 K
+  const deltaTTargetK = useMemo(() => {
+    const c = criteria.find((c) => c.kind === "delta_t_target");
+    return c?.target ?? 7;
+  }, [criteria]);
 
   const [unit, setUnit] = useState<PowerUnit>("kW");
   const [running, setRunning] = useState(false);
@@ -127,13 +132,12 @@ export function EvaporatorPanel() {
   function runSearch() {
     if (!sweep.length) return;
     setRunning(true);
-    // Quebra em microtask para a UI poder atualizar
     setTimeout(() => {
       try {
         const r = searchBestEvaporator({
           sweep,
-          airflow_m3h: airflow,
-          air_inlet_temp_c: tAirIn,
+          delta_t_target_k: deltaTTargetK,
+          max_fan_count: maxFanCount,
           constraints,
           criteria,
         });
@@ -147,9 +151,12 @@ export function EvaporatorPanel() {
   function applyToForm() {
     const best = result?.best;
     if (!best) return;
+    // Vazão e T_ar_in vêm da SUGESTÃO do sistema (fan layout + ΔT alvo).
     setEvaporatorInput({
-      airflow_m3h: airflow,
-      air_inlet_temp_c: tAirIn,
+      airflow_m3h: best.fan.total_airflow_m3h,
+      // T_ar_in representativo: usa o ponto médio do sweep
+      air_inlet_temp_c:
+        (sweep.reduce((s, p) => s + p.te_c, 0) / sweep.length) + deltaTTargetK,
       coil_type: "evaporator",
       geometry: {
         rows: best.geometry.rows,
@@ -209,22 +216,36 @@ export function EvaporatorPanel() {
 
             <div className="mt-3 grid grid-cols-2 gap-2 border-t pt-2">
               <div>
-                <Label className="text-[11px] text-muted-foreground">Vazão de ar (m³/h)</Label>
+                <Label className="text-[11px] text-muted-foreground">
+                  Máx. de ventiladores
+                </Label>
                 <Input
                   type="number"
-                  value={airflow}
-                  onChange={(e) => setAirflow(parseFloat(e.target.value))}
+                  min={1}
+                  step={1}
+                  value={maxFanCount}
+                  onChange={(e) =>
+                    setMaxFanCount(Math.max(1, parseInt(e.target.value) || 1))
+                  }
                   className="h-7 text-xs"
                 />
+                <p className="mt-1 text-[10px] text-muted-foreground">
+                  O sistema sugere modelo e vazão compatíveis com a geometria.
+                </p>
               </div>
               <div>
-                <Label className="text-[11px] text-muted-foreground">T ar entrada (°C)</Label>
+                <Label className="text-[11px] text-muted-foreground">
+                  ΔT alvo (T_ar − Te)
+                </Label>
                 <Input
                   type="number"
-                  value={tAirIn}
-                  onChange={(e) => setTAirIn(parseFloat(e.target.value))}
+                  value={deltaTTargetK}
+                  disabled
                   className="h-7 text-xs"
                 />
+                <p className="mt-1 text-[10px] text-muted-foreground">
+                  Definido pelo critério ΔT alvo. T_ar_in = Te + ΔT por ponto.
+                </p>
               </div>
             </div>
           </CardContent>
@@ -376,6 +397,29 @@ export function EvaporatorPanel() {
                 />
                 <Field label="ΔT médio" value={`${result.best.avgDeltaT.toFixed(1)} K`} />
                 <Field label="COP médio" value={result.best.avgCop.toFixed(2)} />
+              </div>
+              <div className="rounded border border-emerald-300 bg-white px-2 py-1.5">
+                <div className="text-[10px] uppercase text-muted-foreground">
+                  Ventilador sugerido pelo sistema
+                </div>
+                {result.best.fan.fits && result.best.fan.model ? (
+                  <div className="grid grid-cols-2 gap-2 text-xs sm:grid-cols-4">
+                    <Field label="Modelo" value={result.best.fan.model.label} />
+                    <Field label="Quantidade" value={result.best.fan.count} />
+                    <Field
+                      label="Vazão / vent."
+                      value={`${result.best.fan.model.airflow_m3h.toLocaleString("pt-BR")} m³/h`}
+                    />
+                    <Field
+                      label="Vazão total"
+                      value={`${result.best.fan.total_airflow_m3h.toLocaleString("pt-BR")} m³/h`}
+                    />
+                  </div>
+                ) : (
+                  <div className="text-[11px] text-red-600">
+                    Nenhum ventilador da biblioteca cabe nesta geometria com o limite informado.
+                  </div>
+                )}
               </div>
               <div className="flex justify-end">
                 <Button size="sm" onClick={applyToForm} className="h-7 gap-1 text-xs">
