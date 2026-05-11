@@ -1,77 +1,49 @@
-/**
- * EvaporatorSweepPanel
- *
- * Painel de Varredura do Evaporador.
- * Permite ao engenheiro configurar:
- *  - Capacidade requerida (do ponto de projeto)
- *  - Te, T_ar_in, ΔT máximo
- *  - Geometrias a varrer (CN Lantery)
- *  - Ranges de fileiras, tubos, comprimento, passo de aleta
- *
- * Exibe:
- *  - Tabela de candidatos ordenados por score
- *  - Melhor seleção destacada
- *  - Botão para confirmar seleção e passar para o condensador
- */
-
-import { useState, useMemo } from "react";
+import { useState, useEffect, useRef } from "react";
 import { sweepEvaporator } from "../services/coilSelectionService";
 import type {
   EvaporatorSweepConfig,
   EvaporatorSweepCandidate,
   CoilGeometryCandidate,
 } from "../services/coilSelectionService";
+import { GeometryPickerModal } from "@/modules/cn_coils/components/GeometryPickerModal";
+import { FanPickerModal } from "@/modules/cn_coils/components/FanPickerModal";
+import type { FanPickerItem } from "@/modules/cn_coils/components/FanPickerModal";
+import { useCnCoilsSimulationStore } from "@/modules/cn_coils/store/useCnCoilsSimulationStore";
+import { useEnrichedFanPickerItems } from "@/modules/cn_coils/hooks/useEnrichedFanPickerItems";
+import type { CoilGeometryCatalogItem } from "@/modules/cn_coils/types/cncoils.types";
 
-// ── Geometrias CN Lantery disponíveis ────────────────────────────────────────
-
-const CN_LANTERY_EVAP_GEOMETRIES: CoilGeometryCandidate[] = [
-  {
-    id: "133228",
-    name: "CN Lantery 133228 — D_o=13.3mm, Pt=28mm, Pl=25mm",
-    tube_od_mm: 13.3,
-    tube_id_mm: 11.5,
-    pitch_transverse_mm: 28,
-    pitch_longitudinal_mm: 25,
-    fin_thickness_mm: 0.12,
-  },
-  {
-    id: "133225",
-    name: "CN Lantery 133225 — D_o=13.3mm, Pt=25mm, Pl=22mm",
-    tube_od_mm: 13.3,
-    tube_id_mm: 11.5,
-    pitch_transverse_mm: 25,
-    pitch_longitudinal_mm: 22,
-    fin_thickness_mm: 0.12,
-  },
-  {
-    id: "102522",
-    name: "CN Lantery 102522 — D_o=10.3mm, Pt=25mm, Pl=22mm",
-    tube_od_mm: 10.3,
-    tube_id_mm: 8.8,
-    pitch_transverse_mm: 25,
-    pitch_longitudinal_mm: 22,
-    fin_thickness_mm: 0.10,
-  },
-];
-
-// ── Props ────────────────────────────────────────────────────────────────────
+function catalogItemToCandidate(item: CoilGeometryCatalogItem): CoilGeometryCandidate {
+  return {
+    id: item.id,
+    name: item.name,
+    tube_od_mm: item.tubeOuterDiameterMm,
+    tube_id_mm: item.tubeInnerDiameterMm ?? item.tubeOuterDiameterMm * 0.85,
+    pitch_transverse_mm: item.tubePitchTransverseMm,
+    pitch_longitudinal_mm: item.tubePitchLongitudinalMm,
+    fin_thickness_mm: (item.raw?.finThicknessMm as number | undefined) ?? 0.1,
+  };
+}
 
 interface Props {
-  /** Capacidade frigorífica requerida [W] — vem do ponto de projeto */
   required_capacity_w: number;
-  /** Temperatura de evaporação [°C] */
   te_c: number;
-  /** Callback quando uma configuração é selecionada */
   onSelected?: (candidate: EvaporatorSweepCandidate) => void;
 }
 
-// ── Componente ───────────────────────────────────────────────────────────────
-
 export function EvaporatorSweepPanel({ required_capacity_w, te_c, onSelected }: Props) {
+  const [geoms, setGeoms] = useState<CoilGeometryCandidate[]>([]);
+  const [pickerOpen, setPickerOpen] = useState(false);
+  const pickerOpenedRef = useRef(false);
+  const selectedGeometry = useCnCoilsSimulationStore((s) => s.selectedGeometry);
+
+  const { items: fanItems, loading: fansLoading } = useEnrichedFanPickerItems();
+  const [fanPickerOpen, setFanPickerOpen] = useState(false);
+  const [selectedFan, setSelectedFan] = useState<FanPickerItem | null>(null);
+  const [fanCount, setFanCount] = useState(1);
+  const [manualAirflow, setManualAirflow] = useState(2000);
+
   const [airInletTemp, setAirInletTemp] = useState(te_c + 7);
   const [deltaTMax, setDeltaTMax] = useState(7);
-  const [airflow, setAirflow] = useState(2000);
-  const [selectedGeomIds, setSelectedGeomIds] = useState<string[]>(["133228"]);
   const [rowsMin, setRowsMin] = useState(2);
   const [rowsMax, setRowsMax] = useState(6);
   const [tubesMin, setTubesMin] = useState(8);
@@ -84,7 +56,18 @@ export function EvaporatorSweepPanel({ required_capacity_w, te_c, onSelected }: 
   const [result, setResult] = useState<ReturnType<typeof sweepEvaporator> | null>(null);
   const [selectedCandidate, setSelectedCandidate] = useState<EvaporatorSweepCandidate | null>(null);
 
-  const selectedGeoms = CN_LANTERY_EVAP_GEOMETRIES.filter((g) => selectedGeomIds.includes(g.id));
+  useEffect(() => {
+    if (!pickerOpenedRef.current) return;
+    if (!selectedGeometry) return;
+    pickerOpenedRef.current = false;
+    const candidate = catalogItemToCandidate(selectedGeometry);
+    setGeoms((prev) => {
+      if (prev.some((g) => g.id === candidate.id)) return prev;
+      return [...prev, candidate];
+    });
+  }, [selectedGeometry]);
+
+  const totalAirflow = selectedFan ? (selectedFan.airflow_m3h ?? 0) * fanCount : manualAirflow;
 
   const rangeArray = (min: number, max: number, step: number) => {
     const arr: number[] = [];
@@ -100,9 +83,9 @@ export function EvaporatorSweepPanel({ required_capacity_w, te_c, onSelected }: 
         te_c,
         air_inlet_temp_c: airInletTemp,
         air_rh_in: 0.85,
-        airflow_m3h: airflow,
+        airflow_m3h: totalAirflow,
         delta_t_max_k: deltaTMax,
-        geometries: selectedGeoms,
+        geometries: geoms,
         rows_to_test: rangeArray(rowsMin, rowsMax, 1),
         tubes_per_row_to_test: rangeArray(tubesMin, tubesMax, 2),
         lengths_to_test_mm: rangeArray(lengthMin, lengthMax, 200),
@@ -134,42 +117,108 @@ export function EvaporatorSweepPanel({ required_capacity_w, te_c, onSelected }: 
         <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
           <div>
             <label className="mb-1 block text-xs font-medium text-slate-700">Te (°C)</label>
-            <input type="number" value={te_c} readOnly className="w-full rounded border border-slate-200 bg-slate-100 px-2 py-1.5 text-sm text-slate-500" />
+            <input
+              type="number"
+              value={te_c}
+              readOnly
+              className="w-full rounded border border-slate-200 bg-slate-100 px-2 py-1.5 text-sm text-slate-500"
+            />
           </div>
           <div>
             <label className="mb-1 block text-xs font-medium text-slate-700">T_ar_entrada (°C)</label>
-            <input type="number" value={airInletTemp} onChange={(e) => setAirInletTemp(parseFloat(e.target.value) || -23)} className="w-full rounded border border-slate-300 px-2 py-1.5 text-sm focus:border-blue-500 focus:outline-none" />
+            <input
+              type="number"
+              value={airInletTemp}
+              onChange={(e) => setAirInletTemp(parseFloat(e.target.value) || te_c + 7)}
+              className="w-full rounded border border-slate-300 px-2 py-1.5 text-sm focus:border-blue-500 focus:outline-none"
+            />
           </div>
           <div>
             <label className="mb-1 block text-xs font-medium text-slate-700">ΔT máx. (K)</label>
-            <input type="number" value={deltaTMax} onChange={(e) => setDeltaTMax(parseFloat(e.target.value) || 7)} className="w-full rounded border border-slate-300 px-2 py-1.5 text-sm focus:border-blue-500 focus:outline-none" />
+            <input
+              type="number"
+              value={deltaTMax}
+              onChange={(e) => setDeltaTMax(parseFloat(e.target.value) || 7)}
+              className="w-full rounded border border-slate-300 px-2 py-1.5 text-sm focus:border-blue-500 focus:outline-none"
+            />
           </div>
           <div>
-            <label className="mb-1 block text-xs font-medium text-slate-700">Vazão de ar (m³/h)</label>
-            <input type="number" value={airflow} onChange={(e) => setAirflow(parseFloat(e.target.value) || 2000)} className="w-full rounded border border-slate-300 px-2 py-1.5 text-sm focus:border-blue-500 focus:outline-none" />
+            <label className="mb-1 block text-xs font-medium text-slate-700">Ventiladores</label>
+            <div className="flex gap-1">
+              <button
+                onClick={() => setFanPickerOpen(true)}
+                disabled={fansLoading}
+                className="flex-1 truncate rounded border border-slate-300 bg-white px-2 py-1.5 text-left text-xs hover:border-blue-400 focus:outline-none disabled:opacity-50"
+              >
+                {selectedFan ? selectedFan.model : fansLoading ? "Carregando…" : "Selecionar…"}
+              </button>
+              {selectedFan && (
+                <input
+                  type="number"
+                  min={1}
+                  max={8}
+                  value={fanCount}
+                  onChange={(e) => setFanCount(parseInt(e.target.value) || 1)}
+                  className="w-12 rounded border border-slate-300 px-1 py-1.5 text-center text-xs focus:outline-none"
+                  title="Qtd. ventiladores"
+                />
+              )}
+            </div>
+            {selectedFan ? (
+              <div className="mt-0.5 text-[10px] text-slate-500">
+                {totalAirflow.toFixed(0)} m³/h total ({fanCount}×)
+              </div>
+            ) : (
+              <input
+                type="number"
+                value={manualAirflow}
+                onChange={(e) => setManualAirflow(parseFloat(e.target.value) || 2000)}
+                placeholder="m³/h manual"
+                className="mt-1 w-full rounded border border-slate-300 px-2 py-1 text-xs focus:outline-none"
+              />
+            )}
           </div>
         </div>
       </div>
 
       {/* Geometrias */}
       <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
-        <div className="mb-3 text-xs font-semibold uppercase tracking-wide text-slate-500">Geometrias CN Lantery</div>
-        <div className="space-y-2">
-          {CN_LANTERY_EVAP_GEOMETRIES.map((g) => (
-            <label key={g.id} className="flex cursor-pointer items-center gap-2">
-              <input
-                type="checkbox"
-                checked={selectedGeomIds.includes(g.id)}
-                onChange={(e) => {
-                  if (e.target.checked) setSelectedGeomIds((prev) => [...prev, g.id]);
-                  else setSelectedGeomIds((prev) => prev.filter((id) => id !== g.id));
-                }}
-                className="accent-blue-600"
-              />
-              <span className="text-xs text-slate-700">{g.name}</span>
-            </label>
-          ))}
+        <div className="mb-2 flex items-center justify-between">
+          <div className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+            Geometrias do Catálogo
+          </div>
+          <button
+            onClick={() => {
+              pickerOpenedRef.current = true;
+              setPickerOpen(true);
+            }}
+            className="rounded border border-blue-300 bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 hover:bg-blue-100"
+          >
+            + Adicionar geometria
+          </button>
         </div>
+        {geoms.length === 0 ? (
+          <p className="py-2 text-center text-xs text-slate-400">
+            Nenhuma geometria selecionada — clique em "Adicionar geometria" para buscar no catálogo
+          </p>
+        ) : (
+          <div className="space-y-1">
+            {geoms.map((g) => (
+              <div
+                key={g.id}
+                className="flex items-center justify-between rounded border border-slate-200 bg-white px-2 py-1.5"
+              >
+                <span className="text-xs text-slate-700">{g.name}</span>
+                <button
+                  onClick={() => setGeoms((prev) => prev.filter((x) => x.id !== g.id))}
+                  className="ml-2 text-xs text-slate-400 hover:text-red-500"
+                >
+                  ✕
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Ranges de varredura */}
@@ -210,7 +259,7 @@ export function EvaporatorSweepPanel({ required_capacity_w, te_c, onSelected }: 
       {/* Botão de varredura */}
       <button
         onClick={runSweep}
-        disabled={isRunning || selectedGeoms.length === 0}
+        disabled={isRunning || geoms.length === 0}
         className="w-full rounded-lg bg-blue-600 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
       >
         {isRunning ? "Varrendo geometrias..." : "Rodar Varredura do Evaporador"}
@@ -219,7 +268,6 @@ export function EvaporatorSweepPanel({ required_capacity_w, te_c, onSelected }: 
       {/* Resultados */}
       {result && (
         <div className="space-y-3">
-          {/* Resumo */}
           <div className="flex items-center gap-3 rounded-lg border border-slate-200 bg-white p-3">
             <div className="text-center">
               <div className="text-lg font-bold text-blue-600">{result.qualifying_count}</div>
@@ -234,12 +282,13 @@ export function EvaporatorSweepPanel({ required_capacity_w, te_c, onSelected }: 
                 <span className="font-semibold text-green-700">Melhor seleção:</span>{" "}
                 {result.selected.geometry_name} — {result.selected.rows}F × {result.selected.tubes_per_row}T × {result.selected.length_mm}mm, passo {result.selected.fin_spacing_mm}mm
                 <br />
-                <span className="text-green-600">Q = {(result.selected.capacity_w / 1000).toFixed(2)} kW | ΔT = {result.selected.delta_t_k.toFixed(1)} K | A = {result.selected.total_area_m2.toFixed(2)} m²</span>
+                <span className="text-green-600">
+                  Q = {(result.selected.capacity_w / 1000).toFixed(2)} kW | ΔT = {result.selected.delta_t_k.toFixed(1)} K | A = {result.selected.total_area_m2.toFixed(2)} m²
+                </span>
               </div>
             )}
           </div>
 
-          {/* Tabela de candidatos */}
           <div className="overflow-x-auto rounded-lg border border-slate-200">
             <table className="w-full text-xs">
               <thead className="bg-slate-50">
@@ -299,7 +348,6 @@ export function EvaporatorSweepPanel({ required_capacity_w, te_c, onSelected }: 
             </table>
           </div>
 
-          {/* Avisos */}
           {result.warnings.map((w, i) => (
             <div key={i} className="rounded border border-amber-200 bg-amber-50 px-3 py-1.5 text-xs text-amber-800">
               ⚠ {w}
@@ -307,6 +355,21 @@ export function EvaporatorSweepPanel({ required_capacity_w, te_c, onSelected }: 
           ))}
         </div>
       )}
+
+      <GeometryPickerModal
+        open={pickerOpen}
+        onClose={() => setPickerOpen(false)}
+        componentType="evaporator_dx"
+      />
+      <FanPickerModal
+        open={fanPickerOpen}
+        onClose={() => setFanPickerOpen(false)}
+        fans={fanItems}
+        onConfirm={(item) => {
+          setSelectedFan(item);
+          setFanPickerOpen(false);
+        }}
+      />
     </div>
   );
 }
