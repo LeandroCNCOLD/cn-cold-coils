@@ -226,6 +226,56 @@ export function EvaporatorPanel() {
             <CardTitle className="text-sm">Restrições dimensionais</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
+            <div className="grid grid-cols-2 gap-2 border-b pb-2">
+              <div className="col-span-2">
+                <Label className="text-[11px] text-muted-foreground">
+                  Geometria (ferramenta de estampagem)
+                </Label>
+                <Select value={geometryId} onValueChange={setGeometryId}>
+                  <SelectTrigger className="h-7 text-xs">
+                    <SelectValue placeholder="Selecione a geometria…" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {geometries.map((g) => (
+                      <SelectItem key={g.id} value={g.id} className="text-xs">
+                        {g.description} — Ø{g.tube_outer_diameter_mm}mm · {g.tube_pitch_transverse_mm}×{g.row_pitch_mm}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                {selectedGeometry && (
+                  <p className="mt-1 text-[10px] text-muted-foreground">
+                    OD {selectedGeometry.tube_outer_diameter_mm} mm · passo
+                    transv. {selectedGeometry.tube_pitch_transverse_mm} mm · entre
+                    filas {selectedGeometry.row_pitch_mm} mm
+                  </p>
+                )}
+              </div>
+              <div className="col-span-2">
+                <Label className="text-[11px] text-muted-foreground">
+                  Saída do distribuidor / coletor
+                </Label>
+                <Select
+                  value={headerSide}
+                  onValueChange={(v) => setHeaderSide(v as HeaderSide)}
+                >
+                  <SelectTrigger className="h-7 text-xs">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="left" className="text-xs">
+                      Lado esquerdo
+                    </SelectItem>
+                    <SelectItem value="right" className="text-xs">
+                      Lado direito
+                    </SelectItem>
+                    <SelectItem value="same_side" className="text-xs">
+                      Mesmo lado (distribuidor + coletor) — exige nº de filas par
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
             <p className="text-[11px] text-muted-foreground">
               Marque o que deve ficar <strong>fixo</strong>; o motor varia o resto.
             </p>
