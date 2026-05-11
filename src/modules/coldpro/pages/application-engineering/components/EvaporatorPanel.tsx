@@ -102,17 +102,17 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
 
   useEffect(() => {
     loadGeometryCatalog().then((cat) => {
-      setGeometries(cat.evaporator);
-      // Default sensato: primeira geometria com OD ≈ 9.52 / passo 25
+      const list = cat[mode];
+      setGeometries(list);
       const def =
-        cat.evaporator.find(
+        list.find(
           (g) =>
             Math.abs(g.tube_outer_diameter_mm - 9.52) < 0.2 &&
             Math.abs(g.tube_pitch_transverse_mm - 25) < 0.2,
-        ) ?? cat.evaporator[0];
+        ) ?? list[0];
       if (def) setGeometryId(def.id);
     });
-  }, []);
+  }, [mode]);
 
   const selectedGeometry = useMemo(
     () => geometries.find((g) => g.id === geometryId),
