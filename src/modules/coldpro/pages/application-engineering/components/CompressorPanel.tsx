@@ -16,12 +16,20 @@ import {
   Thermometer,
   Zap,
 } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { CompressorPickerModal } from "@/modules/cn_coils/components/CompressorPickerModal";
 import type { CompressorItem } from "@/modules/cn_coils/components/CompressorPickerModal";
 import { getCompressorById } from "@/modules/coldpro_catalog/data/compressorCatalog.service";
 import { useApplicationEngineering } from "../hooks/useApplicationEngineering";
 import { generateCapacityCurve } from "../services/capacityCurveService";
 import type { CapacityCurvePoint } from "../types/app-engineering.types";
+import { convertPower, fmtBR, type PowerUnit } from "@/utils/unitConversions";
 
 // ── Componente auxiliar ──────────────────────────────────────────────────────
 function ResultRow({
