@@ -221,7 +221,7 @@ function simulateCandidate(
             length_mm: geo.length_mm,
             fin_spacing_mm: geo.fin_pitch_mm,
             tube_diameter_mm: geo.tube_outer_diameter_mm,
-            circuits: Math.max(1, Math.ceil(geo.tubes_per_row / 2)),
+            circuits: geo.circuits,
           },
         });
         q_evap_w = Number.isFinite(r.capacity_w) ? r.capacity_w : 0;
