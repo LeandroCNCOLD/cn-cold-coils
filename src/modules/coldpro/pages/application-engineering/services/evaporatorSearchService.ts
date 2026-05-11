@@ -288,6 +288,7 @@ export function searchBestEvaporator(
     const sim = simulateCandidate(geo, input);
     return {
       geometry: geo,
+      fan: sim.fan,
       coverage: sim.coverage,
       pointsCovered: sim.pointsCovered,
       totalPoints: input.sweep.length,
