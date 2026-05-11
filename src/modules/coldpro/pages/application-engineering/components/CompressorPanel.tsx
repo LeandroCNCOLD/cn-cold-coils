@@ -100,6 +100,34 @@ export function CompressorPanel() {
     (compressorInput.capacity_coefficients?.length ?? 0) >= 10 &&
     (compressorInput.power_coefficients?.length ?? 0) >= 10;
 
+  const sweepCount = useMemo(() => {
+    const span = Math.abs(teEnd - teStart);
+    const step = Math.abs(teStep);
+    if (!step) return 0;
+    return Math.floor(span / step) + 1;
+  }, [teStart, teEnd, teStep]);
+
+  const runSweep = useCallback(() => {
+    if (!hasCoefficients) return;
+    const step = Math.abs(teStep) || 1;
+    const teMin = Math.min(teStart, teEnd);
+    const teMax = Math.max(teStart, teEnd);
+    const nPoints = Math.floor((teMax - teMin) / step) + 1;
+    const { series } = generateCapacityCurve({
+      capacity_coefficients: compressorInput.capacity_coefficients ?? [],
+      power_coefficients: compressorInput.power_coefficients ?? [],
+      te_min_c: teMin,
+      te_max_c: teMax,
+      n_points: nPoints,
+      tc_values_c: [tcValue],
+    });
+    const points = series[0]?.points ?? [];
+    // Mostrar do Te_inicial → Te_final (respeitando direção do usuário)
+    const ordered = teStart > teEnd ? [...points].reverse() : points;
+    setSweepPoints(ordered);
+  }, [hasCoefficients, compressorInput, teStart, teEnd, teStep, tcValue]);
+
+
   return (
     <>
       <div className="grid gap-4 md:grid-cols-2">
