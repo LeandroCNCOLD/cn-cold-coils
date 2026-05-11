@@ -3,6 +3,7 @@ import type {
   AppEngineeringStep1,
   AppEngineeringStep2,
   AppEngineeringStep3,
+  CapacityCurvePoint,
 } from "../types/app-engineering.types";
 
 interface AppEngineeringState {
@@ -10,6 +11,9 @@ interface AppEngineeringState {
   step1: AppEngineeringStep1;
   step2: AppEngineeringStep2;
   step3: AppEngineeringStep3;
+  /** Sweep Te×Tc calculado no CompressorPanel — compartilhado com Evap/Cond. */
+  compressorSweep: CapacityCurvePoint[];
+  setCompressorSweep: (pts: CapacityCurvePoint[]) => void;
   setStep: (step: 1 | 2 | 3 | 4) => void;
   updateStep1: (v: Partial<AppEngineeringStep1>) => void;
   updateStep2: (v: Partial<AppEngineeringStep2>) => void;
