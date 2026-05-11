@@ -132,13 +132,12 @@ export function EvaporatorPanel() {
   function runSearch() {
     if (!sweep.length) return;
     setRunning(true);
-    // Quebra em microtask para a UI poder atualizar
     setTimeout(() => {
       try {
         const r = searchBestEvaporator({
           sweep,
-          airflow_m3h: airflow,
-          air_inlet_temp_c: tAirIn,
+          delta_t_target_k: deltaTTargetK,
+          max_fan_count: maxFanCount,
           constraints,
           criteria,
         });
@@ -152,9 +151,12 @@ export function EvaporatorPanel() {
   function applyToForm() {
     const best = result?.best;
     if (!best) return;
+    // Vazão e T_ar_in vêm da SUGESTÃO do sistema (fan layout + ΔT alvo).
     setEvaporatorInput({
-      airflow_m3h: airflow,
-      air_inlet_temp_c: tAirIn,
+      airflow_m3h: best.fan.total_airflow_m3h,
+      // T_ar_in representativo: usa o ponto médio do sweep
+      air_inlet_temp_c:
+        (sweep.reduce((s, p) => s + p.te_c, 0) / sweep.length) + deltaTTargetK,
       coil_type: "evaporator",
       geometry: {
         rows: best.geometry.rows,
