@@ -109,9 +109,9 @@ export function sizeCoil(input: CoilSizingInput): CoilSizingResult {
   return {
     capacity_w: result.capacity_w,
     exchange_area_m2,
-    u_w_m2k: adv.u_w_m2k ?? null,
+    u_w_m2k: adv.u_w_m2k ?? 0,
     lmtd_k: adv.lmtd_k ?? null,
-    fin_efficiency: adv.fin_efficiency ?? null,
+    fin_efficiency: adv.fin_efficiency ?? 1,
     air_pressure_drop_pa: result.air_pressure_drop_pa,
     fluid_pressure_drop_kpa: result.fluid_pressure_drop_kpa,
     fluid_velocity_ms: result.fluid_velocity_ms,
