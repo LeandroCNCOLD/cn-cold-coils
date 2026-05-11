@@ -38,6 +38,7 @@ import {
 } from "../services/geometryCatalogService";
 import { GeometryCatalogPicker } from "./GeometryCatalogPicker";
 import { CoveragePointsTable } from "./CoveragePointsTable";
+import { useExpansionValves, selectExpansionValve } from "@/modules/coldpro_catalog/hooks/useExpansionValves";
 import type { PowerUnit } from "@/utils/unitConversions";
 
 type ConstraintKey =
