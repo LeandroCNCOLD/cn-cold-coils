@@ -115,7 +115,11 @@ export function generateCandidates(
   const pitchTransv = c.tube_pitch_transverse_mm ?? 25;
 
   const rowsList = pickRange(c.rows, DEFAULT_RANGES.rows);
-  const finList = pickRange(c.fin_pitch_mm, DEFAULT_RANGES.fin_pitch_mm);
+  const finListBase = pickRange(c.fin_pitch_mm, DEFAULT_RANGES.fin_pitch_mm);
+  const finList =
+    c.min_fin_pitch_mm !== undefined
+      ? finListBase.filter((p) => p >= (c.min_fin_pitch_mm as number))
+      : finListBase;
   const lenList = pickRange(c.length_mm, DEFAULT_RANGES.length_mm);
 
   // tubes_per_row pode vir direto OU ser derivado de height_mm
