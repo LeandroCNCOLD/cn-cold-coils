@@ -64,9 +64,15 @@ const CRITERION_LABELS: Record<EvaporatorCriterionKind, string> = {
   min_area: "Menor área frontal",
 };
 
-export function EvaporatorPanel() {
+interface EvaporatorPanelProps {
+  /** "evaporator" (default) ou "condenser" — define cálculo, ΔT e catálogo. */
+  mode?: CoilApplication;
+}
+
+export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = {}) {
+  const isCondenser = mode === "condenser";
   const sweep = useAppEngineeringStore((s) => s.compressorSweep);
-  const { setEvaporatorInput } = useApplicationEngineering();
+  const { setEvaporatorInput, setCondenserInput } = useApplicationEngineering();
 
   // Restrições — cada uma com checkbox "fixar" + valor
   const [fixed, setFixed] = useState<Record<ConstraintKey, boolean>>({
