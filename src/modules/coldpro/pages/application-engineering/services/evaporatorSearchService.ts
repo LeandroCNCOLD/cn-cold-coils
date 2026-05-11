@@ -129,8 +129,15 @@ export function generateCandidates(
 ): EvaporatorCandidateGeometry[] {
   const tubeOd = c.tube_outer_diameter_mm ?? 9.52;
   const pitchTransv = c.tube_pitch_transverse_mm ?? 25;
+  const rowPitch = c.row_pitch_mm ?? 22;
+  const headerSide: HeaderSide = c.header_side ?? "left";
 
-  const rowsList = pickRange(c.rows, DEFAULT_RANGES.rows);
+  let rowsList = pickRange(c.rows, DEFAULT_RANGES.rows);
+  // Mesmo lado para distribuidor e coletor → nº de filas precisa ser par
+  if (headerSide === "same_side") {
+    rowsList = rowsList.filter((r) => r % 2 === 0);
+    if (!rowsList.length) rowsList = [2];
+  }
   const finList = pickRange(c.fin_pitch_mm, DEFAULT_RANGES.fin_pitch_mm);
   const lenList = pickRange(c.length_mm, DEFAULT_RANGES.length_mm);
 
@@ -152,6 +159,8 @@ export function generateCandidates(
           const height = computeHeightMm(tubes, pitchTransv);
           const area = computeFrontalArea(height, len);
           if (c.max_frontal_area_m2 !== undefined && area > c.max_frontal_area_m2) continue;
+          // Regra prática: 1 circuito a cada 2 tubos por fila (pode ser ajustada)
+          const circuits = Math.max(1, Math.round(tubes / 2));
           out.push({
             rows,
             tubes_per_row: tubes,
@@ -160,6 +169,10 @@ export function generateCandidates(
             height_mm: height,
             frontal_area_m2: area,
             tube_outer_diameter_mm: tubeOd,
+            row_pitch_mm: rowPitch,
+            circuits,
+            header_side: headerSide,
+            geometry_id: c.geometry_id,
           });
         }
       }
