@@ -187,6 +187,31 @@ export function CompressorPanel() {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
+            {/* Fluido refrigerante */}
+            <div className="space-y-1">
+              <Label className="text-[11px] text-muted-foreground">
+                Fluido refrigerante
+              </Label>
+              <Select
+                value={refrigerant}
+                onValueChange={(v) => updateStep1({ refrigerant: v })}
+              >
+                <SelectTrigger className="h-8 text-xs">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent className="max-h-72">
+                  {REFRIGERANTS.map((r) => (
+                    <SelectItem key={r} value={r} className="text-xs">
+                      {r}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <p className="text-[10px] text-muted-foreground">
+                Usado na seleção da válvula de expansão e cálculos do ciclo.
+              </p>
+            </div>
+
             {/* Botão de seleção */}
             <Button
               variant="outline"
