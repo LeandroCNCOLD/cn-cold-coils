@@ -1,3 +1,4 @@
+import { W_PER_TR } from "@/lib/physicalConstants";
 import { PdfReportDocument } from "./PdfReportDocument";
 import type { DXSystemInputs, DXSystemLoadResult } from "../../hooks/useDXSystemLoad";
 import type { SystemEquilibriumResult } from "../../hooks/useSystemEquilibrium";
@@ -43,7 +44,7 @@ export function DXSystemPdfReport({
             { label: "Carga sensível", value: fmt(loadResult.Q_sensible_total_W / 1000), unit: "kW" },
             { label: "Carga latente", value: fmt(loadResult.Q_latent_total_W / 1000), unit: "kW" },
             { label: "Carga total", value: fmt(loadResult.Q_total_W / 1000), unit: "kW" },
-            { label: "Capacidade", value: fmt(loadResult.Q_total_W / 3517), unit: "TR" },
+            { label: "Capacidade", value: fmt(loadResult.Q_total_W / W_PER_TR), unit: "TR" },
             { label: "SHR", value: fmt(loadResult.SHR), unit: "" },
           ],
         },

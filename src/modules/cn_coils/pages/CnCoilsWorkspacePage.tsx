@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate, useSearch } from "@tanstack/react-router";
 import { ArrowLeft, Send, Package } from "lucide-react";
 import { toast } from "sonner";
-import { runSimulation, SimulationError } from "../engine/simulatorCore";
+import { runSimulation, SimulationError } from "../engine/simulatorCoreAdapter";
 import { MachineImportModal } from "../components/MachineImportModal";
 import { PageContainer } from "@/modules/coldpro/components/layout/PageContainer";
 import { ptBR } from "../i18n/messages.ptBR";

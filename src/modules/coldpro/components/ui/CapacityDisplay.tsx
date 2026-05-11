@@ -5,7 +5,7 @@
  *   1 W = 0.001 kW
  *   1 W = 0.86 kcal/h
  *   1 W = 3.41214 BTU/h
- *   1 W = 1/3517.2 TR
+ *   1 W = 1/3516.8528 TR  (ASHRAE: 1 TR = 12 000 BTU/h)
  *
  * Uso:
  *   <CapacityDisplay watts={5000} />
@@ -16,6 +16,7 @@
  * Referência: ASHRAE Handbook Fundamentals 2021, Apêndice A — Conversion Factors
  */
 import { Badge } from "@/components/ui/badge";
+import { W_PER_TR } from "@/lib/physicalConstants";
 
 // ── Conversão ─────────────────────────────────────────────────────────────────
 
@@ -26,7 +27,7 @@ const FACTORS: Record<CapacityUnit, number> = {
   kW: 0.001,
   "kcal/h": 0.86,
   "BTU/h": 3.41214,
-  TR: 1 / 3517.2,
+  TR: 1 / W_PER_TR,
 };
 
 const DECIMALS: Record<CapacityUnit, number> = {

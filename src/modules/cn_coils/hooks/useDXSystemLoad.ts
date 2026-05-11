@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { W_PER_TR } from "@/lib/physicalConstants";
 
 export type SolarOrientation = "N" | "S" | "E" | "W" | "NE" | "NW" | "SE" | "SW";
 
@@ -105,7 +106,7 @@ export function calculateDXSystemLoad(inputs: DXSystemInputs): DXSystemLoadResul
     Q_latent_total_W,
     Q_total_W,
     SHR,
-    TR: Q_total_W / 3517,
+    TR: Q_total_W / W_PER_TR,
     breakdown: breakdown([
       { name: "Paredes", value: Q_wall_W },
       { name: "Solar", value: Q_solar_W },

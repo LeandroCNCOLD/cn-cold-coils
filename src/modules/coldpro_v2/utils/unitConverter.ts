@@ -1,8 +1,6 @@
 import { normalizeFieldName } from "./fieldNormalizer";
+import { KCALH_PER_KW, KCALH_PER_TR, KCALH_PER_BTUH } from "@/lib/physicalConstants";
 
-const KCALH_PER_KW = 859.845;
-const KCALH_PER_TR = 3024;
-const KCALH_PER_BTUH = 0.252;
 const W_PER_KW = 1000;
 
 function normalizeUnit(unit: string): string {

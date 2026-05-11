@@ -1,3 +1,5 @@
+import { W_PER_TR } from "@/lib/physicalConstants";
+
 export type PowerUnit = "W" | "kW" | "kcal/h" | "BTU/h" | "TR";
 
 export function convertPower(W: number, unit: PowerUnit): number {
@@ -6,7 +8,7 @@ export function convertPower(W: number, unit: PowerUnit): number {
     kW: 0.001,
     "kcal/h": 0.86,
     "BTU/h": 3.412,
-    TR: 1 / 3517.2,
+    TR: 1 / W_PER_TR,
   };
   return W * factors[unit];
 }

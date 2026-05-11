@@ -1,7 +1,7 @@
 # CN COLD Engenharia — Plataforma de Simulação Termodinâmica
 
 > **Repositório:** `cncoldengenharia-ab93b0e6`  
-> **Versão do documento:** 1.0 — Maio 2026  
+> **Versão do documento:** 2.0 — Maio 2026  
 > **Mantido por:** Equipe CN COLD Engenharia  
 > **Stack:** React 19 + TanStack Router + Vite + Supabase + TypeScript 5.8
 
@@ -26,26 +26,29 @@
 
 ## 1. Visão Geral do Sistema
 
-A plataforma **CN COLD Engenharia** é um sistema web de engenharia de refrigeração industrial desenvolvido para a linha de produtos **CN COLD** (câmaras frias, resfriadores de líquido, condensadores remotos e sistemas de expansão direta). O sistema realiza desde o dimensionamento de serpentinas aletadas até a simulação completa do ciclo de refrigeração por compressão de vapor, integrando catálogos de compressores BITZER, válvulas Danfoss e geometrias proprietárias CN COLD.
+A plataforma **CN COLD Engenharia** é um sistema web de engenharia de refrigeração industrial desenvolvido para a linha de produtos **CN COLD** (câmaras frias, resfriadores de líquido, condensadores remotos e sistemas de expansão direta). O sistema realiza desde o dimensionamento de serpentinas aletadas até a simulação completa do ciclo de refrigeração por compressão de vapor, integrando catálogos de compressores BITZER, ventiladores Ziehl-Abegg, válvulas Danfoss e 753 geometrias proprietárias CN COLD.
 
 O sistema é utilizado por engenheiros de aplicação para:
 
-- Dimensionar e validar serpentinas evaporadoras e condensadoras com geometrias reais da linha CN Lantery e CN Coils.
-- Selecionar compressores BITZER pelo ponto de operação (Te, Tc) com avaliação de polinômios EN 12900 / ARI 540.
-- Simular o ciclo termodinâmico completo (diagrama P-h, COP, balanço de massa e energia).
-- Analisar formação de gelo (frost), operação em mapa de carga, desempenho em regime parcial e psicrometria do ar úmido.
+- **Engenharia de Aplicação guiada** — stepper de 4 etapas: compressor → evaporador → condensador → simulação completa.
+- Selecionar compressores BITZER pelo ponto de operação (Te, Tc) com avaliação de polinômios EN 12900 / ARI 540 e curva Q/W/COP interativa.
+- Dimensionar serpentinas evaporadoras e condensadoras com 753 geometrias reais e seleção de ventiladores Ziehl-Abegg.
+- Simular o ciclo termodinâmico completo (diagrama P-h, COP, balanço de massa e energia) com 20 abas analíticas no Hub de Testes.
+- Analisar formação de gelo (frost), operação em mapa de carga, desempenho em regime parcial e psicrometria Hyland-Wexler.
 - Exportar laudos técnicos em PDF e DXF para fabricação.
 
 **Métricas do repositório:**
 
 | Indicador | Valor |
 |-----------|-------|
-| Arquivos TypeScript/TSX | 617 |
-| Linhas de código | ~168.500 |
-| Suítes de teste (Vitest) | 67 arquivos |
+| Arquivos TypeScript/TSX | 630+ |
+| Linhas de código | ~170.000 |
+| Suítes de teste (Vitest) | 68 arquivos |
 | Testes unitários | 645+ |
 | Rotas de navegação | 44 |
 | Catálogos JSON | 30+ arquivos |
+| Geometrias de serpentinas | 753 |
+| Ventiladores Ziehl-Abegg | catálogo completo por família |
 
 ---
 
@@ -63,6 +66,9 @@ O sistema segue uma arquitetura **modular por domínio** (Domain-Driven Design s
 ├──────────────┴──────────────┴──────────────┴────────────────────┤
 │                     CAMADA DE MOTORES                            │
 │  coldpro_v2/engines/  ←  cn_coils/engine/  ←  cn_coils/engines/ │
+├─────────────────────────────────────────────────────────────────┤
+│              CONSTANTES FÍSICAS CANÔNICAS                        │
+│                  src/lib/physicalConstants.ts                    │
 ├─────────────────────────────────────────────────────────────────┤
 │                     CAMADA DE DADOS                              │
 │   Supabase (PostgreSQL) + Catálogos JSON (public/data/catalogs) │
@@ -99,41 +105,89 @@ O sistema segue uma arquitetura **modular por domínio** (Domain-Driven Design s
 O módulo `coldpro` é a camada de orquestração e interface do usuário. Ele não contém lógica de cálculo própria — delega ao `coldpro_v2` e ao `cn_coils`. Suas responsabilidades são:
 
 - Renderizar o layout principal com sidebar de navegação.
-- Gerenciar o estado de sessão do usuário (modo operador, modo engenheiro).
-- Orquestrar o **Hub de Testes** — painel central de simulação e validação.
-- Hospedar o módulo de **Engenharia de Aplicação** (dimensionamento completo de sistema).
+- Gerenciar o estado de sessão do usuário (modo operador, modo engenheiro) com **persistência em localStorage** via middleware `persist` do Zustand.
+- Orquestrar o **Hub de Testes** — painel central com 20 abas de simulação e validação.
+- Hospedar o módulo de **Engenharia de Aplicação** com stepper guiado de 4 etapas.
 
 **Páginas principais:**
 
 | Página | Rota | Descrição |
 |--------|------|-----------|
 | `DashboardPage` | `/coldpro` | Painel inicial com resumo de projetos |
-| `TestHubPage` | `/coldpro/hub-de-testes` | Hub de testes com 19 abas analíticas |
+| `TestHubPage` | `/coldpro/hub-de-testes` | Hub de testes com **20 abas** analíticas |
 | `SimulationPage` | `/coldpro/simulation` | Simulação de ciclo completo |
 | `OperatingMapPage` | `/coldpro/operating-map` | Mapa de operação do compressor |
 | `AssemblyPage` | `/coldpro/assembly` | Montagem e BOM de equipamento |
-| `ApplicationEngineeringPage` | `/coldpro/application-engineering` | Engenharia de aplicação completa |
+| `ApplicationEngineeringPage` | `/coldpro/application-engineering` | Engenharia de aplicação — stepper 4 etapas |
 | `AgroWorkspacePage` | `/coldpro/agro` | Workspace para câmaras agrícolas |
 | `PerformanceCurvePage` | `/coldpro/curve` | Curvas de desempenho de produto |
 | `ExportPage` | `/coldpro/export` | Exportação de laudos e desenhos |
 
 **Stores Zustand:**
 
-| Store | Responsabilidade |
-|-------|-----------------|
-| `useTestHubStore` | Estado completo do Hub de Testes (19 abas, resultados, configurações) |
-| `useSessionStore` | Sessão do usuário, projeto ativo, modo de operação |
-| `useComponentStore` | Componentes selecionados (compressor, evaporador, condensador) |
-| `useUserModeStore` | Modo de visualização (operador / engenheiro) |
+| Store | Arquivo | Responsabilidade |
+|-------|---------|-----------------|
+| `useTestHubStore` | `stores/useTestHubStore.ts` | Estado completo do Hub de Testes (20 abas, resultados, configurações) |
+| `useSessionStore` | `stores/useSessionStore.ts` | Sessão do usuário — **persiste em localStorage** (middleware `persist`) |
+| `useComponentStore` | `stores/useComponentStore.ts` | Componentes selecionados (compressor, evaporador, condensador) |
+| `useAppEngineeringStore` | `pages/application-engineering/store/` | Estado do stepper de Engenharia de Aplicação (4 etapas) |
 
-**Serviços:**
+---
 
-| Serviço | Responsabilidade |
-|---------|-----------------|
-| `coldproEngineService` | Fachada para chamadas ao motor `coldpro_v2` |
-| `catalogService` | Acesso ao catálogo de compressores, ventiladores e geometrias |
-| `aiAssistantService` | Diagnóstico termodinâmico com regras embarcadas |
-| `libraryService` | Gerenciamento da biblioteca de projetos salvos |
+#### 3.1.1 Módulo de Engenharia de Aplicação
+
+**Localização:** `src/modules/coldpro/pages/application-engineering/`
+
+O módulo implementa um fluxo guiado de 4 etapas sequenciais para dimensionamento completo de sistemas de refrigeração, substituindo a estrutura anterior de abas flat.
+
+```
+application-engineering/
+├── ApplicationEngineeringPage.tsx   ← orquestrador com stepper visual
+├── store/
+│   └── useAppEngineeringStore.ts    ← estado das 4 etapas (Zustand)
+├── types/
+│   └── app-engineering.types.ts     ← CapacityCurvePoint, Step1/2/3 types
+├── services/
+│   ├── capacityCurveService.ts      ← evalEN12900 → generateCapacityCurve
+│   ├── evaporatorDimensioningService.ts  ← wraps calculateCoilAdvanced
+│   ├── condenserDimensioningService.ts   ← wraps calculateCoilAdvanced
+│   └── __tests__/
+│       └── capacityCurveService.test.ts  ← 4 testes com coef. reais 4BES-9Y
+└── components/
+    ├── CapacityCurvePanel.tsx       ← Recharts Q(Te) e W(Te) + slider ponto
+    ├── Step1CompressorPanel.tsx     ← refrigerante + BITZER picker + curva EN12900
+    ├── Step2EvaporatorPanel.tsx     ← 753 geometrias + Ziehl-Abegg + dimensionamento
+    ├── Step3CondenserPanel.tsx      ← idem para condensador
+    └── Step4HubPanel.tsx            ← alimenta Hub + 5 abas + botão PDF
+```
+
+**Fluxo das 4 etapas:**
+
+| Etapa | Função | Habilita a próxima quando |
+|-------|--------|--------------------------|
+| 1 — Compressor | Seleciona refrigerante + compressor BITZER, exibe curva EN12900, confirma ponto Te/Tc | Ponto de projeto confirmado |
+| 2 — Evaporador | Seleciona geometria (753) + ventilador Ziehl-Abegg + calcula Q_evap vs Q_req | Q_evap ≥ Q_req (status OK) |
+| 3 — Condensador | Seleciona geometria + ventilador + calcula Q_cond vs Q_rej | Q_cond ≥ Q_rej (status OK) |
+| 4 — Simulação | Sincroniza `useTestHubStore` + executa 4 análises + 5 abas de resultado | — |
+
+**Regras de campo (armadilhas confirmadas):**
+
+```typescript
+// CoilAdvancedInput — pitches em METROS, não mm
+tube_outer_diameter_m: geometry.tubeOuterDiameterMm / 1000,
+tube_pitch_transverse_m: geometry.tubePitchTransverseMm / 1000,
+
+// FanPickerItem — campo em snake_case
+const totalAirflow = fan.airflow_m3h * fanCount;  // ← NÃO airflowM3h
+
+// CompressorCalibrationPoint — pwr_coeffs, NÃO pow_coeffs
+const cap = row.calibration_points[0].cap_coeffs;
+const pwr = row.calibration_points[0].pwr_coeffs;
+
+// CoilAdvancedResult
+result.capacity_w   // ← NÃO q_total_w
+result.u_w_m2k      // ← NÃO u_overall_wm2k
+```
 
 ---
 
@@ -141,7 +195,7 @@ O módulo `coldpro` é a camada de orquestração e interface do usuário. Ele n
 
 **Localização:** `src/modules/coldpro_v2/`
 
-O `coldpro_v2` é o **coração matemático** do sistema. Contém todos os motores de transferência de calor, queda de pressão, eficiência de aleta, psicrometria e solvers iterativos. É o único módulo que implementa as correlações físicas validadas.
+O `coldpro_v2` é o **coração matemático** do sistema. Contém todos os motores de transferência de calor, queda de pressão, eficiência de aleta, psicrometria e solvers iterativos.
 
 **Estrutura de engines:**
 
@@ -149,8 +203,10 @@ O `coldpro_v2` é o **coração matemático** do sistema. Contém todos os motor
 coldpro_v2/engines/
 ├── core/               ← Primitivas matemáticas (LMTD, NTU, U_global, Re, Pr...)
 ├── airSide/            ← Propriedades e transferência de calor lado ar
+│   ├── airProperties.ts      ← suporta ar úmido via RH opcional (Hyland-Wexler)
+│   └── airHeatTransfer.ts
 ├── fluidSide/          ← Propriedades e transferência de calor lado fluido
-├── psychrometrics/     ← Psicrometria, serpentina úmida, reaquecimento
+├── psychrometrics/     ← Shim sobre cn_coils/engine_v2/psychrometrics (Hyland-Wexler)
 ├── solver/             ← Solvers iterativos (acoplado e por circuito)
 ├── equilibrium/        ← Equilíbrio sistema-compressor
 ├── polynomial/         ← Avaliação de polinômios EN 12900 / ARI 540
@@ -179,33 +235,33 @@ coldpro_v2/engines/
 
 O módulo `cn_coils` implementa o workspace de dimensionamento detalhado de serpentinas aletadas, incluindo o motor de correlação de Wang-Chi-Chang (2000) para coeficiente convectivo do ar, o motor de ciclo termodinâmico e o solver fileira-por-fileira.
 
-**Workspaces disponíveis:**
+**Componentes reutilizáveis críticos:**
 
-| Workspace | Rota | Tipo de equipamento |
-|-----------|------|---------------------|
-| `EvaporatorUnifiedWorkspacePage` | `/coldpro/cn-coils/workspace` | Evaporador DX |
-| `CondenserWorkspacePage` | — | Condensador remoto |
-| `WaterCondenserWorkspacePage` | — | Condensador a água |
-| `EvaporativeCondenserWorkspacePage` | — | Condensador evaporativo |
-| `HeatingCoilWorkspacePage` | — | Serpentina de aquecimento |
-| `CycleWorkspacePage` | `/coldpro/cycle` | Ciclo termodinâmico completo |
-| `FrostAnalysisPage` | `/coldpro/frost` | Análise de formação de gelo |
-| `OptimizationPage` | `/coldpro/optimization` | Otimização de geometria |
-| `CompressorWorkspacePage` | — | Análise de compressor |
+| Componente | Props relevantes | Comportamento |
+|-----------|-----------------|---------------|
+| `CompressorPickerModal` | `open, onClose, onSelect?` | Busca no catálogo BITZER |
+| `GeometryPickerModal` | `open, onClose, componentType?` | **Sem `onSelect`** — salva em `useCnCoilsSimulationStore.selectedGeometry` |
+| `FanPickerModal` | `open, onClose, fans, onConfirm?` | Requer `fans` via `useEnrichedFanPickerItems` |
+| `GeometryEditorModal` | `open, onClose` | Cadastro de nova geometria |
+
+**Hooks:**
+
+| Hook | Retorno | Uso |
+|------|---------|-----|
+| `useEnrichedFanPickerItems` | `{ items: FanPickerItem[], loading, error }` | Alimenta `FanPickerModal` |
+| `useZiehlAbeggFanPickerItems` | `{ items, loading }` | Catálogo Ziehl-Abegg direto |
 
 **Engines do cn_coils:**
 
 | Engine | Arquivo | Função |
 |--------|---------|--------|
-| Motor principal V1 | `engine/simulatorCore.ts` | Motor original (legado, mantido para compatibilidade) |
+| Motor principal V1 | `engine/simulatorCore.ts` | Motor original (legado — **não importar diretamente**) |
 | Motor principal V2 | `engine_v2/simulatorCoreV2.ts` | Motor unificado com correções |
-| Adaptador | `engine/simulatorCoreAdapter.ts` | Delega ao motor correto conforme versão |
+| Adaptador | `engine/simulatorCoreAdapter.ts` | **Usar sempre este** — delega ao motor correto |
 | Wang-Chi-Chang | `engine/wangChiChang.ts` | Correlação h_ar para aletas planas/onduladas/louver |
+| Psicrometria Hyland-Wexler | `engine_v2/psychrometrics/` | Implementação canônica ASHRAE 2017 |
 | Ciclo termodinâmico | `engines/cycle/cycleEngine.ts` | Ciclo completo com 4 pontos P-h |
 | Solver fileira-por-fileira | `engines/rowByRow/rowByRowEngine.ts` | Análise por fileira com variação de título |
-| Ciclo adaptador | `engines/coil/coilCycleAdapter.ts` | Integração serpentina-ciclo |
-| Otimizador de circuitos | `engine/circuitOptimizer.ts` | Seleção ótima de circuitagem |
-| Gerador de relatório | `engine/reportGenerator.ts` | PDF técnico da serpentina |
 
 ---
 
@@ -213,35 +269,50 @@ O módulo `cn_coils` implementa o workspace de dimensionamento detalhado de serp
 
 **Localização:** `src/modules/coldpro_catalog/`
 
-Módulo responsável pela seleção de compressores, válvulas de expansão e propriedades de fluidos a partir dos catálogos UNILAB/VapCyc.
+Módulo responsável pela seleção de compressores, válvulas de expansão e propriedades de fluidos a partir dos catálogos BITZER e Danfoss.
 
-**Engines:**
+**Funções principais:**
 
-| Engine | Arquivo | Função |
-|--------|---------|--------|
-| Seletor de compressor | `engines/compressorSelector.ts` | Avalia polinômios EN 12900 e seleciona por Te/Tc |
-| Seletor de válvula TEV | `engines/expansionValveSelector.ts` | Seleciona TEV Danfoss por capacidade e fluido |
-| Propriedades de fluidos | `engines/fluidPropertiesEngine.ts` | Propriedades termodinâmicas por polinômios UNILAB |
+```typescript
+import {
+  getCompressorById,    // async → CompressorCatalogRow (com calibration_points)
+  loadCompressorSpec,   // async → CompressorSpec (com ari540_capacity_coefficients)
+  filterCompressors,    // async, filtros por refrigerante, série, modelo
+} from "@/modules/coldpro_catalog/data/compressorCatalog.service";
 
-**Páginas:**
-
-| Página | Rota | Descrição |
-|--------|------|-----------|
-| `ComponentSelectorPage` | `/coldpro/components` | Seleção de compressor + válvula + ventilador |
-| `TestBenchPage` | `/coldpro/test-bench/:equipmentId` | Bancada de testes por equipamento |
+// Como extrair coeficientes EN12900
+const row = await getCompressorById("4BES-9Y");
+const cap_coeffs = row.calibration_points[0].cap_coeffs;  // number[10]
+const pwr_coeffs = row.calibration_points[0].pwr_coeffs;  // number[10] ← NÃO pow_coeffs
+```
 
 ---
 
 ## 4. Motores de Cálculo
 
-### 4.1 Fluxo de Cálculo Principal
+### 4.1 Constantes Físicas Canônicas
 
-O cálculo de uma serpentina aletada segue o seguinte fluxo:
+**Arquivo:** `src/lib/physicalConstants.ts`
+
+Todas as constantes físicas do sistema são importadas deste arquivo único. **Nunca use valores hardcoded.**
+
+```typescript
+export const W_PER_TR = 3516.8528;       // ASHRAE: 1 TR = 12 000 BTU/h ÷ 3,41214
+export const KCALH_PER_KW = 859.845;     // 1 kW = 859,845 kcal/h
+export const KCALH_PER_TR = 3024.0;      // 1 TR = 3 024 kcal/h
+export const KCALH_PER_BTUH = 0.251996;  // 1 BTU/h = 0,252 kcal/h
+export const P_ATM_SEA_LEVEL_PA = 101_325;
+export const R_AIR_J_KGK = 287.058;
+```
+
+> **Nota:** O valor correto de 1 TR é **3516,8528 W** (ASHRAE). Valores incorretos como 3517 ou 3517,2 foram corrigidos em todos os arquivos em maio/2026.
+
+### 4.2 Fluxo de Cálculo Principal — Serpentina
 
 ```
 Entrada (geometria + condições)
         ↓
-1. Propriedades do ar (temperatura, umidade, densidade, viscosidade)
+1. Propriedades do ar (T, RH, altitude) → Hyland-Wexler se RH fornecido
         ↓
 2. Geometria da face frontal (área de face, velocidade de face)
         ↓
@@ -261,25 +332,18 @@ Entrada (geometria + condições)
         ↓
 10. Solver iterativo (convergência ΔT < 0,01°C)
         ↓
-Saída (Q, U, ΔP_ar, ΔP_ref, η_fin, T_saída_ar, título de saída)
+Saída (capacity_w, u_w_m2k, air_pressure_drop_pa, fin_efficiency, ...)
 ```
 
-### 4.2 Solver Iterativo (`iterativeCoilSolver.ts`)
+### 4.3 Solver Iterativo (`iterativeCoilSolver.ts`)
 
-O solver iterativo resolve o sistema de equações acopladas entre o lado do ar e o lado do fluido refrigerante, convergindo para o ponto de equilíbrio térmico. O critério de convergência é `|ΔT_saída_ar| < 0,01 °C` com máximo de 50 iterações.
+O solver iterativo resolve o sistema de equações acopladas entre o lado do ar e o lado do fluido refrigerante. O critério de convergência é `|ΔT_saída_ar| < 0,01 °C` com máximo de 50 iterações.
 
-**Algoritmo:**
-1. Estima temperatura de saída do ar (chute inicial: `T_ar_in - 5°C`).
-2. Calcula LMTD com as temperaturas estimadas.
-3. Calcula `Q = U × A × LMTD`.
-4. Recalcula temperatura de saída do ar via balanço de energia: `T_ar_out = T_ar_in - Q / (ṁ_ar × cp_ar)`.
-5. Verifica convergência. Se não convergiu, atualiza estimativa e repete.
+### 4.4 Solver Acoplado (`coupledCoilSolver.ts`)
 
-### 4.3 Solver Acoplado (`coupledCoilSolver.ts`)
+O solver acoplado resolve simultaneamente o balanço de energia do lado do ar e do fluido refrigerante, considerando psicrometria completa (serpentina seca/úmida/transição), eficiência de aleta corrigida para ar úmido e variação de propriedades ao longo dos circuitos.
 
-O solver acoplado resolve simultaneamente o balanço de energia do lado do ar e do lado do fluido refrigerante, considerando a variação do título ao longo dos circuitos. É mais preciso que o iterativo simples, pois modela a variação de propriedades do refrigerante ao longo da serpentina.
-
-### 4.4 Motor de Ciclo Termodinâmico (`cycleEngine.ts`)
+### 4.5 Motor de Ciclo Termodinâmico (`cycleEngine.ts`)
 
 Calcula o ciclo de refrigeração por compressão de vapor com 4 pontos no diagrama P-h:
 
@@ -290,11 +354,21 @@ Calcula o ciclo de refrigeração por compressão de vapor com 4 pontos no diagr
 | 3 | Líquido sub-resfriado | Saída do condensador / entrada da válvula |
 | 4 | Mistura bifásica | Saída da válvula / entrada do evaporador |
 
-**Parâmetros calculados:** COP, capacidade frigorífica, potência do compressor, vazão mássica, título na entrada do evaporador, temperatura de descarga.
+### 4.6 Motor de Análise de Gelo (`frost`)
 
-### 4.5 Motor de Análise de Gelo (`frost`)
+Modela a formação de gelo na superfície da serpentina evaporadora com base na temperatura da superfície, umidade do ar e tempo de operação. Calcula a redução progressiva de U e o aumento de ΔP ao longo do ciclo.
 
-Modela a formação de gelo na superfície da serpentina evaporadora com base na temperatura da superfície do tubo, umidade do ar e tempo de operação. Calcula a redução progressiva do coeficiente de transferência de calor e o aumento da queda de pressão do ar ao longo do ciclo de operação.
+### 4.7 Avaliação de Polinômios EN 12900 (`capacityCurveService.ts`)
+
+```typescript
+// Fórmula EN 12900 / ARI 540 — 10 coeficientes
+Y = C₁ + C₂·Te + C₃·Tc + C₄·Te² + C₅·Te·Tc + C₆·Tc²
+  + C₇·Te³ + C₈·Tc·Te² + C₉·Te·Tc² + C₁₀·Tc³
+
+// Onde Y = capacidade (W) ou potência (W), Te e Tc em °C
+```
+
+O serviço `generateCapacityCurve` gera séries de pontos (Q, W, COP) × Te para múltiplos valores de Tc, excluindo automaticamente pontos fisicamente inválidos (Q ≤ 0 ou W ≤ 0).
 
 ---
 
@@ -311,181 +385,82 @@ A correlação de Wang, Chi e Chang (2000) para aletas planas é a correlação 
 - Número de fileiras: 1 ≤ N ≤ 6
 - Reynolds de aleta: 1.000 ≤ Re_Dc ≤ 10.000
 
-**Equação do fator de Colburn:**
-
-```
-j = 0,394 · Re_Dc^(-0,392) · (F_p/D_c)^(-0,0449) · (P_t/P_l)^(1,99) · N^(-0,0897) · F_p^(-0,673) · (F_p/D_c)^(0,0588)
-```
-
-O coeficiente h_ar é obtido por: `h_ar = j · ρ_ar · V_max · cp_ar · Pr^(-2/3)`
-
-Para condensadores com passo de aleta ≤ 2,5 mm, o sistema usa a correlação de **Rich (1975)** como alternativa, que apresenta melhor aderência experimental nessa faixa.
+Para condensadores com passo de aleta ≤ 2,5 mm, o sistema usa a correlação de **Rich (1975)**.
 
 ### 5.2 Eficiência de Aleta — Schmidt (1949)
 
 **Arquivo:** `src/modules/coldpro_v2/engines/core/finEfficiency.ts`
 
-A eficiência de aleta circular equivalente é calculada pelo método de Schmidt (1949), que converte a geometria real da aleta (passo transversal P_t e longitudinal P_l) em um raio equivalente `r_eq`:
+A eficiência de aleta circular equivalente é calculada pelo método de Schmidt (1949), que converte a geometria real da aleta em um raio equivalente `r_eq`:
 
 ```
 r_eq/r_o = 1,27 · (M/r_o) · (L/M - 0,3)^0,5
-
-onde:
-  M = (P_t/2)
-  L = √(P_t² + P_l²) / 2
-  r_o = D_o / 2
+η_fin = tanh(m · L_c) / (m · L_c),  onde m = √(2·h_ar / (k_fin·t_fin))
 ```
 
-O comprimento característico da aleta é então: `L_c = r_eq - r_o`
-
-A eficiência é calculada pela equação da aleta anular:
-
-```
-η_fin = tanh(m · L_c) / (m · L_c)
-onde m = √(2 · h_ar / (k_fin · t_fin))
-```
-
-> **Correção crítica aplicada em maio/2026:** A versão anterior usava `L_c = 0,01 m` fixo para todas as geometrias, subestimando a eficiência de aleta em serpentinas com passo transversal menor que 31,75 mm e superestimando em serpentinas com passo maior. A correção implementa o método de Schmidt (1949) com a geometria real de cada serpentina.
-
-### 5.3 Área Externa Total — Tubo Nu + Aletas
-
-**Arquivo:** `src/modules/coldpro_v2/engines/core/finnedExternalArea.ts`
-
-A área externa total é composta por duas parcelas:
-
-```
-A_total = A_bare + A_fin
-
-A_bare = π · D_o · (F_p - t_fin) · N_fins · N_tubes_total
-A_fin  = 2 · (A_fin_face - A_holes) · N_fins
-```
-
-onde `A_fin_face` é a área frontal de uma aleta (P_t × L_tube) e `A_holes` é a área dos furos dos tubos na aleta.
-
-### 5.4 Queda de Pressão Bifásica — Müller-Steinhagen & Heck (1986)
+### 5.3 Queda de Pressão Bifásica — Müller-Steinhagen & Heck (1986)
 
 **Arquivo:** `src/modules/coldpro_v2/engines/core/pressureDrop.ts`
 
-Para escoamento bifásico no interior dos tubos, o sistema usa a correlação de Müller-Steinhagen e Heck (1986), que interpola entre os gradientes de pressão monofásicos do líquido e do vapor:
-
 ```
-(dP/dz)_TP = G · (1 - x)^(1/3) + B · x³
-
-onde:
-  G = (dP/dz)_L + 2 · [(dP/dz)_G - (dP/dz)_L] · x
-  B = (dP/dz)_G
-  x = título de vapor
+(dP/dz)_TP = G·(1-x)^(1/3) + B·x³
+onde G = (dP/dz)_L + 2·[(dP/dz)_G - (dP/dz)_L]·x
+     B = (dP/dz)_G
 ```
 
-> **Correção crítica aplicada em maio/2026:** A versão anterior usava o fator de Darcy monofásico para toda a extensão da serpentina, independentemente do título. A correção implementa a correlação bifásica de Müller-Steinhagen & Heck (1986) com variação contínua do título ao longo dos circuitos.
-
-### 5.5 Coeficiente de Evaporação — Chen (1966)
+### 5.4 Coeficiente de Evaporação — Chen (1966)
 
 **Arquivo:** `src/modules/coldpro_v2/engines/fluidSide/twoPhaseHeatTransfer.ts`
 
-Para o coeficiente de transferência de calor na evaporação bifásica no interior dos tubos, o sistema usa a correlação de Chen (1966), que combina as contribuições de convecção forçada (Dittus-Boelter modificado) e ebulição nucleada (Forster-Zuber):
-
 ```
-h_TP = S · h_nb + F · h_cb
-
-onde:
-  h_nb = coeficiente de ebulição nucleada (Forster-Zuber)
-  h_cb = coeficiente de convecção forçada (Dittus-Boelter com fator F)
-  S    = fator de supressão da ebulição nucleada
-  F    = fator de intensificação da convecção forçada
+h_TP = S·h_nb + F·h_cb
 ```
 
-### 5.6 Coeficiente de Condensação — Nusselt (1916)
+Combina contribuições de ebulição nucleada (Forster-Zuber) e convecção forçada (Dittus-Boelter).
 
-**Arquivo:** `src/modules/coldpro_v2/engines/fluidSide/twoPhaseHeatTransfer.ts`
-
-Para condensação em filme no interior de tubos horizontais, o sistema usa a correlação de Nusselt (1916) modificada para escoamento interno:
+### 5.5 Coeficiente de Condensação — Nusselt (1916)
 
 ```
-h_cond = 0,725 · [ρ_L · (ρ_L - ρ_G) · g · k_L³ · h_fg / (μ_L · D_i · ΔT)]^(1/4)
+h_cond = 0,725·[ρ_L·(ρ_L-ρ_G)·g·k_L³·h_fg / (μ_L·D_i·ΔT)]^(1/4)
 ```
 
-### 5.7 Vazão Mássica de Refrigerante — Balanço com Δx
-
-**Arquivo:** `src/modules/coldpro_v2/engines/core/coilDerivedMetrics.ts`
-
-A vazão mássica de refrigerante é calculada pelo balanço de energia no evaporador considerando a variação real de título:
+### 5.6 Vazão Mássica de Refrigerante — Balanço com Δx
 
 ```
 ṁ_ref = Q_evap / (h_fg · Δx)
-
-onde:
-  Δx = x_saída - x_entrada
-  Δx = 0,70 para evaporadores (x_in ≈ 0,25, x_out ≈ 0,95)
-  Δx = 0,90 para condensadores (x_in ≈ 0,95, x_out ≈ 0,05)
+Δx = 0,70 (evaporadores)  |  Δx = 0,90 (condensadores)
 ```
 
-> **Correção crítica aplicada em maio/2026:** A versão anterior calculava `ṁ = Q / h_fg` assumindo `x = 1` na saída, o que subestimava a vazão mássica em ~30% para evaporadores típicos com título de entrada entre 0,20 e 0,30.
+### 5.7 Psicrometria — Hyland-Wexler (ASHRAE 2017)
 
-### 5.8 Velocidade do Fluido Refrigerante
+**Arquivo canônico:** `src/modules/cn_coils/engine_v2/psychrometrics/`
+**Shim de compatibilidade:** `src/modules/coldpro_v2/engines/psychrometrics/psychrometricCore.ts`
 
-**Arquivo:** `src/modules/coldpro_v2/engines/coilCalculationEngine.ts`
+Todas as propriedades do ar úmido são calculadas pelas equações de Hyland-Wexler (ASHRAE Handbook of Fundamentals, 2017). O módulo `coldpro_v2` usa um shim de compatibilidade que delega para a implementação canônica do `cn_coils/engine_v2/psychrometrics`, garantindo precisão melhor que 0,1% na faixa de -40°C a +60°C.
 
-A velocidade do fluido no interior dos tubos é calculada pela equação de continuidade com a densidade real do refrigerante na condição bifásica:
+A função `calculateAirProperties` aceita `relative_humidity` e `altitude_m` opcionais para cálculo com ar úmido:
 
-```
-v = ṁ / (ρ · A_cross)
+```typescript
+// Modo seco (retrocompatível)
+calculateAirProperties(25)
 
-onde:
-  ρ = densidade da mistura bifásica = 1 / (x/ρ_G + (1-x)/ρ_L)
-  A_cross = π · D_i² / 4 · N_circuits
-```
-
-> **Correção crítica aplicada em maio/2026:** A versão anterior usava `v = ṁ / 1000` (divisão por constante arbitrária), produzindo velocidades fisicamente impossíveis.
-
-### 5.9 Polinômios de Compressor — EN 12900 / ARI 540
-
-**Arquivo:** `src/modules/coldpro_catalog/engines/compressorSelector.ts`
-
-O desempenho do compressor é avaliado por polinômios de 10 coeficientes conforme a norma EN 12900:2013 / ARI 540:
-
-```
-Y = C₁ + C₂·Te + C₃·Tc + C₄·Te² + C₅·Te·Tc + C₆·Tc² + C₇·Te³ + C₈·Tc·Te² + C₉·Te·Tc² + C₁₀·Tc³
-
-onde Y pode ser: Q_evap [W], W_shaft [W] ou I [A]
-Te e Tc em °C (temperatura de evaporação e condensação)
+// Modo úmido (Hyland-Wexler)
+calculateAirProperties(25, 0.65, 800)  // T=25°C, RH=65%, altitude=800m
 ```
 
-### 5.10 Serpentina Úmida — Iteração NTU
-
-**Arquivo:** `src/modules/coldpro_v2/engines/psychrometrics/wetCoil.ts`
-
-Para serpentinas evaporadoras operando abaixo do ponto de orvalho do ar, o sistema resolve a transferência de calor e massa simultaneamente usando o método NTU com iteração na temperatura de superfície:
+### 5.8 Área Externa Total — Tubo Nu + Aletas
 
 ```
-Iteração:
-  1. Estima T_surf
-  2. Calcula h_s (entalpia de saturação na T_surf)
-  3. Calcula NTU = U·A / (ṁ_ar · cp_ar_úmido)
-  4. Calcula ε = 1 - exp(-NTU)
-  5. Calcula Q_total = ε · Q_max
-  6. Verifica balanço: Q_calculado ≈ Q_entrada
-  7. Atualiza T_surf e repete até convergência
+A_total = A_bare + A_fin
+A_bare = π·D_o·(F_p - t_fin)·N_fins·N_tubes_total
+A_fin  = 2·(A_fin_face - A_holes)·N_fins
 ```
-
-> **Correção crítica aplicada em maio/2026:** A versão anterior usava `T_surf = T_evap + 2°C` fixo, o que não convergia para condições fora do ponto de projeto. A correção implementa a iteração NTU completa.
-
-### 5.11 Psicrometria — ASHRAE (2017)
-
-**Arquivo:** `src/modules/cn_coils/engine/psychrometrics.ts`
-
-Todas as propriedades do ar úmido são calculadas pelas equações do ASHRAE Handbook of Fundamentals (2017), Capítulo 1:
-
-- Pressão de saturação: equação de Antoine modificada (Magnus-Tetens)
-- Umidade específica: `W = 0,622 · p_sat · φ / (p_atm - p_sat · φ)`
-- Entalpia: `h = cp_ar · T + W · (h_fg0 + cp_vap · T)`
-- Volume específico: equação dos gases ideais com correção de umidade
 
 ---
 
 ## 6. Catálogos de Dados
 
-Todos os catálogos estão em `public/data/catalogs/` e são carregados em tempo de execução pelo browser. Nenhum catálogo é compilado no bundle — isso permite atualização sem rebuild.
+Todos os catálogos estão em `public/data/catalogs/` e são carregados em tempo de execução pelo browser. Nenhum catálogo é compilado no bundle.
 
 | Arquivo | Conteúdo | Registros |
 |---------|----------|-----------|
@@ -493,28 +468,31 @@ Todos os catálogos estão em `public/data/catalogs/` e são carregados em tempo
 | `compressorCapacityPolynomials.json` | Polinômios EN 12900 — capacidade frigorífica | ~200 |
 | `compressorPowerPolynomials.json` | Polinômios EN 12900 — potência absorvida | ~200 |
 | `compressorCurrentPolynomials.json` | Polinômios EN 12900 — corrente elétrica | ~200 |
-| `compressorOutletTemperature.json` | Temperatura de descarga por ponto de operação | ~200 |
-| `geometries.json` | Geometrias de serpentinas aletadas (UNILAB) | 753 |
+| `geometries.json` | Geometrias de serpentinas aletadas | **753** |
 | `coilGeometries.json` | Geometrias CN COLD proprietárias | — |
 | `coilCorrectionCoefficients_principal.json` | Coeficientes de correção por série CN COLD | 115 |
-| `cncoilsCoefficients.json` | Coeficientes de correção CN Coils por velocidade | — |
-| `fans.json` | Dados de ventiladores axiais e centrífugos | — |
-| `fanAxial_type0_config1_principal.json` | Curvas de ventiladores axiais tipo 0 | — |
+| `fans.json` | Dados de ventiladores axiais e centrífugos Ziehl-Abegg | — |
 | `expansionValves.json` | Catálogo de válvulas TEV Danfoss | — |
 | `distributorComplete.json` | Distribuidores de refrigerante | — |
-| `bomComponents.json` | Componentes BOM (tubos, aletas, coletores) | — |
 
 ### 6.1 Geometrias CN Lantery
 
-As geometrias da linha **CN Lantery** são as geometrias proprietárias da CN COLD para serpentinas de câmaras frias. Estão registradas no `geometries.json` com os seguintes códigos:
+| Código | Sigla | Tipo | D_o (mm) | P_t (mm) | P_l (mm) |
+|--------|-------|------|----------|----------|----------|
+| 169 | Lantery EVP | Evaporador DX | 13,3 | 31,75 | 27,5 |
+| 176 | Lantery COND | Condensador | 10,3 | 25,4 | 22,0 |
+| 230 | Lantery RESF | Resfriador | 16,4 | 60,0 | 30,0 |
 
-| Código | Sigla | Tipo | D_o (mm) | P_t (mm) | P_l (mm) | t_fin (mm) |
-|--------|-------|------|----------|----------|----------|------------|
-| 169 | 133228_C_S F Lantery EVP | Evaporador DX | 13,3 | 31,75 | 27,5 | 0,13 |
-| 176 | 102522_C_S Lantery COND | Condensador | 10,3 | 25,4 | 22,0 | 0,13 |
-| 230 | 166030_SW_S Lantery RESF | Resfriador | 16,4 | 60,0 | 30,0 | 0,13 |
+### 6.2 Ventiladores Ziehl-Abegg
 
-> **Nota:** Os dados de dimensionamento específicos por modelo de máquina (número de tubos, fileiras, comprimento, circuitos, passo de aleta) são gerenciados no software UNILAB/VapCyc e não estão nos catálogos JSON do repositório. Para simular um modelo específico, esses dados devem ser informados manualmente ou importados via arquivo `.unilab`.
+| Família | Diâmetros (mm) | Aplicação típica |
+|---------|---------------|-----------------|
+| FE | 300–800 | Evaporadores industriais |
+| FK | 400–1000 | Condensadores |
+| FC | 250–630 | Câmaras frias |
+| RH | 200–500 | Resfriadores de ar |
+
+Acesso via `useEnrichedFanPickerItems()` → `{ items: FanPickerItem[], loading, error }`.
 
 ---
 
@@ -538,18 +516,17 @@ O sistema usa **Supabase** (PostgreSQL gerenciado) para persistência de projeto
 | `fans` | Ventiladores customizados do usuário |
 | `fans_catalog` | Catálogo de ventiladores do sistema |
 | `refrigerants` | Fluidos refrigerantes customizados |
-| `coil_geometry_overrides` | Sobrescritas de geometria por projeto |
 | `equipment_test_bench_configs` | Configurações da bancada de testes por equipamento |
 
 ### Autenticação
 
-O sistema usa **Lovable Cloud Auth** (`@lovable.dev/cloud-auth-js`) integrado ao Supabase Auth. O controle de acesso por módulo é feito via a tabela `module_permissions`, consultada na inicialização da sessão.
+O sistema usa **Lovable Cloud Auth** integrado ao Supabase Auth. O controle de acesso por módulo é feito via a tabela `module_permissions`, consultada na inicialização da sessão.
 
 ---
 
 ## 8. Rotas e Navegação
 
-O sistema usa **TanStack Router** com rotas baseadas em arquivos (`src/routes/_app/`). O arquivo `src/routeTree.gen.ts` é **gerado automaticamente** pelo plugin `@tanstack/router-plugin` — nunca edite manualmente exceto para adicionar novas rotas ao `addChildren`.
+O sistema usa **TanStack Router** com rotas baseadas em arquivos (`src/routes/_app/`). O arquivo `src/routeTree.gen.ts` é **gerado automaticamente** — nunca edite manualmente exceto para adicionar novas rotas ao `addChildren`.
 
 ### Mapa de Rotas
 
@@ -561,24 +538,16 @@ O sistema usa **TanStack Router** com rotas baseadas em arquivos (`src/routes/_a
 | `/coldpro/application-engineering` | `ApplicationEngineeringPage` | coldpro |
 | `/coldpro/operating-map` | `OperatingMapPage` | coldpro |
 | `/coldpro/assembly` | `AssemblyPage` | coldpro |
-| `/coldpro/montagem` | `AssemblyPage` (alias) | coldpro |
 | `/coldpro/curve` | `PerformanceCurvePage` | coldpro |
 | `/coldpro/export` | `ExportPage` | coldpro |
 | `/coldpro/frost` | `FrostAnalysisPage` | cn_coils |
 | `/coldpro/cycle` | `CycleWorkspacePage` | cn_coils |
 | `/coldpro/optimization` | `OptimizationPage` | cn_coils |
-| `/coldpro/cn-coils` | `CnCoilsDashboardPage` | cn_coils |
 | `/coldpro/cn-coils/workspace` | `CnCoilsWorkspacePage` | cn_coils |
 | `/coldpro/cncoils/workspace` | `EvaporatorUnifiedWorkspacePage` | cn_coils |
-| `/coldpro/cncoils/systems/cold-room` | Sistema câmara fria | cn_coils |
-| `/coldpro/cncoils/systems/dx-complete` | Sistema DX completo | cn_coils |
-| `/coldpro/cncoils/systems/heat-pump` | Bomba de calor | cn_coils |
-| `/coldpro/cncoils/systems/dehumidification` | Desumidificação | cn_coils |
 | `/coldpro/catalog` | `ComponentSelectorPage` | coldpro_catalog |
 | `/coldpro/test-bench/:equipmentId` | `TestBenchPage` | coldpro_catalog |
 | `/coldpro/agro` | `AgroWorkspacePage` | coldpro |
-| `/coldpro/compare` | Comparação de configurações | coldpro_v2 |
-| `/coldpro/map` | Mapa de operação | coldpro_v2 |
 | `/coldpro/unilab` | Workspace UNILAB | coldpro_v2 |
 | `/coldpro/audit` | Auditoria de cálculos | coldpro |
 | `/coldpro/settings` | Configurações | coldpro |
@@ -587,55 +556,40 @@ O sistema usa **TanStack Router** com rotas baseadas em arquivos (`src/routes/_a
 
 ## 9. Testes Automatizados
 
-O sistema usa **Vitest** com configuração em `vitest.coldpro.config.ts`. Os testes cobrem os motores de cálculo críticos com valores de referência validados contra literatura técnica e dados experimentais.
+O sistema usa **Vitest** com configuração em `vitest.coldpro.config.ts`. Os testes cobrem os motores de cálculo críticos com valores de referência validados contra literatura técnica.
 
 ### Configuração do Vitest
 
 ```typescript
 // vitest.coldpro.config.ts
 export default defineConfig({
-  test: {
-    environment: 'jsdom',
-    globals: true,
-  },
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),  // ← alias obrigatório
-    },
-  },
+  test: { environment: 'jsdom', globals: true },
+  resolve: { alias: { '@': path.resolve(__dirname, './src') } },
+  // ↑ alias @/ OBRIGATÓRIO — sem ele todos os imports @/modules/... falham
 });
 ```
-
-> **Atenção:** O alias `@/` **deve estar presente** no `vitest.coldpro.config.ts`. Sem ele, todos os testes que importam de `@/modules/...` falham com "Cannot find module". Esse foi um bug corrigido em maio/2026.
 
 ### Suítes de Teste por Módulo
 
 | Módulo | Arquivo de teste | O que testa |
 |--------|-----------------|-------------|
-| `coldpro_v2` | `exchange-area-validation.test.ts` | Área de troca com aletas (4 casos) |
+| `coldpro_v2` | `exchange-area-validation.test.ts` | Área de troca com aletas |
 | `coldpro_v2` | `coupled-solver-validation.test.ts` | Solver acoplado (convergência) |
-| `coldpro_v2` | `testHub.test.ts` | Motor do Hub de Testes (25 casos) |
+| `coldpro_v2` | `testHub.test.ts` | Motor do Hub de Testes |
 | `cn_coils` | `wangChiChang.test.ts` | Correlação Wang-Chi-Chang e Rich-1975 |
 | `cn_coils` | `refrigerantProperties.test.ts` | Propriedades de refrigerantes |
 | `cn_coils` | `cycleEngine.test.ts` | Motor de ciclo termodinâmico |
 | `cn_coils` | `rowByRowEngine.test.ts` | Solver fileira-por-fileira |
 | `cn_coils` | `fluidVelocity.test.ts` | Velocidade do fluido refrigerante |
 | `coldpro_catalog` | `compressorSelector.test.ts` | Seleção de compressor por Te/Tc |
+| `app-engineering` | `capacityCurveService.test.ts` | Avaliação polinômios EN12900 (4BES-9Y) |
 
 ### Executar os Testes
 
 ```bash
-# Todos os testes
-pnpm exec vitest run
-
-# Com cobertura
-pnpm exec vitest run --coverage
-
-# Modo watch (desenvolvimento)
-pnpm exec vitest
-
-# Apenas um módulo
-pnpm exec vitest run src/modules/coldpro_v2
+pnpm exec vitest run                           # todos
+pnpm exec vitest run src/modules/coldpro_v2   # por módulo
+pnpm exec vitest run --coverage                # com cobertura
 ```
 
 ---
@@ -645,61 +599,48 @@ pnpm exec vitest run src/modules/coldpro_v2
 ### 10.1 Pré-requisitos
 
 ```bash
-# Node.js 22+ e pnpm
 node --version  # >= 22.0.0
 pnpm --version  # >= 9.0.0
 
-# Instalar dependências
-pnpm install
-
-# Iniciar servidor de desenvolvimento
-pnpm dev
-
-# Build de produção
-pnpm build
+pnpm install    # instalar dependências
+pnpm dev        # servidor de desenvolvimento
+pnpm build      # build de produção
 ```
 
 ### 10.2 Regras Fundamentais
 
 **Nunca edite diretamente:**
-- `src/routeTree.gen.ts` — gerado automaticamente pelo TanStack Router (exceto para adicionar novas rotas ao `addChildren` enquanto o gerador não detecta o arquivo)
+- `src/routeTree.gen.ts` — gerado automaticamente pelo TanStack Router
 - `src/integrations/supabase/types.ts` — gerado pelo Supabase CLI
-- Arquivos em `src/modules/coldpro_v2/engines/core/` sem antes escrever um teste
+- `src/modules/cn_coils/engine/simulatorCore.ts` — usar `simulatorCoreAdapter` sempre
 
 **Sempre faça:**
 - Escreva testes antes de modificar qualquer motor de cálculo
-- Valide os resultados contra referências bibliográficas (ver Seção 12)
-- Documente a correlação usada com referência no cabeçalho do arquivo
-- Execute `pnpm exec vitest run` antes de fazer commit
-- Mantenha o `vitest.coldpro.config.ts` com o alias `@/` configurado
+- Valide resultados contra referências bibliográficas (Seção 12)
+- Importe constantes físicas de `src/lib/physicalConstants.ts` — nunca hardcode `3516`, `3517`, `859`, etc.
+- Execute `npx tsc --noEmit` antes de commit para verificar tipos
+- Execute `pnpm exec vitest run` antes de commit
 
 ### 10.3 Como Adicionar um Novo Motor de Cálculo
 
 1. **Crie o arquivo** em `src/modules/coldpro_v2/engines/<categoria>/<nome>.ts`
 2. **Documente a correlação** no cabeçalho com referência bibliográfica completa
-3. **Exporte as interfaces** de entrada e saída com tipos TypeScript estritos (sem `any`)
-4. **Escreva o teste** em `src/modules/coldpro_v2/__tests__/<nome>.test.ts`
-5. **Valide contra literatura** — inclua pelo menos um caso de teste com valor de referência publicado
-6. **Importe no motor principal** via `coldpro_v2/engines/solver/` ou `coilCalculationEngine.ts`
+3. **Exporte interfaces** de entrada e saída com tipos TypeScript estritos (sem `any`)
+4. **Escreva o teste** com valor de referência de literatura publicada
+5. **Importe no motor principal** via `coilCalculationEngine.ts`
 
-**Exemplo de cabeçalho obrigatório:**
+**Cabeçalho obrigatório:**
 
 ```typescript
 /**
- * nomeDaCorrelacao.ts
+ * nomeDaCorrelacao.ts — [Autor] ([Ano])
  *
- * Implementa a correlação de [Autor] ([Ano]) para [grandeza física].
- *
- * Referência:
- *   [Autor, A.B.] ([Ano]). [Título do artigo/livro]. [Periódico/Editora],
- *   [Volume]([Número]), [páginas]. DOI: [doi]
+ * Referência: [Autor, A.B.] ([Ano]). [Título]. [Periódico], [vol], [pp]. DOI: [doi]
  *
  * Faixa de validade:
- *   - [parâmetro 1]: [min] ≤ X ≤ [max]
- *   - [parâmetro 2]: [min] ≤ Y ≤ [max]
+ *   [param]: [min] ≤ X ≤ [max]
  *
- * Unidades de entrada: SI (m, kg, s, K, Pa, W)
- * Unidades de saída: SI
+ * Unidades: SI (m, kg, s, K, Pa, W)
  */
 ```
 
@@ -707,36 +648,16 @@ pnpm build
 
 1. **Crie o arquivo** em `src/routes/_app/coldpro.<nome-da-rota>.tsx`
 2. **Crie a página** em `src/modules/<modulo>/pages/<NomeDaPagina>.tsx`
-3. **Adicione ao `routeTree.gen.ts`** nos três blocos obrigatórios:
-   - Import do arquivo de rota
-   - Interface `AppColdproRouteChildren`
-   - Objeto `addChildren` do coldpro route
+3. **Adicione ao `routeTree.gen.ts`** nos três blocos: import, interface, addChildren
 4. **Adicione ao Sidebar** em `src/modules/coldpro/components/layout/Sidebar.tsx`
-5. **Adicione a chave i18n** em `src/i18n/pt-BR.ts`
 
-### 10.5 Como Atualizar um Catálogo JSON
-
-Os catálogos em `public/data/catalogs/` são carregados diretamente pelo browser. Para atualizar:
-
-1. Edite o arquivo JSON diretamente (mantenha a estrutura existente)
-2. Valide o JSON com `python3 -c "import json; json.load(open('arquivo.json'))"`
-3. Se adicionar novos campos, atualize os tipos TypeScript correspondentes em `src/modules/coldpro_v2/domain/types.ts`
-4. Execute os testes para garantir que nenhum motor quebrou
-
-### 10.6 Fluxo de Git
+### 10.5 Fluxo de Git
 
 ```bash
-# Criar branch para nova feature
 git checkout -b feat/nome-da-feature
-
-# Desenvolver e testar
-pnpm exec vitest run  # deve passar 645+ testes
-
-# Commit com mensagem semântica
-git add -A
+# ... desenvolver ...
+npx tsc --noEmit && pnpm exec vitest run
 git commit -m "feat(modulo): descrição da mudança"
-
-# Push e PR
 git push origin feat/nome-da-feature
 ```
 
@@ -756,9 +677,9 @@ git push origin feat/nome-da-feature
 
 ## 11. Histórico de Correções Críticas
 
-Esta seção documenta as correções matemáticas aplicadas nos motores de cálculo. Toda correção deve ser documentada aqui para rastreabilidade.
+Esta seção documenta todas as correções matemáticas e de engenharia aplicadas nos motores de cálculo.
 
-### Correções de Maio/2026
+### Correções de Maio/2026 — Sprint 1–8 (Motores Físicos)
 
 | ID | Arquivo | Bug | Correção | Impacto |
 |----|---------|-----|----------|---------|
@@ -766,35 +687,51 @@ Esta seção documenta as correções matemáticas aplicadas nos motores de cál
 | C2 | `coilDerivedMetrics.ts` | Void fraction de Zivi com `rho*0.06` | Correlação de Zivi (1964) correta | Erro de ~15% no void fraction |
 | C3 | `pressureDrop.ts` | Darcy monofásico para todo o circuito | Müller-Steinhagen & Heck (1986) bifásico | Subestimava ΔP em ~40% |
 | C4 | `finEfficiency.ts` | `L_c = 0,01 m` fixo | Schmidt (1949) com geometria real | Erro de ±20% na eficiência |
-| C5 | `wetCoil.ts` | `T_surf = T_evap + 2°C` fixo | Iteração NTU acoplada | Não convergia fora do ponto de projeto |
+| C5 | `wetCoil.ts` | `T_surf = T_evap + 2°C` fixo | Iteração NTU acoplada | Não convergia fora do projeto |
 | C6 | `coilCalculationEngine.ts` | `v = ṁ/1000` (constante arbitrária) | `v = ṁ/(ρ·A)` com densidade real | Velocidade fisicamente impossível |
 | C7 | `simulatorCoreV2.ts` | `fluidVelocityMs` ausente no resultado | Campo incluído no objeto de saída | Resultado incompleto |
-| C8 | `finnedExternalArea.ts` | Arquivo inexistente | Criado do zero com A_bare + A_fin | Motor usava área estimada |
+| C8 | `finnedExternalArea.ts` | Arquivo inexistente | Criado com A_bare + A_fin | Motor usava área estimada |
 | C9 | `vitest.coldpro.config.ts` | Alias `@/` ausente | `resolve.alias` adicionado | 3 suítes de teste falhavam |
+
+### Correções de Maio/2026 — Auditoria Técnica (Sessão atual)
+
+| ID | Arquivo(s) | Bug | Correção |
+|----|-----------|-----|----------|
+| C10 | `CapacityDisplay.tsx` + 7 arquivos | TR hardcoded como 3517 ou 3517.2 | `W_PER_TR = 3516.8528` via `physicalConstants.ts` (ASHRAE) |
+| C11 | `cn_coils/index.ts`, `CnCoilsWorkspacePage.tsx` | Imports diretos do `simulatorCore` deprecated | Substituídos por `simulatorCoreAdapter` |
+| C12 | `useSessionStore.ts` | Sessões perdidas ao recarregar a página | Middleware `persist` do Zustand adicionado com `partialize` |
+| C13 | `psychrometricCore.ts` (coldpro_v2) | Magnus approximation local com ~0,8% de erro a -30°C | Reescrito como shim sobre Hyland-Wexler canônico (`cn_coils/engine_v2/psychrometrics`) |
+| C14 | `airProperties.ts` (coldpro_v2) | Calculava propriedades apenas para ar seco | Adicionado suporte a ar úmido via `relative_humidity?: number` e `altitude_m?: number` |
+| C15 | `Step2EvaporatorPanel.tsx`, `Step3CondenserPanel.tsx` | `fan.airflowM3h` (camelCase) — campo não existe | Corrigido para `fan.airflow_m3h` (snake_case conforme `FanPickerItem`) |
+
+### Centralização de Constantes Físicas (C10)
+
+**Arquivo criado:** `src/lib/physicalConstants.ts`
+
+Eliminou 4 definições duplicadas de `KCALH_PER_KW` e 6 usos hardcoded de `3517`. Todos os módulos importam de um único ponto de verdade.
 
 ---
 
 ## 12. Referências Bibliográficas
 
-As correlações implementadas neste sistema são baseadas nas seguintes referências:
-
 | # | Referência | Correlação |
 |---|-----------|-----------|
-| 1 | Wang, C.-C., Chi, K.-Y., & Chang, C.-J. (2000). Heat transfer and friction characteristics of plain fin-and-tube heat exchangers. *International Journal of Heat and Mass Transfer*, 43(15), 2693–2700. | h_ar aletas planas |
+| 1 | Wang, C.-C., Chi, K.-Y., & Chang, C.-J. (2000). Heat transfer and friction characteristics of plain fin-and-tube heat exchangers. *Int. J. Heat Mass Transfer*, 43(15), 2693–2700. | h_ar aletas planas |
 | 2 | Rich, D.G. (1975). The effect of fin spacing on the heat transfer and friction performance of multi-row, smooth plate fin-and-tube heat exchangers. *ASHRAE Transactions*, 81(1), 137–145. | h_ar condensadores (F_p ≤ 2,5 mm) |
 | 3 | Schmidt, T.E. (1949). Heat transfer calculations for extended surfaces. *Refrigerating Engineering*, 57(4), 351–357. | Eficiência de aleta circular |
 | 4 | Müller-Steinhagen, H., & Heck, K. (1986). A simple friction pressure drop correlation for two-phase flow in pipes. *Chemical Engineering and Processing*, 20(6), 297–308. | ΔP bifásico |
-| 5 | Chen, J.C. (1966). Correlation for boiling heat transfer to saturated fluids in convective flow. *Industrial & Engineering Chemistry Process Design and Development*, 5(3), 322–329. | h_evap bifásico |
-| 6 | Nusselt, W. (1916). Die Oberflächenkondensation des Wasserdampfes. *Zeitschrift des Vereines Deutscher Ingenieure*, 60, 541–546, 569–575. | h_cond em filme |
-| 7 | Zivi, S.M. (1964). Estimation of steady-state steam void-fraction by means of the principle of minimum entropy production. *Journal of Heat Transfer*, 86(2), 247–252. | Void fraction bifásico |
-| 8 | Incropera, F.P., DeWitt, D.P., Bergman, T.L., & Lavine, A.S. (2011). *Fundamentals of Heat and Mass Transfer* (7th ed.). John Wiley & Sons. | NTU-ε, LMTD, Nusselt |
-| 9 | ASHRAE. (2017). *ASHRAE Handbook — Fundamentals*, Chapter 1: Psychrometrics. American Society of Heating, Refrigerating and Air-Conditioning Engineers. | Psicrometria |
-| 10 | ASHRAE. (2022). *ASHRAE Handbook — Refrigeration*, Chapter 1: Halocarbons. | Propriedades de refrigerantes |
-| 11 | EN 12900:2013. *Refrigerant compressors — Rating conditions, tolerances and presentation of manufacturer's performance data*. European Committee for Standardization. | Polinômios de compressor |
-| 12 | AHRI Standard 540 (2020). *Performance Rating of Positive Displacement Refrigerant Compressors and Compressor Units*. Air-Conditioning, Heating, and Refrigeration Institute. | Polinômios de compressor |
-| 13 | Gnielinski, V. (1976). New equations for heat and mass transfer in turbulent pipe and channel flow. *International Chemical Engineering*, 16(2), 359–368. | h_fluido monofásico |
-| 14 | Dittus, F.W., & Boelter, L.M.K. (1930). Heat transfer in automobile radiators of the tubular type. *University of California Publications on Engineering*, 2(13), 443–461. | h_fluido turbulento |
+| 5 | Chen, J.C. (1966). Correlation for boiling heat transfer to saturated fluids in convective flow. *Ind. Eng. Chem. Process Des. Dev.*, 5(3), 322–329. | h_evap bifásico |
+| 6 | Nusselt, W. (1916). Die Oberflächenkondensation des Wasserdampfes. *Z. Ver. Dtsch. Ing.*, 60, 541–575. | h_cond em filme |
+| 7 | Zivi, S.M. (1964). Estimation of steady-state steam void-fraction by means of the principle of minimum entropy production. *J. Heat Transfer*, 86(2), 247–252. | Void fraction bifásico |
+| 8 | Incropera, F.P. et al. (2011). *Fundamentals of Heat and Mass Transfer* (7th ed.). Wiley. | NTU-ε, LMTD, Nusselt |
+| 9 | ASHRAE. (2017). *Handbook — Fundamentals*, Chapter 1: Psychrometrics. | Psicrometria Hyland-Wexler |
+| 10 | ASHRAE. (2022). *Handbook — Refrigeration*, Chapter 1: Halocarbons. | Propriedades de refrigerantes |
+| 11 | EN 12900:2013. *Refrigerant compressors — Rating conditions, tolerances and presentation of manufacturer's performance data*. CEN. | Polinômios EN 12900 |
+| 12 | AHRI Standard 540 (2020). *Performance Rating of Positive Displacement Refrigerant Compressors*. AHRI. | Polinômios ARI 540 |
+| 13 | Gnielinski, V. (1976). New equations for heat and mass transfer in turbulent pipe and channel flow. *Int. Chem. Eng.*, 16(2), 359–368. | h_fluido monofásico |
+| 14 | Dittus, F.W., & Boelter, L.M.K. (1930). Heat transfer in automobile radiators. *UC Pub. Engineering*, 2(13), 443–461. | h_fluido turbulento |
+| 15 | Hyland, R.W., & Wexler, A. (1983). Formulations for the thermodynamic properties of the saturated phases of H₂O from 173.15 K to 473.15 K. *ASHRAE Trans.*, 89(2A), 500–519. | Pressão de saturação (psicrometria) |
 
 ---
 
-*Documento gerado em maio/2026. Para atualizações, edite este arquivo e faça commit com a mensagem `docs: atualiza README técnico`.*
+*Documento atualizado em maio/2026 — versão 2.0. Para atualizações, edite este arquivo e faça commit com `docs: atualiza README técnico`.*

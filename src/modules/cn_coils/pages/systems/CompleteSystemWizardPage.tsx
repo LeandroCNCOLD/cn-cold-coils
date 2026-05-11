@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { W_PER_TR } from "@/lib/physicalConstants";
 import { useNavigate } from "@tanstack/react-router";
 import {
   BarChart,
@@ -275,7 +276,7 @@ function DXLoadStep({
       }
       totalW={result.Q_total_W}
       breakdown={result.breakdown}
-      footer={`SHR: ${fmt(result.SHR)} · ${fmt(result.Q_total_W / 3517)} TR`}
+      footer={`SHR: ${fmt(result.SHR)} · ${fmt(result.Q_total_W / W_PER_TR)} TR`}
     />
   );
 }
@@ -353,7 +354,7 @@ function LoadLayout({
         <ResultCards
           cards={[
             ["Carga total", `${fmt(totalW / 1000)} kW`],
-            ["TR", fmt(totalW / 3517)],
+            ["TR", fmt(totalW / W_PER_TR)],
             ["kcal/h", fmt(totalW * 0.86, 0)],
             ["Resumo", footer ?? "Carga térmica calculada"],
           ]}
@@ -515,7 +516,7 @@ function ReportStep({
           {"mode" in loadInputs && <p>Modo: {loadInputs.mode} · Fonte: {loadInputs.sourceType}</p>}
         </div>
         <div>
-          <p>CARGA TÉRMICA TOTAL: {fmt(getLoadTotal(loadResult), 0)} W ({fmt(getLoadTotal(loadResult) / 3517)} TR)</p>
+          <p>CARGA TÉRMICA TOTAL: {fmt(getLoadTotal(loadResult), 0)} W ({fmt(getLoadTotal(loadResult) / W_PER_TR)} TR)</p>
           {"breakdown" in loadResult && loadResult.breakdown.map((item) => (
             <p key={item.name}>  {item.name}: {fmt(item.value, 0)} W ({fmt(item.percentage, 0)}%)</p>
           ))}

@@ -32,10 +32,8 @@ import { calculateAirPressureDrop as calculateAirSidePressureDrop } from "../air
 import { calculateWetCoil } from "../psychrometrics/wetCoil";
 import { calculateReheat } from "../psychrometrics/reheatCoil";
 import type { WetCoilResult, ReheatResult } from "../../domain/types";
+import { KCALH_PER_KW, KCALH_PER_TR, KCALH_PER_BTUH } from "@/lib/physicalConstants";
 
-const KCALH_PER_KW = 859.845;
-const KCALH_PER_TR = 3024;
-const KCALH_PER_BTUH = 0.252;
 const DEFAULT_FLUID_H = 1000;
 const SMALL = 1e-6;
 
@@ -119,7 +117,8 @@ export function solveCoilIterative(input: CoilIterativeInput): CoilIterativeResu
     warnings.push("Resistência de parede não calculada por dados insuficientes.");
   }
 
-  let airProps = calculateAirProperties(T_air_in);
+  const RH_in = input.air_relative_humidity ?? undefined;
+  let airProps = calculateAirProperties(T_air_in, RH_in);
   let m_air = calculateMassFlowAirKgS(airflow, airProps.density_kg_m3);
 
   let T_f_out: number;
@@ -200,7 +199,7 @@ export function solveCoilIterative(input: CoilIterativeInput): CoilIterativeResu
     T_air_out = isEvaporator ? T_air_in - Q_f / C_air : T_air_in + Q_f / C_air;
 
     const T_air_mean = (T_air_in + T_air_out) / 2;
-    airProps = calculateAirProperties(T_air_mean);
+    airProps = calculateAirProperties(T_air_mean, RH_in);
     m_air = calculateMassFlowAirKgS(airflow, airProps.density_kg_m3);
 
     const T_f_mean = (T_f_in + T_f_out) / 2;

@@ -16,12 +16,10 @@ import { calculateDarcyFrictionFactor } from "./core/friction";
 import { calculateDarcyWeisbachPressureDrop } from "./core/pressureDrop";
 import { calculateOverallU } from "./core/overallHeatTransfer";
 import { calculateFinEfficiencySimplified } from "./core/finEfficiency";
+import { KCALH_PER_KW, KCALH_PER_TR, KCALH_PER_BTUH } from "@/lib/physicalConstants";
 
 const AIR_DENSITY_KGM3 = 1.2;
 const CP_AIR_KJ_KGK = 1.005;
-const KCALH_PER_KW = 859.845;
-const KCALH_PER_TR = 3024;
-const KCALH_PER_BTUH = 0.252;
 const DEFAULT_FLUID_H = 1000;
 
 // ── Basic engine (unchanged) ─────────────────────────────────────

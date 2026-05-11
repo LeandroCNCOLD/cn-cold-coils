@@ -23,8 +23,8 @@ import {
 } from "../psychrometrics/psychrometricCore";
 import { calculateAirGeometry } from "../airSide/airGeometry";
 import { calculateAirSideHTC } from "../airSide/airHeatTransfer";
+import { KCALH_PER_KW } from "@/lib/physicalConstants";
 
-const KCALH_PER_KW = 859.845;
 const DEFAULT_FLUID_H = 1000;
 
 export function solveCoupledCoil(input: CoilAdvancedInput): CoupledCoilResult {
@@ -81,7 +81,7 @@ export function solveCoupledCoil(input: CoilAdvancedInput): CoupledCoilResult {
   const { T_dp, warnings: dpWarn } = dewPoint(T_air_in, RH_in);
   warnings.push(...dpWarn);
 
-  let airProps = calculateAirProperties(T_air_in);
+  let airProps = calculateAirProperties(T_air_in, RH_in);
   const m_air_provided = input.air_mass_flow_kg_s;
   let m_air = m_air_provided ?? calculateMassFlowAirKgS(airflow, airProps.density_kg_m3);
 
@@ -111,7 +111,7 @@ export function solveCoupledCoil(input: CoilAdvancedInput): CoupledCoilResult {
 
   for (let i = 0; i < maxIter; i++) {
     const T_air_mean = (T_air_in + T_air_out) / 2;
-    airProps = calculateAirProperties(T_air_mean);
+    airProps = calculateAirProperties(T_air_mean, RH_in);
     m_air = m_air_provided ?? calculateMassFlowAirKgS(airflow, airProps.density_kg_m3);
 
     let mode: "dry" | "wet" | "transition";

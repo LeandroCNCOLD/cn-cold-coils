@@ -1,6 +1,7 @@
 // Conversões de unidades — replica o comportamento dos dropdowns do CN Coils.
 // Cada grupo expõe a unidade canônica (SI) usada internamente pelo motor
 // e funções toCanonical(value, unit) e fromCanonical(valueSI, unit).
+import { W_PER_TR } from "@/lib/physicalConstants";
 
 export type UnitOption<U extends string> = { id: U; label: string };
 
@@ -17,7 +18,7 @@ const CAP_TO_W: Record<CapacityUnit, number> = {
   W: 1,
   kW: 1000,
   kcal_h: 1.163, // 1 kcal/h = 1.163 W
-  TR: 3516.8528, // 1 TR ≈ 3516.85 W
+  TR: W_PER_TR,
   BTU_h: 0.29307107, // 1 BTU/h ≈ 0.293 W
 };
 
@@ -146,7 +147,7 @@ export function convertPower(W: number, unit: PowerDisplayUnit): number {
     kW: 0.001,
     "kcal/h": 0.86,
     "BTU/h": 3.412,
-    TR: 1 / 3517.2,
+    TR: 1 / W_PER_TR, // ASHRAE: 1 TR = 3516.8528 W (12 000 BTU/h ÷ 3.41214)
   };
   return W * factors[unit];
 }

@@ -4,7 +4,7 @@ import { ArrowLeft, Calculator, Loader2, Send, Waves, Flame } from "lucide-react
 import { PageContainer } from "@/modules/coldpro/components/layout/PageContainer";
 import { useCnCoilsCatalogs } from "../../hooks/useCnCoilsCatalogs";
 import { DatasetStatusPanel } from "../../components/DatasetStatusPanel";
-import { runSimulation, SimulationError } from "../../engine/simulatorCore";
+import { runSimulation, SimulationError } from "../../engine/simulatorCoreAdapter";
 import {
   toEvaporatorInput,
   toReheatCoilInput,

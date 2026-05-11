@@ -4,7 +4,7 @@ export { CnCoilsWorkspacePage } from "./pages/CnCoilsWorkspacePage";
 export { useCnCoilsCatalogs, REQUIRED_CATALOG_FILES } from "./hooks/useCnCoilsCatalogs";
 export { useCnCoilsSimulation } from "./hooks/useCnCoilsSimulation";
 export { useCnCoilsSimulationStore } from "./store/useCnCoilsSimulationStore";
-export { runSimulation, SimulationError } from "./engine/simulatorCore";
+export { runSimulation, SimulationError } from "./engine/simulatorCoreAdapter";
 export {
   toEvaporatorInput,
   toCondenserInput,
