@@ -17,8 +17,6 @@ export interface EvaporatorConstraints {
   tubes_per_row?: number;
   fin_pitch_mm?: number;
   max_frontal_area_m2?: number;
-  /** Piso de passo de aleta (mm) — usado para mitigar bloqueio por gelo em baixa temperatura. */
-  min_fin_pitch_mm?: number;
   tube_outer_diameter_mm?: number; // padrão 9.52
   tube_pitch_transverse_mm?: number; // padrão 25
 }
@@ -115,11 +113,7 @@ export function generateCandidates(
   const pitchTransv = c.tube_pitch_transverse_mm ?? 25;
 
   const rowsList = pickRange(c.rows, DEFAULT_RANGES.rows);
-  const finListBase = pickRange(c.fin_pitch_mm, DEFAULT_RANGES.fin_pitch_mm);
-  const finList =
-    c.min_fin_pitch_mm !== undefined
-      ? finListBase.filter((p) => p >= (c.min_fin_pitch_mm as number))
-      : finListBase;
+  const finList = pickRange(c.fin_pitch_mm, DEFAULT_RANGES.fin_pitch_mm);
   const lenList = pickRange(c.length_mm, DEFAULT_RANGES.length_mm);
 
   // tubes_per_row pode vir direto OU ser derivado de height_mm
