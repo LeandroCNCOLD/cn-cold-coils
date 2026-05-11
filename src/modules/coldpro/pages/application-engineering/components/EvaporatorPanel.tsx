@@ -6,7 +6,7 @@
  * simula cada um sobre o sweep Te×Tc do compressor e devolve o melhor.
  */
 import { useEffect, useMemo, useState } from "react";
-import { Wind, Play, Loader2, Plus, X, Trash2, Wand2 } from "lucide-react";
+import { Wind, Flame, Play, Loader2, Plus, X, Trash2, Wand2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
