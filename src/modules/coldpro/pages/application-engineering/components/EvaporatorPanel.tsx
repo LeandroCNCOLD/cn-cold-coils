@@ -477,7 +477,11 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
           )}
           <Button onClick={runSearch} disabled={!canRun || running} size="sm" className="h-8 gap-1 text-xs">
             {running ? <Loader2 className="h-3 w-3 animate-spin" /> : <Play className="h-3 w-3" />}
-            {running ? "Buscando..." : "Buscar melhor evaporador"}
+            {running
+              ? "Buscando..."
+              : isCondenser
+                ? "Buscar melhor condensador"
+                : "Buscar melhor evaporador"}
           </Button>
         </div>
       </div>
