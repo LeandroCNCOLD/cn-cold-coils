@@ -62,10 +62,18 @@ export const useAppEngineeringStore = create<AppEngineeringState>((set) => ({
   step1: defaultStep1,
   step2: defaultStep2,
   step3: defaultStep3,
+  compressorSweep: [],
+  setCompressorSweep: (pts) => set({ compressorSweep: pts }),
   setStep: (step) => set({ currentStep: step }),
   updateStep1: (v) => set((s) => ({ step1: { ...s.step1, ...v } })),
   updateStep2: (v) => set((s) => ({ step2: { ...s.step2, ...v } })),
   updateStep3: (v) => set((s) => ({ step3: { ...s.step3, ...v } })),
   reset: () =>
-    set({ currentStep: 1, step1: defaultStep1, step2: defaultStep2, step3: defaultStep3 }),
+    set({
+      currentStep: 1,
+      step1: defaultStep1,
+      step2: defaultStep2,
+      step3: defaultStep3,
+      compressorSweep: [],
+    }),
 }));
