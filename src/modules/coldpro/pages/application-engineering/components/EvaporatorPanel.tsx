@@ -398,6 +398,29 @@ export function EvaporatorPanel() {
                 <Field label="ΔT médio" value={`${result.best.avgDeltaT.toFixed(1)} K`} />
                 <Field label="COP médio" value={result.best.avgCop.toFixed(2)} />
               </div>
+              <div className="rounded border border-emerald-300 bg-white px-2 py-1.5">
+                <div className="text-[10px] uppercase text-muted-foreground">
+                  Ventilador sugerido pelo sistema
+                </div>
+                {result.best.fan.fits && result.best.fan.model ? (
+                  <div className="grid grid-cols-2 gap-2 text-xs sm:grid-cols-4">
+                    <Field label="Modelo" value={result.best.fan.model.label} />
+                    <Field label="Quantidade" value={result.best.fan.count} />
+                    <Field
+                      label="Vazão / vent."
+                      value={`${result.best.fan.model.airflow_m3h.toLocaleString("pt-BR")} m³/h`}
+                    />
+                    <Field
+                      label="Vazão total"
+                      value={`${result.best.fan.total_airflow_m3h.toLocaleString("pt-BR")} m³/h`}
+                    />
+                  </div>
+                ) : (
+                  <div className="text-[11px] text-red-600">
+                    Nenhum ventilador da biblioteca cabe nesta geometria com o limite informado.
+                  </div>
+                )}
+              </div>
               <div className="flex justify-end">
                 <Button size="sm" onClick={applyToForm} className="h-7 gap-1 text-xs">
                   <Wand2 className="h-3 w-3" /> Aplicar ao formulário principal
