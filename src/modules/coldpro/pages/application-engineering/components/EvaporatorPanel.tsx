@@ -144,6 +144,27 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
   const [running, setRunning] = useState(false);
   const [result, setResult] = useState<EvaporatorSearchResult | null>(null);
 
+  // Sugestão de válvula de expansão (apenas evaporador)
+  const valveSuggestion = useMemo(() => {
+    if (isCondenser) return null;
+    const best = result?.best;
+    if (!best || !valves.length) return null;
+    const cov = best.coverage;
+    if (!cov.length) return null;
+    const avgTe = cov.reduce((s, p) => s + p.te_c, 0) / cov.length;
+    const avgQkW = cov.reduce((s, p) => s + p.q_comp_w, 0) / cov.length / 1000;
+    const ranked = selectExpansionValve(
+      valves,
+      refrigerant,
+      avgTe,
+      best.geometry.circuits,
+      avgQkW,
+    );
+    return ranked.length
+      ? { top: ranked.slice(0, 3), tevap_c: avgTe, q_kw: avgQkW }
+      : null;
+  }, [result, valves, refrigerant, isCondenser]);
+
   const constraints: EvaporatorConstraints = useMemo(() => {
     const c: EvaporatorConstraints = {};
     if (fixed.height_mm) c.height_mm = values.height_mm;
