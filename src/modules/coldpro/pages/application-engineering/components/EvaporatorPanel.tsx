@@ -95,6 +95,9 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
   // Limite de ventiladores (sistema sugere modelo + vazão a partir da geometria)
   const [maxFanCount, setMaxFanCount] = useState(2);
 
+  // Motor de cálculo: avançado (Schmidt + LMTD) ou básico (rápido m·cp·ΔT)
+  const [engine, setEngine] = useState<"basic" | "advanced">("advanced");
+
   // Geometria (ferramenta de estampagem) e lado de saída dos coletores
   const [geometries, setGeometries] = useState<GeometryOption[]>([]);
   const [geometryId, setGeometryId] = useState<string>("");
