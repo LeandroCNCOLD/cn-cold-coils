@@ -1,8 +1,10 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   AlertTriangle,
   CheckCircle2,
@@ -10,6 +12,7 @@ import {
   Cpu,
   Info,
   Loader2,
+  Play,
   Thermometer,
   Zap,
 } from "lucide-react";
@@ -17,6 +20,8 @@ import { CompressorPickerModal } from "@/modules/cn_coils/components/CompressorP
 import type { CompressorItem } from "@/modules/cn_coils/components/CompressorPickerModal";
 import { getCompressorById } from "@/modules/coldpro_catalog/data/compressorCatalog.service";
 import { useApplicationEngineering } from "../hooks/useApplicationEngineering";
+import { generateCapacityCurve } from "../services/capacityCurveService";
+import type { CapacityCurvePoint } from "../types/app-engineering.types";
 
 // ── Componente auxiliar ──────────────────────────────────────────────────────
 function ResultRow({
@@ -47,6 +52,13 @@ export function CompressorPanel() {
   const [loadingId, setLoadingId] = useState<string | null>(null);
   const [selectedItem, setSelectedItem] = useState<CompressorItem | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
+
+  // Varredura de pontos operacionais (Te_inicial → Te_final, em passo °C, para um T_cond)
+  const [teStart, setTeStart] = useState<number>(-10);
+  const [teEnd, setTeEnd] = useState<number>(-30);
+  const [teStep, setTeStep] = useState<number>(5);
+  const [tcValue, setTcValue] = useState<number>(40);
+  const [sweepPoints, setSweepPoints] = useState<CapacityCurvePoint[] | null>(null);
 
   /**
    * Chamado quando o usuário confirma a seleção no CompressorPickerModal.
@@ -87,6 +99,34 @@ export function CompressorPanel() {
   const hasCoefficients =
     (compressorInput.capacity_coefficients?.length ?? 0) >= 10 &&
     (compressorInput.power_coefficients?.length ?? 0) >= 10;
+
+  const sweepCount = useMemo(() => {
+    const span = Math.abs(teEnd - teStart);
+    const step = Math.abs(teStep);
+    if (!step) return 0;
+    return Math.floor(span / step) + 1;
+  }, [teStart, teEnd, teStep]);
+
+  const runSweep = useCallback(() => {
+    if (!hasCoefficients) return;
+    const step = Math.abs(teStep) || 1;
+    const teMin = Math.min(teStart, teEnd);
+    const teMax = Math.max(teStart, teEnd);
+    const nPoints = Math.floor((teMax - teMin) / step) + 1;
+    const { series } = generateCapacityCurve({
+      capacity_coefficients: compressorInput.capacity_coefficients ?? [],
+      power_coefficients: compressorInput.power_coefficients ?? [],
+      te_min_c: teMin,
+      te_max_c: teMax,
+      n_points: nPoints,
+      tc_values_c: [tcValue],
+    });
+    const points = series[0]?.points ?? [];
+    // Mostrar do Te_inicial → Te_final (respeitando direção do usuário)
+    const ordered = teStart > teEnd ? [...points].reverse() : points;
+    setSweepPoints(ordered);
+  }, [hasCoefficients, compressorInput, teStart, teEnd, teStep, tcValue]);
+
 
   return (
     <>
@@ -173,63 +213,126 @@ export function CompressorPanel() {
           </CardContent>
         </Card>
 
-        {/* Resultados */}
+        {/* Varredura de pontos operacionais */}
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="flex items-center justify-between text-sm">
-              Resultados
-              {compressorResult && (
-                <Badge
-                  variant={compressorResult.within_envelope ? "default" : "secondary"}
-                  className="text-[10px]"
-                >
-                  {compressorResult.within_envelope ? "Dentro do envelope" : "Fora do envelope"}
+              <span>Varredura de Pontos Operacionais</span>
+              {sweepPoints && sweepPoints.length > 0 && (
+                <Badge variant="secondary" className="text-[10px]">
+                  {sweepPoints.length} pontos
                 </Badge>
               )}
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            {!compressorResult ? (
+          <CardContent className="space-y-3">
+            {!hasCoefficients ? (
               <p className="py-8 text-center text-sm text-muted-foreground">
-                {hasCoefficients
-                  ? 'Clique em "Calcular" para avaliar o desempenho'
-                  : "Selecione um compressor para continuar"}
+                Selecione um compressor para configurar a varredura
               </p>
             ) : (
-              <div className="space-y-1">
-                <ResultRow
-                  label="Capacidade frigorífica"
-                  value={(compressorResult.capacity_w / 1000).toFixed(2)}
-                  unit="kW"
-                />
-                <ResultRow
-                  label="Potência absorvida"
-                  value={(compressorResult.power_w / 1000).toFixed(2)}
-                  unit="kW"
-                />
-                <ResultRow label="COP compressor" value={compressorResult.cop.toFixed(3)} />
-                <ResultRow
-                  label="Calor rejeitado"
-                  value={(compressorResult.heat_rejection_w / 1000).toFixed(2)}
-                  unit="kW"
-                />
-                {compressorResult.warnings.length > 0 && (
-                  <div className="mt-3 space-y-1">
-                    {compressorResult.warnings.map((w: string, i: number) => (
-                      <Alert key={i} className="py-2">
-                        <AlertTriangle className="h-3 w-3" />
-                        <AlertDescription className="text-xs">{w}</AlertDescription>
-                      </Alert>
-                    ))}
+              <>
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="space-y-1">
+                    <Label className="text-[11px] text-muted-foreground">T evap. inicial (°C)</Label>
+                    <Input
+                      type="number"
+                      value={teStart}
+                      onChange={(e) => setTeStart(parseFloat(e.target.value))}
+                      className="h-8 text-xs"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <Label className="text-[11px] text-muted-foreground">T evap. final (°C)</Label>
+                    <Input
+                      type="number"
+                      value={teEnd}
+                      onChange={(e) => setTeEnd(parseFloat(e.target.value))}
+                      className="h-8 text-xs"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <Label className="text-[11px] text-muted-foreground">Passo (°C)</Label>
+                    <Input
+                      type="number"
+                      min={0.5}
+                      step={0.5}
+                      value={teStep}
+                      onChange={(e) => setTeStep(parseFloat(e.target.value))}
+                      className="h-8 text-xs"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <Label className="text-[11px] text-muted-foreground">T cond. (°C)</Label>
+                    <Input
+                      type="number"
+                      value={tcValue}
+                      onChange={(e) => setTcValue(parseFloat(e.target.value))}
+                      className="h-8 text-xs"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between text-[11px] text-muted-foreground">
+                  <span>
+                    {sweepCount > 0
+                      ? `${sweepCount} pontos serão calculados`
+                      : "Defina um passo válido"}
+                  </span>
+                  <Button
+                    size="sm"
+                    onClick={runSweep}
+                    disabled={!hasCoefficients || sweepCount < 1}
+                    className="h-7 gap-1 text-xs"
+                  >
+                    <Play className="h-3 w-3" />
+                    Calcular
+                  </Button>
+                </div>
+
+                {sweepPoints && sweepPoints.length > 0 && (
+                  <div className="overflow-hidden rounded-md border">
+                    <table className="w-full text-xs">
+                      <thead className="bg-muted/50 text-[10px] uppercase text-muted-foreground">
+                        <tr>
+                          <th className="px-2 py-1.5 text-left font-medium">Te (°C)</th>
+                          <th className="px-2 py-1.5 text-right font-medium">Q (kW)</th>
+                          <th className="px-2 py-1.5 text-right font-medium">P (kW)</th>
+                          <th className="px-2 py-1.5 text-right font-medium">COP</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {sweepPoints.map((p, i) => (
+                          <tr key={i} className="border-t border-border/40">
+                            <td className="px-2 py-1 font-mono">{p.te_c.toFixed(1)}</td>
+                            <td className="px-2 py-1 text-right font-mono">
+                              {(p.capacity_w / 1000).toFixed(2)}
+                            </td>
+                            <td className="px-2 py-1 text-right font-mono">
+                              {(p.power_w / 1000).toFixed(2)}
+                            </td>
+                            <td className="px-2 py-1 text-right font-mono">{p.cop.toFixed(2)}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
                   </div>
                 )}
-                {compressorResult.warnings.length === 0 && (
-                  <div className="mt-3 flex items-center gap-1 text-xs text-green-600">
-                    <CheckCircle2 className="h-3 w-3" />
-                    Sem avisos
+
+                {compressorResult && (
+                  <div className="rounded-md border border-border/40 bg-muted/20 p-2 text-[11px] text-muted-foreground">
+                    Ponto único:{" "}
+                    <span className="font-mono">
+                      Q={(compressorResult.capacity_w / 1000).toFixed(2)} kW · P=
+                      {(compressorResult.power_w / 1000).toFixed(2)} kW · COP=
+                      {compressorResult.cop.toFixed(2)}
+                    </span>
+                    {!compressorResult.within_envelope && (
+                      <span className="ml-2 text-amber-600">⚠ fora do envelope</span>
+                    )}
                   </div>
                 )}
-              </div>
+              </>
             )}
           </CardContent>
         </Card>
