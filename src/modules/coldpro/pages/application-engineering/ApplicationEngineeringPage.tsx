@@ -169,7 +169,7 @@ export function ApplicationEngineeringPage() {
                 </div>
 
                 {/* Etapa 2 — Evaporador Semiautomático */}
-                <EvaporatorAutoPanel />
+                <EvaporatorPanel />
 
                 {/* Etapa 3 — Condensador Semiautomático */}
                 <CondenserAutoPanel />
