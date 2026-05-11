@@ -106,6 +106,10 @@ export function CompressorPanel() {
           capacity_coefficients: pt.cap_coeffs,
           power_coefficients: pt.pwr_coeffs ?? [],
         });
+        // Sincroniza fluido refrigerante do compressor (se vier no item)
+        if (item.refrigerant) {
+          updateStep1({ refrigerant: item.refrigerant });
+        }
         setSelectedItem(item);
       } catch (err) {
         setLoadError("Erro ao carregar dados do compressor. Tente novamente.");
@@ -114,7 +118,7 @@ export function CompressorPanel() {
         setLoadingId(null);
       }
     },
-    [setCompressorInput],
+    [setCompressorInput, updateStep1],
   );
 
   const hasCoefficients =
