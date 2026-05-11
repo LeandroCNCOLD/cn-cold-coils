@@ -172,7 +172,7 @@ export function ApplicationEngineeringPage() {
                 <EvaporatorPanel />
 
                 {/* Etapa 3 — Condensador Semiautomático */}
-                <CondenserAutoPanel />
+                <CondenserPanel />
 
                 {/* Etapa 4 — Hub (simulação completa) */}
                 <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm lg:col-span-1">
