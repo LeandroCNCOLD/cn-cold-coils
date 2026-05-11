@@ -6,7 +6,7 @@
  * simula cada um sobre o sweep Te×Tc do compressor e devolve o melhor.
  */
 import { useEffect, useMemo, useState } from "react";
-import { Wind, Play, Loader2, Plus, X, Trash2, Wand2 } from "lucide-react";
+import { Wind, Flame, Play, Loader2, Plus, X, Trash2, Wand2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -34,7 +34,9 @@ import {
 import {
   loadGeometryCatalog,
   type GeometryOption,
+  type CoilApplication,
 } from "../services/geometryCatalogService";
+import { GeometryCatalogPicker } from "./GeometryCatalogPicker";
 import { CoveragePointsTable } from "./CoveragePointsTable";
 import type { PowerUnit } from "@/utils/unitConversions";
 
@@ -62,9 +64,15 @@ const CRITERION_LABELS: Record<EvaporatorCriterionKind, string> = {
   min_area: "Menor área frontal",
 };
 
-export function EvaporatorPanel() {
+interface EvaporatorPanelProps {
+  /** "evaporator" (default) ou "condenser" — define cálculo, ΔT e catálogo. */
+  mode?: CoilApplication;
+}
+
+export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = {}) {
+  const isCondenser = mode === "condenser";
   const sweep = useAppEngineeringStore((s) => s.compressorSweep);
-  const { setEvaporatorInput } = useApplicationEngineering();
+  const { setEvaporatorInput, setCondenserInput } = useApplicationEngineering();
 
   // Restrições — cada uma com checkbox "fixar" + valor
   const [fixed, setFixed] = useState<Record<ConstraintKey, boolean>>({
@@ -94,17 +102,17 @@ export function EvaporatorPanel() {
 
   useEffect(() => {
     loadGeometryCatalog().then((cat) => {
-      setGeometries(cat.evaporator);
-      // Default sensato: primeira geometria com OD ≈ 9.52 / passo 25
+      const list = cat[mode];
+      setGeometries(list);
       const def =
-        cat.evaporator.find(
+        list.find(
           (g) =>
             Math.abs(g.tube_outer_diameter_mm - 9.52) < 0.2 &&
             Math.abs(g.tube_pitch_transverse_mm - 25) < 0.2,
-        ) ?? cat.evaporator[0];
+        ) ?? list[0];
       if (def) setGeometryId(def.id);
     });
-  }, []);
+  }, [mode]);
 
   const selectedGeometry = useMemo(
     () => geometries.find((g) => g.id === geometryId),
@@ -112,16 +120,17 @@ export function EvaporatorPanel() {
   );
 
   // Critérios (pelo menos 1) — o ΔT alvo deste critério também define T_ar_in por ponto
+  const defaultDeltaT = isCondenser ? 12 : 7;
   const [criteria, setCriteria] = useState<EvaporatorCriterion[]>([
-    { kind: "delta_t_target", target: 7, weight: 0.6 },
+    { kind: "delta_t_target", target: defaultDeltaT, weight: 0.6 },
     { kind: "max_points_covered", weight: 0.4 },
   ]);
 
-  // ΔT alvo aplicado por ponto: usa o critério delta_t_target, fallback 7 K
+  // ΔT alvo aplicado por ponto: usa o critério delta_t_target
   const deltaTTargetK = useMemo(() => {
     const c = criteria.find((c) => c.kind === "delta_t_target");
-    return c?.target ?? 7;
-  }, [criteria]);
+    return c?.target ?? defaultDeltaT;
+  }, [criteria, defaultDeltaT]);
 
   const [unit, setUnit] = useState<PowerUnit>("kW");
   const [running, setRunning] = useState(false);
@@ -172,6 +181,7 @@ export function EvaporatorPanel() {
       try {
         const r = searchBestEvaporator({
           sweep,
+          mode,
           delta_t_target_k: deltaTTargetK,
           max_fan_count: maxFanCount,
           constraints,
@@ -187,13 +197,12 @@ export function EvaporatorPanel() {
   function applyToForm() {
     const best = result?.best;
     if (!best) return;
-    // Vazão e T_ar_in vêm da SUGESTÃO do sistema (fan layout + ΔT alvo).
-    setEvaporatorInput({
+    const avgT =
+      sweep.reduce((s, p) => s + (isCondenser ? p.tc_c : p.te_c), 0) / sweep.length;
+    const payload = {
       airflow_m3h: best.fan.total_airflow_m3h,
-      // T_ar_in representativo: usa o ponto médio do sweep
-      air_inlet_temp_c:
-        (sweep.reduce((s, p) => s + p.te_c, 0) / sweep.length) + deltaTTargetK,
-      coil_type: "evaporator",
+      air_inlet_temp_c: isCondenser ? avgT - deltaTTargetK : avgT + deltaTTargetK,
+      coil_type: (isCondenser ? "condenser" : "evaporator") as "condenser" | "evaporator",
       geometry: {
         rows: best.geometry.rows,
         tubes_per_row: best.geometry.tubes_per_row,
@@ -201,7 +210,9 @@ export function EvaporatorPanel() {
         length_mm: best.geometry.length_mm,
         tube_diameter_mm: best.geometry.tube_outer_diameter_mm,
       },
-    });
+    };
+    if (isCondenser) setCondenserInput(payload);
+    else setEvaporatorInput(payload);
   }
 
   const canRun = sweep.length > 0 && criteria.length > 0;
@@ -209,8 +220,14 @@ export function EvaporatorPanel() {
   return (
     <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
       <h2 className="mb-4 flex items-center gap-2 text-sm font-semibold text-slate-800">
-        <Wind className="h-4 w-4 text-emerald-500" />
-        2. Evaporador — Busca automática multi-critério
+        {isCondenser ? (
+          <Flame className="h-4 w-4 text-orange-500" />
+        ) : (
+          <Wind className="h-4 w-4 text-emerald-500" />
+        )}
+        {isCondenser
+          ? "3. Condensador — Busca automática multi-critério"
+          : "2. Evaporador — Busca automática multi-critério"}
       </h2>
 
       {!sweep.length && (
@@ -231,18 +248,11 @@ export function EvaporatorPanel() {
                 <Label className="text-[11px] text-muted-foreground">
                   Geometria (ferramenta de estampagem)
                 </Label>
-                <Select value={geometryId} onValueChange={setGeometryId}>
-                  <SelectTrigger className="h-7 text-xs">
-                    <SelectValue placeholder="Selecione a geometria…" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {geometries.map((g) => (
-                      <SelectItem key={g.id} value={g.id} className="text-xs">
-                        {g.description} — Ø{g.tube_outer_diameter_mm}mm · {g.tube_pitch_transverse_mm}×{g.row_pitch_mm}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <GeometryCatalogPicker
+                  application={mode}
+                  value={geometryId}
+                  onChange={(g) => setGeometryId(g.id)}
+                />
                 {selectedGeometry && (
                   <p className="mt-1 text-[10px] text-muted-foreground">
                     OD {selectedGeometry.tube_outer_diameter_mm} mm · passo
@@ -321,7 +331,7 @@ export function EvaporatorPanel() {
               </div>
               <div>
                 <Label className="text-[11px] text-muted-foreground">
-                  ΔT alvo (T_ar − Te)
+                  ΔT alvo {isCondenser ? "(Tc − T_ar)" : "(T_ar − Te)"}
                 </Label>
                 <Input
                   type="number"
@@ -330,7 +340,8 @@ export function EvaporatorPanel() {
                   className="h-7 text-xs"
                 />
                 <p className="mt-1 text-[10px] text-muted-foreground">
-                  Definido pelo critério ΔT alvo. T_ar_in = Te + ΔT por ponto.
+                  Definido pelo critério ΔT alvo. T_ar_in ={" "}
+                  {isCondenser ? "Tc − ΔT" : "Te + ΔT"} por ponto.
                 </p>
               </div>
             </div>

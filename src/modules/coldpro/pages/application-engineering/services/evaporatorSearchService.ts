@@ -83,7 +83,14 @@ export interface EvaporatorCandidate {
 
 export interface EvaporatorSearchInput {
   sweep: CapacityCurvePoint[];
-  /** ΔT alvo (T_ar_in − Te) em K. T_ar_in é derivado por ponto: Te + ΔT. */
+  /**
+   * Modo de operação:
+   *  - "evaporator": refrigerante a Te, ar a Te+ΔT, atende capacidade frigorífica;
+   *  - "condenser":  refrigerante a Tc, ar a Tc−ΔT, atende capacidade de condensação
+   *                  (Q = capacity_w + power_w do compressor).
+   */
+  mode?: "evaporator" | "condenser";
+  /** ΔT alvo em K (evap: T_ar−Te; cond: Tc−T_ar). */
   delta_t_target_k: number;
   /** Quantidade máxima de ventiladores que o engenheiro aceita instalar. */
   max_fan_count: number;
@@ -196,6 +203,7 @@ function simulateCandidate(
   const fan = suggestFans(geo.length_mm, geo.height_mm, input.max_fan_count);
   const airflow = fan.total_airflow_m3h;
   const dtTarget = input.delta_t_target_k;
+  const isCondenser = input.mode === "condenser";
 
   const coverage: CoveragePoint[] = [];
   let dtSum = 0;
@@ -204,17 +212,21 @@ function simulateCandidate(
   let covered = 0;
 
   for (const pt of input.sweep) {
-    // T_ar_in respeita o ΔT alvo de evaporação (ar entra em Te + ΔT)
-    const t_air_in = pt.te_c + dtTarget;
-    let q_evap_w = 0;
+    // Evaporador: ar entra em Te+ΔT  |  Condensador: ar entra em Tc−ΔT
+    const refrigerant_t = isCondenser ? pt.tc_c : pt.te_c;
+    const t_air_in = isCondenser ? pt.tc_c - dtTarget : pt.te_c + dtTarget;
+    // Capacidade exigida: evap = Q_frig | cond = Q_frig + W_compressor
+    const required = isCondenser ? pt.capacity_w + pt.power_w : pt.capacity_w;
+
+    let q_coil_w = 0;
     if (fan.fits && airflow > 0) {
       try {
         const r = sizeCoil({
-          required_capacity_w: pt.capacity_w,
-          fluid_inlet_temp_c: pt.te_c,
+          required_capacity_w: required,
+          fluid_inlet_temp_c: refrigerant_t,
           air_inlet_temp_c: t_air_in,
           airflow_m3h: airflow,
-          coil_type: "evaporator",
+          coil_type: isCondenser ? "condenser" : "evaporator",
           geometry: {
             rows: geo.rows,
             tubes_per_row: geo.tubes_per_row,
@@ -224,13 +236,13 @@ function simulateCandidate(
             circuits: geo.circuits,
           },
         });
-        q_evap_w = Number.isFinite(r.capacity_w) ? r.capacity_w : 0;
+        q_coil_w = Number.isFinite(r.capacity_w) ? r.capacity_w : 0;
       } catch {
-        q_evap_w = 0;
+        q_coil_w = 0;
       }
     }
-    const dt = t_air_in - pt.te_c;
-    const meets = q_evap_w >= pt.capacity_w * 0.98;
+    const dt = isCondenser ? refrigerant_t - t_air_in : t_air_in - refrigerant_t;
+    const meets = q_coil_w >= required * 0.98;
     if (meets) {
       covered += 1;
       copSum += pt.cop;
@@ -240,8 +252,8 @@ function simulateCandidate(
     coverage.push({
       te_c: pt.te_c,
       tc_c: pt.tc_c,
-      q_comp_w: pt.capacity_w,
-      q_evap_w,
+      q_comp_w: required,
+      q_evap_w: q_coil_w,
       delta_t_k: dt,
       meets,
     });

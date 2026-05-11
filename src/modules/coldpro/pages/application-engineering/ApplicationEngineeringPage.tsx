@@ -11,7 +11,7 @@ import { Step3CondenserPanel } from "./components/Step3CondenserPanel";
 import { Step4HubPanel } from "./components/Step4HubPanel";
 import { CompressorPanel } from "./components/CompressorPanel";
 import { EvaporatorPanel } from "./components/EvaporatorPanel";
-import { CondenserAutoPanel } from "./components/CondenserAutoPanel";
+import { CondenserPanel } from "./components/CondenserPanel";
 
 const STEPS = [
   { id: 1, label: "Compressor", icon: Cpu },
@@ -172,7 +172,7 @@ export function ApplicationEngineeringPage() {
                 <EvaporatorPanel />
 
                 {/* Etapa 3 — Condensador Semiautomático */}
-                <CondenserAutoPanel />
+                <CondenserPanel />
 
                 {/* Etapa 4 — Hub (simulação completa) */}
                 <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm lg:col-span-1">
