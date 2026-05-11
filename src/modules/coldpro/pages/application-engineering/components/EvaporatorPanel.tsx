@@ -5,7 +5,7 @@
  * de seleção combinar (com pesos). O motor gera dezenas/centenas de candidatos,
  * simula cada um sobre o sweep Te×Tc do compressor e devolve o melhor.
  */
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Wind, Play, Loader2, Plus, X, Trash2, Wand2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -29,7 +29,12 @@ import {
   type EvaporatorCriterion,
   type EvaporatorCriterionKind,
   type EvaporatorSearchResult,
+  type HeaderSide,
 } from "../services/evaporatorSearchService";
+import {
+  loadGeometryCatalog,
+  type GeometryOption,
+} from "../services/geometryCatalogService";
 import { CoveragePointsTable } from "./CoveragePointsTable";
 import type { PowerUnit } from "@/utils/unitConversions";
 
@@ -82,6 +87,30 @@ export function EvaporatorPanel() {
   // Limite de ventiladores (sistema sugere modelo + vazão a partir da geometria)
   const [maxFanCount, setMaxFanCount] = useState(2);
 
+  // Geometria (ferramenta de estampagem) e lado de saída dos coletores
+  const [geometries, setGeometries] = useState<GeometryOption[]>([]);
+  const [geometryId, setGeometryId] = useState<string>("");
+  const [headerSide, setHeaderSide] = useState<HeaderSide>("left");
+
+  useEffect(() => {
+    loadGeometryCatalog().then((cat) => {
+      setGeometries(cat.evaporator);
+      // Default sensato: primeira geometria com OD ≈ 9.52 / passo 25
+      const def =
+        cat.evaporator.find(
+          (g) =>
+            Math.abs(g.tube_outer_diameter_mm - 9.52) < 0.2 &&
+            Math.abs(g.tube_pitch_transverse_mm - 25) < 0.2,
+        ) ?? cat.evaporator[0];
+      if (def) setGeometryId(def.id);
+    });
+  }, []);
+
+  const selectedGeometry = useMemo(
+    () => geometries.find((g) => g.id === geometryId),
+    [geometries, geometryId],
+  );
+
   // Critérios (pelo menos 1) — o ΔT alvo deste critério também define T_ar_in por ponto
   const [criteria, setCriteria] = useState<EvaporatorCriterion[]>([
     { kind: "delta_t_target", target: 7, weight: 0.6 },
@@ -106,8 +135,15 @@ export function EvaporatorPanel() {
     if (fixed.tubes_per_row) c.tubes_per_row = values.tubes_per_row;
     if (fixed.fin_pitch_mm) c.fin_pitch_mm = values.fin_pitch_mm;
     if (fixed.max_frontal_area_m2) c.max_frontal_area_m2 = values.max_frontal_area_m2;
+    if (selectedGeometry) {
+      c.geometry_id = selectedGeometry.id;
+      c.tube_outer_diameter_mm = selectedGeometry.tube_outer_diameter_mm;
+      c.tube_pitch_transverse_mm = selectedGeometry.tube_pitch_transverse_mm;
+      c.row_pitch_mm = selectedGeometry.row_pitch_mm;
+    }
+    c.header_side = headerSide;
     return c;
-  }, [fixed, values]);
+  }, [fixed, values, selectedGeometry, headerSide]);
 
   function addCriterion() {
     const used = new Set(criteria.map((c) => c.kind));
@@ -190,6 +226,56 @@ export function EvaporatorPanel() {
             <CardTitle className="text-sm">Restrições dimensionais</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
+            <div className="grid grid-cols-2 gap-2 border-b pb-2">
+              <div className="col-span-2">
+                <Label className="text-[11px] text-muted-foreground">
+                  Geometria (ferramenta de estampagem)
+                </Label>
+                <Select value={geometryId} onValueChange={setGeometryId}>
+                  <SelectTrigger className="h-7 text-xs">
+                    <SelectValue placeholder="Selecione a geometria…" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {geometries.map((g) => (
+                      <SelectItem key={g.id} value={g.id} className="text-xs">
+                        {g.description} — Ø{g.tube_outer_diameter_mm}mm · {g.tube_pitch_transverse_mm}×{g.row_pitch_mm}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                {selectedGeometry && (
+                  <p className="mt-1 text-[10px] text-muted-foreground">
+                    OD {selectedGeometry.tube_outer_diameter_mm} mm · passo
+                    transv. {selectedGeometry.tube_pitch_transverse_mm} mm · entre
+                    filas {selectedGeometry.row_pitch_mm} mm
+                  </p>
+                )}
+              </div>
+              <div className="col-span-2">
+                <Label className="text-[11px] text-muted-foreground">
+                  Saída do distribuidor / coletor
+                </Label>
+                <Select
+                  value={headerSide}
+                  onValueChange={(v) => setHeaderSide(v as HeaderSide)}
+                >
+                  <SelectTrigger className="h-7 text-xs">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="left" className="text-xs">
+                      Lado esquerdo
+                    </SelectItem>
+                    <SelectItem value="right" className="text-xs">
+                      Lado direito
+                    </SelectItem>
+                    <SelectItem value="same_side" className="text-xs">
+                      Mesmo lado (distribuidor + coletor) — exige nº de filas par
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
             <p className="text-[11px] text-muted-foreground">
               Marque o que deve ficar <strong>fixo</strong>; o motor varia o resto.
             </p>
@@ -390,7 +476,22 @@ export function EvaporatorPanel() {
                   value={`${result.best.geometry.frontal_area_m2.toFixed(3)} m²`}
                 />
               </div>
-              <div className="grid grid-cols-3 gap-2 text-xs">
+              <div className="grid grid-cols-3 gap-2 text-xs sm:grid-cols-6">
+                <Field
+                  label="Geometria"
+                  value={result.best.geometry.geometry_id ?? "—"}
+                />
+                <Field label="Circuitos" value={result.best.geometry.circuits} />
+                <Field
+                  label="Saída coletor"
+                  value={
+                    result.best.geometry.header_side === "left"
+                      ? "Esquerda"
+                      : result.best.geometry.header_side === "right"
+                        ? "Direita"
+                        : "Mesmo lado"
+                  }
+                />
                 <Field
                   label="Pontos atendidos"
                   value={`${result.best.pointsCovered} / ${result.best.totalPoints}`}

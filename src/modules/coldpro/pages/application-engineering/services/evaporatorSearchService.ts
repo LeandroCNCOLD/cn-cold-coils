@@ -11,6 +11,8 @@ import type { CapacityCurvePoint } from "../types/app-engineering.types";
 
 // ── Tipos públicos ──────────────────────────────────────────────────────────
 
+export type HeaderSide = "left" | "right" | "same_side";
+
 export interface EvaporatorConstraints {
   height_mm?: number; // se fixo, não varia (height ≈ tubes_per_row × pitch_transv)
   length_mm?: number;
@@ -18,8 +20,16 @@ export interface EvaporatorConstraints {
   tubes_per_row?: number;
   fin_pitch_mm?: number;
   max_frontal_area_m2?: number;
+  // Vêm da Geometria selecionada (ferramenta de estampagem)
+  geometry_id?: string;
   tube_outer_diameter_mm?: number; // padrão 9.52
   tube_pitch_transverse_mm?: number; // padrão 25
+  row_pitch_mm?: number; // distância entre filas
+  /**
+   * Lado dos coletores. "same_side" obriga nº de filas par para que o
+   * distribuidor e o coletor saiam do mesmo lado do aletado.
+   */
+  header_side?: HeaderSide;
 }
 
 export type EvaporatorCriterionKind =
@@ -53,6 +63,10 @@ export interface EvaporatorCandidateGeometry {
   height_mm: number;
   frontal_area_m2: number;
   tube_outer_diameter_mm: number;
+  row_pitch_mm: number;
+  circuits: number;
+  header_side: HeaderSide;
+  geometry_id?: string;
 }
 
 export interface EvaporatorCandidate {
@@ -115,8 +129,15 @@ export function generateCandidates(
 ): EvaporatorCandidateGeometry[] {
   const tubeOd = c.tube_outer_diameter_mm ?? 9.52;
   const pitchTransv = c.tube_pitch_transverse_mm ?? 25;
+  const rowPitch = c.row_pitch_mm ?? 22;
+  const headerSide: HeaderSide = c.header_side ?? "left";
 
-  const rowsList = pickRange(c.rows, DEFAULT_RANGES.rows);
+  let rowsList = pickRange(c.rows, DEFAULT_RANGES.rows);
+  // Mesmo lado para distribuidor e coletor → nº de filas precisa ser par
+  if (headerSide === "same_side") {
+    rowsList = rowsList.filter((r) => r % 2 === 0);
+    if (!rowsList.length) rowsList = [2];
+  }
   const finList = pickRange(c.fin_pitch_mm, DEFAULT_RANGES.fin_pitch_mm);
   const lenList = pickRange(c.length_mm, DEFAULT_RANGES.length_mm);
 
@@ -138,6 +159,8 @@ export function generateCandidates(
           const height = computeHeightMm(tubes, pitchTransv);
           const area = computeFrontalArea(height, len);
           if (c.max_frontal_area_m2 !== undefined && area > c.max_frontal_area_m2) continue;
+          // Regra prática: 1 circuito a cada 2 tubos por fila (pode ser ajustada)
+          const circuits = Math.max(1, Math.round(tubes / 2));
           out.push({
             rows,
             tubes_per_row: tubes,
@@ -146,6 +169,10 @@ export function generateCandidates(
             height_mm: height,
             frontal_area_m2: area,
             tube_outer_diameter_mm: tubeOd,
+            row_pitch_mm: rowPitch,
+            circuits,
+            header_side: headerSide,
+            geometry_id: c.geometry_id,
           });
         }
       }
@@ -194,7 +221,7 @@ function simulateCandidate(
             length_mm: geo.length_mm,
             fin_spacing_mm: geo.fin_pitch_mm,
             tube_diameter_mm: geo.tube_outer_diameter_mm,
-            circuits: Math.max(1, Math.ceil(geo.tubes_per_row / 2)),
+            circuits: geo.circuits,
           },
         });
         q_evap_w = Number.isFinite(r.capacity_w) ? r.capacity_w : 0;
