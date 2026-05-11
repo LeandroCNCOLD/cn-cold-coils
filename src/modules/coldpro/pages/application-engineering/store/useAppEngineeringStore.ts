@@ -3,6 +3,7 @@ import type {
   AppEngineeringStep1,
   AppEngineeringStep2,
   AppEngineeringStep3,
+  CapacityCurvePoint,
 } from "../types/app-engineering.types";
 
 interface AppEngineeringState {
@@ -10,6 +11,9 @@ interface AppEngineeringState {
   step1: AppEngineeringStep1;
   step2: AppEngineeringStep2;
   step3: AppEngineeringStep3;
+  /** Sweep Te×Tc calculado no CompressorPanel — compartilhado com Evap/Cond. */
+  compressorSweep: CapacityCurvePoint[];
+  setCompressorSweep: (pts: CapacityCurvePoint[]) => void;
   setStep: (step: 1 | 2 | 3 | 4) => void;
   updateStep1: (v: Partial<AppEngineeringStep1>) => void;
   updateStep2: (v: Partial<AppEngineeringStep2>) => void;
@@ -58,10 +62,18 @@ export const useAppEngineeringStore = create<AppEngineeringState>((set) => ({
   step1: defaultStep1,
   step2: defaultStep2,
   step3: defaultStep3,
+  compressorSweep: [],
+  setCompressorSweep: (pts) => set({ compressorSweep: pts }),
   setStep: (step) => set({ currentStep: step }),
   updateStep1: (v) => set((s) => ({ step1: { ...s.step1, ...v } })),
   updateStep2: (v) => set((s) => ({ step2: { ...s.step2, ...v } })),
   updateStep3: (v) => set((s) => ({ step3: { ...s.step3, ...v } })),
   reset: () =>
-    set({ currentStep: 1, step1: defaultStep1, step2: defaultStep2, step3: defaultStep3 }),
+    set({
+      currentStep: 1,
+      step1: defaultStep1,
+      step2: defaultStep2,
+      step3: defaultStep3,
+      compressorSweep: [],
+    }),
 }));

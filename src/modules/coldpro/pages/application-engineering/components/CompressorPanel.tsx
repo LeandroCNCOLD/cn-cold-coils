@@ -30,6 +30,7 @@ import { useApplicationEngineering } from "../hooks/useApplicationEngineering";
 import { generateCapacityCurve } from "../services/capacityCurveService";
 import type { CapacityCurvePoint } from "../types/app-engineering.types";
 import { convertPower, fmtBR, type PowerUnit } from "@/utils/unitConversions";
+import { useAppEngineeringStore } from "../store/useAppEngineeringStore";
 
 // ── Componente auxiliar ──────────────────────────────────────────────────────
 function ResultRow({
@@ -55,6 +56,7 @@ function ResultRow({
 // ── Componente principal ─────────────────────────────────────────────────────
 export function CompressorPanel() {
   const { compressorInput, compressorResult, setCompressorInput } = useApplicationEngineering();
+  const setCompressorSweep = useAppEngineeringStore((s) => s.setCompressorSweep);
 
   const [pickerOpen, setPickerOpen] = useState(false);
   const [loadingId, setLoadingId] = useState<string | null>(null);
@@ -157,7 +159,8 @@ export function CompressorPanel() {
       all.push(...pts);
     }
     setSweepPoints(all);
-  }, [hasCoefficients, compressorInput, teStart, teEnd, teStep, tcValues]);
+    setCompressorSweep(all);
+  }, [hasCoefficients, compressorInput, teStart, teEnd, teStep, tcValues, setCompressorSweep]);
 
 
   return (
