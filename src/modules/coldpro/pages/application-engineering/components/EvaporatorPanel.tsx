@@ -5,7 +5,7 @@
  * de seleção combinar (com pesos). O motor gera dezenas/centenas de candidatos,
  * simula cada um sobre o sweep Te×Tc do compressor e devolve o melhor.
  */
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Wind, Play, Loader2, Plus, X, Trash2, Wand2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
