@@ -56,6 +56,7 @@ function ResultRow({
 // ── Componente principal ─────────────────────────────────────────────────────
 export function CompressorPanel() {
   const { compressorInput, compressorResult, setCompressorInput } = useApplicationEngineering();
+  const setCompressorSweep = useAppEngineeringStore((s) => s.setCompressorSweep);
 
   const [pickerOpen, setPickerOpen] = useState(false);
   const [loadingId, setLoadingId] = useState<string | null>(null);
