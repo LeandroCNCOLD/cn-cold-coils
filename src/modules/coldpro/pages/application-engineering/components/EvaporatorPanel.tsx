@@ -38,6 +38,7 @@ import {
 } from "../services/geometryCatalogService";
 import { GeometryCatalogPicker } from "./GeometryCatalogPicker";
 import { CoveragePointsTable } from "./CoveragePointsTable";
+import { useExpansionValves, selectExpansionValve } from "@/modules/coldpro_catalog/hooks/useExpansionValves";
 import type { PowerUnit } from "@/utils/unitConversions";
 
 type ConstraintKey =
@@ -72,7 +73,11 @@ interface EvaporatorPanelProps {
 export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = {}) {
   const isCondenser = mode === "condenser";
   const sweep = useAppEngineeringStore((s) => s.compressorSweep);
+  const refrigerant = useAppEngineeringStore((s) => s.step1.refrigerant);
   const { setEvaporatorInput, setCondenserInput } = useApplicationEngineering();
+  const { data: valves } = useExpansionValves(
+    isCondenser ? undefined : { refrigerant },
+  );
 
   // Restrições — cada uma com checkbox "fixar" + valor
   const [fixed, setFixed] = useState<Record<ConstraintKey, boolean>>({
@@ -138,6 +143,27 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
   const [unit, setUnit] = useState<PowerUnit>("kW");
   const [running, setRunning] = useState(false);
   const [result, setResult] = useState<EvaporatorSearchResult | null>(null);
+
+  // Sugestão de válvula de expansão (apenas evaporador)
+  const valveSuggestion = useMemo(() => {
+    if (isCondenser) return null;
+    const best = result?.best;
+    if (!best || !valves.length) return null;
+    const cov = best.coverage;
+    if (!cov.length) return null;
+    const avgTe = cov.reduce((s, p) => s + p.te_c, 0) / cov.length;
+    const avgQkW = cov.reduce((s, p) => s + p.q_comp_w, 0) / cov.length / 1000;
+    const ranked = selectExpansionValve(
+      valves,
+      refrigerant,
+      avgTe,
+      best.geometry.circuits,
+      avgQkW,
+    );
+    return ranked.length
+      ? { top: ranked.slice(0, 3), tevap_c: avgTe, q_kw: avgQkW }
+      : null;
+  }, [result, valves, refrigerant, isCondenser]);
 
   const constraints: EvaporatorConstraints = useMemo(() => {
     const c: EvaporatorConstraints = {};
@@ -566,6 +592,50 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
               </div>
             </CardContent>
           </Card>
+
+          {valveSuggestion && (
+            <Card className="border-sky-300 bg-sky-50/40">
+              <CardHeader className="pb-2 flex flex-row items-center justify-between">
+                <CardTitle className="text-sm">
+                  Válvula de expansão sugerida ({refrigerant})
+                </CardTitle>
+                <Badge variant="outline" className="text-[10px]">
+                  Te {valveSuggestion.tevap_c.toFixed(1)}°C · Q méd{" "}
+                  {valveSuggestion.q_kw.toFixed(2)} kW · {result.best!.geometry.circuits} circ.
+                </Badge>
+              </CardHeader>
+              <CardContent className="space-y-1">
+                {valveSuggestion.top.map((v, i) => (
+                  <div
+                    key={v.valve.code}
+                    className={`grid grid-cols-5 gap-2 rounded border px-2 py-1 text-xs ${
+                      i === 0 ? "border-sky-400 bg-white" : "border-border/50 bg-background"
+                    }`}
+                  >
+                    <Field label="Modelo" value={v.valve.type} />
+                    <Field label="Código" value={v.valve.code} />
+                    <Field
+                      label="Orifício"
+                      value={v.valve.orifice_size_in ?? v.valve.orifice_size_mm ?? "—"}
+                    />
+                    <Field label="κ @ Te" value={v.kappa.toFixed(2)} />
+                    <Field
+                      label="Cap. estim."
+                      value={
+                        v.estimated_capacity_kw
+                          ? `${v.estimated_capacity_kw.toFixed(2)} kW`
+                          : "—"
+                      }
+                    />
+                  </div>
+                ))}
+                <p className="pt-1 text-[10px] text-muted-foreground">
+                  Seleção baseada em curvas κ Danfoss para {refrigerant}, faixa de circuitos
+                  e ponto médio de operação.
+                </p>
+              </CardContent>
+            </Card>
+          )}
 
           <CoveragePointsTable points={result.best.coverage} unit={unit} />
         </div>

@@ -54,9 +54,17 @@ function ResultRow({
 }
 
 // ── Componente principal ─────────────────────────────────────────────────────
+const REFRIGERANTS = [
+  "R404A", "R448A", "R449A", "R452A", "R407A", "R407C", "R407F", "R410A",
+  "R507A", "R134a", "R1234yf", "R1234ze(E)", "R290", "R600a", "R717", "R744",
+  "R32", "R22",
+];
+
 export function CompressorPanel() {
   const { compressorInput, compressorResult, setCompressorInput } = useApplicationEngineering();
   const setCompressorSweep = useAppEngineeringStore((s) => s.setCompressorSweep);
+  const refrigerant = useAppEngineeringStore((s) => s.step1.refrigerant);
+  const updateStep1 = useAppEngineeringStore((s) => s.updateStep1);
 
   const [pickerOpen, setPickerOpen] = useState(false);
   const [loadingId, setLoadingId] = useState<string | null>(null);
@@ -98,6 +106,10 @@ export function CompressorPanel() {
           capacity_coefficients: pt.cap_coeffs,
           power_coefficients: pt.pwr_coeffs ?? [],
         });
+        // Sincroniza fluido refrigerante do compressor (se vier no item)
+        if (item.refrigerant) {
+          updateStep1({ refrigerant: item.refrigerant });
+        }
         setSelectedItem(item);
       } catch (err) {
         setLoadError("Erro ao carregar dados do compressor. Tente novamente.");
@@ -106,7 +118,7 @@ export function CompressorPanel() {
         setLoadingId(null);
       }
     },
-    [setCompressorInput],
+    [setCompressorInput, updateStep1],
   );
 
   const hasCoefficients =
@@ -175,6 +187,31 @@ export function CompressorPanel() {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
+            {/* Fluido refrigerante */}
+            <div className="space-y-1">
+              <Label className="text-[11px] text-muted-foreground">
+                Fluido refrigerante
+              </Label>
+              <Select
+                value={refrigerant}
+                onValueChange={(v) => updateStep1({ refrigerant: v })}
+              >
+                <SelectTrigger className="h-8 text-xs">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent className="max-h-72">
+                  {REFRIGERANTS.map((r) => (
+                    <SelectItem key={r} value={r} className="text-xs">
+                      {r}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <p className="text-[10px] text-muted-foreground">
+                Usado na seleção da válvula de expansão e cálculos do ciclo.
+              </p>
+            </div>
+
             {/* Botão de seleção */}
             <Button
               variant="outline"
