@@ -476,7 +476,22 @@ export function EvaporatorPanel() {
                   value={`${result.best.geometry.frontal_area_m2.toFixed(3)} m²`}
                 />
               </div>
-              <div className="grid grid-cols-3 gap-2 text-xs">
+              <div className="grid grid-cols-3 gap-2 text-xs sm:grid-cols-6">
+                <Field
+                  label="Geometria"
+                  value={result.best.geometry.geometry_id ?? "—"}
+                />
+                <Field label="Circuitos" value={result.best.geometry.circuits} />
+                <Field
+                  label="Saída coletor"
+                  value={
+                    result.best.geometry.header_side === "left"
+                      ? "Esquerda"
+                      : result.best.geometry.header_side === "right"
+                        ? "Direita"
+                        : "Mesmo lado"
+                  }
+                />
                 <Field
                   label="Pontos atendidos"
                   value={`${result.best.pointsCovered} / ${result.best.totalPoints}`}
