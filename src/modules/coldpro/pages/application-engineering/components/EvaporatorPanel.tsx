@@ -120,16 +120,17 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
   );
 
   // Critérios (pelo menos 1) — o ΔT alvo deste critério também define T_ar_in por ponto
+  const defaultDeltaT = isCondenser ? 12 : 7;
   const [criteria, setCriteria] = useState<EvaporatorCriterion[]>([
-    { kind: "delta_t_target", target: 7, weight: 0.6 },
+    { kind: "delta_t_target", target: defaultDeltaT, weight: 0.6 },
     { kind: "max_points_covered", weight: 0.4 },
   ]);
 
-  // ΔT alvo aplicado por ponto: usa o critério delta_t_target, fallback 7 K
+  // ΔT alvo aplicado por ponto: usa o critério delta_t_target
   const deltaTTargetK = useMemo(() => {
     const c = criteria.find((c) => c.kind === "delta_t_target");
-    return c?.target ?? 7;
-  }, [criteria]);
+    return c?.target ?? defaultDeltaT;
+  }, [criteria, defaultDeltaT]);
 
   const [unit, setUnit] = useState<PowerUnit>("kW");
   const [running, setRunning] = useState(false);
