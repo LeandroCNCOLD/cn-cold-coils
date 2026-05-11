@@ -159,6 +159,7 @@ export function CompressorPanel() {
       all.push(...pts);
     }
     setSweepPoints(all);
+    setCompressorSweep(all);
   }, [hasCoefficients, compressorInput, teStart, teEnd, teStep, tcValues]);
 
 
