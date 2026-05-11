@@ -181,6 +181,7 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
       try {
         const r = searchBestEvaporator({
           sweep,
+          mode,
           delta_t_target_k: deltaTTargetK,
           max_fan_count: maxFanCount,
           constraints,
@@ -196,13 +197,12 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
   function applyToForm() {
     const best = result?.best;
     if (!best) return;
-    // Vazão e T_ar_in vêm da SUGESTÃO do sistema (fan layout + ΔT alvo).
-    setEvaporatorInput({
+    const avgT =
+      sweep.reduce((s, p) => s + (isCondenser ? p.tc_c : p.te_c), 0) / sweep.length;
+    const payload = {
       airflow_m3h: best.fan.total_airflow_m3h,
-      // T_ar_in representativo: usa o ponto médio do sweep
-      air_inlet_temp_c:
-        (sweep.reduce((s, p) => s + p.te_c, 0) / sweep.length) + deltaTTargetK,
-      coil_type: "evaporator",
+      air_inlet_temp_c: isCondenser ? avgT - deltaTTargetK : avgT + deltaTTargetK,
+      coil_type: (isCondenser ? "condenser" : "evaporator") as "condenser" | "evaporator",
       geometry: {
         rows: best.geometry.rows,
         tubes_per_row: best.geometry.tubes_per_row,
@@ -210,7 +210,9 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
         length_mm: best.geometry.length_mm,
         tube_diameter_mm: best.geometry.tube_outer_diameter_mm,
       },
-    });
+    };
+    if (isCondenser) setCondenserInput(payload);
+    else setEvaporatorInput(payload);
   }
 
   const canRun = sweep.length > 0 && criteria.length > 0;
