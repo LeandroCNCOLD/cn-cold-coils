@@ -216,22 +216,36 @@ export function EvaporatorPanel() {
 
             <div className="mt-3 grid grid-cols-2 gap-2 border-t pt-2">
               <div>
-                <Label className="text-[11px] text-muted-foreground">Vazão de ar (m³/h)</Label>
+                <Label className="text-[11px] text-muted-foreground">
+                  Máx. de ventiladores
+                </Label>
                 <Input
                   type="number"
-                  value={airflow}
-                  onChange={(e) => setAirflow(parseFloat(e.target.value))}
+                  min={1}
+                  step={1}
+                  value={maxFanCount}
+                  onChange={(e) =>
+                    setMaxFanCount(Math.max(1, parseInt(e.target.value) || 1))
+                  }
                   className="h-7 text-xs"
                 />
+                <p className="mt-1 text-[10px] text-muted-foreground">
+                  O sistema sugere modelo e vazão compatíveis com a geometria.
+                </p>
               </div>
               <div>
-                <Label className="text-[11px] text-muted-foreground">T ar entrada (°C)</Label>
+                <Label className="text-[11px] text-muted-foreground">
+                  ΔT alvo (T_ar − Te)
+                </Label>
                 <Input
                   type="number"
-                  value={tAirIn}
-                  onChange={(e) => setTAirIn(parseFloat(e.target.value))}
+                  value={deltaTTargetK}
+                  disabled
                   className="h-7 text-xs"
                 />
+                <p className="mt-1 text-[10px] text-muted-foreground">
+                  Definido pelo critério ΔT alvo. T_ar_in = Te + ΔT por ponto.
+                </p>
               </div>
             </div>
           </CardContent>
