@@ -29,7 +29,12 @@ import {
   type EvaporatorCriterion,
   type EvaporatorCriterionKind,
   type EvaporatorSearchResult,
+  type HeaderSide,
 } from "../services/evaporatorSearchService";
+import {
+  loadGeometryCatalog,
+  type GeometryOption,
+} from "../services/geometryCatalogService";
 import { CoveragePointsTable } from "./CoveragePointsTable";
 import type { PowerUnit } from "@/utils/unitConversions";
 
