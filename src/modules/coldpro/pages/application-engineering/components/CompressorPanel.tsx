@@ -111,12 +111,30 @@ export function CompressorPanel() {
     (compressorInput.capacity_coefficients?.length ?? 0) >= 10 &&
     (compressorInput.power_coefficients?.length ?? 0) >= 10;
 
-  const sweepCount = useMemo(() => {
+  const teCount = useMemo(() => {
     const span = Math.abs(teEnd - teStart);
     const step = Math.abs(teStep);
     if (!step) return 0;
     return Math.floor(span / step) + 1;
   }, [teStart, teEnd, teStep]);
+
+  const tcCount = useMemo(() => {
+    const span = Math.abs(tcEnd - tcStart);
+    const step = Math.abs(tcStep);
+    if (!step) return 0;
+    return Math.floor(span / step) + 1;
+  }, [tcStart, tcEnd, tcStep]);
+
+  const sweepCount = teCount * tcCount;
+
+  const tcValues = useMemo(() => {
+    const step = Math.abs(tcStep) || 1;
+    const tcMin = Math.min(tcStart, tcEnd);
+    const tcMax = Math.max(tcStart, tcEnd);
+    const arr: number[] = [];
+    for (let v = tcMin; v <= tcMax + 1e-9; v += step) arr.push(Number(v.toFixed(2)));
+    return tcStart > tcEnd ? arr.slice().reverse() : arr;
+  }, [tcStart, tcEnd, tcStep]);
 
   const runSweep = useCallback(() => {
     if (!hasCoefficients) return;
@@ -130,13 +148,16 @@ export function CompressorPanel() {
       te_min_c: teMin,
       te_max_c: teMax,
       n_points: nPoints,
-      tc_values_c: [tcValue],
+      tc_values_c: tcValues,
     });
-    const points = series[0]?.points ?? [];
-    // Mostrar do Te_inicial → Te_final (respeitando direção do usuário)
-    const ordered = teStart > teEnd ? [...points].reverse() : points;
-    setSweepPoints(ordered);
-  }, [hasCoefficients, compressorInput, teStart, teEnd, teStep, tcValue]);
+    // Achatar todos os pontos (Te × Tc) — ordenados: para cada Tc, varrer Te
+    const all: CapacityCurvePoint[] = [];
+    for (const s of series) {
+      const pts = teStart > teEnd ? [...s.points].reverse() : s.points;
+      all.push(...pts);
+    }
+    setSweepPoints(all);
+  }, [hasCoefficients, compressorInput, teStart, teEnd, teStep, tcValues]);
 
 
   return (
