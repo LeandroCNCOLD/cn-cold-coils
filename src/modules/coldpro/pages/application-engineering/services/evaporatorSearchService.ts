@@ -11,6 +11,8 @@ import type { CapacityCurvePoint } from "../types/app-engineering.types";
 
 // ── Tipos públicos ──────────────────────────────────────────────────────────
 
+export type HeaderSide = "left" | "right" | "same_side";
+
 export interface EvaporatorConstraints {
   height_mm?: number; // se fixo, não varia (height ≈ tubes_per_row × pitch_transv)
   length_mm?: number;
@@ -18,8 +20,16 @@ export interface EvaporatorConstraints {
   tubes_per_row?: number;
   fin_pitch_mm?: number;
   max_frontal_area_m2?: number;
+  // Vêm da Geometria selecionada (ferramenta de estampagem)
+  geometry_id?: string;
   tube_outer_diameter_mm?: number; // padrão 9.52
   tube_pitch_transverse_mm?: number; // padrão 25
+  row_pitch_mm?: number; // distância entre filas
+  /**
+   * Lado dos coletores. "same_side" obriga nº de filas par para que o
+   * distribuidor e o coletor saiam do mesmo lado do aletado.
+   */
+  header_side?: HeaderSide;
 }
 
 export type EvaporatorCriterionKind =
