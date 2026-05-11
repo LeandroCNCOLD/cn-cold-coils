@@ -87,6 +87,30 @@ export function EvaporatorPanel() {
   // Limite de ventiladores (sistema sugere modelo + vazão a partir da geometria)
   const [maxFanCount, setMaxFanCount] = useState(2);
 
+  // Geometria (ferramenta de estampagem) e lado de saída dos coletores
+  const [geometries, setGeometries] = useState<GeometryOption[]>([]);
+  const [geometryId, setGeometryId] = useState<string>("");
+  const [headerSide, setHeaderSide] = useState<HeaderSide>("left");
+
+  useEffect(() => {
+    loadGeometryCatalog().then((cat) => {
+      setGeometries(cat.evaporator);
+      // Default sensato: primeira geometria com OD ≈ 9.52 / passo 25
+      const def =
+        cat.evaporator.find(
+          (g) =>
+            Math.abs(g.tube_outer_diameter_mm - 9.52) < 0.2 &&
+            Math.abs(g.tube_pitch_transverse_mm - 25) < 0.2,
+        ) ?? cat.evaporator[0];
+      if (def) setGeometryId(def.id);
+    });
+  }, []);
+
+  const selectedGeometry = useMemo(
+    () => geometries.find((g) => g.id === geometryId),
+    [geometries, geometryId],
+  );
+
   // Critérios (pelo menos 1) — o ΔT alvo deste critério também define T_ar_in por ponto
   const [criteria, setCriteria] = useState<EvaporatorCriterion[]>([
     { kind: "delta_t_target", target: 7, weight: 0.6 },
@@ -111,8 +135,15 @@ export function EvaporatorPanel() {
     if (fixed.tubes_per_row) c.tubes_per_row = values.tubes_per_row;
     if (fixed.fin_pitch_mm) c.fin_pitch_mm = values.fin_pitch_mm;
     if (fixed.max_frontal_area_m2) c.max_frontal_area_m2 = values.max_frontal_area_m2;
+    if (selectedGeometry) {
+      c.geometry_id = selectedGeometry.id;
+      c.tube_outer_diameter_mm = selectedGeometry.tube_outer_diameter_mm;
+      c.tube_pitch_transverse_mm = selectedGeometry.tube_pitch_transverse_mm;
+      c.row_pitch_mm = selectedGeometry.row_pitch_mm;
+    }
+    c.header_side = headerSide;
     return c;
-  }, [fixed, values]);
+  }, [fixed, values, selectedGeometry, headerSide]);
 
   function addCriterion() {
     const used = new Set(criteria.map((c) => c.kind));
