@@ -96,6 +96,8 @@ export interface CoilSizingInput {
   airflow_m3h: number;
   /** Tipo de serpentina */
   coil_type: "evaporator" | "condenser";
+  /** Motor de cálculo: básico (rápido) ou avançado (com correções de Schmidt). */
+  engine?: "basic" | "advanced";
   /** Geometria inicial (opcional — motor usa padrão se ausente) */
   geometry?: {
     rows?: number;
