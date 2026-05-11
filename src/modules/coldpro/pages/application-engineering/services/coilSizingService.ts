@@ -1,4 +1,7 @@
-import { calculateCoilAdvanced } from "@/modules/coldpro_v2/engines/coilCalculationEngine";
+import {
+  calculateCoil,
+  calculateCoilAdvanced,
+} from "@/modules/coldpro_v2/engines/coilCalculationEngine";
 import { computeFinnedExternalArea } from "@/modules/coldpro_v2/engines/core/finnedExternalArea";
 import type { CoilSizingInput, CoilSizingResult } from "../types";
 
