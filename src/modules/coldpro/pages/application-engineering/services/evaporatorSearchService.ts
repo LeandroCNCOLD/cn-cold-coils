@@ -17,6 +17,8 @@ export interface EvaporatorConstraints {
   tubes_per_row?: number;
   fin_pitch_mm?: number;
   max_frontal_area_m2?: number;
+  /** Piso de passo de aleta (mm) — usado para mitigar bloqueio por gelo em baixa temperatura. */
+  min_fin_pitch_mm?: number;
   tube_outer_diameter_mm?: number; // padrão 9.52
   tube_pitch_transverse_mm?: number; // padrão 25
 }
