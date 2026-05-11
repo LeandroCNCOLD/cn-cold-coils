@@ -1,4 +1,7 @@
-import { calculateCoilAdvanced } from "@/modules/coldpro_v2/engines/coilCalculationEngine";
+import {
+  calculateCoil,
+  calculateCoilAdvanced,
+} from "@/modules/coldpro_v2/engines/coilCalculationEngine";
 import { computeFinnedExternalArea } from "@/modules/coldpro_v2/engines/core/finnedExternalArea";
 import type { CoilSizingInput, CoilSizingResult } from "../types";
 
@@ -49,31 +52,46 @@ export function sizeCoil(input: CoilSizingInput): CoilSizingResult {
       ? input.air_inlet_temp_c - 8
       : input.air_inlet_temp_c + 12;
 
-  const result = calculateCoilAdvanced({
-    rows,
-    tubes_per_row,
-    circuits,
-    fin_spacing_mm,
-    length_mm,
-    tube_diameter_mm,
-    tube_thickness_mm,
-    airflow_m3h: input.airflow_m3h,
-    delta_t_k: null,
-    mass_flow_kgs: null,
-    air_inlet_temp_c: input.air_inlet_temp_c,
-    air_outlet_temp_c,
-    fluid_inlet_temp_c: input.fluid_inlet_temp_c,
-    fluid_outlet_temp_c,
-    fluid_h_w_m2k: null,
-    fin_conductivity_w_mk: 200, // alumínio
-    fin_thickness_m: 0.0001,
-    wall_resistance_m2k_w: null,
-    fouling_air_m2k_w: null,
-    fouling_fluid_m2k_w: null,
-    tube_roughness_m: null,
-    tube_pitch_transverse_m,
-    tube_pitch_longitudinal_m,
-  });
+  const useBasic = input.engine === "basic";
+
+  const result = useBasic
+    ? calculateCoil({
+        rows,
+        tubes_per_row,
+        circuits,
+        fin_spacing_mm,
+        length_mm,
+        tube_diameter_mm,
+        tube_thickness_mm,
+        airflow_m3h: input.airflow_m3h,
+        delta_t_k: Math.abs(air_outlet_temp_c - input.air_inlet_temp_c),
+        mass_flow_kgs: null,
+      })
+    : calculateCoilAdvanced({
+        rows,
+        tubes_per_row,
+        circuits,
+        fin_spacing_mm,
+        length_mm,
+        tube_diameter_mm,
+        tube_thickness_mm,
+        airflow_m3h: input.airflow_m3h,
+        delta_t_k: null,
+        mass_flow_kgs: null,
+        air_inlet_temp_c: input.air_inlet_temp_c,
+        air_outlet_temp_c,
+        fluid_inlet_temp_c: input.fluid_inlet_temp_c,
+        fluid_outlet_temp_c,
+        fluid_h_w_m2k: null,
+        fin_conductivity_w_mk: 200,
+        fin_thickness_m: 0.0001,
+        wall_resistance_m2k_w: null,
+        fouling_air_m2k_w: null,
+        fouling_fluid_m2k_w: null,
+        tube_roughness_m: null,
+        tube_pitch_transverse_m,
+        tube_pitch_longitudinal_m,
+      });
 
   warnings.push(...result.warnings);
 
@@ -81,12 +99,19 @@ export function sizeCoil(input: CoilSizingInput): CoilSizingResult {
   const exchange_area_m2 =
     areaResult.A_total_m2 > 0 ? areaResult.A_total_m2 : result.exchange_area_m2;
 
+  // Algumas propriedades só existem no motor avançado — caem para null no básico
+  const adv = result as Partial<typeof result> & {
+    u_w_m2k?: number | null;
+    lmtd_k?: number | null;
+    fin_efficiency?: number | null;
+  };
+
   return {
     capacity_w: result.capacity_w,
     exchange_area_m2,
-    u_w_m2k: result.u_w_m2k,
-    lmtd_k: result.lmtd_k,
-    fin_efficiency: result.fin_efficiency,
+    u_w_m2k: adv.u_w_m2k ?? 0,
+    lmtd_k: adv.lmtd_k ?? null,
+    fin_efficiency: adv.fin_efficiency ?? 1,
     air_pressure_drop_pa: result.air_pressure_drop_pa,
     fluid_pressure_drop_kpa: result.fluid_pressure_drop_kpa,
     fluid_velocity_ms: result.fluid_velocity_ms,

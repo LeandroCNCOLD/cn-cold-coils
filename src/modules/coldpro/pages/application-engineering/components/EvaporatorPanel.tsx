@@ -95,6 +95,9 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
   // Limite de ventiladores (sistema sugere modelo + vazão a partir da geometria)
   const [maxFanCount, setMaxFanCount] = useState(2);
 
+  // Motor de cálculo: avançado (Schmidt + LMTD) ou básico (rápido m·cp·ΔT)
+  const [engine, setEngine] = useState<"basic" | "advanced">("advanced");
+
   // Geometria (ferramenta de estampagem) e lado de saída dos coletores
   const [geometries, setGeometries] = useState<GeometryOption[]>([]);
   const [geometryId, setGeometryId] = useState<string>("");
@@ -183,6 +186,7 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
           sweep,
           mode,
           delta_t_target_k: deltaTTargetK,
+          engine,
           max_fan_count: maxFanCount,
           constraints,
           criteria,
@@ -431,21 +435,39 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
       </div>
 
       {/* Ação */}
-      <div className="mt-4 flex items-center justify-between gap-2">
-        <div className="flex items-center gap-2 text-xs text-muted-foreground">
-          <span>Unidade:</span>
-          <Select value={unit} onValueChange={(v) => setUnit(v as PowerUnit)}>
-            <SelectTrigger className="h-7 w-24 text-xs">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="kW">kW</SelectItem>
-              <SelectItem value="kcal/h">kcal/h</SelectItem>
-              <SelectItem value="BTU/h">BTU/h</SelectItem>
-              <SelectItem value="TR">TR</SelectItem>
-              <SelectItem value="W">W</SelectItem>
-            </SelectContent>
-          </Select>
+      <div className="mt-4 flex flex-wrap items-center justify-between gap-2">
+        <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
+          <div className="flex items-center gap-2">
+            <span>Motor:</span>
+            <Select value={engine} onValueChange={(v) => setEngine(v as "basic" | "advanced")}>
+              <SelectTrigger className="h-7 w-44 text-xs">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="advanced" className="text-xs">
+                  Avançado (Schmidt + LMTD)
+                </SelectItem>
+                <SelectItem value="basic" className="text-xs">
+                  Básico (m·cp·ΔT)
+                </SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="flex items-center gap-2">
+            <span>Unidade:</span>
+            <Select value={unit} onValueChange={(v) => setUnit(v as PowerUnit)}>
+              <SelectTrigger className="h-7 w-24 text-xs">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="kW">kW</SelectItem>
+                <SelectItem value="kcal/h">kcal/h</SelectItem>
+                <SelectItem value="BTU/h">BTU/h</SelectItem>
+                <SelectItem value="TR">TR</SelectItem>
+                <SelectItem value="W">W</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
         </div>
         <div className="flex gap-2">
           {result && (
@@ -455,7 +477,11 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
           )}
           <Button onClick={runSearch} disabled={!canRun || running} size="sm" className="h-8 gap-1 text-xs">
             {running ? <Loader2 className="h-3 w-3 animate-spin" /> : <Play className="h-3 w-3" />}
-            {running ? "Buscando..." : "Buscar melhor evaporador"}
+            {running
+              ? "Buscando..."
+              : isCondenser
+                ? "Buscar melhor condensador"
+                : "Buscar melhor evaporador"}
           </Button>
         </div>
       </div>

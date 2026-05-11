@@ -95,6 +95,8 @@ export interface EvaporatorSearchInput {
   /** Quantidade máxima de ventiladores que o engenheiro aceita instalar. */
   max_fan_count: number;
   refrigerant?: string;
+  /** Motor de cálculo das serpentinas. */
+  engine?: "basic" | "advanced";
   constraints: EvaporatorConstraints;
   criteria: EvaporatorCriterion[];
 }
@@ -227,6 +229,7 @@ function simulateCandidate(
           air_inlet_temp_c: t_air_in,
           airflow_m3h: airflow,
           coil_type: isCondenser ? "condenser" : "evaporator",
+          engine: input.engine ?? "advanced",
           geometry: {
             rows: geo.rows,
             tubes_per_row: geo.tubes_per_row,
