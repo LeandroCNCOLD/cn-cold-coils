@@ -93,13 +93,10 @@ export function Step4HubPanel() {
 
     hub.setEvaporator({
       rows_total: step2.rows,
-      tubes_per_row: step2.tubesPerRow,
-      circuits: Math.ceil(step2.tubesPerRow / 2),
       fin_spacing_mm: step2.finSpacingMm,
-      length_mm: step2.lengthMm,
       airflow_m3_h: step2.fan ? (step2.fan.airflow_m3h ?? 0) * step2.fanCount : undefined,
-      air_inlet_temp_c: step2.airInletTempC,
-      fluid_inlet_temp_c: dp.te_c,
+      air_temperature_in_c: step2.airInletTempC,
+      T_evaporating_c: dp.te_c,
     });
 
     hub.setConditions({
