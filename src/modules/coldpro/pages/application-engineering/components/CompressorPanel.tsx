@@ -53,6 +53,13 @@ export function CompressorPanel() {
   const [selectedItem, setSelectedItem] = useState<CompressorItem | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
 
+  // Varredura de pontos operacionais (Te_inicial → Te_final, em passo °C, para um T_cond)
+  const [teStart, setTeStart] = useState<number>(-10);
+  const [teEnd, setTeEnd] = useState<number>(-30);
+  const [teStep, setTeStep] = useState<number>(5);
+  const [tcValue, setTcValue] = useState<number>(40);
+  const [sweepPoints, setSweepPoints] = useState<CapacityCurvePoint[] | null>(null);
+
   /**
    * Chamado quando o usuário confirma a seleção no CompressorPickerModal.
    * Busca o CompressorCatalogRow completo para extrair os coeficientes EN12900.
