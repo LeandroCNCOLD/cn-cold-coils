@@ -10,7 +10,7 @@ import { Step2EvaporatorPanel } from "./components/Step2EvaporatorPanel";
 import { Step3CondenserPanel } from "./components/Step3CondenserPanel";
 import { Step4HubPanel } from "./components/Step4HubPanel";
 import { CompressorPanel } from "./components/CompressorPanel";
-import { EvaporatorAutoPanel } from "./components/EvaporatorAutoPanel";
+import { EvaporatorPanel } from "./components/EvaporatorPanel";
 import { CondenserAutoPanel } from "./components/CondenserAutoPanel";
 
 const STEPS = [
