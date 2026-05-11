@@ -34,7 +34,9 @@ import {
 import {
   loadGeometryCatalog,
   type GeometryOption,
+  type CoilApplication,
 } from "../services/geometryCatalogService";
+import { GeometryCatalogPicker } from "./GeometryCatalogPicker";
 import { CoveragePointsTable } from "./CoveragePointsTable";
 import type { PowerUnit } from "@/utils/unitConversions";
 
