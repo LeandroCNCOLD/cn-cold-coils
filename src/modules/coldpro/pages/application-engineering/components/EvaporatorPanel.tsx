@@ -186,6 +186,7 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
           sweep,
           mode,
           delta_t_target_k: deltaTTargetK,
+          engine,
           max_fan_count: maxFanCount,
           constraints,
           criteria,
