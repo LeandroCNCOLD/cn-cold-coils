@@ -113,7 +113,7 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
   );
 
   // Motor de cálculo: avançado (Schmidt + LMTD) ou básico (rápido m·cp·ΔT)
-  const [engine, setEngine] = useState<"basic" | "advanced">("advanced");
+  const [engine, setEngine] = useState<"basic" | "advanced" | "ntu_epsilon" | "lmtd_iterative">("ntu_epsilon");
 
   // Geometria (ferramenta de estampagem) e lado de saída dos coletores
   const [geometries, setGeometries] = useState<GeometryOption[]>([]);
