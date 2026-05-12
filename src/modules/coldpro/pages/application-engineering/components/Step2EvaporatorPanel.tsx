@@ -215,6 +215,9 @@ export function Step2EvaporatorPanel({ onNext }: Props) {
               <label className="mb-1 block text-xs font-medium text-slate-600">T_ar_entrada [°C]</label>
               <Input
                 type="number"
+                min={-60}
+                max={60}
+                step={0.5}
                 value={step2.airInletTempC}
                 onChange={(e) => updateStep2({ airInletTempC: Number(e.target.value), result: null })}
                 className="h-9 text-sm"

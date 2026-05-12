@@ -20,6 +20,8 @@ interface TechnicalFieldProps {
   disabled?: boolean;
   required?: boolean;
   step?: string;
+  min?: number | string;
+  max?: number | string;
 }
 
 export function TechnicalField({
@@ -34,6 +36,8 @@ export function TechnicalField({
   disabled,
   required,
   step,
+  min,
+  max,
 }: TechnicalFieldProps) {
   const [showHelp, setShowHelp] = useState(false);
 
@@ -75,6 +79,8 @@ export function TechnicalField({
           placeholder={placeholder}
           disabled={disabled}
           step={step}
+          min={min}
+          max={max}
           className={`w-full min-w-0 rounded border bg-white px-2 py-1 text-xs text-slate-900 outline-none transition focus:ring-1 disabled:bg-slate-100 disabled:text-slate-500 ${unit ? "pr-7" : ""} ${borderClass}`}
         />
         {unit && (

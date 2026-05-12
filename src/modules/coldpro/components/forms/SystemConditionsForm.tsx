@@ -31,6 +31,8 @@ export function SystemConditionsForm({ value, onChange }: SystemConditionsFormPr
           onChange={(v) => set("ambient_temp_c", v)}
           type="number"
           unit="°C"
+          min={-20}
+          max={60}
           required
           validation={validateRequired(value.ambient_temp_c)}
           help={{

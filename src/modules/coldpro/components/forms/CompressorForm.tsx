@@ -63,6 +63,8 @@ export function CompressorForm({ value, onChange }: CompressorFormProps) {
           onChange={(v) => setNum("evap_temp_c", v)}
           type="number"
           unit="°C"
+          min={-60}
+          max={20}
           required
           validation={validateEvapTemp(value.evap_temp_c)}
           help={{
@@ -79,6 +81,8 @@ export function CompressorForm({ value, onChange }: CompressorFormProps) {
           onChange={(v) => setNum("cond_temp_c", v)}
           type="number"
           unit="°C"
+          min={20}
+          max={70}
           required
           validation={validateCondTemp(value.cond_temp_c)}
           help={{

@@ -309,6 +309,9 @@ export function CompressorPanel() {
                     <Label className="text-[11px] text-muted-foreground">T evap. inicial (°C)</Label>
                     <Input
                       type="number"
+                      min={-60}
+                      max={20}
+                      step={1}
                       value={teStart}
                       onChange={(e) => setTeStart(parseFloat(e.target.value))}
                       className="h-8 text-xs"
@@ -318,6 +321,9 @@ export function CompressorPanel() {
                     <Label className="text-[11px] text-muted-foreground">T evap. final (°C)</Label>
                     <Input
                       type="number"
+                      min={-60}
+                      max={20}
+                      step={1}
                       value={teEnd}
                       onChange={(e) => setTeEnd(parseFloat(e.target.value))}
                       className="h-8 text-xs"
@@ -339,6 +345,9 @@ export function CompressorPanel() {
                     <Label className="text-[11px] text-muted-foreground">T cond. inicial (°C)</Label>
                     <Input
                       type="number"
+                      min={-20}
+                      max={80}
+                      step={1}
                       value={tcStart}
                       onChange={(e) => setTcStart(parseFloat(e.target.value))}
                       className="h-8 text-xs"
@@ -348,6 +357,9 @@ export function CompressorPanel() {
                     <Label className="text-[11px] text-muted-foreground">T cond. final (°C)</Label>
                     <Input
                       type="number"
+                      min={-20}
+                      max={80}
+                      step={1}
                       value={tcEnd}
                       onChange={(e) => setTcEnd(parseFloat(e.target.value))}
                       className="h-8 text-xs"

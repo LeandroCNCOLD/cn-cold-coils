@@ -54,6 +54,8 @@ export function EvaporatorForm({ value, onChange }: EvaporatorFormProps) {
           onChange={(v) => setNum("T_evaporating_c", v)}
           type="number"
           unit="°C"
+          min={-60}
+          max={20}
           required
           help={{
             description: "Temperatura de evaporação do refrigerante na serpentina.",
@@ -83,6 +85,8 @@ export function EvaporatorForm({ value, onChange }: EvaporatorFormProps) {
           onChange={(v) => setNum("air_temperature_in_c", v)}
           type="number"
           unit="°C"
+          min={-60}
+          max={60}
           help={{
             description: "Temperatura do ar entrando no evaporador.",
             unit: "Graus Celsius [°C]",

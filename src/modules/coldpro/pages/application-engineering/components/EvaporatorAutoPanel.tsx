@@ -252,6 +252,8 @@ export function EvaporatorAutoPanel() {
               <label className="text-xs font-medium text-muted-foreground">T_ar entrada (°C)</label>
               <input
                 type="number"
+                min={-60}
+                max={60}
                 step={0.5}
                 value={tAirIn}
                 onChange={(e) => setTAirIn(Number(e.target.value))}

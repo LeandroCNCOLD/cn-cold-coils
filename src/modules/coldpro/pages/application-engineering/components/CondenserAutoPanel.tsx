@@ -244,6 +244,8 @@ export function CondenserAutoPanel() {
               <label className="text-xs font-medium text-muted-foreground">T_ambiente (°C)</label>
               <input
                 type="number"
+                min={-10}
+                max={60}
                 step={0.5}
                 value={tAmbient}
                 onChange={(e) => setTAmbient(Number(e.target.value))}

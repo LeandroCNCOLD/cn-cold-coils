@@ -39,6 +39,8 @@ export function CondenserForm({ value, onChange }: CondenserFormProps) {
           onChange={(v) => set("max_cond_temp_c", v)}
           type="number"
           unit="°C"
+          min={20}
+          max={70}
           required
           validation={validateCondTemp(value.max_cond_temp_c)}
           help={{
