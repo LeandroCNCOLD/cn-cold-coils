@@ -2,13 +2,16 @@
  * fanSuggestionService.ts
  *
  * Sugere o ventilador (diâmetro) e a quantidade compatíveis com a geometria
- * do aletado (comprimento × altura) respeitando um limite máximo de unidades
- * imposto pelo engenheiro.
+ * do aletado (comprimento × altura) E com a vazão de ar necessária para
+ * atender a demanda térmica da serpentina.
  *
- * A vazão de ar do evaporador deixa de ser entrada do usuário e passa a ser
- * uma SUGESTÃO do sistema, calculada por candidato durante a busca.
+ * Fluxo correto:
+ *   1. Calcular vazão necessária a partir da carga térmica (Q_req, ΔT, ρ_ar, cp_ar)
+ *   2. Encontrar o menor ventilador que:
+ *      a) caiba fisicamente na geometria (diâmetro ≤ altura × 0.92)
+ *      b) com N unidades ≤ maxCount entregue ≥ required_airflow_m3h
+ *   3. Se nenhum ventilador atender ambos os critérios → fits = false
  */
-
 export interface FanModel {
   diameter_mm: number;
   /** Vazão nominal por ventilador, em m³/h, em baixa pressão estática. */
@@ -39,31 +42,121 @@ export interface FanSuggestion {
 }
 
 /**
- * Procura o ventilador de MAIOR vazão total possível que:
- *   • caiba na altura do aletado (com margem de 8%);
- *   • caiba lado a lado no comprimento (com margem de 5%);
- *   • respeite o limite máximo de ventiladores do engenheiro.
+ * Calcula a vazão de ar necessária para remover uma carga térmica Q_req [W]
+ * com uma diferença de temperatura ΔT_k [K] entre entrada e saída do ar.
+ *
+ * V̇ = Q / (ρ_ar × cp_ar × ΔT)  [m³/s] → × 3600 → [m³/h]
+ *
+ * Propriedades do ar a ~20°C:
+ *   ρ = 1.20 kg/m³  |  cp = 1006 J/(kg·K)
+ */
+export function calcRequiredAirflow(q_req_w: number, delta_t_k: number): number {
+  const rho_air = 1.20; // kg/m³
+  const cp_air = 1006;  // J/(kg·K)
+  if (delta_t_k <= 0 || q_req_w <= 0) return 0;
+  const m_dot = q_req_w / (cp_air * delta_t_k); // kg/s
+  return (m_dot / rho_air) * 3600;              // m³/h
+}
+
+/**
+ * Seleciona o ventilador mais adequado para uma geometria de serpentina,
+ * considerando:
+ *   1. Encaixe físico: diâmetro ≤ altura × 0.92 E pelo menos 1 unidade cabe
+ *      ao longo do comprimento.
+ *   2. Vazão necessária: N ventiladores (N ≤ maxCount) entregam ≥ required_airflow_m3h.
+ *
+ * Estratégia de seleção:
+ *   - Itera os modelos do menor para o maior diâmetro.
+ *   - Para cada modelo que cabe fisicamente, calcula quantas unidades são
+ *     necessárias para atingir required_airflow_m3h.
+ *   - Escolhe o modelo que atende com o MENOR número de ventiladores
+ *     (e, em caso de empate, o de menor diâmetro → menor custo).
+ *   - Se nenhum modelo atender → fits = false.
+ *
+ * @param length_mm             Comprimento do aletado [mm]
+ * @param height_mm             Altura do aletado [mm]
+ * @param maxCount              Quantidade máxima de ventiladores permitida
+ * @param required_airflow_m3h  Vazão mínima necessária [m³/h] (0 = sem restrição)
  */
 export function suggestFans(
   length_mm: number,
   height_mm: number,
   maxCount: number,
+  required_airflow_m3h = 0,
 ): FanSuggestion {
   if (!length_mm || !height_mm || maxCount < 1) {
     return { model: null, count: 0, total_airflow_m3h: 0, fits: false };
   }
 
-  let best: FanSuggestion | null = null;
+  // Candidatos que cabem fisicamente na geometria
+  const fittingCandidates: Array<{
+    fan: FanModel;
+    maxPhysicalCount: number;
+  }> = [];
+
   for (const fan of FAN_LIBRARY) {
+    // Critério de altura: diâmetro deve caber com 8% de folga
     if (fan.diameter_mm > height_mm * 0.92) continue;
+    // Critério de comprimento: quantas unidades cabem lado a lado
     const fitsAlongLength = Math.floor((length_mm * 0.95) / fan.diameter_mm);
     if (fitsAlongLength < 1) continue;
-    const count = Math.min(maxCount, fitsAlongLength);
-    const total = count * fan.airflow_m3h;
-    if (!best || total > best.total_airflow_m3h) {
-      best = { model: fan, count, total_airflow_m3h: total, fits: true };
+    fittingCandidates.push({
+      fan,
+      maxPhysicalCount: Math.min(maxCount, fitsAlongLength),
+    });
+  }
+
+  if (!fittingCandidates.length) {
+    return { model: null, count: 0, total_airflow_m3h: 0, fits: false };
+  }
+
+  // Se não há restrição de vazão, retornar o que entrega maior vazão total
+  // (comportamento legado — usado quando required_airflow_m3h não é fornecido)
+  if (required_airflow_m3h <= 0) {
+    let best: FanSuggestion | null = null;
+    for (const { fan, maxPhysicalCount } of fittingCandidates) {
+      const total = maxPhysicalCount * fan.airflow_m3h;
+      if (!best || total > best.total_airflow_m3h) {
+        best = { model: fan, count: maxPhysicalCount, total_airflow_m3h: total, fits: true };
+      }
+    }
+    return best ?? { model: null, count: 0, total_airflow_m3h: 0, fits: false };
+  }
+
+  // Com restrição de vazão: encontrar o modelo que atende com MENOS ventiladores
+  // (menor custo / menor consumo elétrico)
+  let bestResult: FanSuggestion | null = null;
+
+  for (const { fan, maxPhysicalCount } of fittingCandidates) {
+    // Quantas unidades deste modelo são necessárias para atingir a vazão requerida?
+    const neededCount = Math.ceil(required_airflow_m3h / fan.airflow_m3h);
+    if (neededCount > maxPhysicalCount) continue; // não consegue atender dentro do limite
+    if (neededCount < 1) continue;
+
+    const total = neededCount * fan.airflow_m3h;
+
+    // Preferir: menor número de ventiladores; em empate, menor diâmetro (menor custo)
+    if (
+      !bestResult ||
+      neededCount < bestResult.count ||
+      (neededCount === bestResult.count &&
+        fan.diameter_mm < (bestResult.model?.diameter_mm ?? Infinity))
+    ) {
+      bestResult = { model: fan, count: neededCount, total_airflow_m3h: total, fits: true };
     }
   }
 
-  return best ?? { model: null, count: 0, total_airflow_m3h: 0, fits: false };
+  // Se nenhum modelo atende a vazão requerida, retornar fits=false com o melhor físico
+  if (!bestResult) {
+    let maxFlow: FanSuggestion | null = null;
+    for (const { fan, maxPhysicalCount } of fittingCandidates) {
+      const total = maxPhysicalCount * fan.airflow_m3h;
+      if (!maxFlow || total > maxFlow.total_airflow_m3h) {
+        maxFlow = { model: fan, count: maxPhysicalCount, total_airflow_m3h: total, fits: false };
+      }
+    }
+    return maxFlow ?? { model: null, count: 0, total_airflow_m3h: 0, fits: false };
+  }
+
+  return bestResult;
 }

@@ -6,7 +6,7 @@
  * combina critérios de seleção com pesos.
  */
 import { sizeCoil } from "./coilSizingService";
-import { suggestFans, type FanSuggestion } from "./fanSuggestionService";
+import { suggestFans, calcRequiredAirflow, type FanSuggestion } from "./fanSuggestionService";
 import type { CapacityCurvePoint } from "../types/app-engineering.types";
 import {
   classifyEvaporatorPoint,
@@ -234,10 +234,23 @@ function simulateCandidate(
   pointsCovered: number;
   fan: FanSuggestion;
 } {
-  const fan = suggestFans(geo.length_mm, geo.height_mm, input.max_fan_count);
+  // Determinar modo antes de calcular a carga máxima
+  const isCondenser = input.mode === "condenser";
+
+  // Calcular a carga térmica máxima do sweep para dimensionar a vazão de ar necessária
+  // Evaporador: Q_max = max(capacity_w)  |  Condensador: Q_max = max(capacity_w + power_w)
+  const maxRequired = input.sweep.reduce((max, pt) => {
+    const q = isCondenser ? pt.capacity_w + pt.power_w : pt.capacity_w;
+    return q > max ? q : max;
+  }, 0);
+
+  // Vazão de ar necessária: V̇ = Q_max / (ρ_ar × cp_ar × ΔT_alvo)
+  const requiredAirflow = calcRequiredAirflow(maxRequired, input.delta_t_target_k);
+
+  // Selecionar ventilador que cabe fisicamente E entrega a vazão necessária
+  const fan = suggestFans(geo.length_mm, geo.height_mm, input.max_fan_count, requiredAirflow);
   const airflow = fan.total_airflow_m3h;
   const dtTarget = input.delta_t_target_k;
-  const isCondenser = input.mode === "condenser";
 
   const coverage: CoveragePoint[] = [];
   let dtSum = 0;
