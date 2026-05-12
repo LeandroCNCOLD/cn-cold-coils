@@ -17,7 +17,6 @@ export {
   classifyEvaporatorPoint,
   classifyCondenserPoint,
 } from "./coilPointClassifier";
-export type { PointStatus } from "./coilPointClassifier";
 
 // ── Tipos públicos ──────────────────────────────────────────────────────────
 
