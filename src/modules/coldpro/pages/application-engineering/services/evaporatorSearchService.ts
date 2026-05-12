@@ -13,6 +13,11 @@ import {
   classifyCondenserPoint,
   type PointStatus,
 } from "./coilPointClassifier";
+export {
+  classifyEvaporatorPoint,
+  classifyCondenserPoint,
+  type PointStatus,
+} from "./coilPointClassifier";
 
 // ── Tipos públicos ──────────────────────────────────────────────────────────
 
