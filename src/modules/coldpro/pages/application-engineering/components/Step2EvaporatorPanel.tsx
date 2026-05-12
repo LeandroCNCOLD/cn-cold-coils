@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ChevronRight, Wind, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
+import { ChevronRight, Wind, CheckCircle2, AlertCircle, Loader2, BarChart2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -17,6 +17,7 @@ import { useEnrichedFanPickerItems } from "@/modules/cn_coils/hooks/useEnrichedF
 import { useCnCoilsSimulationStore } from "@/modules/cn_coils/store/useCnCoilsSimulationStore";
 import { useAppEngineeringStore } from "../store/useAppEngineeringStore";
 import { dimensionEvaporator } from "../services/evaporatorDimensioningService";
+import { CoveragePointsTable } from "./CoveragePointsTable";
 
 const FIN_SPACING_OPTIONS = [4, 6, 7, 8, 10, 12];
 
@@ -31,6 +32,7 @@ export function Step2EvaporatorPanel({ onNext }: Props) {
   const [calculating, setCalculating] = useState(false);
 
   const selectedGeometry = useCnCoilsSimulationStore((s) => s.selectedGeometry);
+  const compressorSweep = useAppEngineeringStore((s) => s.compressorSweep);
   const { items: fanItems } = useEnrichedFanPickerItems();
 
   // Captura geometria quando modal fecha
@@ -42,6 +44,9 @@ export function Step2EvaporatorPanel({ onNext }: Props) {
 
   const designPoint = step1.designPoint;
   const required_capacity_w = designPoint?.capacity_w ?? 0;
+  const dtTarget = designPoint
+    ? Math.max(step2.airInletTempC - designPoint.te_c, 1)
+    : 7;
 
   const airflow_m3h =
     step2.fan && step2.fanCount > 0
@@ -64,6 +69,8 @@ export function Step2EvaporatorPanel({ onNext }: Props) {
         te_c: designPoint.te_c,
         refrigerant: step1.refrigerant,
         required_capacity_w,
+        compressorSweep: compressorSweep.length > 0 ? compressorSweep : undefined,
+        delta_t_target_k: dtTarget,
       });
       updateStep2({ result, completed: result.status === "ok" });
     } finally {
@@ -73,6 +80,11 @@ export function Step2EvaporatorPanel({ onNext }: Props) {
 
   const canCalculate = !!step2.geometry && airflow_m3h > 0 && !!designPoint;
   const canProceed = step2.completed && step2.result?.status === "ok";
+
+  const coverageRatio =
+    step2.result?.sweepTotalPoints && step2.result.sweepTotalPoints > 0
+      ? (step2.result.sweepPointsCovered ?? 0) / step2.result.sweepTotalPoints
+      : null;
 
   return (
     <div className="space-y-4">
@@ -89,6 +101,11 @@ export function Step2EvaporatorPanel({ onNext }: Props) {
             <div className="rounded-md border border-blue-100 bg-blue-50 px-3 py-2 text-xs text-blue-700">
               Ponto de projeto: Te = {designPoint.te_c}°C · Q_req ={" "}
               <strong>{(required_capacity_w / 1000).toFixed(2)} kW</strong>
+              {compressorSweep.length > 0 && (
+                <span className="ml-2 text-blue-500">
+                  · {compressorSweep.length} pontos no sweep
+                </span>
+              )}
             </div>
           )}
 
@@ -227,7 +244,7 @@ export function Step2EvaporatorPanel({ onNext }: Props) {
             Calcular Evaporador
           </Button>
 
-          {/* Resultado */}
+          {/* Resultado do ponto de projeto */}
           {step2.result && (
             <div
               className={`rounded-lg border px-4 py-3 text-sm ${
@@ -236,7 +253,7 @@ export function Step2EvaporatorPanel({ onNext }: Props) {
                   : "border-amber-200 bg-amber-50 text-amber-800"
               }`}
             >
-              <div className="mb-1 flex items-center gap-2 font-medium">
+              <div className="mb-2 flex items-center gap-2 font-medium">
                 {step2.result.status === "ok" ? (
                   <CheckCircle2 className="h-4 w-4 text-green-600" />
                 ) : (
@@ -249,7 +266,32 @@ export function Step2EvaporatorPanel({ onNext }: Props) {
                 <span>η_fin = {(step2.result.fin_efficiency * 100).toFixed(1)}%</span>
                 <span>ΔP_ar = {step2.result.air_pressure_drop_pa.toFixed(1)} Pa</span>
               </div>
+
+              {/* Cobertura do sweep */}
+              {coverageRatio !== null && (
+                <div className="mt-3 border-t border-current/10 pt-2">
+                  <div className="mb-1 flex items-center gap-2 text-xs font-medium">
+                    <BarChart2 className="h-3.5 w-3.5" />
+                    Cobertura do sweep do compressor:{" "}
+                    <Badge
+                      variant={coverageRatio >= 0.8 ? "default" : coverageRatio >= 0.5 ? "secondary" : "destructive"}
+                      className="text-[10px]"
+                    >
+                      {step2.result.sweepPointsCovered}/{step2.result.sweepTotalPoints} pontos (
+                      {(coverageRatio * 100).toFixed(0)}%)
+                    </Badge>
+                  </div>
+                </div>
+              )}
             </div>
+          )}
+
+          {/* Tabela de cobertura ponto a ponto */}
+          {step2.result?.sweepCoverage && step2.result.sweepCoverage.length > 0 && (
+            <CoveragePointsTable
+              points={step2.result.sweepCoverage}
+              mode="evaporator"
+            />
           )}
         </CardContent>
       </Card>

@@ -8,6 +8,11 @@
 import { sizeCoil } from "./coilSizingService";
 import { suggestFans, type FanSuggestion } from "./fanSuggestionService";
 import type { CapacityCurvePoint } from "../types/app-engineering.types";
+import {
+  classifyEvaporatorPoint,
+  classifyCondenserPoint,
+  type PointStatus,
+} from "./coilPointClassifier";
 
 // ── Tipos públicos ──────────────────────────────────────────────────────────
 
@@ -46,6 +51,8 @@ export interface EvaporatorCriterion {
   weight: number;
 }
 
+export type { PointStatus } from "./coilPointClassifier";
+
 export interface CoveragePoint {
   te_c: number;
   tc_c: number;
@@ -53,6 +60,11 @@ export interface CoveragePoint {
   q_evap_w: number;
   delta_t_k: number; // T_ar_in − Te
   meets: boolean;
+  // Classificação por faixa de capacidade
+  ratio?: number;
+  status?: PointStatus;
+  pointScore?: number;
+  recommendation?: string;
   // Campos detalhados do motor (disponíveis quando fan.fits)
   u_w_m2k?: number;
   fin_efficiency?: number;
@@ -87,6 +99,14 @@ export interface EvaporatorCandidate {
   avgCop: number; // COP médio do compressor nos pontos atendidos
   score: number;
   scoreBreakdown: Partial<Record<EvaporatorCriterionKind, number>>;
+  // Métricas de classificação por faixa
+  idealPoints: number;
+  acceptablePoints: number;
+  undersizedPoints: number;
+  oversizedPoints: number;
+  avgRatio: number;
+  maxOversizeRatio: number;
+  minRatio: number;
 }
 
 export interface EvaporatorSearchInput {
@@ -263,7 +283,13 @@ function simulateCandidate(
       }
     }
     const dt = isCondenser ? refrigerant_t - t_air_in : t_air_in - refrigerant_t;
-    const meets = q_coil_w >= required * 0.98;
+    const fit = isCondenser
+      ? classifyCondenserPoint(q_coil_w, required)
+      : classifyEvaporatorPoint(q_coil_w, required);
+    const meets =
+      fit.status === "ideal" ||
+      fit.status === "low_margin" ||
+      fit.status === "acceptable_oversize";
     if (meets) {
       covered += 1;
       copSum += pt.cop;
@@ -277,6 +303,10 @@ function simulateCandidate(
       q_evap_w: q_coil_w,
       delta_t_k: dt,
       meets,
+      ratio: fit.ratio,
+      status: fit.status,
+      pointScore: fit.score,
+      recommendation: fit.recommendation,
       ...coilDetail,
     });
   }
@@ -347,14 +377,44 @@ export function searchBestEvaporator(
   type Pre = Omit<EvaporatorCandidate, "score" | "scoreBreakdown">;
   const pre: Pre[] = geometries.map((geo) => {
     const sim = simulateCandidate(geo, input);
+    const cov = sim.coverage;
+    const total = cov.length;
+    const idealPoints = cov.filter(
+      (p) => p.status === "ideal" || p.status === "low_margin",
+    ).length;
+    const acceptablePoints = cov.filter(
+      (p) => p.status === "acceptable_oversize",
+    ).length;
+    const undersizedPoints = cov.filter((p) => p.status === "undersized").length;
+    const oversizedPoints = cov.filter((p) => p.status === "oversized").length;
+    const ratios = cov.map((p) => p.ratio ?? 0);
+    const avgRatio = total ? ratios.reduce((s, r) => s + r, 0) / total : 0;
+    const maxOversizeRatio = Math.max(...ratios, 0);
+    const minRatio = total ? Math.min(...ratios) : 0;
+
+    // Regra de aprovação: >= 85% aceitáveis, 0 subdimensionados, <= 15% oversized
+    const acceptable = idealPoints + acceptablePoints;
+    const coverageRatio = total ? acceptable / total : 0;
+    const approved =
+      coverageRatio >= 0.85 &&
+      undersizedPoints === 0 &&
+      (total ? oversizedPoints / total : 0) <= 0.15;
+
     return {
       geometry: geo,
       fan: sim.fan,
-      coverage: sim.coverage,
-      pointsCovered: sim.pointsCovered,
+      coverage: cov,
+      pointsCovered: approved ? sim.pointsCovered : 0,
       totalPoints: input.sweep.length,
       avgDeltaT: sim.avgDeltaT,
       avgCop: sim.avgCop,
+      idealPoints,
+      acceptablePoints,
+      undersizedPoints,
+      oversizedPoints,
+      avgRatio,
+      maxOversizeRatio,
+      minRatio,
     };
   });
 

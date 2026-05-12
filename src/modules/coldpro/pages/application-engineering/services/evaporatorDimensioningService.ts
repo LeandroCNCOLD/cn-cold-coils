@@ -1,6 +1,13 @@
 import { calculateCoilAdvanced } from "@/modules/coldpro_v2/engines/coilCalculationEngine";
-import type { EvaporatorDimensioningResult } from "../types/app-engineering.types";
+import type {
+  EvaporatorDimensioningResult,
+  CapacityCurvePoint,
+} from "../types/app-engineering.types";
 import type { CoilGeometryCatalogItem } from "@/modules/cn_coils/types/cncoils.types";
+import {
+  classifyEvaporatorPoint,
+  type CoveragePoint,
+} from "./evaporatorSearchService";
 
 export interface EvaporatorDimensioningInput {
   geometry: CoilGeometryCatalogItem;
@@ -14,38 +21,46 @@ export interface EvaporatorDimensioningInput {
   te_c: number;
   refrigerant?: string;
   required_capacity_w: number;
+  /** Sweep completo do compressor para calcular cobertura ponto a ponto */
+  compressorSweep?: CapacityCurvePoint[];
+  /** ΔT alvo em K para calcular T_ar_in em cada ponto do sweep (padrão: airInletTempC - te_c) */
+  delta_t_target_k?: number;
 }
 
-export function dimensionEvaporator(
+/** Monta os parâmetros do motor para uma dada temperatura de fluido */
+function buildCoilParams(
   input: EvaporatorDimensioningInput,
-): EvaporatorDimensioningResult {
-  const { geometry, rows, tubesPerRow, lengthMm, finSpacingMm, airflowM3h, airInletTempC, airRhIn, te_c, refrigerant } = input;
-
-  const result = calculateCoilAdvanced({
+  fluid_t_c: number,
+  air_t_in: number,
+) {
+  const { geometry, rows, tubesPerRow, lengthMm, finSpacingMm, airflowM3h, refrigerant } = input;
+  return {
     rows,
     tubes_per_row: tubesPerRow,
     circuits: Math.max(1, Math.ceil(tubesPerRow / 2)),
     fin_spacing_mm: finSpacingMm,
     length_mm: lengthMm,
     tube_diameter_mm: geometry.tubeOuterDiameterMm,
-    tube_thickness_mm: geometry.tubeInnerDiameterMm != null
-      ? (geometry.tubeOuterDiameterMm - geometry.tubeInnerDiameterMm) / 2
-      : null,
+    tube_thickness_mm:
+      geometry.tubeInnerDiameterMm != null
+        ? (geometry.tubeOuterDiameterMm - geometry.tubeInnerDiameterMm) / 2
+        : null,
     tube_outer_diameter_m: geometry.tubeOuterDiameterMm / 1000,
-    tube_inner_diameter_m: geometry.tubeInnerDiameterMm != null
-      ? geometry.tubeInnerDiameterMm / 1000
-      : (geometry.tubeOuterDiameterMm - 0.7) / 1000,
+    tube_inner_diameter_m:
+      geometry.tubeInnerDiameterMm != null
+        ? geometry.tubeInnerDiameterMm / 1000
+        : (geometry.tubeOuterDiameterMm - 0.7) / 1000,
     tube_pitch_transverse_m: geometry.tubePitchTransverseMm / 1000,
     tube_pitch_longitudinal_m: geometry.tubePitchLongitudinalMm / 1000,
     fin_thickness_mm: 0.1,
     airflow_m3h: airflowM3h,
-    air_inlet_temp_c: airInletTempC,
-    air_relative_humidity: airRhIn,
-    fluid_inlet_temp_c: te_c,
-    fluid_outlet_temp_c: te_c,
+    air_inlet_temp_c: air_t_in,
+    air_relative_humidity: input.airRhIn,
+    fluid_inlet_temp_c: fluid_t_c,
+    fluid_outlet_temp_c: fluid_t_c,
     fluid: refrigerant ?? "R404A",
-    two_phase_mode: "auto",
-    phase_type: "evaporator",
+    two_phase_mode: "auto" as const,
+    phase_type: "evaporator" as const,
     delta_t_k: null,
     mass_flow_kgs: null,
     air_outlet_temp_c: null,
@@ -56,7 +71,16 @@ export function dimensionEvaporator(
     fouling_air_m2k_w: null,
     fouling_fluid_m2k_w: null,
     tube_roughness_m: null,
-  });
+  };
+}
+
+export function dimensionEvaporator(
+  input: EvaporatorDimensioningInput,
+): EvaporatorDimensioningResult {
+  const { te_c, airInletTempC } = input;
+
+  // Cálculo no ponto de projeto
+  const result = calculateCoilAdvanced(buildCoilParams(input, te_c, airInletTempC));
 
   const status: "ok" | "undersized" =
     result.capacity_w >= input.required_capacity_w ? "ok" : "undersized";
@@ -66,6 +90,61 @@ export function dimensionEvaporator(
       ? `Evaporador OK — Q_evap = ${(result.capacity_w / 1000).toFixed(2)} kW ≥ Q_req = ${(input.required_capacity_w / 1000).toFixed(2)} kW`
       : `Subdimensionado — Q_evap = ${(result.capacity_w / 1000).toFixed(2)} kW < Q_req = ${(input.required_capacity_w / 1000).toFixed(2)} kW`;
 
+  // Cobertura ponto a ponto do sweep (quando fornecido)
+  let sweepCoverage: CoveragePoint[] | undefined;
+  let sweepPointsCovered: number | undefined;
+  let sweepTotalPoints: number | undefined;
+
+  if (input.compressorSweep && input.compressorSweep.length > 0) {
+    const dtTarget =
+      input.delta_t_target_k ?? Math.max(airInletTempC - te_c, 1);
+    sweepCoverage = [];
+    let covered = 0;
+
+    for (const pt of input.compressorSweep) {
+      const t_air_in = pt.te_c + dtTarget;
+      let q_coil_w = 0;
+      let detail: Partial<CoveragePoint> = {};
+      try {
+        const r = calculateCoilAdvanced(buildCoilParams(input, pt.te_c, t_air_in));
+        q_coil_w = Number.isFinite(r.capacity_w) ? r.capacity_w : 0;
+        detail = {
+          u_w_m2k: r.u_w_m2k,
+          fin_efficiency: r.fin_efficiency,
+          air_pressure_drop_pa: r.air_pressure_drop_pa,
+          fluid_pressure_drop_kpa: r.fluid_pressure_drop_kpa,
+          fluid_velocity_ms: r.fluid_velocity_ms,
+          exchange_area_m2: r.exchange_area_m2,
+          lmtd_k: r.lmtd_k,
+        };
+      } catch {
+        q_coil_w = 0;
+      }
+      const fit = classifyEvaporatorPoint(q_coil_w, pt.capacity_w);
+      const meets =
+        fit.status === "ideal" ||
+        fit.status === "low_margin" ||
+        fit.status === "acceptable_oversize";
+      if (meets) covered += 1;
+
+      sweepCoverage.push({
+        te_c: pt.te_c,
+        tc_c: pt.tc_c,
+        q_comp_w: pt.capacity_w,
+        q_evap_w: q_coil_w,
+        delta_t_k: t_air_in - pt.te_c,
+        meets,
+        ratio: fit.ratio,
+        status: fit.status,
+        pointScore: fit.score,
+        recommendation: fit.recommendation,
+        ...detail,
+      });
+    }
+    sweepPointsCovered = covered;
+    sweepTotalPoints = input.compressorSweep.length;
+  }
+
   return {
     q_evap_w: result.capacity_w,
     delta_t_k: result.lmtd_k ?? 0,
@@ -74,5 +153,8 @@ export function dimensionEvaporator(
     air_pressure_drop_pa: result.air_pressure_drop_pa,
     status,
     message,
+    sweepCoverage,
+    sweepPointsCovered,
+    sweepTotalPoints,
   };
 }

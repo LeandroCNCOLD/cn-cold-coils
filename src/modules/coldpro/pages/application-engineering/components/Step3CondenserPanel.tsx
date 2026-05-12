@@ -16,6 +16,7 @@ import { useEnrichedFanPickerItems } from "@/modules/cn_coils/hooks/useEnrichedF
 import { useCnCoilsSimulationStore } from "@/modules/cn_coils/store/useCnCoilsSimulationStore";
 import { useAppEngineeringStore } from "../store/useAppEngineeringStore";
 import { dimensionCondenser } from "../services/condenserDimensioningService";
+import { CoveragePointsTable } from "./CoveragePointsTable";
 
 const FIN_SPACING_OPTIONS = [4, 6, 7, 8, 10, 12];
 
@@ -25,6 +26,7 @@ interface Props {
 
 export function Step3CondenserPanel({ onNext }: Props) {
   const { step1, step3, updateStep3 } = useAppEngineeringStore();
+  const compressorSweep = useAppEngineeringStore((s) => s.compressorSweep);
   const [geoOpen, setGeoOpen] = useState(false);
   const [fanOpen, setFanOpen] = useState(false);
   const [calculating, setCalculating] = useState(false);
@@ -63,6 +65,8 @@ export function Step3CondenserPanel({ onNext }: Props) {
         tc_c: designPoint.tc_c,
         refrigerant: step1.refrigerant,
         required_heat_rejection_w,
+        compressorSweep: compressorSweep.length > 0 ? compressorSweep : undefined,
+        delta_t_target_k: designPoint.tc_c - step3.airInletTempC,
       });
       updateStep3({ result, completed: result.status === "ok" });
     } finally {
@@ -217,26 +221,40 @@ export function Step3CondenserPanel({ onNext }: Props) {
 
           {/* Resultado */}
           {step3.result && (
-            <div
-              className={`rounded-lg border px-4 py-3 text-sm ${
-                step3.result.status === "ok"
-                  ? "border-green-200 bg-green-50 text-green-800"
-                  : "border-amber-200 bg-amber-50 text-amber-800"
-              }`}
-            >
-              <div className="mb-1 flex items-center gap-2 font-medium">
-                {step3.result.status === "ok" ? (
-                  <CheckCircle2 className="h-4 w-4 text-green-600" />
-                ) : (
-                  <AlertCircle className="h-4 w-4 text-amber-600" />
+            <div className="space-y-3">
+              <div
+                className={`rounded-lg border px-4 py-3 text-sm ${
+                  step3.result.status === "ok"
+                    ? "border-green-200 bg-green-50 text-green-800"
+                    : "border-amber-200 bg-amber-50 text-amber-800"
+                }`}
+              >
+                <div className="mb-2 flex items-center gap-2 font-medium">
+                  {step3.result.status === "ok" ? (
+                    <CheckCircle2 className="h-4 w-4 text-green-600" />
+                  ) : (
+                    <AlertCircle className="h-4 w-4 text-amber-600" />
+                  )}
+                  {step3.result.message}
+                </div>
+                <div className="grid grid-cols-3 gap-2 text-xs text-slate-600">
+                  <span>U = {step3.result.u_w_m2k.toFixed(1)} W/m²K</span>
+                  <span>η_fin = {(step3.result.fin_efficiency * 100).toFixed(1)}%</span>
+                  <span>ΔP_ar = {step3.result.air_pressure_drop_pa.toFixed(1)} Pa</span>
+                </div>
+                {step3.result.sweepPointsCovered != null && step3.result.sweepTotalPoints != null && (
+                  <div className="mt-2 text-xs font-medium">
+                    Cobertura: {step3.result.sweepPointsCovered}/{step3.result.sweepTotalPoints} pontos
+                    {" "}({((step3.result.sweepPointsCovered / step3.result.sweepTotalPoints) * 100).toFixed(0)}%)
+                  </div>
                 )}
-                {step3.result.message}
               </div>
-              <div className="grid grid-cols-3 gap-2 text-xs text-slate-600">
-                <span>U = {step3.result.u_w_m2k.toFixed(1)} W/m²K</span>
-                <span>η_fin = {(step3.result.fin_efficiency * 100).toFixed(1)}%</span>
-                <span>ΔP_ar = {step3.result.air_pressure_drop_pa.toFixed(1)} Pa</span>
-              </div>
+              {step3.result.sweepCoverage && step3.result.sweepCoverage.length > 0 && (
+                <CoveragePointsTable
+                  points={step3.result.sweepCoverage}
+                  mode="condenser"
+                />
+              )}
             </div>
           )}
         </CardContent>

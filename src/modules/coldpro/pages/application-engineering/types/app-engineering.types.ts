@@ -17,6 +17,10 @@ export interface EvaporatorDimensioningResult {
   air_pressure_drop_pa: number;
   status: "ok" | "undersized";
   message: string;
+  /** Cobertura ponto a ponto do sweep do compressor (quando fornecido) */
+  sweepCoverage?: import("../services/evaporatorSearchService").CoveragePoint[];
+  sweepPointsCovered?: number;
+  sweepTotalPoints?: number;
 }
 
 export interface CondenserDimensioningResult {
@@ -27,6 +31,10 @@ export interface CondenserDimensioningResult {
   air_pressure_drop_pa: number;
   status: "ok" | "undersized";
   message: string;
+  /** Cobertura ponto a ponto do sweep do compressor (quando fornecido) */
+  sweepCoverage?: import("../services/evaporatorSearchService").CoveragePoint[];
+  sweepPointsCovered?: number;
+  sweepTotalPoints?: number;
 }
 
 export interface AppEngineeringStep1 {
@@ -35,6 +43,8 @@ export interface AppEngineeringStep1 {
   capCoeffs: number[];
   pwrCoeffs: number[];
   designPoint: CapacityCurvePoint | null;
+  /** Todos os pontos da grade Te×Tc do compressor para varredura de cobertura */
+  compressorSweep?: CapacityCurvePoint[] | null;
   completed: boolean;
 }
 
