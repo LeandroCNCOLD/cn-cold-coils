@@ -562,6 +562,41 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
                 <Field label="ΔT médio" value={`${result.best.avgDeltaT.toFixed(1)} K`} />
                 <Field label="COP médio" value={result.best.avgCop.toFixed(2)} />
               </div>
+              {/* Resumo de classificação por faixa */}
+              <div className="rounded border border-slate-200 bg-slate-50/60 px-2 py-1.5">
+                <div className="mb-1 text-[10px] uppercase text-muted-foreground">
+                  Distribuição por faixa de capacidade
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {result.best.idealPoints > 0 && (
+                    <span className="inline-flex items-center gap-1 rounded border border-green-300 bg-green-100 px-1.5 py-0.5 text-[10px] font-medium text-green-700">
+                      Ideal: {result.best.idealPoints}
+                    </span>
+                  )}
+                  {result.best.acceptablePoints > 0 && (
+                    <span className="inline-flex items-center gap-1 rounded border border-blue-300 bg-blue-100 px-1.5 py-0.5 text-[10px] font-medium text-blue-700">
+                      Aceitável: {result.best.acceptablePoints}
+                    </span>
+                  )}
+                  {result.best.undersizedPoints > 0 && (
+                    <span className="inline-flex items-center gap-1 rounded border border-red-300 bg-red-100 px-1.5 py-0.5 text-[10px] font-medium text-red-700">
+                      Subdim.: {result.best.undersizedPoints}
+                    </span>
+                  )}
+                  {result.best.oversizedPoints > 0 && (
+                    <span className="inline-flex items-center gap-1 rounded border border-orange-300 bg-orange-100 px-1.5 py-0.5 text-[10px] font-medium text-orange-700">
+                      Grande dem.: {result.best.oversizedPoints}
+                    </span>
+                  )}
+                  <span className="ml-auto text-[10px] text-muted-foreground">
+                    Ratio méd: {(result.best.avgRatio * 100).toFixed(0)}%
+                    {" · "}
+                    Min: {(result.best.minRatio * 100).toFixed(0)}%
+                    {" · "}
+                    Max: {(result.best.maxOversizeRatio * 100).toFixed(0)}%
+                  </span>
+                </div>
+              </div>
               <div className="rounded border border-emerald-300 bg-white px-2 py-1.5">
                 <div className="text-[10px] uppercase text-muted-foreground">
                   Ventilador sugerido pelo sistema
