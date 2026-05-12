@@ -7,6 +7,8 @@
  */
 import { sizeCoil } from "./coilSizingService";
 import { suggestFans, calcRequiredAirflow, type FanSuggestion } from "./fanSuggestionService";
+// FanSuggestion re-exportado para compatibilidade com consumidores externos
+export type { FanSuggestion };
 import type { CapacityCurvePoint } from "../types/app-engineering.types";
 import {
   classifyEvaporatorPoint,
@@ -126,6 +128,13 @@ export interface EvaporatorSearchInput {
   delta_t_target_k: number;
   /** Quantidade máxima de ventiladores que o engenheiro aceita instalar. */
   max_fan_count: number;
+  /**
+   * Vazão de ar total já definida manualmente pelo engenheiro (m³/h).
+   * Quando fornecida, o motor usa esse valor diretamente e não tenta sugerir
+   * um ventilador automático. O campo `fan` do candidato retornado refletirá
+   * `fits=true` com `total_airflow_m3h = manual_airflow_m3h`.
+   */
+  manual_airflow_m3h?: number;
   refrigerant?: string;
   /** Motor de cálculo das serpentinas. */
   engine?: "basic" | "advanced";
@@ -237,18 +246,26 @@ function simulateCandidate(
   // Determinar modo antes de calcular a carga máxima
   const isCondenser = input.mode === "condenser";
 
-  // Calcular a carga térmica máxima do sweep para dimensionar a vazão de ar necessária
-  // Evaporador: Q_max = max(capacity_w)  |  Condensador: Q_max = max(capacity_w + power_w)
-  const maxRequired = input.sweep.reduce((max, pt) => {
-    const q = isCondenser ? pt.capacity_w + pt.power_w : pt.capacity_w;
-    return q > max ? q : max;
-  }, 0);
-
-  // Vazão de ar necessária: V̇ = Q_max / (ρ_ar × cp_ar × ΔT_alvo)
-  const requiredAirflow = calcRequiredAirflow(maxRequired, input.delta_t_target_k);
-
-  // Selecionar ventilador que cabe fisicamente E entrega a vazão necessária
-  const fan = suggestFans(geo.length_mm, geo.height_mm, input.max_fan_count, requiredAirflow);
+  // Ventilador: se o engenheiro já selecionou manualmente, usa a vazão fornecida.
+  // Caso contrário, calcula a vazão necessária e sugere automaticamente.
+  let fan: FanSuggestion;
+  if (input.manual_airflow_m3h && input.manual_airflow_m3h > 0) {
+    // Modo manual: vazão já definida pelo engenheiro
+    fan = {
+      fits: true,
+      model: null,
+      count: input.max_fan_count,
+      total_airflow_m3h: input.manual_airflow_m3h,
+    };
+  } else {
+    // Modo automático (legado): calcula vazão mínima e sugere modelo
+    const maxRequired = input.sweep.reduce((max, pt) => {
+      const q = isCondenser ? pt.capacity_w + pt.power_w : pt.capacity_w;
+      return q > max ? q : max;
+    }, 0);
+    const requiredAirflow = calcRequiredAirflow(maxRequired, input.delta_t_target_k);
+    fan = suggestFans(geo.length_mm, geo.height_mm, input.max_fan_count, requiredAirflow);
+  }
   const airflow = fan.total_airflow_m3h;
   const dtTarget = input.delta_t_target_k;
 

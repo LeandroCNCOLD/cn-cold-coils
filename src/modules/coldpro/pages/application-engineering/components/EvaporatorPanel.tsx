@@ -6,7 +6,7 @@
  * simula cada um sobre o sweep Te×Tc do compressor e devolve o melhor.
  */
 import { useEffect, useMemo, useState } from "react";
-import { Wind, Flame, Play, Loader2, Plus, X, Trash2, Wand2 } from "lucide-react";
+import { Wind, Flame, Play, Loader2, Plus, X, Trash2, Wand2, Fan } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -39,6 +39,8 @@ import {
 import { GeometryCatalogPicker } from "./GeometryCatalogPicker";
 import { CoveragePointsTable } from "./CoveragePointsTable";
 import { useExpansionValves, selectExpansionValve } from "@/modules/coldpro_catalog/hooks/useExpansionValves";
+import { FanPickerModal, type FanPickerItem } from "@/modules/cn_coils/components/FanPickerModal";
+import { useEnrichedFanPickerItems } from "@/modules/cn_coils/hooks/useEnrichedFanPickerItems";
 import type { PowerUnit } from "@/utils/unitConversions";
 
 type ConstraintKey =
@@ -97,8 +99,17 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
     max_frontal_area_m2: 0.5,
   });
 
-  // Limite de ventiladores (sistema sugere modelo + vazão a partir da geometria)
-  const [maxFanCount, setMaxFanCount] = useState(2);
+  // Ventilador selecionado manualmente
+  const [selectedFan, setSelectedFan] = useState<FanPickerItem | null>(null);
+  const [fanCount, setFanCount] = useState(2);
+  const [fanPickerOpen, setFanPickerOpen] = useState(false);
+  const { items: fanItems } = useEnrichedFanPickerItems();
+
+  // Vazão total do ventilador selecionado
+  const totalFanAirflow = useMemo(
+    () => (selectedFan?.airflow_m3h && fanCount > 0 ? selectedFan.airflow_m3h * fanCount : 0),
+    [selectedFan, fanCount],
+  );
 
   // Motor de cálculo: avançado (Schmidt + LMTD) ou básico (rápido m·cp·ΔT)
   const [engine, setEngine] = useState<"basic" | "advanced">("advanced");
@@ -213,7 +224,9 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
           mode,
           delta_t_target_k: deltaTTargetK,
           engine,
-          max_fan_count: maxFanCount,
+          // Ventilador manual: passa a vazão total fixada; max_fan_count=1 (já resolvido)
+          manual_airflow_m3h: totalFanAirflow > 0 ? totalFanAirflow : undefined,
+          max_fan_count: fanCount,
           constraints,
           criteria,
         });
@@ -230,7 +243,7 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
     const avgT =
       sweep.reduce((s, p) => s + (isCondenser ? p.tc_c : p.te_c), 0) / sweep.length;
     const payload = {
-      airflow_m3h: best.fan.total_airflow_m3h,
+      airflow_m3h: totalFanAirflow > 0 ? totalFanAirflow : best.fan.total_airflow_m3h,
       air_inlet_temp_c: isCondenser ? avgT - deltaTTargetK : avgT + deltaTTargetK,
       coil_type: (isCondenser ? "condenser" : "evaporator") as "condenser" | "evaporator",
       geometry: {
@@ -245,7 +258,7 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
     else setEvaporatorInput(payload);
   }
 
-  const canRun = sweep.length > 0 && criteria.length > 0;
+  const canRun = sweep.length > 0 && criteria.length > 0 && totalFanAirflow > 0;
 
   return (
     <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
@@ -340,40 +353,61 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
               </div>
             ))}
 
-            <div className="mt-3 grid grid-cols-2 gap-2 border-t pt-2">
-              <div>
-                <Label className="text-[11px] text-muted-foreground">
-                  Máx. de ventiladores
-                </Label>
+            {/* Seleção manual de ventilador */}
+            <div className="mt-3 border-t pt-2 space-y-2">
+              <Label className="text-[11px] text-muted-foreground block">
+                <Fan className="inline h-3 w-3 mr-1" />
+                Ventilador (seleção manual)
+              </Label>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="h-7 flex-1 text-xs justify-start"
+                  onClick={() => setFanPickerOpen(true)}
+                >
+                  {selectedFan?.model ?? "Selecionar ventilador…"}
+                </Button>
                 <Input
                   type="number"
                   min={1}
-                  step={1}
-                  value={maxFanCount}
-                  onChange={(e) =>
-                    setMaxFanCount(Math.max(1, parseInt(e.target.value) || 1))
-                  }
-                  className="h-7 text-xs"
+                  max={8}
+                  value={fanCount}
+                  onChange={(e) => setFanCount(Math.max(1, parseInt(e.target.value) || 1))}
+                  className="h-7 w-14 text-center text-xs"
+                  title="Quantidade"
                 />
-                <p className="mt-1 text-[10px] text-muted-foreground">
-                  O sistema sugere modelo e vazão compatíveis com a geometria.
-                </p>
               </div>
-              <div>
-                <Label className="text-[11px] text-muted-foreground">
-                  ΔT alvo {isCondenser ? "(Tc − T_ar)" : "(T_ar − Te)"}
-                </Label>
-                <Input
-                  type="number"
-                  value={deltaTTargetK}
-                  disabled
-                  className="h-7 text-xs"
-                />
-                <p className="mt-1 text-[10px] text-muted-foreground">
-                  Definido pelo critério ΔT alvo. T_ar_in ={" "}
-                  {isCondenser ? "Tc − ΔT" : "Te + ΔT"} por ponto.
+              {selectedFan ? (
+                <p className="text-[10px] text-emerald-600">
+                  ✓ {fanCount}× {selectedFan.model} · {selectedFan.diameter_mm} mm ·{" "}
+                  <strong>{totalFanAirflow.toFixed(0)} m³/h</strong> total
+                  {selectedFan.motor_power_w && (
+                    <span className="text-muted-foreground">
+                      {" "}· {(selectedFan.motor_power_w * fanCount / 1000).toFixed(2)} kW
+                    </span>
+                  )}
                 </p>
-              </div>
+              ) : (
+                <p className="text-[10px] text-amber-600">
+                  ⚠ Selecione o ventilador antes de calcular.
+                </p>
+              )}
+            </div>
+            <div className="mt-1">
+              <Label className="text-[11px] text-muted-foreground">
+                ΔT alvo {isCondenser ? "(Tc − T_ar)" : "(T_ar − Te)"}
+              </Label>
+              <Input
+                type="number"
+                value={deltaTTargetK}
+                disabled
+                className="h-7 text-xs"
+              />
+              <p className="mt-1 text-[10px] text-muted-foreground">
+                Definido pelo critério ΔT alvo. T_ar_in ={" "}
+                {isCondenser ? "Tc − ΔT" : "Te + ΔT"} por ponto.
+              </p>
             </div>
           </CardContent>
         </Card>
@@ -599,24 +633,24 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
               </div>
               <div className="rounded border border-emerald-300 bg-white px-2 py-1.5">
                 <div className="text-[10px] uppercase text-muted-foreground">
-                  Ventilador sugerido pelo sistema
+                  Ventilador selecionado
                 </div>
-                {result.best.fan.fits && result.best.fan.model ? (
+                {selectedFan ? (
                   <div className="grid grid-cols-2 gap-2 text-xs sm:grid-cols-4">
-                    <Field label="Modelo" value={result.best.fan.model.label} />
-                    <Field label="Quantidade" value={result.best.fan.count} />
+                    <Field label="Modelo" value={selectedFan.model ?? "—"} />
+                    <Field label="Quantidade" value={fanCount} />
                     <Field
                       label="Vazão / vent."
-                      value={`${result.best.fan.model.airflow_m3h.toLocaleString("pt-BR")} m³/h`}
+                      value={`${(selectedFan.airflow_m3h ?? 0).toLocaleString("pt-BR")} m³/h`}
                     />
                     <Field
                       label="Vazão total"
-                      value={`${result.best.fan.total_airflow_m3h.toLocaleString("pt-BR")} m³/h`}
+                      value={`${totalFanAirflow.toLocaleString("pt-BR")} m³/h`}
                     />
                   </div>
                 ) : (
-                  <div className="text-[11px] text-red-600">
-                    Nenhum ventilador da biblioteca cabe nesta geometria com o limite informado.
+                  <div className="text-[11px] text-amber-600">
+                    Nenhum ventilador selecionado. Escolha um modelo no painel de restrições.
                   </div>
                 )}
               </div>
@@ -681,6 +715,15 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
           Nenhum candidato válido encontrado com as restrições atuais.
         </div>
       )}
+      <FanPickerModal
+        open={fanPickerOpen}
+        onClose={() => setFanPickerOpen(false)}
+        fans={fanItems}
+        onConfirm={(f) => {
+          setSelectedFan(f);
+          setFanPickerOpen(false);
+        }}
+      />
     </div>
   );
 }
