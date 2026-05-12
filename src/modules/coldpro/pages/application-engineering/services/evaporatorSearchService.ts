@@ -53,6 +53,14 @@ export interface CoveragePoint {
   q_evap_w: number;
   delta_t_k: number; // T_ar_in − Te
   meets: boolean;
+  // Campos detalhados do motor (disponíveis quando fan.fits)
+  u_w_m2k?: number;
+  fin_efficiency?: number;
+  air_pressure_drop_pa?: number;
+  fluid_pressure_drop_kpa?: number;
+  fluid_velocity_ms?: number;
+  exchange_area_m2?: number;
+  lmtd_k?: number | null;
 }
 
 export interface EvaporatorCandidateGeometry {
@@ -221,6 +229,7 @@ function simulateCandidate(
     const required = isCondenser ? pt.capacity_w + pt.power_w : pt.capacity_w;
 
     let q_coil_w = 0;
+    let coilDetail: Partial<CoveragePoint> = {};
     if (fan.fits && airflow > 0) {
       try {
         const r = sizeCoil({
@@ -240,6 +249,15 @@ function simulateCandidate(
           },
         });
         q_coil_w = Number.isFinite(r.capacity_w) ? r.capacity_w : 0;
+        coilDetail = {
+          u_w_m2k: r.u_w_m2k,
+          fin_efficiency: r.fin_efficiency,
+          air_pressure_drop_pa: r.air_pressure_drop_pa,
+          fluid_pressure_drop_kpa: r.fluid_pressure_drop_kpa,
+          fluid_velocity_ms: r.fluid_velocity_ms,
+          exchange_area_m2: r.exchange_area_m2,
+          lmtd_k: r.lmtd_k,
+        };
       } catch {
         q_coil_w = 0;
       }
@@ -259,6 +277,7 @@ function simulateCandidate(
       q_evap_w: q_coil_w,
       delta_t_k: dt,
       meets,
+      ...coilDetail,
     });
   }
 
