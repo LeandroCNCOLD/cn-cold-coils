@@ -77,6 +77,7 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
   const sweep = useAppEngineeringStore((s) => s.compressorSweep);
   const refrigerant = useAppEngineeringStore((s) => s.step1.refrigerant);
   const { setEvaporatorInput, setCondenserInput } = useApplicationEngineering();
+  const { updateStep2, updateStep3 } = useAppEngineeringStore();
   const { data: valves } = useExpansionValves(
     isCondenser ? undefined : { refrigerant },
   );
@@ -242,9 +243,12 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
     if (!best) return;
     const avgT =
       sweep.reduce((s, p) => s + (isCondenser ? p.tc_c : p.te_c), 0) / sweep.length;
-    const payload = {
-      airflow_m3h: totalFanAirflow > 0 ? totalFanAirflow : best.fan.total_airflow_m3h,
-      air_inlet_temp_c: isCondenser ? avgT - deltaTTargetK : avgT + deltaTTargetK,
+    const airflow = totalFanAirflow > 0 ? totalFanAirflow : best.fan.total_airflow_m3h;
+    const airInlet = isCondenser ? avgT - deltaTTargetK : avgT + deltaTTargetK;
+    // Atualiza store legado (useApplicationEngineering) — usado por runCalculation
+    const legacyPayload = {
+      airflow_m3h: airflow,
+      air_inlet_temp_c: airInlet,
       coil_type: (isCondenser ? "condenser" : "evaporator") as "condenser" | "evaporator",
       geometry: {
         rows: best.geometry.rows,
@@ -254,8 +258,21 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
         tube_diameter_mm: best.geometry.tube_outer_diameter_mm,
       },
     };
-    if (isCondenser) setCondenserInput(payload);
-    else setEvaporatorInput(payload);
+    if (isCondenser) setCondenserInput(legacyPayload);
+    else setEvaporatorInput(legacyPayload);
+    // Atualiza store novo (useAppEngineeringStore) — usado pelo Step4HubPanel
+    const storePayload = {
+      rows: best.geometry.rows,
+      tubesPerRow: best.geometry.tubes_per_row,
+      finSpacingMm: best.geometry.fin_pitch_mm,
+      lengthMm: best.geometry.length_mm,
+      airInletTempC: airInlet,
+      fanCount,
+      fan: selectedFan ?? null,
+      completed: true,
+    };
+    if (isCondenser) updateStep3(storePayload);
+    else updateStep2({ ...storePayload, airRhIn: 0.85 });
   }
 
   const canRun = sweep.length > 0 && criteria.length > 0 && totalFanAirflow > 0;
@@ -499,11 +516,17 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
         <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
           <div className="flex items-center gap-2">
             <span>Motor:</span>
-            <Select value={engine} onValueChange={(v) => setEngine(v as "basic" | "advanced")}>
-              <SelectTrigger className="h-7 w-44 text-xs">
+            <Select value={engine} onValueChange={(v) => setEngine(v as "basic" | "advanced" | "ntu_epsilon" | "lmtd_iterative")}>
+              <SelectTrigger className="h-7 w-52 text-xs">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
+                <SelectItem value="ntu_epsilon" className="text-xs">
+                  NTU-ε (crossflow) — recomendado
+                </SelectItem>
+                <SelectItem value="lmtd_iterative" className="text-xs">
+                  LMTD iterativo
+                </SelectItem>
                 <SelectItem value="advanced" className="text-xs">
                   Avançado (Schmidt + LMTD)
                 </SelectItem>
@@ -549,9 +572,22 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
       {/* Resultado */}
       {result?.best && (
         <div className="mt-4 space-y-3">
+          {/* Análise inteligente do vencedor */}
+          {result.best.analysis && (
+            <div className="rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-xs text-emerald-800">
+              <span className="font-semibold">Análise: </span>{result.best.analysis}
+            </div>
+          )}
+          {/* Faixa de aplicação */}
+          {result.best.applicationRange?.te_min_c !== null && (
+            <div className="rounded-lg border border-sky-200 bg-sky-50 px-3 py-2 text-xs text-sky-800">
+              <span className="font-semibold">Faixa recomendada: </span>
+              {result.best.applicationRange.description}
+            </div>
+          )}
           <Card className="border-emerald-300 bg-emerald-50/50">
             <CardHeader className="pb-2 flex flex-row items-center justify-between">
-              <CardTitle className="text-sm">Melhor candidato</CardTitle>
+              <CardTitle className="text-sm">🥇 Melhor candidato</CardTitle>
               <div className="flex items-center gap-2">
                 <Badge variant="secondary" className="text-[10px]">
                   Score {(result.best.score * 100).toFixed(1)}%
@@ -707,6 +743,53 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
           )}
 
           <CoveragePointsTable points={result.best.coverage} unit={unit} />
+
+          {/* Ranking completo */}
+          {result.ranked.length > 1 && (
+            <Card>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm">Ranking de candidatos ({result.ranked.length} melhores de {result.totalCandidates})</CardTitle>
+              </CardHeader>
+              <CardContent className="p-0">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-xs">
+                    <thead>
+                      <tr className="border-b bg-slate-50 text-[10px] uppercase text-muted-foreground">
+                        <th className="px-2 py-1.5 text-left">#</th>
+                        <th className="px-2 py-1.5 text-left">Geometria</th>
+                        <th className="px-2 py-1.5 text-right">Score</th>
+                        <th className="px-2 py-1.5 text-right">Ideal</th>
+                        <th className="px-2 py-1.5 text-right">Aceit.</th>
+                        <th className="px-2 py-1.5 text-right">Subdim.</th>
+                        <th className="px-2 py-1.5 text-right">Ratio méd.</th>
+                        <th className="px-2 py-1.5 text-left">Faixa Te</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y">
+                      {result.ranked.map((c, i) => (
+                        <tr key={i} className={i === 0 ? "bg-emerald-50 font-medium" : "hover:bg-slate-50"}>
+                          <td className="px-2 py-1.5 text-muted-foreground">{i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : `#${i + 1}`}</td>
+                          <td className="px-2 py-1.5">
+                            {c.geometry.rows}F × {c.geometry.tubes_per_row}T × {c.geometry.fin_pitch_mm.toFixed(1)}mm × {c.geometry.length_mm}mm
+                          </td>
+                          <td className="px-2 py-1.5 text-right font-mono">{(c.score * 100).toFixed(1)}%</td>
+                          <td className="px-2 py-1.5 text-right text-green-700">{c.idealPoints}</td>
+                          <td className="px-2 py-1.5 text-right text-blue-700">{c.acceptablePoints}</td>
+                          <td className="px-2 py-1.5 text-right text-red-600">{c.undersizedPoints}</td>
+                          <td className="px-2 py-1.5 text-right font-mono">{(c.avgRatio * 100).toFixed(0)}%</td>
+                          <td className="px-2 py-1.5 text-muted-foreground">
+                            {c.applicationRange.te_min_c !== null
+                              ? `${c.applicationRange.te_min_c?.toFixed(0)}°C a ${c.applicationRange.te_max_c?.toFixed(0)}°C`
+                              : "—"}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </CardContent>
+            </Card>
+          )}
         </div>
       )}
 
