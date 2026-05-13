@@ -188,12 +188,17 @@ export function generateCandidates(c: EvaporatorConstraints): EvaporatorCandidat
     tubesList = DEFAULT_RANGES.tubes_per_row;
   }
 
+  // Altura mínima imposta pelo ventilador (clearance ~8% como em suggestFans)
+  const minHeightFromFan =
+    c.fan_diameter_mm && c.fan_diameter_mm > 0 ? c.fan_diameter_mm / 0.92 : 0;
+
   const out: EvaporatorCandidateGeometry[] = [];
   for (const rows of rowsList) {
     for (const tubes of tubesList) {
       for (const fin of finList) {
         for (const len of lenList) {
           const height = computeHeightMm(tubes, pitchTransv);
+          if (minHeightFromFan > 0 && height < minHeightFromFan) continue;
           const area = computeFrontalArea(height, len);
           if (c.max_frontal_area_m2 !== undefined && area > c.max_frontal_area_m2) continue;
           const circuits = Math.max(1, Math.round(tubes / 2));
