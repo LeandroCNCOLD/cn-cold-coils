@@ -312,8 +312,13 @@ export function CompressorPanel() {
                       min={-60}
                       max={20}
                       step={1}
-                      value={teStart}
-                      onChange={(e) => setTeStart(parseFloat(e.target.value))}
+                      value={Number.isFinite(teStart) ? teStart : ""}
+                      onChange={(e) => {
+                        const v = e.target.value;
+                        if (v === "" || v === "-") return;
+                        const n = parseFloat(v);
+                        if (!Number.isNaN(n)) setTeStart(n);
+                      }}
                       className="h-8 text-xs"
                     />
                   </div>
@@ -324,8 +329,13 @@ export function CompressorPanel() {
                       min={-60}
                       max={20}
                       step={1}
-                      value={teEnd}
-                      onChange={(e) => setTeEnd(parseFloat(e.target.value))}
+                      value={Number.isFinite(teEnd) ? teEnd : ""}
+                      onChange={(e) => {
+                        const v = e.target.value;
+                        if (v === "" || v === "-") return;
+                        const n = parseFloat(v);
+                        if (!Number.isNaN(n)) setTeEnd(n);
+                      }}
                       className="h-8 text-xs"
                     />
                   </div>
@@ -335,8 +345,13 @@ export function CompressorPanel() {
                       type="number"
                       min={0.5}
                       step={0.5}
-                      value={teStep}
-                      onChange={(e) => setTeStep(parseFloat(e.target.value))}
+                      value={Number.isFinite(teStep) ? teStep : ""}
+                      onChange={(e) => {
+                        const v = e.target.value;
+                        if (v === "" || v === "-") return;
+                        const n = parseFloat(v);
+                        if (!Number.isNaN(n)) setTeStep(n);
+                      }}
                       className="h-8 text-xs"
                     />
                   </div>
@@ -348,8 +363,13 @@ export function CompressorPanel() {
                       min={-20}
                       max={80}
                       step={1}
-                      value={tcStart}
-                      onChange={(e) => setTcStart(parseFloat(e.target.value))}
+                      value={Number.isFinite(tcStart) ? tcStart : ""}
+                      onChange={(e) => {
+                        const v = e.target.value;
+                        if (v === "" || v === "-") return;
+                        const n = parseFloat(v);
+                        if (!Number.isNaN(n)) setTcStart(n);
+                      }}
                       className="h-8 text-xs"
                     />
                   </div>
@@ -360,8 +380,13 @@ export function CompressorPanel() {
                       min={-20}
                       max={80}
                       step={1}
-                      value={tcEnd}
-                      onChange={(e) => setTcEnd(parseFloat(e.target.value))}
+                      value={Number.isFinite(tcEnd) ? tcEnd : ""}
+                      onChange={(e) => {
+                        const v = e.target.value;
+                        if (v === "" || v === "-") return;
+                        const n = parseFloat(v);
+                        if (!Number.isNaN(n)) setTcEnd(n);
+                      }}
                       className="h-8 text-xs"
                     />
                   </div>
@@ -371,8 +396,13 @@ export function CompressorPanel() {
                       type="number"
                       min={0.5}
                       step={0.5}
-                      value={tcStep}
-                      onChange={(e) => setTcStep(parseFloat(e.target.value))}
+                      value={Number.isFinite(tcStep) ? tcStep : ""}
+                      onChange={(e) => {
+                        const v = e.target.value;
+                        if (v === "" || v === "-") return;
+                        const n = parseFloat(v);
+                        if (!Number.isNaN(n)) setTcStep(n);
+                      }}
                       className="h-8 text-xs"
                     />
                   </div>
