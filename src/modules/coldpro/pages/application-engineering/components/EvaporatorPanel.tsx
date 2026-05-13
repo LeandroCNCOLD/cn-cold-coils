@@ -41,6 +41,7 @@ import { CoveragePointsTable } from "./CoveragePointsTable";
 import { useExpansionValves, selectExpansionValve } from "@/modules/coldpro_catalog/hooks/useExpansionValves";
 import { FanPickerModal, type FanPickerItem } from "@/modules/cn_coils/components/FanPickerModal";
 import { useEnrichedFanPickerItems } from "@/modules/cn_coils/hooks/useEnrichedFanPickerItems";
+import type { CoilGeometryCatalogItem } from "@/modules/cn_coils/types/cncoils.types";
 import type { PowerUnit } from "@/utils/unitConversions";
 
 type ConstraintKey =
@@ -66,6 +67,24 @@ const CRITERION_LABELS: Record<EvaporatorCriterionKind, string> = {
   best_cop: "Melhor COP médio",
   min_area: "Menor área frontal",
 };
+
+function toStepGeometry(g: GeometryOption | undefined): CoilGeometryCatalogItem | null {
+  if (!g) return null;
+  const tubeInnerDiameterMm = Math.max(0.1, g.tube_outer_diameter_mm - 2 * g.tube_thickness_mm);
+  return {
+    id: g.id,
+    name: g.description,
+    tubePitchTransverseMm: g.tube_pitch_transverse_mm,
+    tubePitchLongitudinalMm: g.row_pitch_mm,
+    tubeOuterDiameterMm: g.tube_outer_diameter_mm,
+    tubeInnerDiameterMm,
+    tubeMaterial: "copper",
+    raw: {
+      finThicknessMm: g.fin_thickness_mm,
+      source: "application-engineering-search",
+    },
+  };
+}
 
 interface EvaporatorPanelProps {
   /** "evaporator" (default) ou "condenser" — define cálculo, ΔT e catálogo. */
