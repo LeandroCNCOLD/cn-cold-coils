@@ -38,6 +38,12 @@ export interface EvaporatorConstraints {
   tube_pitch_transverse_mm?: number;
   row_pitch_mm?: number;
   header_side?: HeaderSide;
+  /**
+   * Diâmetro do ventilador selecionado (mm). Quando presente, candidatos
+   * cuja altura do aletado for menor que `fan_diameter_mm / 0.92` são
+   * descartados — é fisicamente impossível instalar o ventilador.
+   */
+  fan_diameter_mm?: number;
 }
 
 export type EvaporatorCriterionKind =
