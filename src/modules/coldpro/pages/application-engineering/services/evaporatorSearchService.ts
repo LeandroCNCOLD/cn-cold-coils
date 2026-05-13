@@ -359,8 +359,12 @@ function scoreCandidate(
   criteria: EvaporatorCriterion[],
   ctx: { maxArea: number; maxCop: number },
 ): { score: number; breakdown: Partial<Record<EvaporatorCriterionKind, number>> } {
-  const { idealPoints, acceptablePoints, totalPoints } = cand;
-  const defaultScore = totalPoints > 0 ? (idealPoints * 1.0 + acceptablePoints * 0.6) / totalPoints : 0;
+  const { idealPoints, acceptablePoints, totalPoints, pointsCovered, undersizedPoints, oversizedPoints } = cand;
+  const pointScore = totalPoints > 0 ? (idealPoints * 1.0 + acceptablePoints * 0.6) / totalPoints : 0;
+  const coverageFraction = totalPoints > 0 ? pointsCovered / totalPoints : 0;
+  const failPenalty = totalPoints > 0 ? (undersizedPoints * 0.08 + oversizedPoints * 0.04) / totalPoints : 0;
+  const physicalPenalty = cand.fan.fits ? 0 : 1;
+  const defaultScore = Math.max(0, pointScore - failPenalty - physicalPenalty);
 
   if (!criteria.length) {
     return { score: defaultScore, breakdown: { max_points_covered: defaultScore } };
@@ -380,7 +384,7 @@ function scoreCandidate(
         break;
       }
       case "max_points_covered": {
-        s = totalPoints > 0 ? (idealPoints * 1.0 + acceptablePoints * 0.6) / totalPoints : 0;
+        s = pointScore;
         break;
       }
       case "best_cop": {
@@ -395,7 +399,8 @@ function scoreCandidate(
     breakdown[c.kind] = s;
     score += (s * Math.max(0, c.weight)) / totalWeight;
   }
-  return { score, breakdown };
+  const gatedScore = coverageFraction > 0 ? score * coverageFraction : 0;
+  return { score: Math.max(0, gatedScore - failPenalty - physicalPenalty), breakdown };
 }
 
 export function searchBestEvaporator(input: EvaporatorSearchInput): EvaporatorSearchResult {
