@@ -230,7 +230,17 @@ function simulateCandidate(
 
   let fan: FanSuggestion;
   if (input.manual_airflow_m3h && input.manual_airflow_m3h > 0) {
-    fan = { fits: true, model: null, count: input.max_fan_count, total_airflow_m3h: input.manual_airflow_m3h };
+    const fanDiameter = input.constraints.fan_diameter_mm ?? 0;
+    const maxPhysicalCount =
+      fanDiameter > 0 ? Math.floor((geo.length_mm * 0.95) / fanDiameter) : input.max_fan_count;
+    const fitsHeight = fanDiameter <= 0 || geo.height_mm >= fanDiameter / 0.92;
+    const fitsCount = fanDiameter <= 0 || maxPhysicalCount >= input.max_fan_count;
+    fan = {
+      fits: fitsHeight && fitsCount,
+      model: null,
+      count: input.max_fan_count,
+      total_airflow_m3h: input.manual_airflow_m3h,
+    };
   } else {
     const maxRequired = input.sweep.reduce((max, pt) => {
       const q = isCondenser ? pt.capacity_w + pt.power_w : pt.capacity_w;
@@ -330,7 +340,8 @@ function generateAnalysis(
   const coveragePct = totalPoints ? Math.round((covered / totalPoints) * 100) : 0;
   const label = isCondenser ? "condensador" : "evaporador";
   const lines: string[] = [];
-  if (rank === 1) lines.push(`Melhor ${label} encontrado para este compressor.`);
+  if (rank === 1 && covered > 0) lines.push(`Melhor ${label} encontrado para este compressor.`);
+  else if (rank === 1) lines.push(`Nenhum ${label} aprovado; este é apenas o candidato mais próximo.`);
   else lines.push(`#${rank} no ranking.`);
   lines.push(`Geometria: ${geo.rows}F × ${geo.tubes_per_row}T × ${geo.fin_pitch_mm.toFixed(1)}mm aleta × ${geo.length_mm}mm.`);
   lines.push(`Cobertura: ${covered}/${totalPoints} pontos (${coveragePct}%) — ${idealPoints} ideais, ${acceptablePoints} aceitáveis.`);
@@ -348,8 +359,12 @@ function scoreCandidate(
   criteria: EvaporatorCriterion[],
   ctx: { maxArea: number; maxCop: number },
 ): { score: number; breakdown: Partial<Record<EvaporatorCriterionKind, number>> } {
-  const { idealPoints, acceptablePoints, totalPoints } = cand;
-  const defaultScore = totalPoints > 0 ? (idealPoints * 1.0 + acceptablePoints * 0.6) / totalPoints : 0;
+  const { idealPoints, acceptablePoints, totalPoints, pointsCovered, undersizedPoints, oversizedPoints } = cand;
+  const pointScore = totalPoints > 0 ? (idealPoints * 1.0 + acceptablePoints * 0.6) / totalPoints : 0;
+  const coverageFraction = totalPoints > 0 ? pointsCovered / totalPoints : 0;
+  const failPenalty = totalPoints > 0 ? (undersizedPoints * 0.08 + oversizedPoints * 0.04) / totalPoints : 0;
+  const physicalPenalty = cand.fan.fits ? 0 : 1;
+  const defaultScore = Math.max(0, pointScore - failPenalty - physicalPenalty);
 
   if (!criteria.length) {
     return { score: defaultScore, breakdown: { max_points_covered: defaultScore } };
@@ -369,7 +384,7 @@ function scoreCandidate(
         break;
       }
       case "max_points_covered": {
-        s = totalPoints > 0 ? (idealPoints * 1.0 + acceptablePoints * 0.6) / totalPoints : 0;
+        s = pointScore;
         break;
       }
       case "best_cop": {
@@ -384,7 +399,8 @@ function scoreCandidate(
     breakdown[c.kind] = s;
     score += (s * Math.max(0, c.weight)) / totalWeight;
   }
-  return { score, breakdown };
+  const gatedScore = coverageFraction > 0 ? score * coverageFraction : 0;
+  return { score: Math.max(0, gatedScore - failPenalty - physicalPenalty), breakdown };
 }
 
 export function searchBestEvaporator(input: EvaporatorSearchInput): EvaporatorSearchResult {

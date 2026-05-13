@@ -41,6 +41,7 @@ import { CoveragePointsTable } from "./CoveragePointsTable";
 import { useExpansionValves, selectExpansionValve } from "@/modules/coldpro_catalog/hooks/useExpansionValves";
 import { FanPickerModal, type FanPickerItem } from "@/modules/cn_coils/components/FanPickerModal";
 import { useEnrichedFanPickerItems } from "@/modules/cn_coils/hooks/useEnrichedFanPickerItems";
+import type { CoilGeometryCatalogItem } from "@/modules/cn_coils/types/cncoils.types";
 import type { PowerUnit } from "@/utils/unitConversions";
 
 type ConstraintKey =
@@ -66,6 +67,24 @@ const CRITERION_LABELS: Record<EvaporatorCriterionKind, string> = {
   best_cop: "Melhor COP médio",
   min_area: "Menor área frontal",
 };
+
+function toStepGeometry(g: GeometryOption | undefined): CoilGeometryCatalogItem | null {
+  if (!g) return null;
+  const tubeInnerDiameterMm = Math.max(0.1, g.tube_outer_diameter_mm - 2 * g.tube_thickness_mm);
+  return {
+    id: g.id,
+    name: g.description,
+    tubePitchTransverseMm: g.tube_pitch_transverse_mm,
+    tubePitchLongitudinalMm: g.row_pitch_mm,
+    tubeOuterDiameterMm: g.tube_outer_diameter_mm,
+    tubeInnerDiameterMm,
+    tubeMaterial: "copper",
+    raw: {
+      finThicknessMm: g.fin_thickness_mm,
+      source: "application-engineering-search",
+    },
+  };
+}
 
 interface EvaporatorPanelProps {
   /** "evaporator" (default) ou "condenser" — define cálculo, ΔT e catálogo. */
@@ -244,6 +263,7 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
   function applyToForm() {
     const best = result?.best;
     if (!best) return;
+    const stepGeometry = toStepGeometry(selectedGeometry);
     const avgT =
       sweep.reduce((s, p) => s + (isCondenser ? p.tc_c : p.te_c), 0) / sweep.length;
     const airflow = totalFanAirflow > 0 ? totalFanAirflow : best.fan.total_airflow_m3h;
@@ -256,6 +276,7 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
       geometry: {
         rows: best.geometry.rows,
         tubes_per_row: best.geometry.tubes_per_row,
+        circuits: best.geometry.circuits,
         fin_spacing_mm: best.geometry.fin_pitch_mm,
         length_mm: best.geometry.length_mm,
         tube_diameter_mm: best.geometry.tube_outer_diameter_mm,
@@ -265,13 +286,15 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
     else setEvaporatorInput(legacyPayload);
     // Atualiza store novo (useAppEngineeringStore) — usado pelo Step4HubPanel
     const storePayload = {
+      geometry: stepGeometry,
       rows: best.geometry.rows,
       tubesPerRow: best.geometry.tubes_per_row,
       finSpacingMm: best.geometry.fin_pitch_mm,
       lengthMm: best.geometry.length_mm,
       airInletTempC: airInlet,
-      fanCount,
+      fanCount: selectedFan ? fanCount : best.fan.count,
       fan: selectedFan ?? null,
+      result: null,
       completed: true,
     };
     if (isCondenser) updateStep3(storePayload);
@@ -279,6 +302,7 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
   }
 
   const canRun = sweep.length > 0 && criteria.length > 0 && totalFanAirflow > 0;
+  const bestApproved = (result?.best?.pointsCovered ?? 0) > 0;
 
   return (
     <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
@@ -577,7 +601,11 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
         <div className="mt-4 space-y-3">
           {/* Análise inteligente do vencedor */}
           {result.best.analysis && (
-            <div className="rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-xs text-emerald-800">
+            <div className={`rounded-lg border px-3 py-2 text-xs ${
+              bestApproved
+                ? "border-emerald-200 bg-emerald-50 text-emerald-800"
+                : "border-amber-200 bg-amber-50 text-amber-800"
+            }`}>
               <span className="font-semibold">Análise: </span>{result.best.analysis}
             </div>
           )}
@@ -588,10 +616,15 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
               {result.best.applicationRange.description}
             </div>
           )}
-          <Card className="border-emerald-300 bg-emerald-50/50">
+          <Card className={bestApproved ? "border-emerald-300 bg-emerald-50/50" : "border-amber-300 bg-amber-50/50"}>
             <CardHeader className="pb-2 flex flex-row items-center justify-between">
-              <CardTitle className="text-sm">🥇 Melhor candidato</CardTitle>
+              <CardTitle className="text-sm">
+                {bestApproved ? "🥇 Melhor candidato aprovado" : "⚠ Candidato mais próximo — não aprovado"}
+              </CardTitle>
               <div className="flex items-center gap-2">
+                <Badge variant={bestApproved ? "default" : "destructive"} className="text-[10px]">
+                  {bestApproved ? "Aprovado" : "Não atende"}
+                </Badge>
                 <Badge variant="secondary" className="text-[10px]">
                   Score {(result.best.score * 100).toFixed(1)}%
                 </Badge>
@@ -694,7 +727,7 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
                 )}
               </div>
               <div className="flex justify-end">
-                <Button size="sm" onClick={applyToForm} className="h-7 gap-1 text-xs">
+                <Button size="sm" onClick={applyToForm} disabled={!bestApproved} className="h-7 gap-1 text-xs">
                   <Wand2 className="h-3 w-3" /> Aplicar ao formulário principal
                 </Button>
               </div>
