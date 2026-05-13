@@ -17,6 +17,7 @@ import { useCnCoilsSimulationStore } from "@/modules/cn_coils/store/useCnCoilsSi
 import { useAppEngineeringStore } from "../store/useAppEngineeringStore";
 import { dimensionCondenser } from "../services/condenserDimensioningService";
 import { CoveragePointsTable } from "./CoveragePointsTable";
+import { FlexibleNumberInput } from "./FlexibleNumberInput";
 
 const FIN_SPACING_OPTIONS = [4, 6, 7, 8, 10, 12];
 
@@ -199,13 +200,12 @@ export function Step3CondenserPanel({ onNext }: Props) {
             </div>
             <div>
               <label className="mb-1 block text-xs font-medium text-slate-600">T_ar_entrada [°C]</label>
-              <Input
-                type="number"
+              <FlexibleNumberInput
                 min={-10}
                 max={60}
                 step={0.5}
                 value={step3.airInletTempC}
-                onChange={(e) => updateStep3({ airInletTempC: Number(e.target.value), result: null })}
+                onValueChange={(airInletTempC) => updateStep3({ airInletTempC, result: null })}
                 className="h-9 text-sm"
               />
             </div>
