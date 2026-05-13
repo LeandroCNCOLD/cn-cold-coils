@@ -191,9 +191,12 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
       c.tube_pitch_transverse_mm = selectedGeometry.tube_pitch_transverse_mm;
       c.row_pitch_mm = selectedGeometry.row_pitch_mm;
     }
+    if (selectedFan?.diameter_mm && selectedFan.diameter_mm > 0) {
+      c.fan_diameter_mm = selectedFan.diameter_mm;
+    }
     c.header_side = headerSide;
     return c;
-  }, [fixed, values, selectedGeometry, headerSide]);
+  }, [fixed, values, selectedGeometry, selectedFan, headerSide]);
 
   function addCriterion() {
     const used = new Set(criteria.map((c) => c.kind));
