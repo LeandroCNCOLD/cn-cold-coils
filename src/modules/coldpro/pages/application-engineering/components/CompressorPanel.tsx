@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { FlexibleNumberInput } from "./FlexibleNumberInput";
 import {
   AlertTriangle,
   CheckCircle2,
@@ -307,102 +308,70 @@ export function CompressorPanel() {
                 <div className="grid grid-cols-2 gap-3">
                   <div className="space-y-1">
                     <Label className="text-[11px] text-muted-foreground">T evap. inicial (°C)</Label>
-                    <Input
-                      type="number"
+                    <FlexibleNumberInput
                       min={-60}
                       max={20}
                       step={1}
-                      value={Number.isFinite(teStart) ? teStart : ""}
-                      onChange={(e) => {
-                        const v = e.target.value;
-                        if (v === "" || v === "-") return;
-                        const n = parseFloat(v);
-                        if (!Number.isNaN(n)) setTeStart(n);
-                      }}
+                      value={teStart}
+                      onValueChange={setTeStart}
                       className="h-8 text-xs"
                     />
                   </div>
                   <div className="space-y-1">
                     <Label className="text-[11px] text-muted-foreground">T evap. final (°C)</Label>
-                    <Input
-                      type="number"
+                    <FlexibleNumberInput
                       min={-60}
                       max={20}
                       step={1}
-                      value={Number.isFinite(teEnd) ? teEnd : ""}
-                      onChange={(e) => {
-                        const v = e.target.value;
-                        if (v === "" || v === "-") return;
-                        const n = parseFloat(v);
-                        if (!Number.isNaN(n)) setTeEnd(n);
-                      }}
+                      value={teEnd}
+                      onValueChange={setTeEnd}
                       className="h-8 text-xs"
                     />
                   </div>
                   <div className="space-y-1">
                     <Label className="text-[11px] text-muted-foreground">Passo Te (°C)</Label>
-                    <Input
-                      type="number"
+                    <FlexibleNumberInput
                       min={0.5}
                       step={0.5}
-                      value={Number.isFinite(teStep) ? teStep : ""}
-                      onChange={(e) => {
-                        const v = e.target.value;
-                        if (v === "" || v === "-") return;
-                        const n = parseFloat(v);
-                        if (!Number.isNaN(n)) setTeStep(n);
-                      }}
+                      value={teStep}
+                      onValueChange={setTeStep}
+                      allowNegative={false}
                       className="h-8 text-xs"
                     />
                   </div>
                   <div />
                   <div className="space-y-1">
                     <Label className="text-[11px] text-muted-foreground">T cond. inicial (°C)</Label>
-                    <Input
-                      type="number"
-                      min={-20}
-                      max={80}
+                    <FlexibleNumberInput
+                      min={20}
+                      max={70}
                       step={1}
-                      value={Number.isFinite(tcStart) ? tcStart : ""}
-                      onChange={(e) => {
-                        const v = e.target.value;
-                        if (v === "" || v === "-") return;
-                        const n = parseFloat(v);
-                        if (!Number.isNaN(n)) setTcStart(n);
-                      }}
+                      value={tcStart}
+                      onValueChange={setTcStart}
+                      allowNegative={false}
                       className="h-8 text-xs"
                     />
                   </div>
                   <div className="space-y-1">
                     <Label className="text-[11px] text-muted-foreground">T cond. final (°C)</Label>
-                    <Input
-                      type="number"
-                      min={-20}
-                      max={80}
+                    <FlexibleNumberInput
+                      min={20}
+                      max={70}
                       step={1}
-                      value={Number.isFinite(tcEnd) ? tcEnd : ""}
-                      onChange={(e) => {
-                        const v = e.target.value;
-                        if (v === "" || v === "-") return;
-                        const n = parseFloat(v);
-                        if (!Number.isNaN(n)) setTcEnd(n);
-                      }}
+                      value={tcEnd}
+                      onValueChange={setTcEnd}
+                      allowNegative={false}
                       className="h-8 text-xs"
                     />
                   </div>
                   <div className="space-y-1">
                     <Label className="text-[11px] text-muted-foreground">Passo Tc (°C)</Label>
-                    <Input
-                      type="number"
+                    <FlexibleNumberInput
                       min={0.5}
                       step={0.5}
-                      value={Number.isFinite(tcStep) ? tcStep : ""}
-                      onChange={(e) => {
-                        const v = e.target.value;
-                        if (v === "" || v === "-") return;
-                        const n = parseFloat(v);
-                        if (!Number.isNaN(n)) setTcStep(n);
-                      }}
+                      value={tcStep}
+                      onValueChange={setTcStep}
+                      allowNegative={false}
                       className="h-8 text-xs"
                     />
                   </div>

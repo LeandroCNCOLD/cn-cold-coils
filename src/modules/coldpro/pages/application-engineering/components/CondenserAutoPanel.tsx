@@ -22,6 +22,7 @@ import { useEnrichedFanPickerItems } from "@/modules/cn_coils/hooks/useEnrichedF
 import { useCnCoilsSimulationStore } from "@/modules/cn_coils/store/useCnCoilsSimulationStore";
 import { useApplicationEngineering } from "../hooks/useApplicationEngineering";
 import { autoSizeCondenser } from "../services/autoSizingService";
+import { FlexibleNumberInput } from "./FlexibleNumberInput";
 import type { CoilGeometryCatalogItem } from "@/modules/cn_coils/types/cncoils.types";
 import type { AutoSizingResult } from "../services/autoSizingService";
 
@@ -242,13 +243,12 @@ export function CondenserAutoPanel() {
             {/* Temperatura ambiente */}
             <div>
               <label className="text-xs font-medium text-muted-foreground">T_ambiente (°C)</label>
-              <input
-                type="number"
+              <FlexibleNumberInput
                 min={-10}
                 max={60}
                 step={0.5}
                 value={tAmbient}
-                onChange={(e) => setTAmbient(Number(e.target.value))}
+                onValueChange={setTAmbient}
                 className="mt-1 w-full rounded border border-border bg-background px-2 py-2 text-sm"
               />
             </div>

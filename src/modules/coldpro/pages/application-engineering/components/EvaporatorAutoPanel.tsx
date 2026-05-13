@@ -28,6 +28,7 @@ import { useEnrichedFanPickerItems } from "@/modules/cn_coils/hooks/useEnrichedF
 import { useCnCoilsSimulationStore } from "@/modules/cn_coils/store/useCnCoilsSimulationStore";
 import { useApplicationEngineering } from "../hooks/useApplicationEngineering";
 import { autoSizeEvaporator } from "../services/autoSizingService";
+import { FlexibleNumberInput } from "./FlexibleNumberInput";
 import type { CoilGeometryCatalogItem } from "@/modules/cn_coils/types/cncoils.types";
 import type { AutoSizingResult } from "../services/autoSizingService";
 
@@ -250,13 +251,12 @@ export function EvaporatorAutoPanel() {
             {/* Temperatura de entrada do ar */}
             <div>
               <label className="text-xs font-medium text-muted-foreground">T_ar entrada (°C)</label>
-              <input
-                type="number"
+              <FlexibleNumberInput
                 min={-60}
                 max={60}
                 step={0.5}
                 value={tAirIn}
-                onChange={(e) => setTAirIn(Number(e.target.value))}
+                onValueChange={setTAirIn}
                 className="mt-1 w-full rounded border border-border bg-background px-2 py-2 text-sm"
               />
             </div>
