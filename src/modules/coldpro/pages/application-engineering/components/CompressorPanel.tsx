@@ -329,8 +329,13 @@ export function CompressorPanel() {
                       min={-60}
                       max={20}
                       step={1}
-                      value={teEnd}
-                      onChange={(e) => setTeEnd(parseFloat(e.target.value))}
+                      value={Number.isFinite(teEnd) ? teEnd : ""}
+                      onChange={(e) => {
+                        const v = e.target.value;
+                        if (v === "" || v === "-") return;
+                        const n = parseFloat(v);
+                        if (!Number.isNaN(n)) setTeEnd(n);
+                      }}
                       className="h-8 text-xs"
                     />
                   </div>
