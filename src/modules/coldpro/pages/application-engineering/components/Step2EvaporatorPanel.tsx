@@ -38,10 +38,10 @@ export function Step2EvaporatorPanel({ onNext }: Props) {
 
   // Captura geometria quando modal fecha
   useEffect(() => {
-    if (selectedGeometry && selectedGeometry !== step2.geometry) {
+    if (selectedGeometry && selectedGeometry.id !== step2.geometry?.id) {
       updateStep2({ geometry: selectedGeometry, result: null });
     }
-  }, [selectedGeometry]);
+  }, [selectedGeometry, step2.geometry?.id, updateStep2]);
 
   const designPoint = step1.designPoint;
   const required_capacity_w = designPoint?.capacity_w ?? 0;
