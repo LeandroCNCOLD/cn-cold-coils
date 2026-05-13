@@ -302,6 +302,7 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
   }
 
   const canRun = sweep.length > 0 && criteria.length > 0 && totalFanAirflow > 0;
+  const bestApproved = (result?.best?.pointsCovered ?? 0) > 0;
 
   return (
     <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
@@ -600,7 +601,11 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
         <div className="mt-4 space-y-3">
           {/* Análise inteligente do vencedor */}
           {result.best.analysis && (
-            <div className="rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-xs text-emerald-800">
+            <div className={`rounded-lg border px-3 py-2 text-xs ${
+              bestApproved
+                ? "border-emerald-200 bg-emerald-50 text-emerald-800"
+                : "border-amber-200 bg-amber-50 text-amber-800"
+            }`}>
               <span className="font-semibold">Análise: </span>{result.best.analysis}
             </div>
           )}
@@ -611,10 +616,15 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
               {result.best.applicationRange.description}
             </div>
           )}
-          <Card className="border-emerald-300 bg-emerald-50/50">
+          <Card className={bestApproved ? "border-emerald-300 bg-emerald-50/50" : "border-amber-300 bg-amber-50/50"}>
             <CardHeader className="pb-2 flex flex-row items-center justify-between">
-              <CardTitle className="text-sm">🥇 Melhor candidato</CardTitle>
+              <CardTitle className="text-sm">
+                {bestApproved ? "🥇 Melhor candidato aprovado" : "⚠ Candidato mais próximo — não aprovado"}
+              </CardTitle>
               <div className="flex items-center gap-2">
+                <Badge variant={bestApproved ? "default" : "destructive"} className="text-[10px]">
+                  {bestApproved ? "Aprovado" : "Não atende"}
+                </Badge>
                 <Badge variant="secondary" className="text-[10px]">
                   Score {(result.best.score * 100).toFixed(1)}%
                 </Badge>
@@ -717,7 +727,7 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
                 )}
               </div>
               <div className="flex justify-end">
-                <Button size="sm" onClick={applyToForm} className="h-7 gap-1 text-xs">
+                <Button size="sm" onClick={applyToForm} disabled={!bestApproved} className="h-7 gap-1 text-xs">
                   <Wand2 className="h-3 w-3" /> Aplicar ao formulário principal
                 </Button>
               </div>
