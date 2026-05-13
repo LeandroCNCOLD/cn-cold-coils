@@ -99,7 +99,6 @@ export function Step4HubPanel() {
 
     hub.setEvaporator({
       rows_total: step2.rows,
-      tubes_per_row: step2.tubesPerRow,
       fin_spacing_mm: step2.finSpacingMm,
       airflow_m3_h: evapAirflow,
       air_temperature_in_c: step2.airInletTempC,
