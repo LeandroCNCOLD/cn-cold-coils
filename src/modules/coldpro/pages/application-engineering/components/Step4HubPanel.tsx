@@ -116,7 +116,10 @@ export function Step4HubPanel() {
           : 0.12,
       coil_width_m: step2.lengthMm / 1000,
       coil_height_m: evapHeightMm ? evapHeightMm / 1000 : undefined,
-      tube_material: step2.geometry?.tubeMaterial ?? "copper",
+      tube_material:
+        step2.geometry?.tubeMaterial === "stainless_steel"
+          ? "steel"
+          : step2.geometry?.tubeMaterial ?? "copper",
       fin_material: "aluminum",
     });
 
