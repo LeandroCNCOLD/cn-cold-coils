@@ -74,6 +74,12 @@ export function Step4HubPanel() {
 
   function syncToHub() {
     if (!dp) return;
+    const evapTubeOuter = step2.geometry?.tubeOuterDiameterMm;
+    const evapTubeInner = step2.geometry?.tubeInnerDiameterMm;
+    const evapPitchT = step2.geometry?.tubePitchTransverseMm;
+    const evapPitchL = step2.geometry?.tubePitchLongitudinalMm;
+    const evapHeightMm = evapPitchT ? step2.tubesPerRow * evapPitchT : undefined;
+    const evapAirflow = step2.fan ? (step2.fan.airflow_m3h ?? 0) * step2.fanCount : undefined;
 
     hub.setCompressor({
       refrigerant: step1.refrigerant,
@@ -93,10 +99,25 @@ export function Step4HubPanel() {
 
     hub.setEvaporator({
       rows_total: step2.rows,
+      tubes_per_row: step2.tubesPerRow,
       fin_spacing_mm: step2.finSpacingMm,
-      airflow_m3_h: step2.fan ? (step2.fan.airflow_m3h ?? 0) * step2.fanCount : undefined,
+      airflow_m3_h: evapAirflow,
       air_temperature_in_c: step2.airInletTempC,
+      air_relative_humidity_in: step2.airRhIn,
       T_evaporating_c: dp.te_c,
+      tube_outer_diameter_mm: evapTubeOuter,
+      tube_inner_diameter_mm: evapTubeInner,
+      tube_pitch_transverse_mm: evapPitchT,
+      tube_pitch_longitudinal_mm: evapPitchL,
+      fin_height_mm: evapHeightMm,
+      fin_thickness_mm:
+        typeof step2.geometry?.raw.finThicknessMm === "number"
+          ? step2.geometry.raw.finThicknessMm
+          : 0.12,
+      coil_width_m: step2.lengthMm / 1000,
+      coil_height_m: evapHeightMm ? evapHeightMm / 1000 : undefined,
+      tube_material: step2.geometry?.tubeMaterial ?? "copper",
+      fin_material: "aluminum",
     });
 
     hub.setConditions({
