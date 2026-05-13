@@ -263,6 +263,7 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
   function applyToForm() {
     const best = result?.best;
     if (!best) return;
+    const stepGeometry = toStepGeometry(selectedGeometry);
     const avgT =
       sweep.reduce((s, p) => s + (isCondenser ? p.tc_c : p.te_c), 0) / sweep.length;
     const airflow = totalFanAirflow > 0 ? totalFanAirflow : best.fan.total_airflow_m3h;
@@ -275,6 +276,7 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
       geometry: {
         rows: best.geometry.rows,
         tubes_per_row: best.geometry.tubes_per_row,
+        circuits: best.geometry.circuits,
         fin_spacing_mm: best.geometry.fin_pitch_mm,
         length_mm: best.geometry.length_mm,
         tube_diameter_mm: best.geometry.tube_outer_diameter_mm,
@@ -284,13 +286,15 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
     else setEvaporatorInput(legacyPayload);
     // Atualiza store novo (useAppEngineeringStore) — usado pelo Step4HubPanel
     const storePayload = {
+      geometry: stepGeometry,
       rows: best.geometry.rows,
       tubesPerRow: best.geometry.tubes_per_row,
       finSpacingMm: best.geometry.fin_pitch_mm,
       lengthMm: best.geometry.length_mm,
       airInletTempC: airInlet,
-      fanCount,
+      fanCount: selectedFan ? fanCount : best.fan.count,
       fan: selectedFan ?? null,
+      result: null,
       completed: true,
     };
     if (isCondenser) updateStep3(storePayload);
