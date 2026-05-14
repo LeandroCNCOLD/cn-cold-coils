@@ -41,6 +41,12 @@ import { CoveragePointsTable } from "./CoveragePointsTable";
 import { useExpansionValves, selectExpansionValve } from "@/modules/coldpro_catalog/hooks/useExpansionValves";
 import { FanPickerModal, type FanPickerItem } from "@/modules/cn_coils/components/FanPickerModal";
 import { useEnrichedFanPickerItems } from "@/modules/cn_coils/hooks/useEnrichedFanPickerItems";
+import {
+  calcCoilDerivedDimensions,
+  validateFanFit,
+  type FanFitValidation,
+} from "@/modules/cn_coils/utils/coilDerivedMetrics";
+import { checkIndustrialLimits, type IndustrialLimitsCheck } from "../services/coilNtuService";
 import type { CoilGeometryCatalogItem } from "@/modules/cn_coils/types/cncoils.types";
 import type { PowerUnit } from "@/utils/unitConversions";
 
