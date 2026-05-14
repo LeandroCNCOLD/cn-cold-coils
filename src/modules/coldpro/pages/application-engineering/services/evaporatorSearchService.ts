@@ -192,6 +192,7 @@ export function generateCandidates(c: EvaporatorConstraints): EvaporatorCandidat
           const height = computeHeightMm(tubes, pitchTransv);
           const area = computeFrontalArea(height, len);
           if (c.max_frontal_area_m2 !== undefined && area > c.max_frontal_area_m2) continue;
+          if (c.fan_diameter_mm && c.fan_diameter_mm > 0 && height < c.fan_diameter_mm / 0.92) continue;
           const circuits = Math.max(1, Math.round(tubes / 2));
           out.push({
             rows, tubes_per_row: tubes, fin_pitch_mm: fin, length_mm: len,
