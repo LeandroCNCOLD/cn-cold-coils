@@ -396,14 +396,18 @@ export function calcCoilCapacity(input: CoilNtuInput): CoilNtuResult {
   const airProps = calculateAirProperties(input.air_inlet_temp_c);
   const air_dp_pa = 0.5 * airProps.density_kg_m3 * faceVelocity ** 2 * input.rows * 2;
 
-  // Velocidade do fluido refrigerante (estimativa simplificada bifásica)
+  // Velocidade do fluido refrigerante — pré-estimativa via Q ≈ U×A×ΔT_lm (10 K típico).
+  // h_fg e ρ_bifásico: valores típicos para R404A bifásico
+  //   Evaporador (-15°C): h_fg ≈ 163 kJ/kg, ρ_bifásico ≈ 75 kg/m³
+  //   Condensador (+40°C): h_fg ≈ 148 kJ/kg, ρ_bifásico ≈ 110 kg/m³
   const tubeID_m = tube_od_m - 2 * tube_wall_m;
   const A_tubo_m2 = Math.PI * Math.pow(tubeID_m / 2, 2);
-  const rho_fluid_approx = isEvapCoil ? 80 : 120;
-  const h_fg_approx = isEvapCoil ? 150000 : 130000;
-  const m_dot_total_kgs = areaResult.A_total_m2 > 0.01 ? (U * areaResult.A_total_m2 * 10) / h_fg_approx : 0;
-  const fluid_velocity_ms = A_tubo_m2 > 0 && input.circuits > 0
-    ? m_dot_total_kgs / (rho_fluid_approx * A_tubo_m2 * input.circuits)
+  const h_fg_j_kg = isEvapCoil ? 163_000 : 148_000;
+  const rho_bifasico = isEvapCoil ? 75 : 110;
+  const Q_estimado_w = U * areaResult.A_total_m2 * 10;
+  const m_dot_total_kgs = h_fg_j_kg > 0 ? Q_estimado_w / h_fg_j_kg : 0;
+  const fluid_velocity_ms = A_tubo_m2 > 0 && input.circuits > 0 && m_dot_total_kgs > 0
+    ? m_dot_total_kgs / (rho_bifasico * A_tubo_m2 * input.circuits)
     : 0;
 
   const industrial_limits = checkIndustrialLimits(input.coil_type, faceVelocity, air_dp_pa, fluid_velocity_ms);
