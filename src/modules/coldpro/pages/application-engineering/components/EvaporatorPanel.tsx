@@ -41,6 +41,12 @@ import { CoveragePointsTable } from "./CoveragePointsTable";
 import { useExpansionValves, selectExpansionValve } from "@/modules/coldpro_catalog/hooks/useExpansionValves";
 import { FanPickerModal, type FanPickerItem } from "@/modules/cn_coils/components/FanPickerModal";
 import { useEnrichedFanPickerItems } from "@/modules/cn_coils/hooks/useEnrichedFanPickerItems";
+import {
+  calcCoilDerivedDimensions,
+  validateFanFit,
+  type FanFitValidation,
+} from "@/modules/cn_coils/utils/coilDerivedMetrics";
+import { checkIndustrialLimits, type IndustrialLimitsCheck } from "../services/coilNtuService";
 import type { CoilGeometryCatalogItem } from "@/modules/cn_coils/types/cncoils.types";
 import type { PowerUnit } from "@/utils/unitConversions";
 
@@ -174,6 +180,23 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
   const [unit, setUnit] = useState<PowerUnit>("kW");
   const [running, setRunning] = useState(false);
   const [result, setResult] = useState<EvaporatorSearchResult | null>(null);
+  const [approvedCoilDetails, setApprovedCoilDetails] = useState<{
+    altura_mm: number;
+    largura_mm: number;
+    prof_mm: number;
+    volumeInterno_L: number;
+    cargaRefrigerante_kg: number;
+    pesoSeco_kg: number;
+    pesoComFluido_kg: number;
+    gabinete_largura_mm: number;
+    gabinete_altura_mm: number;
+    gabinete_prof_mm: number;
+    face_velocity_ms: number;
+    air_pressure_drop_pa: number;
+    fluid_velocity_ms: number;
+    industrial_limits: IndustrialLimitsCheck | null;
+    fanFit: FanFitValidation | null;
+  } | null>(null);
 
   // Sugestão de válvula de expansão (apenas evaporador)
   const valveSuggestion = useMemo(() => {
@@ -254,6 +277,73 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
           criteria,
         });
         setResult(r);
+
+        // Calcular detalhes técnicos do melhor candidato
+        if (r.best && selectedGeometry) {
+          const geo = r.best.geometry;
+          const tubeOD_m = geo.tube_outer_diameter_mm / 1000;
+          const tubeID_m = tubeOD_m - 2 * 0.00035;
+          const avgTe = sweep.reduce((s, p) => s + (isCondenser ? p.tc_c : p.te_c), 0) / sweep.length;
+
+          const derived = calcCoilDerivedDimensions({
+            nTubesPerRow: geo.tubes_per_row,
+            tubePitchTransverse_mm: selectedGeometry.tube_pitch_transverse_mm,
+            nRows: geo.rows,
+            tubePitchLongitudinal_mm: selectedGeometry.row_pitch_mm,
+            lengthMm: geo.length_mm,
+            tubeID_m,
+            tubeOD_m,
+            nCircuits: geo.circuits,
+            refrigerant: refrigerant || "R404A",
+            T_evap_C: avgTe,
+            finThickness_m: (selectedGeometry.fin_thickness_mm ?? 0.13) / 1000,
+            finPitch_m: geo.fin_pitch_mm / 1000,
+          });
+
+          const firstCov = r.best.coverage[0];
+          const air_pressure_drop_pa = firstCov?.air_pressure_drop_pa ?? 0;
+          const fluid_velocity_ms = firstCov?.fluid_velocity_ms ?? 0;
+          const face_velocity_ms = totalFanAirflow > 0 && geo.frontal_area_m2 > 0
+            ? totalFanAirflow / 3600 / geo.frontal_area_m2
+            : 0;
+
+          const industrial_limits = checkIndustrialLimits(
+            isCondenser ? "condenser" : "evaporator",
+            face_velocity_ms,
+            air_pressure_drop_pa,
+            fluid_velocity_ms,
+          );
+
+          let fanFit: FanFitValidation | null = null;
+          if (selectedFan?.diameter_mm && selectedFan.diameter_mm > 0) {
+            fanFit = validateFanFit({
+              fanD: selectedFan.diameter_mm,
+              altura_mm: derived.altura_mm,
+              largura_mm: derived.largura_mm,
+              nFans: fanCount,
+            });
+          }
+
+          setApprovedCoilDetails({
+            altura_mm: derived.altura_mm,
+            largura_mm: derived.largura_mm,
+            prof_mm: derived.prof_mm,
+            volumeInterno_L: derived.volumeInterno_L,
+            cargaRefrigerante_kg: derived.cargaRefrigerante_kg,
+            pesoSeco_kg: derived.pesoSeco_kg,
+            pesoComFluido_kg: derived.pesoComFluido_kg,
+            gabinete_largura_mm: derived.gabinete_largura_mm,
+            gabinete_altura_mm: derived.gabinete_altura_mm,
+            gabinete_prof_mm: derived.gabinete_prof_mm,
+            face_velocity_ms,
+            air_pressure_drop_pa,
+            fluid_velocity_ms,
+            industrial_limits,
+            fanFit,
+          });
+        } else {
+          setApprovedCoilDetails(null);
+        }
       } finally {
         setRunning(false);
       }
@@ -726,11 +816,120 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
                   </div>
                 )}
               </div>
+
+              {approvedCoilDetails && (
+                <div className="rounded-lg border border-emerald-300 bg-white p-3 space-y-3">
+                  <div className="text-xs font-semibold text-emerald-800">
+                    Dados Técnicos Completos do Aletado Aprovado
+                  </div>
+
+                  <div>
+                    <div className="text-[10px] uppercase text-muted-foreground mb-1">Dimensões do Aletado</div>
+                    <div className="grid grid-cols-3 gap-2 text-xs">
+                      <Field label="Altura" value={`${approvedCoilDetails.altura_mm.toFixed(0)} mm`} />
+                      <Field label="Largura" value={`${approvedCoilDetails.largura_mm.toFixed(0)} mm`} />
+                      <Field label="Profundidade" value={`${approvedCoilDetails.prof_mm.toFixed(0)} mm`} />
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="text-[10px] uppercase text-muted-foreground mb-1">Gabinete</div>
+                    <div className="grid grid-cols-3 gap-2 text-xs">
+                      <Field label="Largura" value={`${approvedCoilDetails.gabinete_largura_mm.toFixed(0)} mm`} />
+                      <Field label="Altura" value={`${approvedCoilDetails.gabinete_altura_mm.toFixed(0)} mm`} />
+                      <Field label="Profundidade" value={`${approvedCoilDetails.gabinete_prof_mm.toFixed(0)} mm`} />
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="text-[10px] uppercase text-muted-foreground mb-1">Volume e Carga de Refrigerante</div>
+                    <div className="grid grid-cols-4 gap-2 text-xs">
+                      <Field label="Volume interno" value={`${approvedCoilDetails.volumeInterno_L.toFixed(2)} L`} />
+                      <Field label="Carga refrig." value={`${approvedCoilDetails.cargaRefrigerante_kg.toFixed(2)} kg`} />
+                      <Field label="Peso seco" value={`${approvedCoilDetails.pesoSeco_kg.toFixed(1)} kg`} />
+                      <Field label="Peso c/ fluido" value={`${approvedCoilDetails.pesoComFluido_kg.toFixed(1)} kg`} />
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="text-[10px] uppercase text-muted-foreground mb-1">Condições Aerodinâmicas e Limites Industriais</div>
+                    <div className="grid grid-cols-3 gap-2 text-xs">
+                      {[
+                        {
+                          label: "Vel. Frontal",
+                          value: `${approvedCoilDetails.face_velocity_ms.toFixed(2)} m/s`,
+                          range: isCondenser ? "Lim: 2,0–4,5 m/s" : "Lim: 1,5–3,5 m/s",
+                          status: approvedCoilDetails.industrial_limits?.face_velocity.status,
+                        },
+                        {
+                          label: "ΔP Ar",
+                          value: `${approvedCoilDetails.air_pressure_drop_pa.toFixed(1)} Pa`,
+                          range: isCondenser ? "Máx: 120 Pa" : "Máx: 80 Pa",
+                          status: approvedCoilDetails.industrial_limits?.air_pressure_drop.status,
+                        },
+                        {
+                          label: "Vel. Fluido",
+                          value: approvedCoilDetails.fluid_velocity_ms > 0
+                            ? `${approvedCoilDetails.fluid_velocity_ms.toFixed(2)} m/s`
+                            : "N/D",
+                          range: isCondenser ? "Lim: 0,5–2,0 m/s" : "Lim: 0,3–1,5 m/s",
+                          status: approvedCoilDetails.industrial_limits?.fluid_velocity.status,
+                        },
+                      ].map((item, i) => {
+                        const cls = item.status === "ok"
+                          ? "border-emerald-300 bg-emerald-50 text-emerald-700"
+                          : item.status === "warning"
+                            ? "border-amber-300 bg-amber-50 text-amber-700"
+                            : "border-red-300 bg-red-50 text-red-700";
+                        const badge = item.status === "ok" ? "✓ OK"
+                          : item.status === "warning" ? "⚠ Atenção"
+                          : "✗ Fora do limite";
+                        return (
+                          <div key={i} className={`rounded border px-2 py-1.5 ${cls}`}>
+                            <div className="text-[10px] uppercase opacity-70">{item.label}</div>
+                            <div className="text-sm font-semibold">{item.value}</div>
+                            <div className="text-[10px] opacity-70">{item.range}</div>
+                            <div className="text-[10px] font-medium mt-0.5">{badge}</div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                    {approvedCoilDetails.industrial_limits && (
+                      <div className={`mt-2 rounded px-2 py-1 text-[11px] font-medium ${
+                        approvedCoilDetails.industrial_limits.overall_status === "ok"
+                          ? "bg-emerald-100 text-emerald-800"
+                          : approvedCoilDetails.industrial_limits.overall_status === "warning"
+                            ? "bg-amber-100 text-amber-800"
+                            : "bg-red-100 text-red-800"
+                      }`}>
+                        {approvedCoilDetails.industrial_limits.overall_status === "ok"
+                          ? "✓ Todos os limites industriais atendidos"
+                          : approvedCoilDetails.industrial_limits.overall_status === "warning"
+                            ? "⚠ Atenção: alguns parâmetros próximos dos limites"
+                            : "✗ Parâmetros fora dos limites — revisar geometria ou ventilação"}
+                      </div>
+                    )}
+                  </div>
+
+                  {approvedCoilDetails.fanFit && (
+                    <div>
+                      <div className="text-[10px] uppercase text-muted-foreground mb-1">Encaixe do Ventilador</div>
+                      {approvedCoilDetails.fanFit.fanWarnings.map((w, i) => (
+                        <div key={i} className={`text-[11px] ${w.level === "ok" ? "text-emerald-700" : "text-red-700"}`}>
+                          {w.level === "ok" ? "✓" : "✗"} {w.msg}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+
               <div className="flex justify-end">
                 <Button size="sm" onClick={applyToForm} disabled={!bestApproved} className="h-7 gap-1 text-xs">
                   <Wand2 className="h-3 w-3" /> Aplicar ao formulário principal
                 </Button>
               </div>
+
             </CardContent>
           </Card>
 
