@@ -285,7 +285,14 @@ export function calcCoilCapacity(input: CoilNtuInput): CoilNtuResult {
   const length_m = input.length_mm / 1000;
   const frontal_area_m2 = height_m * length_m;
 
-  const { h_air, warnings: hWarn } = calcHAir(input.airflow_m3h, frontal_area_m2, tube_od_m, input.air_inlet_temp_c);
+  const { h_air, warnings: hWarn } = calcHAir(
+    input.airflow_m3h,
+    frontal_area_m2,
+    tube_od_m,
+    input.air_inlet_temp_c,
+    input.fin_pitch_mm,
+    input.rows,
+  );
   warnings.push(...hWarn);
 
   const finResult = calculateFinEfficiencySimplified({
