@@ -254,7 +254,8 @@ export function calcCoilCapacity(input: CoilNtuInput): CoilNtuResult {
   const tube_cond = input.tube_conductivity_w_mk ?? DEFAULT_TUBE_COND;
   const fin_cond = input.fin_conductivity_w_mk ?? DEFAULT_FIN_COND;
   const fin_thick = input.fin_thickness_m ?? DEFAULT_FIN_THICK;
-  const h_fluid = input.h_fluid_w_m2k ?? DEFAULT_H_FLUID;
+  const isEvapCoil = input.coil_type === "evaporator";
+  const h_fluid = input.h_fluid_w_m2k ?? (isEvapCoil ? DEFAULT_H_FLUID_EVAP : DEFAULT_H_FLUID_COND);
   const pitch_t_mm = input.tube_pitch_transverse_mm ?? input.row_pitch_mm;
 
   const areaResult = computeFinnedExternalArea({
