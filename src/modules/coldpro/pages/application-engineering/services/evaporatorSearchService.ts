@@ -39,6 +39,7 @@ export interface EvaporatorConstraints {
   tube_pitch_transverse_mm?: number;
   row_pitch_mm?: number;
   header_side?: HeaderSide;
+  fan_diameter_mm?: number;
 }
 
 export type EvaporatorCriterionKind =
