@@ -212,6 +212,7 @@ function calcNtuEpsilon(
   U: number,
   fin_eff: number,
   air_pressure_drop_pa: number,
+  extras: { face_velocity_ms: number; fluid_velocity_ms: number; frontal_area_m2: number; industrial_limits: IndustrialLimitsCheck },
 ): CoilNtuResult {
   const warnings = [...area.warnings];
   const airProps = calculateAirProperties(input.air_inlet_temp_c);
@@ -221,12 +222,14 @@ function calcNtuEpsilon(
   const T_air_in = input.air_inlet_temp_c;
   const isEvap = input.coil_type === "evaporator";
 
+  const baseExtras = { ...extras, air_pressure_drop_pa };
+
   if (isEvap && T_air_in <= T_refrig) {
     warnings.push("T_ar_in <= T_refrig — sem transferência de calor possível");
     return {
       capacity_w: 0, air_outlet_temp_c: T_air_in, u_w_m2k: U, h_air_w_m2k: h_air,
       fin_efficiency: fin_eff, exchange_area_m2: area.A_total_m2, lmtd_k: null,
-      ntu: null, effectiveness: null, air_pressure_drop_pa, engine_used: "ntu_epsilon", warnings,
+      ntu: null, effectiveness: null, ...baseExtras, engine_used: "ntu_epsilon", warnings,
     };
   }
   if (!isEvap && T_refrig <= T_air_in) {
@@ -234,7 +237,7 @@ function calcNtuEpsilon(
     return {
       capacity_w: 0, air_outlet_temp_c: T_air_in, u_w_m2k: U, h_air_w_m2k: h_air,
       fin_efficiency: fin_eff, exchange_area_m2: area.A_total_m2, lmtd_k: null,
-      ntu: null, effectiveness: null, air_pressure_drop_pa, engine_used: "ntu_epsilon", warnings,
+      ntu: null, effectiveness: null, ...baseExtras, engine_used: "ntu_epsilon", warnings,
     };
   }
 
@@ -242,7 +245,6 @@ function calcNtuEpsilon(
   const epsResult = calculateEffectivenessCrossflowUnmixed({ ntu, c_ratio: 0 });
   warnings.push(...epsResult.warnings);
   const eps = epsResult.effectiveness;
-  const Q_max = C_air * Math.abs(T_air_in - T_refrig);
   const Q_w = calculateHeatTransferByNTU({ effectiveness: eps, c_min_w_k: C_air, t_hot_in: isEvap ? T_air_in : T_refrig, t_cold_in: isEvap ? T_refrig : T_air_in });
   const T_air_out = isEvap ? T_air_in - Q_w / C_air : T_air_in + Q_w / C_air;
 
@@ -256,7 +258,7 @@ function calcNtuEpsilon(
     lmtd_k: null,
     ntu,
     effectiveness: eps,
-    air_pressure_drop_pa,
+    ...baseExtras,
     engine_used: "ntu_epsilon",
     warnings,
   };
@@ -269,6 +271,7 @@ function calcLmtdIterative(
   U: number,
   fin_eff: number,
   air_pressure_drop_pa: number,
+  extras: { face_velocity_ms: number; fluid_velocity_ms: number; frontal_area_m2: number; industrial_limits: IndustrialLimitsCheck },
 ): CoilNtuResult {
   const warnings = [...area.warnings];
   const airProps = calculateAirProperties(input.air_inlet_temp_c);
@@ -291,7 +294,7 @@ function calcLmtdIterative(
     lmtd_k = lmtdResult.lmtd_k;
     if (!lmtd_k || lmtd_k <= 0) {
       warnings.push("LMTD inválido — usando NTU-ε como fallback");
-      return calcNtuEpsilon(input, area, h_air, U, fin_eff, air_pressure_drop_pa);
+      return calcNtuEpsilon(input, area, h_air, U, fin_eff, air_pressure_drop_pa, extras);
     }
     Q_w = calculateHeatTransferByLMTD({ u_w_m2k: U, area_m2: area.A_total_m2, lmtd_k });
     const T_air_out_new = isEvap ? T_air_in - Q_w / C_air : T_air_in + Q_w / C_air;
@@ -310,6 +313,7 @@ function calcLmtdIterative(
     ntu: null,
     effectiveness: null,
     air_pressure_drop_pa,
+    ...extras,
     engine_used: "lmtd_iterative",
     warnings,
   };
