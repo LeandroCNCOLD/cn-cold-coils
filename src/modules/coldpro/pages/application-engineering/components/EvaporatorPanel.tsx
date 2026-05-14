@@ -277,6 +277,73 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
           criteria,
         });
         setResult(r);
+
+        // Calcular detalhes técnicos do melhor candidato
+        if (r.best && selectedGeometry) {
+          const geo = r.best.geometry;
+          const tubeOD_m = geo.tube_outer_diameter_mm / 1000;
+          const tubeID_m = tubeOD_m - 2 * 0.00035;
+          const avgTe = sweep.reduce((s, p) => s + (isCondenser ? p.tc_c : p.te_c), 0) / sweep.length;
+
+          const derived = calcCoilDerivedDimensions({
+            nTubesPerRow: geo.tubes_per_row,
+            tubePitchTransverse_mm: selectedGeometry.tube_pitch_transverse_mm,
+            nRows: geo.rows,
+            tubePitchLongitudinal_mm: selectedGeometry.row_pitch_mm,
+            lengthMm: geo.length_mm,
+            tubeID_m,
+            tubeOD_m,
+            nCircuits: geo.circuits,
+            refrigerant: refrigerant || "R404A",
+            T_evap_C: avgTe,
+            finThickness_m: (selectedGeometry.fin_thickness_mm ?? 0.13) / 1000,
+            finPitch_m: geo.fin_pitch_mm / 1000,
+          });
+
+          const firstCov = r.best.coverage[0];
+          const air_pressure_drop_pa = firstCov?.air_pressure_drop_pa ?? 0;
+          const fluid_velocity_ms = firstCov?.fluid_velocity_ms ?? 0;
+          const face_velocity_ms = totalFanAirflow > 0 && geo.frontal_area_m2 > 0
+            ? totalFanAirflow / 3600 / geo.frontal_area_m2
+            : 0;
+
+          const industrial_limits = checkIndustrialLimits(
+            isCondenser ? "condenser" : "evaporator",
+            face_velocity_ms,
+            air_pressure_drop_pa,
+            fluid_velocity_ms,
+          );
+
+          let fanFit: FanFitValidation | null = null;
+          if (selectedFan?.diameter_mm && selectedFan.diameter_mm > 0) {
+            fanFit = validateFanFit({
+              fanD: selectedFan.diameter_mm,
+              altura_mm: derived.altura_mm,
+              largura_mm: derived.largura_mm,
+              nFans: fanCount,
+            });
+          }
+
+          setApprovedCoilDetails({
+            altura_mm: derived.altura_mm,
+            largura_mm: derived.largura_mm,
+            prof_mm: derived.prof_mm,
+            volumeInterno_L: derived.volumeInterno_L,
+            cargaRefrigerante_kg: derived.cargaRefrigerante_kg,
+            pesoSeco_kg: derived.pesoSeco_kg,
+            pesoComFluido_kg: derived.pesoComFluido_kg,
+            gabinete_largura_mm: derived.gabinete_largura_mm,
+            gabinete_altura_mm: derived.gabinete_altura_mm,
+            gabinete_prof_mm: derived.gabinete_prof_mm,
+            face_velocity_ms,
+            air_pressure_drop_pa,
+            fluid_velocity_ms,
+            industrial_limits,
+            fanFit,
+          });
+        } else {
+          setApprovedCoilDetails(null);
+        }
       } finally {
         setRunning(false);
       }
