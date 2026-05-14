@@ -180,6 +180,23 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
   const [unit, setUnit] = useState<PowerUnit>("kW");
   const [running, setRunning] = useState(false);
   const [result, setResult] = useState<EvaporatorSearchResult | null>(null);
+  const [approvedCoilDetails, setApprovedCoilDetails] = useState<{
+    altura_mm: number;
+    largura_mm: number;
+    prof_mm: number;
+    volumeInterno_L: number;
+    cargaRefrigerante_kg: number;
+    pesoSeco_kg: number;
+    pesoComFluido_kg: number;
+    gabinete_largura_mm: number;
+    gabinete_altura_mm: number;
+    gabinete_prof_mm: number;
+    face_velocity_ms: number;
+    air_pressure_drop_pa: number;
+    fluid_velocity_ms: number;
+    industrial_limits: IndustrialLimitsCheck | null;
+    fanFit: FanFitValidation | null;
+  } | null>(null);
 
   // Sugestão de válvula de expansão (apenas evaporador)
   const valveSuggestion = useMemo(() => {
