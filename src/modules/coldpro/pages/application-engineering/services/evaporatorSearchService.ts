@@ -19,6 +19,7 @@ import {
   classifyCondenserPoint,
   type PointStatus,
 } from "./coilPointClassifier";
+
 export {
   classifyEvaporatorPoint,
   classifyCondenserPoint,
@@ -38,11 +39,6 @@ export interface EvaporatorConstraints {
   tube_pitch_transverse_mm?: number;
   row_pitch_mm?: number;
   header_side?: HeaderSide;
-  /**
-   * Diâmetro do ventilador selecionado (mm). Quando presente, candidatos
-   * cuja altura do aletado for menor que `fan_diameter_mm / 0.92` são
-   * descartados — é fisicamente impossível instalar o ventilador.
-   */
   fan_diameter_mm?: number;
 }
 
@@ -188,19 +184,15 @@ export function generateCandidates(c: EvaporatorConstraints): EvaporatorCandidat
     tubesList = DEFAULT_RANGES.tubes_per_row;
   }
 
-  // Altura mínima imposta pelo ventilador (clearance ~8% como em suggestFans)
-  const minHeightFromFan =
-    c.fan_diameter_mm && c.fan_diameter_mm > 0 ? c.fan_diameter_mm / 0.92 : 0;
-
   const out: EvaporatorCandidateGeometry[] = [];
   for (const rows of rowsList) {
     for (const tubes of tubesList) {
       for (const fin of finList) {
         for (const len of lenList) {
           const height = computeHeightMm(tubes, pitchTransv);
-          if (minHeightFromFan > 0 && height < minHeightFromFan) continue;
           const area = computeFrontalArea(height, len);
           if (c.max_frontal_area_m2 !== undefined && area > c.max_frontal_area_m2) continue;
+          if (c.fan_diameter_mm && c.fan_diameter_mm > 0 && height < c.fan_diameter_mm / 0.92) continue;
           const circuits = Math.max(1, Math.round(tubes / 2));
           out.push({
             rows, tubes_per_row: tubes, fin_pitch_mm: fin, length_mm: len,
@@ -230,17 +222,7 @@ function simulateCandidate(
 
   let fan: FanSuggestion;
   if (input.manual_airflow_m3h && input.manual_airflow_m3h > 0) {
-    const fanDiameter = input.constraints.fan_diameter_mm ?? 0;
-    const maxPhysicalCount =
-      fanDiameter > 0 ? Math.floor((geo.length_mm * 0.95) / fanDiameter) : input.max_fan_count;
-    const fitsHeight = fanDiameter <= 0 || geo.height_mm >= fanDiameter / 0.92;
-    const fitsCount = fanDiameter <= 0 || maxPhysicalCount >= input.max_fan_count;
-    fan = {
-      fits: fitsHeight && fitsCount,
-      model: null,
-      count: input.max_fan_count,
-      total_airflow_m3h: input.manual_airflow_m3h,
-    };
+    fan = { fits: true, model: null, count: input.max_fan_count, total_airflow_m3h: input.manual_airflow_m3h };
   } else {
     const maxRequired = input.sweep.reduce((max, pt) => {
       const q = isCondenser ? pt.capacity_w + pt.power_w : pt.capacity_w;
@@ -249,7 +231,6 @@ function simulateCandidate(
     const requiredAirflow = calcRequiredAirflow(maxRequired, input.delta_t_target_k);
     fan = suggestFans(geo.length_mm, geo.height_mm, input.max_fan_count, requiredAirflow);
   }
-
   const airflow = fan.total_airflow_m3h;
   const dtTarget = input.delta_t_target_k;
   const coverage: CoveragePoint[] = [];
@@ -259,7 +240,6 @@ function simulateCandidate(
     const refrigerant_t = isCondenser ? pt.tc_c : pt.te_c;
     const t_air_in = isCondenser ? pt.tc_c - dtTarget : pt.te_c + dtTarget;
     const required = isCondenser ? pt.capacity_w + pt.power_w : pt.capacity_w;
-
     let q_coil_w = 0;
     let coilDetail: Partial<CoveragePoint> = {};
 
@@ -340,8 +320,7 @@ function generateAnalysis(
   const coveragePct = totalPoints ? Math.round((covered / totalPoints) * 100) : 0;
   const label = isCondenser ? "condensador" : "evaporador";
   const lines: string[] = [];
-  if (rank === 1 && covered > 0) lines.push(`Melhor ${label} encontrado para este compressor.`);
-  else if (rank === 1) lines.push(`Nenhum ${label} aprovado; este é apenas o candidato mais próximo.`);
+  if (rank === 1) lines.push(`Melhor ${label} encontrado para este compressor.`);
   else lines.push(`#${rank} no ranking.`);
   lines.push(`Geometria: ${geo.rows}F × ${geo.tubes_per_row}T × ${geo.fin_pitch_mm.toFixed(1)}mm aleta × ${geo.length_mm}mm.`);
   lines.push(`Cobertura: ${covered}/${totalPoints} pontos (${coveragePct}%) — ${idealPoints} ideais, ${acceptablePoints} aceitáveis.`);
@@ -359,21 +338,14 @@ function scoreCandidate(
   criteria: EvaporatorCriterion[],
   ctx: { maxArea: number; maxCop: number },
 ): { score: number; breakdown: Partial<Record<EvaporatorCriterionKind, number>> } {
-  const { idealPoints, acceptablePoints, totalPoints, pointsCovered, undersizedPoints, oversizedPoints } = cand;
-  const pointScore = totalPoints > 0 ? (idealPoints * 1.0 + acceptablePoints * 0.6) / totalPoints : 0;
-  const coverageFraction = totalPoints > 0 ? pointsCovered / totalPoints : 0;
-  const failPenalty = totalPoints > 0 ? (undersizedPoints * 0.08 + oversizedPoints * 0.04) / totalPoints : 0;
-  const physicalPenalty = cand.fan.fits ? 0 : 1;
-  const defaultScore = Math.max(0, pointScore - failPenalty - physicalPenalty);
-
+  const { idealPoints, acceptablePoints, totalPoints } = cand;
+  const defaultScore = totalPoints > 0 ? (idealPoints * 1.0 + acceptablePoints * 0.6) / totalPoints : 0;
   if (!criteria.length) {
     return { score: defaultScore, breakdown: { max_points_covered: defaultScore } };
   }
-
   const totalWeight = criteria.reduce((s, c) => s + Math.max(0, c.weight), 0) || 1;
   const breakdown: Partial<Record<EvaporatorCriterionKind, number>> = {};
   let score = 0;
-
   for (const c of criteria) {
     let s = 0;
     switch (c.kind) {
@@ -384,7 +356,7 @@ function scoreCandidate(
         break;
       }
       case "max_points_covered": {
-        s = pointScore;
+        s = totalPoints > 0 ? (idealPoints * 1.0 + acceptablePoints * 0.6) / totalPoints : 0;
         break;
       }
       case "best_cop": {
@@ -399,20 +371,16 @@ function scoreCandidate(
     breakdown[c.kind] = s;
     score += (s * Math.max(0, c.weight)) / totalWeight;
   }
-  const gatedScore = coverageFraction > 0 ? score * coverageFraction : 0;
-  return { score: Math.max(0, gatedScore - failPenalty - physicalPenalty), breakdown };
+  return { score, breakdown };
 }
 
 export function searchBestEvaporator(input: EvaporatorSearchInput): EvaporatorSearchResult {
   if (!input.sweep.length) return { best: null, ranked: [], totalCandidates: 0 };
-
   const geometries = generateCandidates(input.constraints);
   if (!geometries.length) return { best: null, ranked: [], totalCandidates: 0 };
-
   const isCondenser = input.mode === "condenser";
 
   type Pre = Omit<EvaporatorCandidate, "score" | "scoreBreakdown">;
-
   const pre: Pre[] = geometries.map((geo) => {
     const sim = simulateCandidate(geo, input);
     const cov = sim.coverage;
