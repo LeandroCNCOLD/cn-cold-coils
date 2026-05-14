@@ -349,6 +349,8 @@ export function calcCoilCapacity(input: CoilNtuInput): CoilNtuResult {
       u_w_m2k: 0, h_air_w_m2k: 0, fin_efficiency: 0,
       exchange_area_m2: areaResult.A_total_m2, lmtd_k: null,
       ntu: null, effectiveness: null, air_pressure_drop_pa: 0,
+      face_velocity_ms: 0, fluid_velocity_ms: 0, frontal_area_m2: 0,
+      industrial_limits: checkIndustrialLimits(input.coil_type, 0, 0, 0),
       engine_used: input.engine, warnings,
     };
   }
@@ -375,6 +377,8 @@ export function calcCoilCapacity(input: CoilNtuInput): CoilNtuResult {
   warnings.push(...finResult.warnings);
   const fin_eff = finResult.finEfficiency;
 
+  const faceVelocity = input.airflow_m3h > 0 ? input.airflow_m3h / 3600 / Math.max(frontal_area_m2, 0.001) : 0;
+
   const U = calcU(h_air, h_fluid, fin_eff, tube_wall_m, tube_cond);
   if (U <= 0) {
     warnings.push("U global = 0 — verificar h_ar e h_fluido");
@@ -383,17 +387,39 @@ export function calcCoilCapacity(input: CoilNtuInput): CoilNtuResult {
       u_w_m2k: 0, h_air_w_m2k: h_air, fin_efficiency: fin_eff,
       exchange_area_m2: areaResult.A_total_m2, lmtd_k: null,
       ntu: null, effectiveness: null, air_pressure_drop_pa: 0,
+      face_velocity_ms: faceVelocity, fluid_velocity_ms: 0, frontal_area_m2,
+      industrial_limits: checkIndustrialLimits(input.coil_type, faceVelocity, 0, 0),
       engine_used: input.engine, warnings,
     };
   }
 
-  const faceVelocity = input.airflow_m3h > 0 ? input.airflow_m3h / 3600 / Math.max(frontal_area_m2, 0.001) : 0;
   const airProps = calculateAirProperties(input.air_inlet_temp_c);
   const air_dp_pa = 0.5 * airProps.density_kg_m3 * faceVelocity ** 2 * input.rows * 2;
 
+  // Velocidade do fluido refrigerante (estimativa simplificada bifásica)
+  const tubeID_m = tube_od_m - 2 * tube_wall_m;
+  const A_tubo_m2 = Math.PI * Math.pow(tubeID_m / 2, 2);
+  const rho_fluid_approx = isEvapCoil ? 80 : 120;
+  const h_fg_approx = isEvapCoil ? 150000 : 130000;
+  const m_dot_total_kgs = areaResult.A_total_m2 > 0.01 ? (U * areaResult.A_total_m2 * 10) / h_fg_approx : 0;
+  const fluid_velocity_ms = A_tubo_m2 > 0 && input.circuits > 0
+    ? m_dot_total_kgs / (rho_fluid_approx * A_tubo_m2 * input.circuits)
+    : 0;
+
+  const industrial_limits = checkIndustrialLimits(input.coil_type, faceVelocity, air_dp_pa, fluid_velocity_ms);
+  if (industrial_limits.overall_status === "error") {
+    warnings.push(
+      ...[industrial_limits.face_velocity, industrial_limits.air_pressure_drop, industrial_limits.fluid_velocity]
+        .filter((c) => c.status === "error")
+        .map((c) => c.message),
+    );
+  }
+
+  const extras = { face_velocity_ms: faceVelocity, fluid_velocity_ms, frontal_area_m2, industrial_limits };
+
   if (input.engine === "ntu_epsilon") {
-    return calcNtuEpsilon(input, areaResult, h_air, U, fin_eff, air_dp_pa);
+    return calcNtuEpsilon(input, areaResult, h_air, U, fin_eff, air_dp_pa, extras);
   } else {
-    return calcLmtdIterative(input, areaResult, h_air, U, fin_eff, air_dp_pa);
+    return calcLmtdIterative(input, areaResult, h_air, U, fin_eff, air_dp_pa, extras);
   }
 }
