@@ -44,6 +44,7 @@ import { useEnrichedFanPickerItems } from "@/modules/cn_coils/hooks/useEnrichedF
 import {
   calcCoilDerivedDimensions,
   validateFanFit,
+  computeFluidVelocity,
   type FanFitValidation,
 } from "@/modules/cn_coils/utils/coilDerivedMetrics";
 import { checkIndustrialLimits, type IndustrialLimitsCheck } from "../services/coilNtuService";
@@ -302,7 +303,20 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
 
           const firstCov = r.best.coverage[0];
           const air_pressure_drop_pa = firstCov?.air_pressure_drop_pa ?? 0;
-          const fluid_velocity_ms = firstCov?.fluid_velocity_ms ?? 0;
+
+          // Velocidade do fluido com refrigerante real e capacidade média da cobertura
+          const avgQw = r.best.coverage.length > 0
+            ? r.best.coverage.reduce((s, p) => s + p.q_evap_w, 0) / r.best.coverage.length
+            : 0;
+          const fluid_velocity_ms = avgQw > 0
+            ? computeFluidVelocity({
+                refrigerant: refrigerant || "R404A",
+                T_evap_C: avgTe,
+                Q_total_W: avgQw,
+                nCircuits: geo.circuits,
+                tubeID_m: tubeID_m,
+              })
+            : (firstCov?.fluid_velocity_ms ?? 0);
           const face_velocity_ms = totalFanAirflow > 0 && geo.frontal_area_m2 > 0
             ? totalFanAirflow / 3600 / geo.frontal_area_m2
             : 0;

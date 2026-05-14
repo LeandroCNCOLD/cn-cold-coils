@@ -274,7 +274,7 @@ function simulateCandidate(
           q_coil_w = Number.isFinite(r.capacity_w) ? r.capacity_w : 0;
           coilDetail = { u_w_m2k: r.u_w_m2k, fin_efficiency: r.fin_efficiency,
             air_pressure_drop_pa: r.air_pressure_drop_pa, fluid_pressure_drop_kpa: 0,
-            fluid_velocity_ms: 0, exchange_area_m2: r.exchange_area_m2, lmtd_k: r.lmtd_k,
+            fluid_velocity_ms: r.fluid_velocity_ms ?? 0, exchange_area_m2: r.exchange_area_m2, lmtd_k: r.lmtd_k,
             ntu: r.ntu, effectiveness: r.effectiveness, air_outlet_temp_c: r.air_outlet_temp_c };
         }
       } catch { q_coil_w = 0; }
