@@ -49,6 +49,22 @@ export interface CoilNtuInput {
   tube_pitch_transverse_mm?: number;
 }
 
+export interface IndustrialLimitCheck {
+  value: number;
+  min: number | null;
+  max: number | null;
+  unit: string;
+  status: "ok" | "warning" | "error";
+  message: string;
+}
+
+export interface IndustrialLimitsCheck {
+  face_velocity: IndustrialLimitCheck;
+  air_pressure_drop: IndustrialLimitCheck;
+  fluid_velocity: IndustrialLimitCheck;
+  overall_status: "ok" | "warning" | "error";
+}
+
 export interface CoilNtuResult {
   capacity_w: number;
   air_outlet_temp_c: number;
@@ -60,8 +76,60 @@ export interface CoilNtuResult {
   ntu: number | null;
   effectiveness: number | null;
   air_pressure_drop_pa: number;
+  face_velocity_ms: number;
+  fluid_velocity_ms: number;
+  frontal_area_m2: number;
+  industrial_limits: IndustrialLimitsCheck;
   engine_used: CoilNtuEngine;
   warnings: string[];
+}
+
+/**
+ * Verifica se os valores calculados respeitam os limites industriais de refrigeração.
+ * Limites baseados em prática ASHRAE / industrial brasileira.
+ */
+export function checkIndustrialLimits(
+  coil_type: "evaporator" | "condenser",
+  face_velocity_ms: number,
+  air_pressure_drop_pa: number,
+  fluid_velocity_ms: number,
+): IndustrialLimitsCheck {
+  const isEvap = coil_type === "evaporator";
+  const fv_min = isEvap ? 1.5 : 2.0;
+  const fv_max = isEvap ? 3.5 : 4.5;
+  const dp_max = isEvap ? 80 : 120;
+  const vel_min = isEvap ? 0.3 : 0.5;
+  const vel_max = isEvap ? 1.5 : 2.0;
+
+  function mk(value: number, min: number | null, max: number | null, unit: string, label: string): IndustrialLimitCheck {
+    let status: "ok" | "warning" | "error" = "ok";
+    let message = `${label}: ${value.toFixed(2)} ${unit} — dentro dos limites`;
+    if (min !== null && value < min) {
+      status = "warning";
+      message = `${label}: ${value.toFixed(2)} ${unit} abaixo do mínimo (${min} ${unit})`;
+    } else if (max !== null && value > max * 1.2) {
+      status = "error";
+      message = `${label}: ${value.toFixed(2)} ${unit} muito acima do máximo (${max} ${unit})`;
+    } else if (max !== null && value > max) {
+      status = "warning";
+      message = `${label}: ${value.toFixed(2)} ${unit} acima do máximo recomendado (${max} ${unit})`;
+    }
+    return { value, min, max, unit, status, message };
+  }
+
+  const fv = mk(face_velocity_ms, fv_min, fv_max, "m/s", "Vel. frontal");
+  const dp = mk(air_pressure_drop_pa, null, dp_max, "Pa", "ΔP ar");
+  const vel = fluid_velocity_ms > 0
+    ? mk(fluid_velocity_ms, vel_min, vel_max, "m/s", "Vel. fluido")
+    : { value: 0, min: vel_min, max: vel_max, unit: "m/s", status: "ok" as const, message: "Vel. fluido: não calculada" };
+
+  const statuses = [fv.status, dp.status, vel.status];
+  const overall_status: "ok" | "warning" | "error" = statuses.includes("error")
+    ? "error"
+    : statuses.includes("warning")
+      ? "warning"
+      : "ok";
+  return { face_velocity: fv, air_pressure_drop: dp, fluid_velocity: vel, overall_status };
 }
 
 const DEFAULT_H_FLUID_EVAP = 3500; // W/(m²K) — evaporação bifásica R404A/R134a (Chen 1966, conservador)
