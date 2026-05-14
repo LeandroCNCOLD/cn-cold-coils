@@ -64,42 +64,59 @@ export interface CoilNtuResult {
   warnings: string[];
 }
 
-const DEFAULT_H_FLUID = 2500;
+const DEFAULT_H_FLUID_EVAP = 3500; // W/(m²K) — evaporação bifásica R404A/R134a (Chen 1966, conservador)
+const DEFAULT_H_FLUID_COND = 6000; // W/(m²K) — condensação bifásica R404A/R134a (Nusselt 1916, conservador)
 const DEFAULT_FIN_COND = 200;
 const DEFAULT_FIN_THICK = 0.0001;
 const DEFAULT_TUBE_WALL = 0.00035;
 const DEFAULT_TUBE_COND = 385;
 
+/**
+ * Coeficiente convectivo do ar — Wang-Chi-Chang (2000) para aletas planas.
+ * j = 0.394 · Re_Dc^(−0.392) · (s/Dc)^(−0.0449) · (s/Lc)^(−0.0897) · N^(−0.0528)
+ * h_ar = j · G · cp · Pr^(−2/3)
+ * Referência: Wang, C.-C., Chi, K.-Y., Chang, C.-J. (2000). Int. J. Heat Mass Transfer 42, 1945–1956.
+ */
 function calcHAir(
   airflow_m3h: number,
   frontal_area_m2: number,
   tube_od_m: number,
   air_inlet_temp_c: number,
+  fin_pitch_mm: number,
+  rows: number,
 ): { h_air: number; warnings: string[] } {
   const warnings: string[] = [];
   const airProps = calculateAirProperties(air_inlet_temp_c);
   const faceVelocity = airflow_m3h > 0 ? airflow_m3h / 3600 / Math.max(frontal_area_m2, 0.001) : 0;
   if (faceVelocity < 0.5) warnings.push("Velocidade frontal muito baixa (<0.5 m/s)");
   if (faceVelocity > 5.0) warnings.push("Velocidade frontal alta (>5.0 m/s)");
-  const Re = calculateReynolds({
-    density_kg_m3: airProps.density_kg_m3,
-    velocity_m_s: faceVelocity,
-    hydraulicDiameter_m: tube_od_m,
-    viscosity_pa_s: airProps.viscosity_pa_s,
-  });
-  const f = calculateDarcyFrictionFactor({
-    reynolds: Re,
-    roughness_m: 0.0000015,
-    hydraulicDiameter_m: tube_od_m,
-  });
-  const nuResult = calculateNusseltGnielinski({ reynolds: Re, prandtl: airProps.prandtl, frictionFactor: f });
-  warnings.push(...nuResult.warnings);
-  const h_air = calculateConvectiveCoefficient({
-    nusselt: nuResult.nusselt,
-    conductivity_w_m_k: airProps.conductivity_w_m_k,
-    hydraulicDiameter_m: tube_od_m,
-  });
-  return { h_air: Math.max(h_air, 5), warnings };
+
+  const Re = (airProps.density_kg_m3 * faceVelocity * tube_od_m) / airProps.viscosity_pa_s;
+  if (Re < 100) {
+    warnings.push("Re < 100 — usando h_ar mínimo de 15 W/(m²K)");
+    return { h_air: 15, warnings };
+  }
+
+  const fin_pitch_m = fin_pitch_mm / 1000;
+  const s_Dc = fin_pitch_m / tube_od_m;
+  // Lc = comprimento característico estimado como profundidade da serpentina / 2
+  // Aproximação conservadora: Lc = 0.05 m (5 cm) — adequado para 2–6 filas
+  const Lc = 0.05;
+  const s_Lc = fin_pitch_m / Lc;
+  const N = Math.max(1, rows);
+
+  // Fator j de Colburn — Wang-Chi-Chang (2000) Eq. (9)
+  const j =
+    0.394 *
+    Math.pow(Re, -0.392) *
+    Math.pow(Math.max(s_Dc, 0.01), -0.0449) *
+    Math.pow(Math.max(s_Lc, 0.01), -0.0897) *
+    Math.pow(N, -0.0528);
+
+  const G = airProps.density_kg_m3 * faceVelocity; // fluxo mássico [kg/(m²·s)]
+  const h_air = j * G * airProps.cp_j_kg_k * Math.pow(airProps.prandtl, -2 / 3);
+
+  return { h_air: Math.max(15, Math.min(300, h_air)), warnings };
 }
 
 function calcU(
@@ -237,7 +254,8 @@ export function calcCoilCapacity(input: CoilNtuInput): CoilNtuResult {
   const tube_cond = input.tube_conductivity_w_mk ?? DEFAULT_TUBE_COND;
   const fin_cond = input.fin_conductivity_w_mk ?? DEFAULT_FIN_COND;
   const fin_thick = input.fin_thickness_m ?? DEFAULT_FIN_THICK;
-  const h_fluid = input.h_fluid_w_m2k ?? DEFAULT_H_FLUID;
+  const isEvapCoil = input.coil_type === "evaporator";
+  const h_fluid = input.h_fluid_w_m2k ?? (isEvapCoil ? DEFAULT_H_FLUID_EVAP : DEFAULT_H_FLUID_COND);
   const pitch_t_mm = input.tube_pitch_transverse_mm ?? input.row_pitch_mm;
 
   const areaResult = computeFinnedExternalArea({
@@ -267,7 +285,14 @@ export function calcCoilCapacity(input: CoilNtuInput): CoilNtuResult {
   const length_m = input.length_mm / 1000;
   const frontal_area_m2 = height_m * length_m;
 
-  const { h_air, warnings: hWarn } = calcHAir(input.airflow_m3h, frontal_area_m2, tube_od_m, input.air_inlet_temp_c);
+  const { h_air, warnings: hWarn } = calcHAir(
+    input.airflow_m3h,
+    frontal_area_m2,
+    tube_od_m,
+    input.air_inlet_temp_c,
+    input.fin_pitch_mm,
+    input.rows,
+  );
   warnings.push(...hWarn);
 
   const finResult = calculateFinEfficiencySimplified({
