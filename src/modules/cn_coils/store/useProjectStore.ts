@@ -12,7 +12,8 @@ export type SavedProjectType =
   | "cold_room"
   | "dx_complete"
   | "heat_pump"
-  | "component_workspace";
+  | "component_workspace"
+  | "application_engineering";
 
 // ── Feature D — Anexos ────────────────────────────────────────────────────────
 export interface ProjectAttachment {
