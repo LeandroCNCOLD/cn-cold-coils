@@ -49,6 +49,7 @@ import type { CatalogEquipmentRow } from "@/modules/coldpro_catalog/data/equipme
 import { catalogToCompressorSpec } from "@/modules/coldpro_catalog/adapters/compressorAdapter";
 import { catalogToCondenserSpec } from "@/modules/coldpro_catalog/adapters/condenserAdapter";
 import { buildMinimalEvaporatorInput } from "../components/forms/EvaporatorForm";
+import { SendToHubButton } from "../components/SendToHubButton";
 
 const KCALH_TO_W = 1.163;
 
@@ -396,18 +397,21 @@ function MachinePicker({
                       {cap != null ? cap.toLocaleString("pt-BR", { maximumFractionDigits: 0 }) : "—"}
                     </td>
                     <td className="px-3 py-1.5">
-                      <Button
-                        size="sm"
-                        variant={isSelected ? "default" : "outline"}
-                        className={`h-6 px-2 text-[10px] ${isSelected ? "bg-[#1E6FD9] hover:bg-[#1a5fb8]" : "hover:border-[#1E6FD9] hover:text-[#1E6FD9]"}`}
-                        onClick={() => onSelect(row)}
-                      >
-                        {isSelected ? (
-                          <><CheckCircle2 className="mr-1 h-3 w-3" />Selecionada</>
-                        ) : (
-                          "Selecionar"
-                        )}
-                      </Button>
+                      <div className="flex items-center gap-1">
+                        <Button
+                          size="sm"
+                          variant={isSelected ? "default" : "outline"}
+                          className={`h-6 px-2 text-[10px] ${isSelected ? "bg-[#1E6FD9] hover:bg-[#1a5fb8]" : "hover:border-[#1E6FD9] hover:text-[#1E6FD9]"}`}
+                          onClick={() => onSelect(row)}
+                        >
+                          {isSelected ? (
+                            <><CheckCircle2 className="mr-1 h-3 w-3" />Selecionada</>
+                          ) : (
+                            "Selecionar"
+                          )}
+                        </Button>
+                        <SendToHubButton machine={row} size="sm" className="h-6 px-1.5 text-[10px]" />
+                      </div>
                     </td>
                   </tr>
                 );

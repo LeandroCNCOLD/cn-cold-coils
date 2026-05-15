@@ -15,6 +15,7 @@ import { Download, Search, X, SlidersHorizontal, TableProperties } from "lucide-
 import * as XLSX from "xlsx";
 import { useEquipmentCatalog } from "@/modules/coldpro_catalog/hooks/useEquipmentCatalog";
 import type { CatalogEquipmentRow } from "@/modules/coldpro_catalog/data/equipmentCatalog.types";
+import { SendToHubButton } from "../components/SendToHubButton";
 
 const KCALH_TO_W = 1.163;
 
@@ -241,12 +242,13 @@ export function CatalogComercialPage() {
                   <th className="px-3 py-2 text-right">Te / Tc (°C)</th>
                   <th className="px-3 py-2 text-right">Tensão</th>
                   <th className="px-3 py-2 text-center">Status</th>
+                  <th className="px-3 py-2"></th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
                 {displayed.length === 0 && (
                   <tr>
-                    <td colSpan={10} className="px-3 py-8 text-center text-slate-400">
+                    <td colSpan={11} className="px-3 py-8 text-center text-slate-400">
                       Nenhum equipamento encontrado com os filtros selecionados.
                     </td>
                   </tr>
@@ -281,6 +283,9 @@ export function CatalogComercialPage() {
                     </td>
                     <td className="px-3 py-1.5 text-center">
                       <StatusBadge row={row} />
+                    </td>
+                    <td className="px-3 py-1.5">
+                      <SendToHubButton machine={row} size="sm" className="h-6 px-2 text-[10px]" />
                     </td>
                   </tr>
                 ))}

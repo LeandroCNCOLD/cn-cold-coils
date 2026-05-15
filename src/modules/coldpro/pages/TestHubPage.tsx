@@ -115,7 +115,7 @@ function SystemStatusBar({ onRunAll, isRunning }: { onRunAll: () => void; isRunn
   const { selectedCompressor, selectedEvaporator, selectedCondenser } = useCatalogSessionStore();
   const compressorEnvelope = useCoilEnvelopeStore((s) => s.compressorEnvelope);
   const evaporatorEnvelope = useCoilEnvelopeStore((s) => s.envelopes.evaporator_dx);
-  const { isConfigured, ph, montecarlo, optimization, ai } = useTestHubStore();
+  const { isConfigured, ph, montecarlo, optimization, ai, origin } = useTestHubStore();
 
   const hasCompressor = Boolean(selectedCompressor || compressorEnvelope);
   const hasEvaporator = Boolean(selectedEvaporator || evaporatorEnvelope);
@@ -136,6 +136,17 @@ function SystemStatusBar({ onRunAll, isRunning }: { onRunAll: () => void; isRunn
           {isReady ? "Sistema configurado" : `${readyCount}/3 componentes`}
         </span>
       </div>
+      {origin && (
+        <Badge
+          variant="outline"
+          className="gap-1 border-blue-300 bg-blue-50 text-[10px] text-blue-700"
+          title={origin.detail ?? origin.source}
+        >
+          <span className="text-slate-400">Origem:</span>
+          {origin.label}
+          {origin.detail && <span className="text-blue-500"> · {origin.detail}</span>}
+        </Badge>
+      )}
       <div className="flex flex-wrap items-center gap-1.5">
         <Badge variant={hasCompressor ? "default" : "outline"} className="text-xs">Compressor</Badge>
         <Badge variant={hasEvaporator ? "default" : "outline"} className="text-xs">Evaporador</Badge>
