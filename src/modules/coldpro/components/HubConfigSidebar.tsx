@@ -62,8 +62,12 @@ function ConfigSection({ title, icon: Icon, color, isComplete, children, default
 
 // ── Sidebar principal ─────────────────────────────────────────────────────────
 
+function useIsMobile() {
+  return typeof window !== "undefined" && window.innerWidth < 768;
+}
+
 export function HubConfigSidebar() {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(() => useIsMobile());
   const {
     selectedMachine,
     compressor, condenser, evaporator, conditions,

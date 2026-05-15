@@ -7,6 +7,7 @@ const CP_AIR = 1006;
 const PR_AIR = 0.713;
 const K_AIR  = 0.0243;
 const H_I_DEFAULT = 1500;
+const TUBE_ENHANCEMENT_I: Record<string, number> = { smooth: 1.0, micro_fin: 1.5, grooved: 1.8 };
 const TUBE_K: Record<string, number> = { copper: 385, aluminum: 205, steel: 50 };
 
 // Wang et al. (2000) — Plain Fins
@@ -131,7 +132,7 @@ export function calculateProgressiveCoil(input: ProgressiveCoilInput): Progressi
     }
 
     let h_o = Math.max(5, j > 0 ? (j * rho_air * V_max * CP_AIR) / Math.pow(PR_AIR, 2/3) : 5);
-    const h_i = H_I_DEFAULT;
+    const h_i = H_I_DEFAULT * (TUBE_ENHANCEMENT_I[input.tube_type ?? "smooth"] ?? 1.0);
 
     const L_tube_roll = input.coil_width_m * N_tubes_per_row * N_rows_i;
     const A_internal = Math.PI * D_i * L_tube_roll;

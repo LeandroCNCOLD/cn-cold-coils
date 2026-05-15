@@ -42,6 +42,7 @@ import { ElectricoTabContent } from "./hub-tabs/ElectricoTabContent";
 import { MachineValidationTabContent } from "./hub-tabs/MachineValidationTabContent";
 import { CatalogDataSheetTabContent } from "./hub-tabs/CatalogDataSheetTabContent";
 import { SensitivityAnalysisTabContent } from "./hub-tabs/SensitivityAnalysisTabContent";
+import { RevisionsTabContent } from "./hub-tabs/RevisionsTabContent";
 
 import { useCatalogSessionStore } from "@/modules/coldpro_catalog/store/useCatalogSessionStore";
 import { useCoilEnvelopeStore } from "@/modules/cn_coils/store/useCoilEnvelopeStore";
@@ -60,7 +61,7 @@ type TabId =
   | "montecarlo" | "polynomial" | "autoopt" | "envelope" | "energy" | "fancoil"
   | "sanity" | "bottleneck" | "scenarios" | "frost" | "comparison"
   | "startup" | "ai" | "report"
-  | "eletrico" | "machine-validation" | "catalog-datasheet" | "sensitivity";
+  | "eletrico" | "machine-validation" | "catalog-datasheet" | "sensitivity" | "revisions";
 
 interface TabDef {
   id: TabId;
@@ -95,6 +96,7 @@ const TABS: TabDef[] = [
   { id: "machine-validation", label: "Validação", icon: ShieldCheck, description: "Checklist PASS/FAIL por critério de aceitação da máquina (8 critérios)", group: "diagnosis" },
   { id: "catalog-datasheet", label: "Data Sheet", icon: Database, description: "Registro técnico completo do produto com curva de desempenho e exportação PDF", group: "diagnosis" },
   { id: "sensitivity", label: "Sensibilidade", icon: Activity, description: "Análise de sensibilidade: impacto de ΔTe e ΔTc na capacidade e COP (EN12900)", group: "diagnosis" },
+  { id: "revisions", label: "Revisões", icon: GitCompare, description: "Snapshots de configuração com diff entre revisões — controle de versão local sem banco de dados", group: "config" },
 ];
 
 const GROUP_LABELS: Record<string, string> = {
@@ -263,9 +265,9 @@ export function TestHubPage() {
         {/* Área de conteúdo */}
         <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
           {/* Navegação de abas */}
-          <div className="space-y-1 border-b border-slate-100 bg-white px-3 py-2">
+          <div className="space-y-1 border-b border-slate-100 bg-white px-3 py-2 overflow-x-auto">
             {Object.entries(tabGroups).map(([group, tabs]) => (
-              <div key={group} className="flex flex-wrap items-center gap-1">
+              <div key={group} className="flex min-w-max items-center gap-1 sm:flex-wrap sm:min-w-0">
                 <span className={`mr-1 w-28 shrink-0 text-[10px] font-semibold uppercase tracking-wide ${GROUP_COLORS[group]}`}>
                   {GROUP_LABELS[group]}
                 </span>
@@ -378,6 +380,9 @@ export function TestHubPage() {
         </TabsContent>
         <TabsContent value="sensitivity" className="mt-0">
           <SensitivityAnalysisTabContent compressor={compressor} />
+        </TabsContent>
+        <TabsContent value="revisions" className="mt-0">
+          <RevisionsTabContent />
         </TabsContent>
             </Tabs>
           </div>

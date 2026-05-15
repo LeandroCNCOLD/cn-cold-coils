@@ -84,6 +84,7 @@ export function solveCoilIterative(input: CoilIterativeInput): CoilIterativeResu
   const finThick = input.fin_thickness_m ?? 0.0001;
   const foulingAir = input.fouling_air_m2k_w ?? 0;
   const foulingFluid = input.fouling_fluid_m2k_w ?? 0;
+  const tubeType = input.tube_type ?? "smooth";
 
   const fluidName = input.fluid;
   const hasFluidCalcData = !!fluidName && m_f > 0 && tubeInnerDiamM > 0;
@@ -278,6 +279,7 @@ export function solveCoilIterative(input: CoilIterativeInput): CoilIterativeResu
           tube_length_m: explicitTubeLength!,
           fluid_properties: fluidProps,
           roughness_m: roughness,
+          tube_type: tubeType,
         });
         if (i === 0) warnings.push(...cr.warnings);
         circResults.push(cr);
@@ -329,6 +331,7 @@ export function solveCoilIterative(input: CoilIterativeInput): CoilIterativeResu
         fluid_properties: fluidProps,
         tube_length_m: tubeLengthForFluid,
         roughness_m: roughness,
+        tube_type: tubeType,
       });
       if (i === 0) warnings.push(...fluidHTC.warnings);
 
