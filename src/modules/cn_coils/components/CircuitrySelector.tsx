@@ -3,6 +3,7 @@ import { ArrowRight, ArrowRightLeft, ArrowDownUp, Info, Wand2 } from "lucide-rea
 import { toast } from "sonner";
 import { useCnCoilsSimulationStore } from "../store/useCnCoilsSimulationStore";
 import { suggestOptimalCircuits } from "../engine/circuitOptimizer";
+import { useCnCoilsCatalogs } from "../hooks/useCnCoilsCatalogCollection";
 import type { HeaderPosition } from "../types/cncoils.types";
 
 const POSITIONS: Array<{
@@ -38,6 +39,10 @@ export function CircuitrySelector() {
   const fluidMassFlowKgH = useCnCoilsSimulationStore(
     (s) => s.fluidMassFlow_kg_h,
   );
+  const refrigerantSatTempC = useCnCoilsSimulationStore(
+    (s) => s.physicalInputs.refrigerantSatTempC,
+  );
+  const catalogs = useCnCoilsCatalogs();
 
   const tubesPerRow =
     physical.finnedHeightMm && physical.tubePitchTransverseMm
@@ -62,16 +67,39 @@ export function CircuitrySelector() {
           1000
         : 0.00892);
 
+    // Parâmetros do distribuidor para otimização com ΔP real
+    const hasDistributorData =
+      catalogs.distributorKappaFull.length > 0 &&
+      massFlowKgS > 0 &&
+      refrigerantSatTempC !== undefined;
+
+    // Estima capacidade a partir da vazão mássica (h_fg médio R404A ≈ 136 kJ/kg)
+    const estimatedQw = massFlowKgS > 0 ? massFlowKgS * 136 * 1000 : 0;
+
+    const distributorParams = hasDistributorData
+      ? {
+          kappaFull: catalogs.distributorKappaFull,
+          refrigerant: fluid || "R404A",
+          te_c: refrigerantSatTempC ?? -15,
+          q_total_w: estimatedQw,
+        }
+      : undefined;
+
     const suggestion = suggestOptimalCircuits(
       totalTubes,
       massFlowKgS,
       internalDiamM,
       fluid || "R404A",
+      distributorParams,
     );
 
     setPhysical({ circuits: suggestion.optimalCircuits });
 
-    const msg = `Sugestão: ${suggestion.optimalCircuits} circuitos · ${Math.round(suggestion.massVelocity)} kg/m²·s — ${suggestion.reason}`;
+    const dpInfo =
+      suggestion.dp_distributor_kpa > 0
+        ? ` · ΔP distribuidor: ${suggestion.dp_distributor_kpa.toFixed(1)} kPa`
+        : "";
+    const msg = `Sugestão: ${suggestion.optimalCircuits} circuitos · ${Math.round(suggestion.massVelocity)} kg/m²·s${dpInfo} — ${suggestion.reason}`;
     if (suggestion.status === "optimal") toast.success(msg);
     else if (suggestion.status === "acceptable") toast(msg);
     else toast.warning(msg);
@@ -129,7 +157,7 @@ export function CircuitrySelector() {
           <Info className="mt-0.5 h-3 w-3 shrink-0" />
           <span>
             Esq/Esq ou Dir/Dir (mesmo lado) é o padrão mais comum em câmaras
-            frias. A sugestão otimiza a velocidade de massa do fluido.
+            frias. A sugestão otimiza a velocidade de massa do fluido e o ΔP do distribuidor (alvo: 30–60 kPa).
           </span>
         </div>
       </div>

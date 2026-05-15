@@ -54,6 +54,13 @@ import {
   type FanFitValidation,
 } from "@/modules/cn_coils/utils/coilDerivedMetrics";
 import { checkIndustrialLimits, type IndustrialLimitsCheck } from "../services/coilNtuService";
+import {
+  selectDistributor,
+  optimizeCircuitsForDistributor,
+  type DistributorResult,
+  type CircuitOptimizationResult,
+} from "../services/distributorService";
+import { useCnCoilsCatalogs } from "@/modules/cn_coils/hooks/useCnCoilsCatalogCollection";
 import type { CoilGeometryCatalogItem } from "@/modules/cn_coils/types/cncoils.types";
 import type { PowerUnit } from "@/utils/unitConversions";
 
@@ -188,6 +195,9 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
   const [unit, setUnit] = useState<PowerUnit>("kW");
   const [running, setRunning] = useState(false);
   const [result, setResult] = useState<EvaporatorSearchResult | null>(null);
+  const [distributorResult, setDistributorResult] = useState<DistributorResult | null>(null);
+  const [circuitOptResult, setCircuitOptResult] = useState<CircuitOptimizationResult | null>(null);
+  const catalogs = useCnCoilsCatalogs();
   const [approvedCoilDetails, setApprovedCoilDetails] = useState<{
     altura_mm: number;
     largura_mm: number;
@@ -362,8 +372,54 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
             industrial_limits,
             fanFit,
           });
+
+          // Calcular distribuidor e circuitos ótimos (apenas evaporadores DX)
+          if (!isCondenser && catalogs.distributorComplete.models.length > 0) {
+            const avgQ_w =
+              r.best.coverage.length > 0
+                ? r.best.coverage.reduce((s, c) => s + c.q_evap_w, 0) / r.best.coverage.length
+                : 0;
+            const totalTubesCalc = geo.tubes_per_row * geo.rows;
+            const tubeOD_m_dist = geo.tube_outer_diameter_mm / 1000;
+            const tubeID_m_dist = tubeOD_m_dist - 2 * 0.00035;
+
+            if (avgQ_w > 0) {
+              const distResult = selectDistributor(
+                catalogs.distributorComplete,
+                catalogs.distributorKappaFull,
+                {
+                  n_circuits: geo.circuits,
+                  refrigerant: refrigerant || "R404A",
+                  te_c: avgTe,
+                  q_total_w: avgQ_w,
+                },
+              );
+              setDistributorResult(distResult);
+
+              const circOpt = optimizeCircuitsForDistributor(
+                catalogs.distributorComplete,
+                catalogs.distributorKappaFull,
+                {
+                  totalTubes: totalTubesCalc,
+                  refrigerant: refrigerant || "R404A",
+                  te_c: avgTe,
+                  q_total_w: avgQ_w,
+                  tubeID_m: tubeID_m_dist,
+                },
+              );
+              setCircuitOptResult(circOpt);
+            } else {
+              setDistributorResult(null);
+              setCircuitOptResult(null);
+            }
+          } else {
+            setDistributorResult(null);
+            setCircuitOptResult(null);
+          }
         } else {
           setApprovedCoilDetails(null);
+          setDistributorResult(null);
+          setCircuitOptResult(null);
         }
       } finally {
         setRunning(false);
@@ -1003,6 +1059,114 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
 
             </CardContent>
           </Card>
+
+          {/* Card do Distribuidor — apenas evaporadores DX */}
+          {!isCondenser && distributorResult && (
+            <Card
+              className={
+                distributorResult.dp_status === "ok"
+                  ? "border-emerald-300 bg-emerald-50/40"
+                  : distributorResult.dp_status === "warning"
+                    ? "border-amber-300 bg-amber-50/40"
+                    : "border-red-300 bg-red-50/40"
+              }
+            >
+              <CardHeader className="pb-2 flex flex-row items-center justify-between">
+                <CardTitle className="text-sm">
+                  Distribuidor — {distributorResult.tipologia} · {distributorResult.model_code}
+                </CardTitle>
+                <Badge
+                  variant={
+                    distributorResult.dp_status === "ok"
+                      ? "default"
+                      : distributorResult.dp_status === "warning"
+                        ? "secondary"
+                        : "destructive"
+                  }
+                  className="text-[10px]"
+                >
+                  {distributorResult.dp_status === "ok"
+                    ? "✓ OK"
+                    : distributorResult.dp_status === "warning"
+                      ? "⚠ Atenção"
+                      : "✗ Revisar"}
+                </Badge>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                {/* Dimensões físicas */}
+                <div>
+                  <div className="text-[10px] uppercase text-muted-foreground mb-1 font-semibold">Dimensões Físicas</div>
+                  <div className="grid grid-cols-3 gap-1.5 text-xs sm:grid-cols-6">
+                    <Field label="Conexão" value={distributorResult.odm} />
+                    <Field label="Ø corpo" value={`${distributorResult.D_mm} mm`} />
+                    <Field label="Comp. total" value={`${distributorResult.L_mm} mm`} />
+                    {distributorResult.L1_mm != null && (
+                      <Field label="Comp. conex." value={`${distributorResult.L1_mm} mm`} />
+                    )}
+                    <Field label="Peso" value={`${distributorResult.peso_kg.toFixed(2)} kg`} />
+                    <Field label="Furo (IdGrandezza)" value={distributorResult.id_grandezza} />
+                  </div>
+                </div>
+                {/* Cobertura de circuitos */}
+                <div>
+                  <div className="text-[10px] uppercase text-muted-foreground mb-1 font-semibold">Cobertura de Circuitos</div>
+                  <div className="grid grid-cols-3 gap-1.5 text-xs">
+                    <Field label="Circuitos do evap." value={result!.best!.geometry.circuits} />
+                    <Field label="Mín. do modelo" value={distributorResult.n_circuits_min} />
+                    <Field label="Máx. do modelo" value={distributorResult.n_circuits_max} />
+                  </div>
+                </div>
+                {/* Cálculo hidráulico */}
+                <div>
+                  <div className="text-[10px] uppercase text-muted-foreground mb-1 font-semibold">Cálculo Hidráulico</div>
+                  <div className="grid grid-cols-2 gap-1.5 text-xs sm:grid-cols-4">
+                    <Field label="Vazão total" value={`${distributorResult.m_dot_total_kgh.toFixed(2)} kg/h`} />
+                    <Field label="Vazão/circuito" value={`${distributorResult.m_dot_per_circuit_kgh.toFixed(2)} kg/h`} />
+                    <Field label="κ" value={distributorResult.kappa.toFixed(3)} />
+                    <Field label="ΔP distribuidor" value={`${distributorResult.dp_distributor_kpa.toFixed(1)} kPa`} />
+                  </div>
+                </div>
+                {/* Status */}
+                <div
+                  className={`rounded px-2 py-1.5 text-[11px] font-medium ${
+                    distributorResult.dp_status === "ok"
+                      ? "bg-emerald-100 text-emerald-800"
+                      : distributorResult.dp_status === "warning"
+                        ? "bg-amber-100 text-amber-800"
+                        : "bg-red-100 text-red-800"
+                  }`}
+                >
+                  {distributorResult.dp_message}
+                </div>
+                {/* Sugestão de circuitos ótimos */}
+                {circuitOptResult &&
+                  circuitOptResult.optimal_circuits !== result!.best!.geometry.circuits && (
+                    <div className="rounded border border-blue-200 bg-blue-50 px-2 py-1.5 text-[11px] text-blue-800">
+                      <span className="font-semibold">
+                        Circuitos ótimos para o distribuidor: {circuitOptResult.optimal_circuits}
+                      </span>{" "}
+                      (ΔP: {circuitOptResult.dp_kpa.toFixed(1)} kPa · Vel. massa:{" "}
+                      {Math.round(circuitOptResult.mass_velocity_kg_m2s)} kg/m²·s)
+                      <br />
+                      <span className="text-[10px]">
+                        O evaporador atual usa {result!.best!.geometry.circuits} circuitos. Considere
+                        refazer a busca com esse valor fixado.
+                      </span>
+                    </div>
+                  )}
+                {/* Avisos */}
+                {distributorResult.warnings.map((w, i) => (
+                  <p key={i} className="text-[10px] text-amber-700">
+                    ⚠ {w}
+                  </p>
+                ))}
+                <p className="text-[10px] text-muted-foreground">
+                  Limites: ΔP 20–80 kPa (ideal 30–60 kPa) · Modelo {distributorResult.tipologia} cobre{" "}
+                  {distributorResult.n_circuits_min}–{distributorResult.n_circuits_max} circuitos
+                </p>
+              </CardContent>
+            </Card>
+          )}
 
           {valveSuggestion && (
             <Card className="border-sky-300 bg-sky-50/40">
