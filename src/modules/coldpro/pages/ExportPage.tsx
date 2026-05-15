@@ -7,7 +7,7 @@
  *
  * Motor: exportMachineDatasheet (coldpro_v2).
  */
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -28,6 +28,7 @@ import {
   Activity,
   BarChart2,
   FileText,
+  ImageIcon,
 } from "lucide-react";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
@@ -61,36 +62,90 @@ function downloadJson(filename: string, payload: unknown) {
   URL.revokeObjectURL(url);
 }
 
-function downloadDatasheetPdf(sheet: MachineDatasheetExport) {
+interface LogoConfig {
+  companyName: string;
+  logoDataUrl?: string;
+}
+
+function downloadDatasheetPdf(sheet: MachineDatasheetExport, logo: LogoConfig) {
   const doc = new jsPDF({ unit: "mm", format: "a4" });
   const margin = 14;
   const pageW = doc.internal.pageSize.getWidth();
   let y = margin;
 
-  // Header
+  // Header band
   doc.setFillColor(30, 111, 217);
-  doc.rect(0, 0, pageW, 22, "F");
+  doc.rect(0, 0, pageW, 26, "F");
   doc.setTextColor(255, 255, 255);
   doc.setFont("helvetica", "bold");
   doc.setFontSize(14);
-  doc.text("CN COLD — Data Sheet Técnico", margin, 10);
+
+  if (logo.logoDataUrl) {
+    try {
+      doc.addImage(logo.logoDataUrl, "PNG", margin, 4, 24, 14);
+      doc.text("Data Sheet Técnico", margin + 28, 10);
+    } catch {
+      doc.text(`${logo.companyName} — Data Sheet Técnico`, margin, 10);
+    }
+  } else {
+    doc.text(`${logo.companyName} — Data Sheet Técnico`, margin, 10);
+  }
+
   doc.setFontSize(9);
   doc.setFont("helvetica", "normal");
   doc.text(
     `${sheet.product.model}  ·  ${sheet.product.refrigerant}  ·  ${sheet.schema_version}`,
     margin,
-    16,
+    18,
   );
   doc.setTextColor(0, 0, 0);
-  y = 28;
+  y = 32;
 
-  // Status badge
+  // Selection table — key specs at a glance
+  const selectionBody: (string | number)[][] = [
+    ["Modelo", sheet.product.model],
+    ["Família / Linha", `${sheet.product.family} / ${sheet.product.line}`],
+    ["Refrigerante", sheet.product.refrigerant],
+    ["Status", sheet.validation_status.toUpperCase()],
+  ];
+  if (sheet.electrical) {
+    selectionBody.push(
+      ["Capacidade frigorífica", `${sheet.electrical.total_power_w > 0 ? "—" : "—"} (ver curva)`],
+      ["Potência total", `${sheet.electrical.total_power_w.toFixed(0)} W`],
+      ["Corrente total", `${sheet.electrical.estimated_current_a.toFixed(2)} A`],
+      ["Tensão / Fases", `${sheet.electrical.voltage_v} V / ${sheet.electrical.phases}φ`],
+      ["COP sistema", sheet.electrical.cop_system.toFixed(3)],
+      ["EER", `${sheet.electrical.eer_btu_wh.toFixed(2)} BTU/W·h`],
+    );
+  }
+  if (sheet.operating_limits) {
+    const lim = sheet.operating_limits;
+    selectionBody.push(
+      ["Te operação (mín/máx)", `${lim.min_evap_temp_c.toFixed(1)} / ${lim.max_evap_temp_c.toFixed(1)} °C`],
+      ["Tc operação (mín/máx)", `${lim.min_cond_temp_c.toFixed(1)} / ${lim.max_cond_temp_c.toFixed(1)} °C`],
+    );
+  }
+  autoTable(doc, {
+    startY: y,
+    head: [["Tabela de Seleção Rápida", ""]],
+    body: selectionBody,
+    styles: { fontSize: 8, cellPadding: 1.5 },
+    headStyles: { fillColor: [15, 80, 160], textColor: 255, fontStyle: "bold" },
+    columnStyles: { 0: { fontStyle: "bold", cellWidth: 60 } },
+    margin: { left: margin, right: margin },
+    theme: "grid",
+  });
+  y = (doc as unknown as { lastAutoTable: { finalY: number } }).lastAutoTable.finalY + 5;
+
+  // Gerado em
   doc.setFontSize(8);
+  doc.setTextColor(80, 80, 80);
   doc.text(
     `Gerado em: ${new Date(sheet.exported_at).toLocaleString("pt-BR")}   |   Status: ${sheet.validation_status.toUpperCase()}`,
     margin,
     y,
   );
+  doc.setTextColor(0, 0, 0);
   y += 6;
 
   // Identidade
@@ -368,6 +423,8 @@ function MachinePicker({
 // ── Page ─────────────────────────────────────────────────────────────────────
 export function ExportPage() {
   const [machine, setMachine] = useState<CatalogEquipmentRow | null>(null);
+  const [logoConfig, setLogoConfig] = useState<LogoConfig>({ companyName: "CN COLD Engenharia" });
+  const logoInputRef = useRef<HTMLInputElement>(null);
   const [opts, setOpts] = useState<Required<Omit<CatalogExportOptions, "schema_version">>>({
     include_electrical: true,
     include_startup_reference: true,
@@ -461,6 +518,71 @@ export function ExportPage() {
 
       <MachinePicker selectedId={machine?.id} onSelect={setMachine} />
 
+      {/* Logo/empresa */}
+      <Card>
+        <CardHeader className="pb-3">
+          <CardTitle className="flex items-center gap-2 text-sm">
+            <ImageIcon className="h-4 w-4 text-slate-500" />
+            Identidade Visual (PDF)
+          </CardTitle>
+          <CardDescription className="text-xs">
+            Personalize o cabeçalho do Data Sheet PDF com o nome da empresa e logotipo.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="grid gap-3 sm:grid-cols-2">
+          <div>
+            <Label className="mb-1 block text-xs text-slate-600">Nome da empresa</Label>
+            <Input
+              value={logoConfig.companyName}
+              onChange={(e) => setLogoConfig((c) => ({ ...c, companyName: e.target.value }))}
+              className="h-8 text-xs"
+              placeholder="CN COLD Engenharia"
+            />
+          </div>
+          <div>
+            <Label className="mb-1 block text-xs text-slate-600">Logo (PNG/JPG)</Label>
+            <div className="flex items-center gap-2">
+              <input
+                ref={logoInputRef}
+                type="file"
+                accept="image/png,image/jpeg"
+                className="hidden"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (!file) return;
+                  const reader = new FileReader();
+                  reader.onload = (ev) => {
+                    setLogoConfig((c) => ({ ...c, logoDataUrl: ev.target?.result as string }));
+                  };
+                  reader.readAsDataURL(file);
+                }}
+              />
+              <Button
+                type="button"
+                variant="outline"
+                className="h-8 gap-2 text-xs"
+                onClick={() => logoInputRef.current?.click()}
+              >
+                <Download className="h-3.5 w-3.5" />
+                {logoConfig.logoDataUrl ? "Trocar logo" : "Carregar logo"}
+              </Button>
+              {logoConfig.logoDataUrl && (
+                <>
+                  <img src={logoConfig.logoDataUrl} alt="logo" className="h-8 rounded border" />
+                  <button
+                    type="button"
+                    className="text-slate-400 hover:text-slate-600"
+                    onClick={() => setLogoConfig((c) => ({ ...c, logoDataUrl: undefined }))}
+                  >
+                    <X className="h-3.5 w-3.5" />
+                  </button>
+                </>
+              )}
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* Opções */}
       <Card>
         <CardHeader className="pb-3">
@@ -550,7 +672,7 @@ export function ExportPage() {
                 JSON
               </Button>
               <Button
-                onClick={() => downloadDatasheetPdf(datasheet.sheet)}
+                onClick={() => downloadDatasheetPdf(datasheet.sheet, logoConfig)}
                 className="gap-2 bg-[#1E6FD9] hover:bg-[#1a5fb8]"
               >
                 <FileText className="h-4 w-4" />
