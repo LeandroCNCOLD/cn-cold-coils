@@ -113,6 +113,11 @@ export function ApplicationEngineeringPage() {
         )}
       </div>
 
+      {/* Barra de projetos */}
+      <div className="border-b border-slate-200 bg-white px-6 py-2">
+        <EngineeringProjectBar />
+      </div>
+
       {/* Conteúdo */}
       <ScrollArea className="flex-1">
         <div
