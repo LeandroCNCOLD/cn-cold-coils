@@ -13,6 +13,7 @@ import {
   AlertCircle, CheckCircle2, Clock, Zap, Brain,
   FileText, Wind, Shield, Target, GitCompare, BarChart2,
   Gauge, FlaskConical, Play, Loader2, LayoutDashboard, ClipboardCheck,
+  ShieldCheck, BookOpen, Database,
 } from "lucide-react";
 import { HubConfigSidebar } from "../components/HubConfigSidebar";
 import { useHubStoreSync } from "../hooks/useHubStoreSync";
@@ -37,6 +38,9 @@ import { AIAnalysisTabContent } from "./hub-tabs/AIAnalysisTabContent";
 import { ExecutiveSummaryTabContent } from "./hub-tabs/ExecutiveSummaryTabContent";
 import { TechnicalReportTabContent } from "./hub-tabs/TechnicalReportTabContent";
 import { StartupTabContent } from "./hub-tabs/StartupTabContent";
+import { ElectricoTabContent } from "./hub-tabs/ElectricoTabContent";
+import { MachineValidationTabContent } from "./hub-tabs/MachineValidationTabContent";
+import { CatalogDataSheetTabContent } from "./hub-tabs/CatalogDataSheetTabContent";
 
 import { useCatalogSessionStore } from "@/modules/coldpro_catalog/store/useCatalogSessionStore";
 import { useCoilEnvelopeStore } from "@/modules/cn_coils/store/useCoilEnvelopeStore";
@@ -54,7 +58,8 @@ type TabId =
   | "ph" | "equilibrium" | "performance" | "map"
   | "montecarlo" | "polynomial" | "autoopt" | "envelope" | "energy" | "fancoil"
   | "sanity" | "bottleneck" | "scenarios" | "frost" | "comparison"
-  | "startup" | "ai" | "report";
+  | "startup" | "ai" | "report"
+  | "eletrico" | "machine-validation" | "catalog-datasheet";
 
 interface TabDef {
   id: TabId;
@@ -85,6 +90,9 @@ const TABS: TabDef[] = [
   { id: "startup", label: "Start-up", icon: ClipboardCheck, description: "Planilha de referência e relatório de comissionamento em campo", group: "diagnosis" },
   { id: "ai", label: "IA", icon: Brain, description: "Diagnóstico técnico com motor de regras termodinâmicas embarcadas", group: "ai" },
   { id: "report", label: "Relatório", icon: FileText, description: "Relatório técnico completo com exportação para clipboard e impressão", group: "ai" },
+  { id: "eletrico", label: "Elétrico", icon: Zap, description: "Corrente, tensão, potência total e COP real do sistema com ventiladores", group: "diagnosis" },
+  { id: "machine-validation", label: "Validação", icon: ShieldCheck, description: "Checklist PASS/FAIL por critério de aceitação da máquina (8 critérios)", group: "diagnosis" },
+  { id: "catalog-datasheet", label: "Data Sheet", icon: Database, description: "Registro técnico completo do produto com curva de desempenho e exportação PDF", group: "diagnosis" },
 ];
 
 const GROUP_LABELS: Record<string, string> = {
@@ -345,6 +353,15 @@ export function TestHubPage() {
         </TabsContent>
         <TabsContent value="report" className="mt-0">
           <TechnicalReportTabContent machine={selectedMachine} />
+        </TabsContent>
+        <TabsContent value="eletrico" className="mt-0">
+          <ElectricoTabContent compressor={compressor} condenser={condenser} />
+        </TabsContent>
+        <TabsContent value="machine-validation" className="mt-0">
+          <MachineValidationTabContent machine={selectedMachine} compressor={compressor} condenser={condenser} evaporator={evaporator} conditions={conditions} />
+        </TabsContent>
+        <TabsContent value="catalog-datasheet" className="mt-0">
+          <CatalogDataSheetTabContent machine={selectedMachine} compressor={compressor} condenser={condenser} evaporator={evaporator} conditions={conditions} />
         </TabsContent>
             </Tabs>
           </div>
