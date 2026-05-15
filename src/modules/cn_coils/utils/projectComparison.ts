@@ -20,6 +20,7 @@ export const projectTypeLabels: Record<SavedProjectType, string> = {
   dx_complete: "DX Completo",
   heat_pump: "Bomba de Calor",
   component_workspace: "Workspace",
+  application_engineering: "Engenharia de Aplicação",
 };
 
 export function fmtBR(value: number | null | undefined, maximumFractionDigits = 2): string {
