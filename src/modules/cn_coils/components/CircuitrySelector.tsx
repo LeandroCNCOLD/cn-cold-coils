@@ -39,8 +39,8 @@ export function CircuitrySelector() {
   const fluidMassFlowKgH = useCnCoilsSimulationStore(
     (s) => s.fluidMassFlow_kg_h,
   );
-  const refrigerantSatTempC = useCnCoilsSimulationStore(
-    (s) => s.physicalInputs.refrigerantSatTempC,
+  const evaporatingTempC = useCnCoilsSimulationStore(
+    (s) => s.physicalInputs.evaporatingTempC,
   );
   const catalogs = useCnCoilsCatalogs();
 
@@ -71,7 +71,7 @@ export function CircuitrySelector() {
     const hasDistributorData =
       catalogs.distributorKappaFull.length > 0 &&
       massFlowKgS > 0 &&
-      refrigerantSatTempC !== undefined;
+      evaporatingTempC !== undefined;
 
     // Estima capacidade a partir da vazão mássica (h_fg médio R404A ≈ 136 kJ/kg)
     const estimatedQw = massFlowKgS > 0 ? massFlowKgS * 136 * 1000 : 0;
@@ -80,7 +80,7 @@ export function CircuitrySelector() {
       ? {
           kappaFull: catalogs.distributorKappaFull,
           refrigerant: fluid || "R404A",
-          te_c: refrigerantSatTempC ?? -15,
+          te_c: evaporatingTempC ?? -15,
           q_total_w: estimatedQw,
         }
       : undefined;
