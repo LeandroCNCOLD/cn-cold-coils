@@ -20,7 +20,7 @@ import { calculateFinEfficiencySimplified } from "../core/finEfficiency";
 import { calculateTubeWallResistance } from "../core/wallResistance";
 import { calculateFluidProperties } from "../fluidSide/fluidProperties";
 import { calculateInternalFluidHTC } from "../fluidSide/fluidHeatTransfer";
-import { calculateInternalFluidPressureDrop } from "../fluidSide/fluidPressureDrop";
+import { calculateInternalFluidPressureDrop, calculateTwoPhaseFluidPressureDrop } from "../fluidSide/fluidPressureDrop";
 import { calculateCircuitFlowDistribution } from "../circuit/flowDistribution";
 import { calculateCircuitPerformance } from "../circuit/circuitPerformance";
 import { aggregateCircuitResults } from "../circuit/circuitAggregator";
@@ -240,6 +240,19 @@ export function solveCoilIterative(input: CoilIterativeInput): CoilIterativeResu
       lastQualityX = tpHTC.quality_x;
       lastHTwoPhase = tpHTC.h_two_phase_w_m2k;
       lastHLiquidBase = tpHTC.h_liquid_base;
+
+      const tpDP = calculateTwoPhaseFluidPressureDrop({
+        mass_flow_kgs: m_f,
+        circuits,
+        tube_inner_diameter_m: tubeInnerDiamM,
+        tube_length_m: tubeLengthForFluid,
+        quality_x: qx,
+        density_liquid: tpProps.density_liquid,
+        density_vapor: tpProps.density_vapor,
+        viscosity_liquid: tpProps.viscosity_liquid,
+        viscosity_vapor: tpProps.viscosity_vapor,
+      });
+      lastFluidPressureDropKpa = tpDP.pressure_drop_kpa;
     } else if (useCircuitPath) {
       const fluidProps = calculateFluidProperties({
         fluid: fluidName!,

@@ -259,7 +259,12 @@ export function EvaporatorForm({ value, onChange }: EvaporatorFormProps) {
 
         {/* Materiais */}
         <div className="md:col-span-1">
-          <label className="mb-1 block text-xs font-medium text-slate-700">Material do tubo</label>
+          <label
+            className="mb-1 block text-xs font-medium text-slate-700"
+            title="Material dos tubos da serpentina. Cobre: k≈390 W/mK (padrão). Alumínio: k≈200 W/mK (mais leve, menos resistente à corrosão). Aço: k≈50 W/mK (industrial)."
+          >
+            Material do tubo
+          </label>
           <select
             value={value.tube_material ?? ""}
             onChange={(e) =>
@@ -277,7 +282,12 @@ export function EvaporatorForm({ value, onChange }: EvaporatorFormProps) {
           </select>
         </div>
         <div className="md:col-span-1">
-          <label className="mb-1 block text-xs font-medium text-slate-700">Material da aleta</label>
+          <label
+            className="mb-1 block text-xs font-medium text-slate-700"
+            title="Material das aletas da serpentina. Alumínio: padrão industrial (k≈200 W/mK). Cobre: alta condutividade (k≈390 W/mK), maior custo. Aço: uso industrial especial."
+          >
+            Material da aleta
+          </label>
           <select
             value={value.fin_material ?? ""}
             onChange={(e) =>

@@ -17,16 +17,20 @@ import {
   type PipelineFluidPhase,
   type PipelineRefrigerant,
 } from "../engines/pipelinePressureDropEngine";
+import { LabelWithTooltip } from "../components/ui/FieldTooltip";
 
 function NF({
-  label, value, onChange, unit, min, max, step,
+  label, value, onChange, unit, min, max, step, tooltip,
 }: {
   label: string; value: number; onChange: (v: number) => void;
-  unit?: string; min?: number; max?: number; step?: number;
+  unit?: string; min?: number; max?: number; step?: number; tooltip?: string;
 }) {
   return (
     <div>
-      <Label className="mb-1 block text-[11px] text-slate-500">{label}{unit && <span className="ml-1 text-slate-400">({unit})</span>}</Label>
+      <Label className="mb-1 block text-[11px] text-slate-500">
+        {tooltip ? <LabelWithTooltip label={label} tooltip={tooltip} /> : label}
+        {unit && <span className="ml-1 text-slate-400">({unit})</span>}
+      </Label>
       <Input
         type="number"
         value={value}
@@ -137,8 +141,10 @@ export function PipelineDeltaPPage() {
             </div>
 
             <div className="grid grid-cols-2 gap-3">
-              <NF label="Te evaporação" value={Te} onChange={setTe} unit="°C" min={-50} max={20} step={1} />
-              <NF label="Vazão mássica" value={massFlow} onChange={setMassFlow} unit="kg/h" min={1} max={5000} step={5} />
+              <NF label="Te evaporação" value={Te} onChange={setTe} unit="°C" min={-50} max={20} step={1}
+                tooltip="Temperatura de saturação do refrigerante no evaporador. Usada para interpolação das propriedades termodinâmicas (ρ, μ, P_sat, dT/dP)." />
+              <NF label="Vazão mássica" value={massFlow} onChange={setMassFlow} unit="kg/h" min={1} max={5000} step={5}
+                tooltip="Fluxo mássico total de refrigerante na tubulação. Converte-se para kg/s internamente para calcular velocidade e número de Reynolds." />
             </div>
 
             <div>
@@ -171,12 +177,15 @@ export function PipelineDeltaPPage() {
             </div>
 
             <div className="grid grid-cols-2 gap-3">
-              <NF label="Comprimento reto" value={length} onChange={setLength} unit="m" min={0.1} max={500} step={0.5} />
-              <NF label="Conexões (L equiv.)" value={fittingsEqLen} onChange={setFittingsEqLen} unit="m" min={0} max={100} step={0.5} />
+              <NF label="Comprimento reto" value={length} onChange={setLength} unit="m" min={0.1} max={500} step={0.5}
+                tooltip="Comprimento reto da tubulação, sem contar conexões. Adicionado ao comprimento equivalente de conexões para obter o comprimento total de cálculo." />
+              <NF label="Conexões (L equiv.)" value={fittingsEqLen} onChange={setFittingsEqLen} unit="m" min={0} max={100} step={0.5}
+                tooltip="Comprimento equivalente de todas as conexões (cotovelos, tês, válvulas). Regra geral: somar 20–30% do comprimento reto como estimativa conservadora." />
             </div>
 
             {phase === "two_phase" && (
-              <NF label="Título de vapor (x)" value={quality} onChange={setQuality} min={0.01} max={0.99} step={0.01} />
+              <NF label="Título de vapor (x)" value={quality} onChange={setQuality} min={0.01} max={0.99} step={0.01}
+                tooltip="Fração mássica de vapor no escoamento bifásico (0 = líquido puro, 1 = vapor puro). Afeta o multiplicador de Lockhart-Martinelli. Típico para linhas de sucção: x = 0,90–0,95." />
             )}
           </CardContent>
         </Card>
