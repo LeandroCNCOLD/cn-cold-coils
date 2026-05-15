@@ -263,6 +263,7 @@ export function getProjectRoute(project: SavedProject): string {
     dx_complete: "/coldpro/systems/dx-complete",
     heat_pump: "/coldpro/systems/heat-pump",
     component_workspace: "/coldpro/cncoils/workspace",
+    application_engineering: "/coldpro/application-engineering",
   };
   return routes[project.type];
 }
