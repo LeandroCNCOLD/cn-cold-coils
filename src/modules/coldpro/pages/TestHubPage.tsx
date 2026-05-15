@@ -41,6 +41,7 @@ import { StartupTabContent } from "./hub-tabs/StartupTabContent";
 import { ElectricoTabContent } from "./hub-tabs/ElectricoTabContent";
 import { MachineValidationTabContent } from "./hub-tabs/MachineValidationTabContent";
 import { CatalogDataSheetTabContent } from "./hub-tabs/CatalogDataSheetTabContent";
+import { SensitivityAnalysisTabContent } from "./hub-tabs/SensitivityAnalysisTabContent";
 
 import { useCatalogSessionStore } from "@/modules/coldpro_catalog/store/useCatalogSessionStore";
 import { useCoilEnvelopeStore } from "@/modules/cn_coils/store/useCoilEnvelopeStore";
@@ -59,7 +60,7 @@ type TabId =
   | "montecarlo" | "polynomial" | "autoopt" | "envelope" | "energy" | "fancoil"
   | "sanity" | "bottleneck" | "scenarios" | "frost" | "comparison"
   | "startup" | "ai" | "report"
-  | "eletrico" | "machine-validation" | "catalog-datasheet";
+  | "eletrico" | "machine-validation" | "catalog-datasheet" | "sensitivity";
 
 interface TabDef {
   id: TabId;
@@ -93,6 +94,7 @@ const TABS: TabDef[] = [
   { id: "eletrico", label: "Elétrico", icon: Zap, description: "Corrente, tensão, potência total e COP real do sistema com ventiladores", group: "diagnosis" },
   { id: "machine-validation", label: "Validação", icon: ShieldCheck, description: "Checklist PASS/FAIL por critério de aceitação da máquina (8 critérios)", group: "diagnosis" },
   { id: "catalog-datasheet", label: "Data Sheet", icon: Database, description: "Registro técnico completo do produto com curva de desempenho e exportação PDF", group: "diagnosis" },
+  { id: "sensitivity", label: "Sensibilidade", icon: Activity, description: "Análise de sensibilidade: impacto de ΔTe e ΔTc na capacidade e COP (EN12900)", group: "diagnosis" },
 ];
 
 const GROUP_LABELS: Record<string, string> = {
@@ -373,6 +375,9 @@ export function TestHubPage() {
         </TabsContent>
         <TabsContent value="catalog-datasheet" className="mt-0">
           <CatalogDataSheetTabContent machine={selectedMachine} compressor={compressor} condenser={condenser} evaporator={evaporator} conditions={conditions} />
+        </TabsContent>
+        <TabsContent value="sensitivity" className="mt-0">
+          <SensitivityAnalysisTabContent compressor={compressor} />
         </TabsContent>
             </Tabs>
           </div>
