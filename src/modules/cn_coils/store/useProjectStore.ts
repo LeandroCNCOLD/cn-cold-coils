@@ -33,6 +33,14 @@ export interface SavedProjectSnapshot {
   equilibriumResult?: SystemEquilibriumResult | null;
   loadResult?: Record<string, unknown> | null;
   attachments?: ProjectAttachment[];
+  engineeringState?: {
+    step1: import("@/modules/coldpro/pages/application-engineering/types/app-engineering.types").AppEngineeringStep1;
+    step2: import("@/modules/coldpro/pages/application-engineering/types/app-engineering.types").AppEngineeringStep2;
+    step3: import("@/modules/coldpro/pages/application-engineering/types/app-engineering.types").AppEngineeringStep3;
+    compressorSweep: import("@/modules/coldpro/pages/application-engineering/types/app-engineering.types").CapacityCurvePoint[];
+    savedAt: string;
+    version: 1;
+  } | null;
 }
 
 export interface ProjectHeader {
