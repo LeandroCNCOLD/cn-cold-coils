@@ -412,6 +412,47 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
     else updateStep2({ ...storePayload, airRhIn: 0.85 });
   }
 
+  function openInSimulator() {
+    const best = result?.best;
+    if (!best) return;
+
+    const avgTe = sweep.reduce((s, p) => s + (isCondenser ? p.tc_c : p.te_c), 0) / sweep.length;
+    const avgTc = sweep.reduce((s, p) => s + p.tc_c, 0) / sweep.length;
+
+    const envelopePoints: EnvelopePoint[] = best.coverage.map((cov) => ({
+      Te: isCondenser ? avgTe : cov.te_c,
+      Q_kcalh: cov.q_evap_w * 0.859845,
+      W_kW: cov.q_comp_w > 0 ? Math.max(0, (cov.q_comp_w - cov.q_evap_w) / 1000) : 0,
+      COP: cov.q_comp_w > 0 ? cov.q_evap_w / cov.q_comp_w : 0,
+      deltaP_Pa: cov.air_pressure_drop_pa ?? 0,
+      regime: "dry",
+    }));
+
+    const envelope: CoilEnvelope = {
+      equipmentId: `eng-${isCondenser ? "cond" : "evap"}-${Date.now()}`,
+      componentType: isCondenser ? "condenser_air" : "evaporator_dx",
+      geometryId: best.geometry.geometry_id ?? undefined,
+      refrigerant: refrigerant || "R404A",
+      nominalConditions: {
+        Te: avgTe,
+        Tc: avgTc,
+        T_ar: isCondenser ? avgTc - deltaTTargetK : avgTe + deltaTTargetK,
+        UR: 0.85,
+      },
+      envelope: envelopePoints,
+      savedAt: new Date().toISOString(),
+      version: 2,
+    };
+
+    useCoilEnvelopeStore.getState().saveEnvelope(envelope);
+
+    const workspaceType = isCondenser ? "condenser_air" : "evaporator_dx";
+    navigate({
+      to: "/coldpro/cncoils/workspace",
+      search: { type: workspaceType },
+    });
+  }
+
   const canRun = sweep.length > 0 && criteria.length > 0 && totalFanAirflow > 0;
   const bestApproved = (result?.best?.pointsCovered ?? 0) > 0;
 
