@@ -113,6 +113,7 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
   const { data: valves } = useExpansionValves(
     isCondenser ? undefined : { refrigerant },
   );
+  const navigate = useNavigate();
 
   // Restrições — cada uma com checkbox "fixar" + valor
   const [fixed, setFixed] = useState<Record<ConstraintKey, boolean>>({
