@@ -122,16 +122,10 @@ export const REHEAT_REQUIRED = [
   "reheatAirMassFlowKgS",
   "reheatTCondensingC",
   "reheatTHotGasInC",
-  "reheatTubeOuterDiameterM",
-  "reheatTubeThicknessM",
-  "reheatFinSpacingM",
-  "reheatFinThicknessM",
-  "reheatTubePitchTransversalM",
-  "reheatTubePitchLongitudinalM",
-  "reheatCoilLengthM",
+  // Geometria — campos em mm (únicos presentes no raw data)
+  "reheatFinSpacingMm",
+  "reheatCoilLengthMm",
   "reheatCircuits",
-  "reheatTubeMaterial",
-  "reheatFinMaterial",
 ] as const satisfies readonly (keyof CatalogEquipmentRow)[];
 
 const REHEAT_OPTIONAL = [

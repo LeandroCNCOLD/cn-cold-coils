@@ -1275,7 +1275,10 @@ export interface OperatingMapPoint {
   evap_temp_c: number;
   cond_temp_c: number;
   capacity_w: number;
+  /** COP do compressor isolado: Q / W_comp */
   cop: number;
+  /** COP real do sistema: Q / (W_comp + W_fans) */
+  cop_system: number;
   compressor_power_w: number;
   status: "approved" | "warning" | "rejected";
   warnings: string[];

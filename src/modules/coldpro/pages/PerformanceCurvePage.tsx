@@ -24,7 +24,7 @@ import { useTestHubStore } from "../stores/useTestHubStore";
 
 const METRIC_OPTIONS: { value: PerformanceMetric; label: string }[] = [
   { value: "capacity_w", label: "Capacidade" },
-  { value: "cop", label: "COP" },
+  { value: "cop_system", label: "COP Sistema" },
   { value: "compressor_power_w", label: "Potência" },
 ];
 
@@ -397,7 +397,7 @@ export function PerformanceCurvePage() {
                         <th className="py-2 pr-3">T_cond</th>
                         <th className="py-2 pr-3">Capacidade</th>
                         <th className="py-2 pr-3">Potência</th>
-                        <th className="py-2 pr-3">COP</th>
+                        <th className="py-2 pr-3">COP Sistema</th>
                         <th className="py-2">Status</th>
                       </tr>
                     </thead>
@@ -408,7 +408,7 @@ export function PerformanceCurvePage() {
                           <td className="py-1.5 pr-3 font-mono">{p.cond_temp_c}°C</td>
                           <td className="py-1.5 pr-3 font-mono">{formatCapacity(p.capacity_w)}</td>
                           <td className="py-1.5 pr-3 font-mono">{formatCapacity(p.compressor_power_w)}</td>
-                          <td className="py-1.5 pr-3 font-mono">{formatCOP(p.cop)}</td>
+                          <td className="py-1.5 pr-3 font-mono">{formatCOP(p.cop_system)}</td>
                           <td className="py-1.5">
                             <StatusBadge status={p.status} />
                           </td>

@@ -115,6 +115,7 @@ function makeExportMap(): OperatingMapResult {
     cond_temp_c: 35,
     capacity_w: 5000,
     cop: 2.78,
+    cop_system: 2.78,
     compressor_power_w: 1800,
     status: "approved",
     warnings: [],
