@@ -75,7 +75,7 @@ export function PerformanceCurveChart({ points, metric }: PerformanceCurveChartP
                 <div className="font-semibold text-slate-900">T_evap: {d.x}°C</div>
                 <div className="text-slate-700">
                   {METRIC_LABELS[metric]}:{" "}
-                  {metric === "cop" ? formatCOP(d.y) : formatCapacity(d.y)}
+                  {metric === "cop_system" ? formatCOP(d.y) : formatCapacity(d.y)}
                 </div>
                 <div className="text-slate-500">Status: {d.status}</div>
               </div>

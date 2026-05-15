@@ -24,7 +24,17 @@ import { useApplicationEngineering } from "../hooks/useApplicationEngineering";
 import { autoSizeCondenser } from "../services/autoSizingService";
 import { FlexibleNumberInput } from "./FlexibleNumberInput";
 import type { CoilGeometryCatalogItem } from "@/modules/cn_coils/types/cncoils.types";
+import type { CoilGeometryItem } from "@/modules/cn_coils/services/coilGeometryCatalogService";
 import type { AutoSizingResult } from "../services/autoSizingService";
+
+function geoOd(g: CoilGeometryCatalogItem): number {
+  const eg = g as unknown as CoilGeometryItem;
+  return eg.diametro_externo_tubo_mm ?? (eg.tubeOuterDiameterMm || 9.52);
+}
+function geoPt(g: CoilGeometryCatalogItem): number {
+  const eg = g as unknown as CoilGeometryItem;
+  return eg.passo_tubos_mm ?? (eg.tubePitchTransverseMm || 25.4);
+}
 
 const FIN_PITCH_OPTIONS = [1.5, 2, 2.5, 3, 4] as const;
 
@@ -78,8 +88,8 @@ export function CondenserAutoPanel() {
 
   const effectiveTubesPerRow =
     tubesPerRow ??
-    (geometry && geometry.tubePitchTransverseMm > 0
-      ? Math.max(1, Math.round(600 / geometry.tubePitchTransverseMm))
+    (geometry
+      ? Math.max(1, Math.round(600 / geoPt(geometry)))
       : 20);
 
   const totalAirflowM3H = (selectedFan?.airflow_m3h ?? 0) * fanCount;
@@ -90,7 +100,7 @@ export function CondenserAutoPanel() {
     setTimeout(() => {
       const result = autoSizeCondenser({
         tubesPerRow: effectiveTubesPerRow,
-        tubeOuterDiameterMm: geometry.tubeOuterDiameterMm,
+        tubeOuterDiameterMm: geoOd(geometry),
         startLengthMm: lengthMm,
         finPitchMm,
         totalAirflowM3H,
@@ -117,7 +127,7 @@ export function CondenserAutoPanel() {
         tubes_per_row: effectiveTubesPerRow,
         fin_spacing_mm: finPitchMm,
         length_mm: sel.lengthMm,
-        tube_diameter_mm: geometry.tubeOuterDiameterMm,
+        tube_diameter_mm: geoOd(geometry),
       },
     });
     runCalculation();
@@ -158,7 +168,7 @@ export function CondenserAutoPanel() {
                 className="mt-1 w-full rounded border border-border bg-background px-3 py-2 text-left text-sm transition-colors hover:bg-accent"
               >
                 {geometry
-                  ? `${geometry.name} (Ø${geometry.tubeOuterDiameterMm} mm)`
+                  ? `${geometry.name} (Ø${geoOd(geometry)} mm)`
                   : "Selecionar geometria do catálogo…"}
               </button>
               <GeometryPickerModal

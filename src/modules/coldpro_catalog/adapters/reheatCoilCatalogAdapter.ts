@@ -89,7 +89,7 @@ export function catalogToReheatCoilInput(row: CatalogEquipmentRow): ReheatAdapte
     tube_material: row.reheatTubeMaterial ?? "copper",
     fin_spacing_m: row.reheatFinSpacingMm! / 1000,
     fin_thickness_m: finThickM,
-    fin_material: row.reheatFinMaterial ?? "aluminum",
+    fin_material: (row.reheatFinMaterial !== "steel" ? row.reheatFinMaterial : undefined) ?? "aluminum",
     tube_pitch_transversal_m: pitchTransM,
     tube_pitch_longitudinal_m: pitchLongM,
     coil_length_m: row.reheatCoilLengthMm! / 1000,

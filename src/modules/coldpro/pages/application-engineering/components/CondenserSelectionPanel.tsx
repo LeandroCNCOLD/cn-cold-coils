@@ -11,15 +11,20 @@ import type { FanPickerItem } from "@/modules/cn_coils/components/FanPickerModal
 import { useCnCoilsSimulationStore } from "@/modules/cn_coils/store/useCnCoilsSimulationStore";
 import { useEnrichedFanPickerItems } from "@/modules/cn_coils/hooks/useEnrichedFanPickerItems";
 import type { CoilGeometryCatalogItem } from "@/modules/cn_coils/types/cncoils.types";
+import type { CoilGeometryItem } from "@/modules/cn_coils/services/coilGeometryCatalogService";
 
 function catalogItemToCandidate(item: CoilGeometryCatalogItem): CoilGeometryCandidate {
+  const g = item as unknown as CoilGeometryItem;
+  const od = g.diametro_externo_tubo_mm ?? (g.tubeOuterDiameterMm || 9.52);
+  const pt = g.passo_tubos_mm ?? (g.tubePitchTransverseMm || 25.4);
+  const pl = g.passo_fileiras_mm ?? (g.tubePitchLongitudinalMm || 21.65);
   return {
     id: item.id,
     name: item.name,
-    tube_od_mm: item.tubeOuterDiameterMm,
-    tube_id_mm: item.tubeInnerDiameterMm ?? item.tubeOuterDiameterMm * 0.85,
-    pitch_transverse_mm: item.tubePitchTransverseMm,
-    pitch_longitudinal_mm: item.tubePitchLongitudinalMm,
+    tube_od_mm: od,
+    tube_id_mm: g.diametro_interno_tubo_mm ?? item.tubeInnerDiameterMm ?? (od * 0.85),
+    pitch_transverse_mm: pt,
+    pitch_longitudinal_mm: pl,
     fin_thickness_mm: (item.raw?.finThicknessMm as number | undefined) ?? 0.1,
   };
 }
