@@ -7,6 +7,12 @@
  */
 import { useEffect, useMemo, useState } from "react";
 import { Wind, Flame, Play, Loader2, Plus, X, Trash2, Wand2, Fan } from "lucide-react";
+import { useNavigate } from "@tanstack/react-router";
+import {
+  useCoilEnvelopeStore,
+  type CoilEnvelope,
+  type EnvelopePoint,
+} from "@/modules/cn_coils/store/useCoilEnvelopeStore";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
