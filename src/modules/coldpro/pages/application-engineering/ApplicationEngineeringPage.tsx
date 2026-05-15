@@ -12,6 +12,7 @@ import { Step4HubPanel } from "./components/Step4HubPanel";
 import { CompressorPanel } from "./components/CompressorPanel";
 import { EvaporatorPanel } from "./components/EvaporatorPanel";
 import { CondenserPanel } from "./components/CondenserPanel";
+import { EngineeringProjectBar } from "./components/EngineeringProjectBar";
 
 const STEPS = [
   { id: 1, label: "Compressor", icon: Cpu },
@@ -110,6 +111,11 @@ export function ApplicationEngineeringPage() {
             })}
           </nav>
         )}
+      </div>
+
+      {/* Barra de projetos */}
+      <div className="border-b border-slate-200 bg-white px-6 py-2">
+        <EngineeringProjectBar />
       </div>
 
       {/* Conteúdo */}

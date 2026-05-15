@@ -12,7 +12,8 @@ export type SavedProjectType =
   | "cold_room"
   | "dx_complete"
   | "heat_pump"
-  | "component_workspace";
+  | "component_workspace"
+  | "application_engineering";
 
 // ── Feature D — Anexos ────────────────────────────────────────────────────────
 export interface ProjectAttachment {
@@ -32,6 +33,14 @@ export interface SavedProjectSnapshot {
   equilibriumResult?: SystemEquilibriumResult | null;
   loadResult?: Record<string, unknown> | null;
   attachments?: ProjectAttachment[];
+  engineeringState?: {
+    step1: import("@/modules/coldpro/pages/application-engineering/types/app-engineering.types").AppEngineeringStep1;
+    step2: import("@/modules/coldpro/pages/application-engineering/types/app-engineering.types").AppEngineeringStep2;
+    step3: import("@/modules/coldpro/pages/application-engineering/types/app-engineering.types").AppEngineeringStep3;
+    compressorSweep: import("@/modules/coldpro/pages/application-engineering/types/app-engineering.types").CapacityCurvePoint[];
+    savedAt: string;
+    version: 1;
+  } | null;
 }
 
 export interface ProjectHeader {
@@ -254,6 +263,7 @@ export function getProjectRoute(project: SavedProject): string {
     dx_complete: "/coldpro/systems/dx-complete",
     heat_pump: "/coldpro/systems/heat-pump",
     component_workspace: "/coldpro/cncoils/workspace",
+    application_engineering: "/coldpro/application-engineering",
   };
   return routes[project.type];
 }

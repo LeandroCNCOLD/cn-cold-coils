@@ -7,6 +7,12 @@
  */
 import { useEffect, useMemo, useState } from "react";
 import { Wind, Flame, Play, Loader2, Plus, X, Trash2, Wand2, Fan } from "lucide-react";
+import { useNavigate } from "@tanstack/react-router";
+import {
+  useCoilEnvelopeStore,
+  type CoilEnvelope,
+  type EnvelopePoint,
+} from "@/modules/cn_coils/store/useCoilEnvelopeStore";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -107,6 +113,7 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
   const { data: valves } = useExpansionValves(
     isCondenser ? undefined : { refrigerant },
   );
+  const navigate = useNavigate();
 
   // Restrições — cada uma com checkbox "fixar" + valor
   const [fixed, setFixed] = useState<Record<ConstraintKey, boolean>>({
@@ -403,6 +410,47 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
     };
     if (isCondenser) updateStep3(storePayload);
     else updateStep2({ ...storePayload, airRhIn: 0.85 });
+  }
+
+  function openInSimulator() {
+    const best = result?.best;
+    if (!best) return;
+
+    const avgTe = sweep.reduce((s, p) => s + (isCondenser ? p.tc_c : p.te_c), 0) / sweep.length;
+    const avgTc = sweep.reduce((s, p) => s + p.tc_c, 0) / sweep.length;
+
+    const envelopePoints: EnvelopePoint[] = best.coverage.map((cov) => ({
+      Te: isCondenser ? avgTe : cov.te_c,
+      Q_kcalh: cov.q_evap_w * 0.859845,
+      W_kW: cov.q_comp_w > 0 ? Math.max(0, (cov.q_comp_w - cov.q_evap_w) / 1000) : 0,
+      COP: cov.q_comp_w > 0 ? cov.q_evap_w / cov.q_comp_w : 0,
+      deltaP_Pa: cov.air_pressure_drop_pa ?? 0,
+      regime: "dry",
+    }));
+
+    const envelope: CoilEnvelope = {
+      equipmentId: `eng-${isCondenser ? "cond" : "evap"}-${Date.now()}`,
+      componentType: isCondenser ? "condenser_air" : "evaporator_dx",
+      geometryId: best.geometry.geometry_id ?? undefined,
+      refrigerant: refrigerant || "R404A",
+      nominalConditions: {
+        Te: avgTe,
+        Tc: avgTc,
+        T_ar: isCondenser ? avgTc - deltaTTargetK : avgTe + deltaTTargetK,
+        UR: 0.85,
+      },
+      envelope: envelopePoints,
+      savedAt: new Date().toISOString(),
+      version: 2,
+    };
+
+    useCoilEnvelopeStore.getState().saveEnvelope(envelope);
+
+    const workspaceType = isCondenser ? "condenser_air" : "evaporator_dx";
+    navigate({
+      to: "/coldpro/cncoils/workspace",
+      search: { type: workspaceType },
+    });
   }
 
   const canRun = sweep.length > 0 && criteria.length > 0 && totalFanAirflow > 0;
@@ -938,9 +986,18 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
                 </div>
               )}
 
-              <div className="flex justify-end">
+              <div className="flex justify-end gap-2">
                 <Button size="sm" onClick={applyToForm} disabled={!bestApproved} className="h-7 gap-1 text-xs">
                   <Wand2 className="h-3 w-3" /> Aplicar ao formulário principal
+                </Button>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={openInSimulator}
+                  disabled={!bestApproved}
+                  className="h-7 gap-1 text-xs"
+                >
+                  <Play className="h-3 w-3" /> Abrir no Simulador
                 </Button>
               </div>
 

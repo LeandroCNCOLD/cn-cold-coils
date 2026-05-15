@@ -43,6 +43,7 @@ const TYPE_LABELS: Record<SavedProject["type"], string> = {
   dx_complete: "DX Completo",
   heat_pump: "Bomba de Calor",
   component_workspace: "Workspace",
+  application_engineering: "Engenharia de Aplicação",
 };
 
 type SortKey = "updatedAt" | "createdAt" | "name";
