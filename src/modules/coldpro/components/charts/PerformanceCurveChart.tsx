@@ -11,7 +11,7 @@ import {
 import type { ProductPerformancePoint } from "@/modules/coldpro_v2";
 import { formatCapacity, formatCOP } from "../../utils/formatting";
 
-export type PerformanceMetric = "capacity_w" | "cop" | "compressor_power_w";
+export type PerformanceMetric = "capacity_w" | "cop_system" | "compressor_power_w";
 
 interface PerformanceCurveChartProps {
   points: ProductPerformancePoint[];
@@ -20,7 +20,7 @@ interface PerformanceCurveChartProps {
 
 const METRIC_LABELS: Record<PerformanceMetric, string> = {
   capacity_w: "Capacidade [W]",
-  cop: "COP",
+  cop_system: "COP Sistema",
   compressor_power_w: "Potência [W]",
 };
 

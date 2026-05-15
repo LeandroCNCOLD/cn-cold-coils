@@ -67,7 +67,7 @@ export function OperatingMapChart({ points }: OperatingMapChartProps) {
                   T_evap {d.evap_temp_c}°C / T_cond {d.cond_temp_c}°C
                 </div>
                 <div className="text-slate-700">Capacidade: {formatCapacity(d.capacity_w)}</div>
-                <div className="text-slate-700">COP: {formatCOP(d.cop)}</div>
+                <div className="text-slate-700">COP sistema: {formatCOP(d.cop_system)}</div>
                 <div className="text-slate-500">Status: {d.status}</div>
               </div>
             );

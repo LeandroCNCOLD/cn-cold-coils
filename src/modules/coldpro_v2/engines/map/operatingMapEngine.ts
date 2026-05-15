@@ -148,7 +148,7 @@ function computeStats(
   feasiblePoints: OperatingMapPoint[],
 ): OperatingMapStats {
   const capacities = feasiblePoints.map((point) => point.capacity_w);
-  const cops = feasiblePoints.map((point) => point.cop);
+  const cops = feasiblePoints.map((point) => point.cop_system);
   const compressorPowers = feasiblePoints.map((point) => point.compressor_power_w);
 
   return {
@@ -209,6 +209,7 @@ export function generateOperatingMap(input: OperatingMapInput): OperatingMapResu
     cond_temp_c: point.cond_temp_c,
     capacity_w: point.capacity_w,
     cop: point.cop,
+    cop_system: point.cop_system,
     compressor_power_w: point.compressor_power_w,
     status: point.status,
     warnings: point.warnings ?? [],
@@ -229,12 +230,12 @@ export function generateOperatingMap(input: OperatingMapInput): OperatingMapResu
     cop_isolines: buildIsolines(
       feasiblePoints,
       copIsolineCount,
-      (point) => point.cop,
+      (point) => point.cop_system,
       (value) => `COP ${value.toFixed(2)}`,
     ),
     envelope,
     max_capacity_point: findPeakPoint(feasiblePoints, (point) => point.capacity_w),
-    max_cop_point: findPeakPoint(feasiblePoints, (point) => point.cop),
+    max_cop_point: findPeakPoint(feasiblePoints, (point) => point.cop_system),
     stats: computeStats(mapPoints, feasiblePoints),
     warnings: Array.from(
       new Set([...validationWarnings, ...optionWarnings, ...(curve.warnings ?? [])]),
