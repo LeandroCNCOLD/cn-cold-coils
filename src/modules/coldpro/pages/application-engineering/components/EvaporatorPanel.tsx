@@ -986,9 +986,18 @@ export function EvaporatorPanel({ mode = "evaporator" }: EvaporatorPanelProps = 
                 </div>
               )}
 
-              <div className="flex justify-end">
+              <div className="flex justify-end gap-2">
                 <Button size="sm" onClick={applyToForm} disabled={!bestApproved} className="h-7 gap-1 text-xs">
                   <Wand2 className="h-3 w-3" /> Aplicar ao formulário principal
+                </Button>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={openInSimulator}
+                  disabled={!bestApproved}
+                  className="h-7 gap-1 text-xs"
+                >
+                  <Play className="h-3 w-3" /> Abrir no Simulador
                 </Button>
               </div>
 
