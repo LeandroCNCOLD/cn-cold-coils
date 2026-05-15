@@ -12,6 +12,7 @@ import { Step4HubPanel } from "./components/Step4HubPanel";
 import { CompressorPanel } from "./components/CompressorPanel";
 import { EvaporatorPanel } from "./components/EvaporatorPanel";
 import { CondenserPanel } from "./components/CondenserPanel";
+import { EngineeringProjectBar } from "./components/EngineeringProjectBar";
 
 const STEPS = [
   { id: 1, label: "Compressor", icon: Cpu },
