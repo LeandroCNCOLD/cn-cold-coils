@@ -13,9 +13,6 @@
  * - ASHRAE Handbook Refrigeration 2022, Cap. 14 — Forced-Circulation Air Coolers
  */
 import { useMemo } from "react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Alert, AlertDescription } from "@/components/ui/alert";
 import { CheckCircle2, AlertCircle, XCircle, Shield, Database, Zap, Wind, Thermometer, ShieldCheck } from "lucide-react";
 import type { CatalogEquipmentRow } from "@/modules/coldpro_catalog/data/equipmentCatalog.types";
 import {
@@ -404,17 +401,17 @@ export function DataSanityTabContent({ machine, compressor, condenser, evaporato
 
   const finalStatusBadge = (status: "approved" | "conditional" | "rejected") => {
     const map = {
-      approved: { label: "APROVADA", className: "bg-emerald-100 text-emerald-700 border-emerald-300" },
-      conditional: { label: "CONDICIONAL", className: "bg-amber-100 text-amber-700 border-amber-300" },
-      rejected: { label: "REJEITADA", className: "bg-red-100 text-red-700 border-red-300" },
+      approved: { label: "APROVADA", badgeClass: "cn-badge cn-badge--approved" },
+      conditional: { label: "CONDICIONAL", badgeClass: "cn-badge cn-badge--pending" },
+      rejected: { label: "REJEITADA", badgeClass: "cn-badge cn-badge--rejected" },
     } as const;
     return map[status];
   };
 
   const statusIcon = (s: ValidationStatus) => {
-    if (s === "pass") return <CheckCircle2 className="h-4 w-4 text-emerald-500" />;
-    if (s === "warning") return <AlertCircle className="h-4 w-4 text-amber-500" />;
-    return <XCircle className="h-4 w-4 text-red-500" />;
+    if (s === "pass") return <CheckCircle2 className="h-4 w-4" style={{ color: "var(--color-success)" }} />;
+    if (s === "warning") return <AlertCircle className="h-4 w-4" style={{ color: "#f59e0b" }} />;
+    return <XCircle className="h-4 w-4" style={{ color: "var(--color-error)" }} />;
   };
 
   const fmtVal = (v: number, unit: string) => {
@@ -435,55 +432,81 @@ export function DataSanityTabContent({ machine, compressor, condenser, evaporato
   return (
     <div className="space-y-5">
       {/* Resumo geral */}
-      <Card className={`border-2 ${overallStatus === "critical" ? "border-red-300 bg-red-50" : overallStatus === "estimated" ? "border-amber-300 bg-amber-50" : "border-emerald-300 bg-emerald-50"}`}>
-        <CardContent className="p-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              {overallStatus === "critical" ? (
-                <XCircle className="h-8 w-8 text-red-500" />
-              ) : overallStatus === "estimated" ? (
-                <AlertCircle className="h-8 w-8 text-amber-500" />
-              ) : (
-                <CheckCircle2 className="h-8 w-8 text-emerald-500" />
-              )}
-              <div>
-                <p className="text-base font-bold text-slate-800">
-                  {overallStatus === "critical" ? "Dados Críticos Ausentes" : overallStatus === "estimated" ? "Dados Completos com Estimativas" : "Dados Completos"}
-                </p>
-                <p className="text-xs text-slate-500">
-                  {completeCount} confirmados · {estimatedCount} estimados · {criticalCount} críticos ausentes
-                </p>
-              </div>
-            </div>
-            <div className="text-right">
-              <p className="text-3xl font-bold text-slate-800">{completePct}%</p>
-              <p className="text-xs text-slate-500">completude</p>
+      <div
+        className="cn-card p-4"
+        style={{
+          borderWidth: 2,
+          borderStyle: "solid",
+          borderColor: overallStatus === "critical"
+            ? "rgba(239,68,68,0.4)"
+            : overallStatus === "estimated"
+            ? "rgba(245,158,11,0.4)"
+            : "rgba(16,185,129,0.4)",
+          background: overallStatus === "critical"
+            ? "rgba(239,68,68,0.07)"
+            : overallStatus === "estimated"
+            ? "rgba(245,158,11,0.07)"
+            : "rgba(16,185,129,0.07)",
+        }}
+      >
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            {overallStatus === "critical" ? (
+              <XCircle className="h-8 w-8" style={{ color: "var(--color-error)" }} />
+            ) : overallStatus === "estimated" ? (
+              <AlertCircle className="h-8 w-8" style={{ color: "#f59e0b" }} />
+            ) : (
+              <CheckCircle2 className="h-8 w-8" style={{ color: "var(--color-success)" }} />
+            )}
+            <div>
+              <p className="text-base font-bold" style={{ color: "var(--text-primary)" }}>
+                {overallStatus === "critical" ? "Dados Críticos Ausentes" : overallStatus === "estimated" ? "Dados Completos com Estimativas" : "Dados Completos"}
+              </p>
+              <p className="text-xs" style={{ color: "var(--text-muted)" }}>
+                {completeCount} confirmados · {estimatedCount} estimados · {criticalCount} críticos ausentes
+              </p>
             </div>
           </div>
+          <div className="text-right">
+            <p className="text-3xl font-bold font-mono" style={{ color: "var(--text-primary)" }}>{completePct}%</p>
+            <p className="text-xs" style={{ color: "var(--text-muted)" }}>completude</p>
+          </div>
+        </div>
 
-          {/* Barra de progresso */}
-          <div className="mt-3 h-2.5 rounded-full bg-slate-200">
-            <div className="flex h-2.5 rounded-full overflow-hidden">
-              <div className="bg-emerald-400 transition-all" style={{ width: `${(completeCount / totalCount) * 100}%` }} />
-              <div className="bg-amber-400 transition-all" style={{ width: `${(estimatedCount / totalCount) * 100}%` }} />
-              <div className="bg-red-400 transition-all" style={{ width: `${(criticalCount / totalCount) * 100}%` }} />
-            </div>
+        {/* Barra de progresso */}
+        <div className="mt-3 h-2.5 rounded-full overflow-hidden" style={{ background: "var(--bg-700)" }}>
+          <div className="flex h-2.5 rounded-full overflow-hidden">
+            <div style={{ background: "var(--color-success)", width: `${(completeCount / totalCount) * 100}%`, transition: "width 0.3s" }} />
+            <div style={{ background: "#f59e0b", width: `${(estimatedCount / totalCount) * 100}%`, transition: "width 0.3s" }} />
+            <div style={{ background: "var(--color-error)", width: `${(criticalCount / totalCount) * 100}%`, transition: "width 0.3s" }} />
           </div>
-          <div className="mt-1 flex gap-4 text-[10px] text-slate-500">
-            <span className="flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-emerald-400" />Completo</span>
-            <span className="flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-amber-400" />Estimado</span>
-            <span className="flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-red-400" />Crítico ausente</span>
-          </div>
-        </CardContent>
-      </Card>
+        </div>
+        <div className="mt-1 flex gap-4 text-[10px]" style={{ color: "var(--text-muted)" }}>
+          <span className="flex items-center gap-1">
+            <span className="h-2 w-2 rounded-full" style={{ background: "var(--color-success)" }} />
+            Completo
+          </span>
+          <span className="flex items-center gap-1">
+            <span className="h-2 w-2 rounded-full" style={{ background: "#f59e0b" }} />
+            Estimado
+          </span>
+          <span className="flex items-center gap-1">
+            <span className="h-2 w-2 rounded-full" style={{ background: "var(--color-error)" }} />
+            Crítico ausente
+          </span>
+        </div>
+      </div>
 
       {criticalCount > 0 && (
-        <Alert className="border-red-200 bg-red-50">
-          <XCircle className="h-4 w-4 text-red-500" />
-          <AlertDescription className="text-sm text-red-700">
+        <div
+          className="rounded-lg p-3 flex gap-2"
+          style={{ background: "rgba(239,68,68,0.08)", borderWidth: 1, borderStyle: "solid", borderColor: "rgba(239,68,68,0.3)" }}
+        >
+          <XCircle className="h-4 w-4 shrink-0 mt-0.5" style={{ color: "var(--color-error)" }} />
+          <p className="text-sm" style={{ color: "var(--color-error)" }}>
             <strong>{criticalCount} campo(s) crítico(s) ausente(s).</strong> O SystemSolver completo está bloqueado. Configure os campos marcados em vermelho para habilitar todas as análises.
-          </AlertDescription>
-        </Alert>
+          </p>
+        </div>
       )}
 
       {/* Grupos de campos */}
@@ -491,79 +514,97 @@ export function DataSanityTabContent({ machine, compressor, condenser, evaporato
         {groups.map((group) => {
           const Icon = group.icon;
           return (
-            <Card key={group.group} className="overflow-hidden">
-              <CardHeader className="pb-2">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Icon className="h-4 w-4 text-slate-500" />
-                    <CardTitle className="text-sm">{group.group}</CardTitle>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Badge
-                      variant="outline"
-                      className={`text-[10px] ${group.confidence === "alta" ? "border-emerald-400 text-emerald-600" : group.confidence === "média" ? "border-amber-400 text-amber-600" : "border-red-400 text-red-600"}`}
-                    >
-                      Confiança {group.confidence}
-                    </Badge>
-                    {group.overallStatus === "complete" ? (
-                      <CheckCircle2 className="h-4 w-4 text-emerald-500" />
-                    ) : group.overallStatus === "estimated" ? (
-                      <AlertCircle className="h-4 w-4 text-amber-500" />
+            <div key={group.group} className="cn-card overflow-hidden" style={{ padding: 0 }}>
+              {/* Card header */}
+              <div className="flex items-center justify-between px-4 py-3" style={{ borderBottom: "1px solid var(--border-subtle)" }}>
+                <div className="flex items-center gap-2">
+                  <span style={{ color: "var(--text-muted)", display: "flex" }}><Icon className="h-4 w-4" /></span>
+                  <p className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>{group.group}</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span
+                    className={`cn-badge text-[10px] ${
+                      group.confidence === "alta"
+                        ? "cn-badge--approved"
+                        : group.confidence === "média"
+                        ? "cn-badge--pending"
+                        : "cn-badge--rejected"
+                    }`}
+                  >
+                    Confiança {group.confidence}
+                  </span>
+                  {group.overallStatus === "complete" ? (
+                    <CheckCircle2 className="h-4 w-4" style={{ color: "var(--color-success)" }} />
+                  ) : group.overallStatus === "estimated" ? (
+                    <AlertCircle className="h-4 w-4" style={{ color: "#f59e0b" }} />
+                  ) : (
+                    <XCircle className="h-4 w-4" style={{ color: "var(--color-error)" }} />
+                  )}
+                </div>
+              </div>
+              {/* Card body — field rows */}
+              <div>
+                {group.fields.map((field, i) => (
+                  <div
+                    key={i}
+                    className="flex items-start gap-3 px-4 py-2.5"
+                    style={{
+                      borderBottom: i < group.fields.length - 1 ? "1px solid var(--border-subtle)" : undefined,
+                      background: field.status === "critical"
+                        ? "rgba(239,68,68,0.07)"
+                        : field.status === "estimated"
+                        ? "rgba(245,158,11,0.05)"
+                        : undefined,
+                    }}
+                  >
+                    {field.status === "complete" ? (
+                      <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0" style={{ color: "var(--color-success)" }} />
+                    ) : field.status === "estimated" ? (
+                      <AlertCircle className="mt-0.5 h-3.5 w-3.5 shrink-0" style={{ color: "#f59e0b" }} />
                     ) : (
-                      <XCircle className="h-4 w-4 text-red-500" />
+                      <XCircle className="mt-0.5 h-3.5 w-3.5 shrink-0" style={{ color: "var(--color-error)" }} />
                     )}
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent className="p-0">
-                <div className="divide-y divide-slate-100">
-                  {group.fields.map((field, i) => (
-                    <div key={i} className={`flex items-start gap-3 px-4 py-2.5 ${field.status === "critical" ? "bg-red-50" : field.status === "estimated" ? "bg-amber-50/50" : ""}`}>
-                      {field.status === "complete" ? (
-                        <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-500" />
-                      ) : field.status === "estimated" ? (
-                        <AlertCircle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-amber-500" />
-                      ) : (
-                        <XCircle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-red-500" />
-                      )}
-                      <div className="min-w-0 flex-1">
-                        <div className="flex items-center justify-between gap-2">
-                          <span className="text-xs font-medium text-slate-700">{field.field}</span>
-                          <span className={`shrink-0 text-xs font-mono ${field.status === "critical" ? "text-red-600" : field.status === "estimated" ? "text-amber-700" : "text-slate-600"}`}>
-                            {field.value}
-                          </span>
-                        </div>
-                        <p className="mt-0.5 text-[10px] text-slate-400">{field.note}</p>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="text-xs font-medium" style={{ color: "var(--text-secondary)" }}>{field.field}</span>
+                        <span
+                          className="shrink-0 text-xs font-mono"
+                          style={{
+                            color: field.status === "critical"
+                              ? "var(--color-error)"
+                              : field.status === "estimated"
+                              ? "#f59e0b"
+                              : "var(--text-secondary)",
+                          }}
+                        >
+                          {field.value}
+                        </span>
                       </div>
+                      <p className="mt-0.5 text-[10px]" style={{ color: "var(--text-muted)" }}>{field.note}</p>
                     </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+                  </div>
+                ))}
+              </div>
+            </div>
           );
         })}
       </div>
 
       {/* ── Validação de Máquina Completa (motor v2) ───────────────────── */}
-      <Card className="border-2 border-slate-200">
-        <CardHeader className="pb-3">
+      <div className="cn-card p-4" style={{ borderWidth: 2, borderStyle: "solid", borderColor: "var(--border-subtle)" }}>
+        <div className="pb-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <ShieldCheck className="h-5 w-5 text-slate-600" />
+              <ShieldCheck className="h-5 w-5" style={{ color: "var(--text-secondary)" }} />
               <div>
                 <div className="flex items-center gap-2">
-                  <CardTitle className="text-sm">Validação de Máquina Completa</CardTitle>
+                  <p className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>Validação de Máquina Completa</p>
                   {(conditions.nominal_delta_t_evap_k != null ||
                     conditions.nominal_delta_t_cond_k != null) && (
-                    <Badge
-                      variant="outline"
-                      className="border-blue-300 bg-blue-50 text-[10px] text-blue-700"
-                    >
-                      ΔT ativo
-                    </Badge>
+                    <span className="cn-badge cn-badge--info text-[10px]">ΔT ativo</span>
                   )}
                 </div>
-                <CardDescription className="text-xs">
+                <p className="text-xs" style={{ color: "var(--text-muted)" }}>
                   {machineValidation.ok
                     ? `${machineValidation.report.criteria.length} de ${
                         8 +
@@ -572,43 +613,47 @@ export function DataSanityTabContent({ machine, compressor, condenser, evaporato
                       } critérios`
                     : "8 critérios base"}{" "}
                   de aceitação calculados por <code>validateMachine</code> (coldpro_v2).
-                </CardDescription>
+                </p>
               </div>
             </div>
             {machineValidation.ok && (() => {
               const b = finalStatusBadge(machineValidation.report.final_status);
-              return <Badge variant="outline" className={`${b.className} text-xs`}>{b.label}</Badge>;
+              return <span className={`${b.badgeClass} text-xs`}>{b.label}</span>;
             })()}
           </div>
-        </CardHeader>
-        <CardContent>
+        </div>
+
+        <div>
           {!machineValidation.ok ? (
-            <Alert className="border-amber-200 bg-amber-50">
-              <AlertCircle className="h-4 w-4 text-amber-500" />
-              <AlertDescription className="text-xs text-amber-700">
+            <div
+              className="rounded-lg p-3 flex gap-2"
+              style={{ background: "rgba(245,158,11,0.1)", borderWidth: 1, borderStyle: "solid", borderColor: "rgba(245,158,11,0.3)" }}
+            >
+              <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" style={{ color: "#f59e0b" }} />
+              <div className="text-xs" style={{ color: "#f59e0b" }}>
                 <strong>Dados insuficientes para validação completa.</strong> Faltam:
                 <ul className="ml-4 mt-1 list-disc">
                   {machineValidation.missing.map((m, i) => <li key={i}>{m}</li>)}
                 </ul>
-              </AlertDescription>
-            </Alert>
+              </div>
+            </div>
           ) : (
             <div className="space-y-4">
               {/* Resumo de critérios */}
               <div className="flex flex-wrap gap-3 text-xs">
-                <span className="flex items-center gap-1.5">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
+                <span className="flex items-center gap-1.5" style={{ color: "var(--text-secondary)" }}>
+                  <CheckCircle2 className="h-3.5 w-3.5" style={{ color: "var(--color-success)" }} />
                   {machineValidation.report.summary.passed} aprovados
                 </span>
-                <span className="flex items-center gap-1.5">
-                  <AlertCircle className="h-3.5 w-3.5 text-amber-500" />
+                <span className="flex items-center gap-1.5" style={{ color: "var(--text-secondary)" }}>
+                  <AlertCircle className="h-3.5 w-3.5" style={{ color: "#f59e0b" }} />
                   {machineValidation.report.summary.warnings} avisos
                 </span>
-                <span className="flex items-center gap-1.5">
-                  <XCircle className="h-3.5 w-3.5 text-red-500" />
+                <span className="flex items-center gap-1.5" style={{ color: "var(--text-secondary)" }}>
+                  <XCircle className="h-3.5 w-3.5" style={{ color: "var(--color-error)" }} />
                   {machineValidation.report.summary.failed} falhas
                 </span>
-                <span className="ml-auto text-slate-400">
+                <span className="ml-auto font-mono" style={{ color: "var(--text-muted)" }}>
                   Ponto de operação: Te {machineValidation.report.operating_point.evap_temp_c.toFixed(1)} °C ·
                   Tc {machineValidation.report.operating_point.cond_temp_c.toFixed(1)} °C
                 </span>
@@ -619,29 +664,36 @@ export function DataSanityTabContent({ machine, compressor, condenser, evaporato
                 {machineValidation.report.criteria.map((c) => (
                   <div
                     key={c.criterion_id}
-                    className={`rounded-lg border p-3 ${
-                      c.status === "pass"
-                        ? "border-emerald-200 bg-emerald-50/40"
+                    className="rounded-lg border p-3"
+                    style={{
+                      borderColor: c.status === "pass"
+                        ? "rgba(16,185,129,0.35)"
                         : c.status === "warning"
-                        ? "border-amber-200 bg-amber-50/40"
-                        : "border-red-200 bg-red-50/40"
-                    }`}
+                        ? "rgba(245,158,11,0.35)"
+                        : "rgba(239,68,68,0.35)",
+                      background: c.status === "pass"
+                        ? "rgba(16,185,129,0.08)"
+                        : c.status === "warning"
+                        ? "rgba(245,158,11,0.08)"
+                        : "rgba(239,68,68,0.08)",
+                    }}
                   >
                     <div className="flex items-start gap-2">
                       {statusIcon(c.status)}
                       <div className="min-w-0 flex-1">
-                        <p className="text-xs font-bold text-slate-800">{c.label}</p>
-                        <p className="mt-0.5 font-mono text-[11px] text-slate-600">
-                          {fmtVal(c.calculated_value, c.unit)} <span className="text-slate-400">vs.</span>{" "}
+                        <p className="text-xs font-bold" style={{ color: "var(--text-primary)" }}>{c.label}</p>
+                        <p className="mt-0.5 font-mono text-[11px]" style={{ color: "var(--text-secondary)" }}>
+                          {fmtVal(c.calculated_value, c.unit)}{" "}
+                          <span style={{ color: "var(--text-muted)" }}>vs.</span>{" "}
                           {fmtVal(c.reference_value, c.unit)} nominal
                         </p>
-                        <p className="text-[10px] text-slate-500">
+                        <p className="font-mono text-[10px]" style={{ color: "var(--text-muted)" }}>
                           Desvio: {c.deviation_pct >= 0 ? "+" : ""}
                           {c.deviation_pct.toFixed(2)}%
                         </p>
-                        <p className="mt-1 text-[10px] text-slate-600">{c.message}</p>
+                        <p className="mt-1 text-[10px]" style={{ color: "var(--text-secondary)" }}>{c.message}</p>
                         {c.diagnosis && c.status !== "pass" && (
-                          <p className="mt-1 text-[10px] italic text-slate-500">↳ {c.diagnosis}</p>
+                          <p className="mt-1 text-[10px] italic" style={{ color: "var(--text-muted)" }}>↳ {c.diagnosis}</p>
                         )}
                       </div>
                     </div>
@@ -652,22 +704,25 @@ export function DataSanityTabContent({ machine, compressor, condenser, evaporato
               {/* Recomendações consolidadas */}
               {machineValidation.report.recommendations.length > 0 &&
                 machineValidation.report.final_status !== "approved" && (
-                  <Alert className="border-slate-200 bg-slate-50">
-                    <AlertCircle className="h-4 w-4 text-slate-500" />
-                    <AlertDescription className="text-xs text-slate-700">
+                  <div
+                    className="rounded-lg p-3 flex gap-2"
+                    style={{ background: "var(--bg-800)", borderWidth: 1, borderStyle: "solid", borderColor: "var(--border-subtle)" }}
+                  >
+                    <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" style={{ color: "var(--text-muted)" }} />
+                    <div className="text-xs" style={{ color: "var(--text-secondary)" }}>
                       <strong>Recomendações de ajuste:</strong>
                       <ul className="ml-4 mt-1 list-disc space-y-0.5">
                         {machineValidation.report.recommendations.map((r, i) => (
                           <li key={i}>{r}</li>
                         ))}
                       </ul>
-                    </AlertDescription>
-                  </Alert>
+                    </div>
+                  </div>
                 )}
             </div>
           )}
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       {/* ── IA Engenheira de Produto (Sprint 9) ─────────────────────────── */}
       <AIEngineerPanel
