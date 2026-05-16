@@ -115,6 +115,18 @@ const GROUP_COLORS: Record<string, string> = {
   ai: "text-emerald-600",
 };
 
+function StatusPill({ active, label }: { active: boolean; label: string }) {
+  return (
+    <span className="cn-badge text-[10px]" style={active ? {
+      background: "rgba(56,189,248,0.12)", color: "var(--ice-400)", borderColor: "rgba(56,189,248,0.35)"
+    } : {
+      background: "var(--bg-600)", color: "var(--text-muted)", borderColor: "var(--border-subtle)"
+    }}>
+      {active && <span className="mr-1">✓</span>}{label}
+    </span>
+  );
+}
+
 function SystemStatusBar({ onRunAll, isRunning }: { onRunAll: () => void; isRunning: boolean }) {
   const { selectedCompressor, selectedEvaporator, selectedCondenser } = useCatalogSessionStore();
   const compressorEnvelope = useCoilEnvelopeStore((s) => s.compressorEnvelope);
@@ -129,55 +141,50 @@ function SystemStatusBar({ onRunAll, isRunning }: { onRunAll: () => void; isRunn
   const completedAnalyses = [ph.result, montecarlo.result, optimization.result, ai.result].filter(Boolean).length;
 
   return (
-    <div className="mb-4 flex flex-wrap items-center gap-3 rounded-lg border border-slate-200 bg-white px-4 py-3 shadow-sm">
+    <div className="flex flex-wrap items-center gap-3 border-b px-4 py-2"
+         style={{ background: "var(--bg-900)", borderColor: "var(--border-subtle)" }}>
       <div className="flex items-center gap-2">
         {isReady ? (
-          <CheckCircle2 className="h-4 w-4 text-emerald-500" />
+          <CheckCircle2 className="h-4 w-4" style={{ color: "var(--color-success)" }} />
         ) : (
-          <Clock className="h-4 w-4 text-amber-500" />
+          <Clock className="h-4 w-4" style={{ color: "var(--color-warning)" }} />
         )}
-        <span className="text-sm font-medium text-slate-700">
-          {isReady ? "Sistema configurado" : `${readyCount}/3 componentes`}
+        <span className="text-xs font-semibold" style={{ color: isReady ? "var(--color-success)" : "var(--text-secondary)" }}>
+          {isReady ? "Pronto" : `${readyCount}/3`}
         </span>
       </div>
+
       {origin && (
-        <Badge
-          variant="outline"
-          className="gap-1 border-blue-300 bg-blue-50 text-[10px] text-blue-700"
-          title={origin.detail ?? origin.source}
-        >
-          <span className="text-slate-400">Origem:</span>
-          {origin.label}
-          {origin.detail && <span className="text-blue-500"> · {origin.detail}</span>}
-        </Badge>
+        <span className="cn-badge text-[10px]" style={{ color: "var(--ice-400)", borderColor: "rgba(56,189,248,0.3)", background: "rgba(56,189,248,0.08)" }}
+              title={origin.detail ?? origin.source}>
+          {origin.label}{origin.detail && ` · ${origin.detail}`}
+        </span>
       )}
+
       <div className="flex flex-wrap items-center gap-1.5">
-        <Badge variant={hasCompressor ? "default" : "outline"} className="text-xs">Compressor</Badge>
-        <Badge variant={hasEvaporator ? "default" : "outline"} className="text-xs">Evaporador</Badge>
-        <Badge variant={hasCondenser ? "default" : "outline"} className="text-xs">Condensador</Badge>
+        <StatusPill active={hasCompressor} label="Compressor" />
+        <StatusPill active={hasEvaporator} label="Evaporador" />
+        <StatusPill active={hasCondenser} label="Condensador" />
       </div>
+
       {completedAnalyses > 0 && (
-        <Badge variant="secondary" className="text-xs">{completedAnalyses}/4 análises concluídas</Badge>
+        <span className="cn-badge cn-badge--info text-[10px]">{completedAnalyses}/4 análises</span>
       )}
-      {isReady && (
-        <div className="ml-auto">
-          <Button size="sm" variant="outline" onClick={onRunAll} disabled={isRunning} className="text-xs">
-            {isRunning ? (
-              <><Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" />Rodando...</>
-            ) : (
-              <><Play className="mr-1.5 h-3.5 w-3.5" />Rodar Todas as Análises</>
-            )}
-          </Button>
-        </div>
-      )}
-      {!isReady && (
-        <Alert className="ml-auto flex-1 border-amber-200 bg-amber-50 py-1">
-          <AlertCircle className="h-3.5 w-3.5 text-amber-600" />
-          <AlertDescription className="text-xs text-amber-700">
-            Configure os componentes na aba <strong>Configuração</strong> ou importe do <strong>Catálogo & Seleção</strong>.
-          </AlertDescription>
-        </Alert>
-      )}
+
+      <div className="ml-auto flex items-center gap-2">
+        {!isReady && (
+          <span className="text-[10px]" style={{ color: "var(--text-muted)" }}>
+            <AlertCircle className="inline h-3 w-3 mr-1" style={{ color: "var(--color-warning)" }} />
+            Configure componentes na aba <strong style={{ color: "var(--text-secondary)" }}>Configuração</strong>
+          </span>
+        )}
+        {isReady && (
+          <button className="cn-btn cn-btn--primary cn-btn--sm gap-1" onClick={onRunAll} disabled={isRunning}>
+            {isRunning ? <Loader2 className="h-3 w-3 animate-spin" /> : <Play className="h-3 w-3" />}
+            {isRunning ? "Rodando..." : "Rodar Análises"}
+          </button>
+        )}
+      </div>
     </div>
   );
 }
@@ -247,11 +254,18 @@ export function TestHubPage() {
   }, []);
 
   return (
-    <div className="flex h-full min-h-0 flex-col">
-      {/* Título */}
-      <div className="border-b border-slate-200 bg-white px-4 py-2.5">
-        <h1 className="text-base font-bold text-slate-900">Hub de Testes</h1>
-        <p className="text-xs text-slate-500">{activeTabDef.description}</p>
+    <div className="flex h-full min-h-0 flex-col" style={{ background: "var(--bg-base)" }}>
+      {/* TopBar */}
+      <div className="app-topbar shrink-0">
+        <div className="flex items-center gap-3">
+          <FlaskConical className="h-4 w-4" style={{ color: "var(--ice-400)" }} />
+          <div>
+            <h1 className="font-display font-bold text-sm leading-tight" style={{ color: "var(--text-primary)" }}>
+              Hub de Testes
+            </h1>
+            <p className="text-[10px]" style={{ color: "var(--text-muted)" }}>{activeTabDef.description}</p>
+          </div>
+        </div>
       </div>
 
       {/* Barra de status */}
@@ -264,16 +278,18 @@ export function TestHubPage() {
 
         {/* Área de conteúdo */}
         <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
-          {/* Navegação de abas */}
-          <div className="space-y-1 border-b border-slate-100 bg-white px-3 py-2 overflow-x-auto">
+          {/* Navegação de abas com grupos */}
+          <div className="shrink-0 overflow-x-auto" style={{ background: "var(--bg-900)", borderBottom: "1px solid var(--border-subtle)" }}>
             {Object.entries(tabGroups).map(([group, tabs]) => (
-              <div key={group} className="flex min-w-max items-center gap-1 sm:flex-wrap sm:min-w-0">
-                <span className={`mr-1 w-28 shrink-0 text-[10px] font-semibold uppercase tracking-wide ${GROUP_COLORS[group]}`}>
+              <div key={group} className="flex min-w-max items-stretch">
+                <span className="flex items-center px-3 text-[9px] font-bold uppercase tracking-widest shrink-0 w-24"
+                      style={{ color: "var(--text-muted)", borderRight: "1px solid var(--border-subtle)" }}>
                   {GROUP_LABELS[group]}
                 </span>
-                <div className="flex flex-wrap gap-0.5 rounded-lg bg-slate-100 p-0.5">
+                <div className="flex">
                   {tabs.map((tab) => {
                     const Icon = tab.icon;
+                    const isActive = activeTab === tab.id;
                     const isDone =
                       (tab.id === "ph" && ph.result != null) ||
                       (tab.id === "montecarlo" && montecarlo.result != null) ||
@@ -288,15 +304,15 @@ export function TestHubPage() {
                       <button
                         key={tab.id}
                         onClick={() => setActiveTab(tab.id)}
-                        className={`flex items-center gap-1 rounded-md px-2.5 py-1.5 text-xs font-medium transition-all ${
-                          activeTab === tab.id
-                            ? "bg-white text-[#1E6FD9] shadow-sm"
-                            : "text-slate-600 hover:bg-white/60 hover:text-slate-800"
-                        }`}
+                        className={`cn-tab flex items-center gap-1.5 ${isActive ? "active" : ""}`}
+                        title={tab.description}
                       >
                         {isLoading ? <Loader2 className="h-3 w-3 animate-spin" /> : <Icon className="h-3 w-3" />}
                         {tab.label}
-                        {isDone && <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />}
+                        {isDone && (
+                          <span className="h-1.5 w-1.5 rounded-full shrink-0"
+                                style={{ background: "var(--color-success)" }} />
+                        )}
                       </button>
                     );
                   })}
@@ -306,7 +322,7 @@ export function TestHubPage() {
           </div>
 
           {/* Conteúdo da aba ativa */}
-          <div className="flex-1 overflow-auto p-4">
+          <div className="flex-1 overflow-auto p-4" style={{ background: "var(--bg-base)" }}>
             <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as TabId)}>
 
         <TabsContent value="summary" className="mt-0">
