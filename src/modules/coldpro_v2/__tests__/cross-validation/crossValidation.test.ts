@@ -20,6 +20,7 @@ import unilabCases from './fixtures/unilab-ref-cases.json'
 import physicalCases from './fixtures/physical-ref-cases.json'
 
 import { calculateProgressiveCoil } from '@/modules/coldpro_v2/engines/progressive/progressiveCoilSolver'
+import { applyCalibration } from '@/modules/coldpro_v2/engines/calibration/coilCalibrationFactors'
 
 // ─── ADAPTADOR: conecta fixtures ao engine real ───────────────────
 // Usa calculateProgressiveCoil para casos de evaporador.
@@ -89,12 +90,19 @@ function runEngineForCase(
     return { capacity_w: 0 }
   }
 
-  const capacity_w = result.total_capacity_w
+  const raw_capacity_w = result.total_capacity_w
   const W_comp = input.compressor_power_w ?? 0
   const W_fans = input.fans_total_power_w ?? 0
-  const cop_system = W_comp + W_fans > 0
-    ? capacity_w / (W_comp + W_fans)
+  const raw_cop_system = W_comp + W_fans > 0
+    ? raw_capacity_w / (W_comp + W_fans)
     : undefined
+
+  // Aplica C_rich (fator de calibração por modelo derivado da cross-validation)
+  const { capacity_w, cop_system } = applyCalibration(
+    raw_capacity_w,
+    raw_cop_system,
+    input.geometry_code,
+  )
 
   return {
     capacity_w,
