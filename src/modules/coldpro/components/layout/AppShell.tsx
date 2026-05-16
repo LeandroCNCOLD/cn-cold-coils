@@ -10,7 +10,7 @@ export function AppShell() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="flex h-screen w-full overflow-hidden bg-[#F4F6F9]">
+    <div className="flex h-screen w-full overflow-hidden" style={{ background: "var(--bg-base)" }}>
       {/* Desktop sidebar — always visible on lg+ */}
       <div className="hidden lg:block">
         <Sidebar />

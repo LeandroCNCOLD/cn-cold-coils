@@ -62,15 +62,22 @@ export function TopBar({ onToggleAI, onToggleSidebar }: TopBarProps) {
   const crumbs = buildCrumbs(pathname);
   const showSession = crumbs.some((c) => c.isWorkspace);
 
+  const modeBadgeStyle: Record<UserMode, React.CSSProperties> = {
+    basic:        { background: "var(--bg-600)", color: "var(--text-secondary)" },
+    intermediate: { background: "rgba(56,189,248,0.12)", color: "var(--ice-400)", borderColor: "rgba(56,189,248,0.3)" },
+    professional: { background: "rgba(99,102,241,0.15)", color: "#a5b4fc", borderColor: "rgba(99,102,241,0.35)" },
+  };
+
   return (
-    <header className="flex h-11 shrink-0 items-center justify-between gap-2 border-b border-border bg-background px-3 sm:px-4">
+    <header className="app-topbar shrink-0">
       <div className="flex min-w-0 items-center gap-2">
         {/* Hamburger — only on mobile (<lg) */}
         {onToggleSidebar && (
           <button
             type="button"
             onClick={onToggleSidebar}
-            className="rounded p-1.5 text-muted-foreground hover:bg-accent hover:text-foreground lg:hidden"
+            className="rounded p-1.5 lg:hidden transition-colors"
+            style={{ color: "var(--text-muted)" }}
             aria-label="Abrir menu"
           >
             <Menu className="h-4 w-4" />
@@ -78,35 +85,32 @@ export function TopBar({ onToggleAI, onToggleSidebar }: TopBarProps) {
         )}
 
         <nav className="flex min-w-0 items-center gap-1 text-xs" aria-label="Breadcrumb">
-          <span className="hidden text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/70 sm:inline">
-            ColdPro V2
+          <span className="hidden text-[10px] font-bold uppercase tracking-widest sm:inline"
+                style={{ color: "var(--text-muted)" }}>
+            CN COLD
           </span>
           {crumbs.map((c, i) => {
             const last = i === crumbs.length - 1;
             return (
               <span key={i} className="flex min-w-0 items-center gap-1">
-                <ChevronRight className="hidden h-3 w-3 text-muted-foreground/40 sm:inline" />
-                <span
-                  className={
-                    last
-                      ? "truncate font-semibold text-foreground"
-                      : "truncate text-muted-foreground"
-                  }
-                >
+                <ChevronRight className="hidden h-3 w-3 sm:inline" style={{ color: "var(--border-strong)" }} />
+                <span className={`truncate font-${last ? "semibold" : "normal"}`}
+                      style={{ color: last ? "var(--text-primary)" : "var(--text-muted)" }}>
                   {c.label}
                 </span>
               </span>
             );
           })}
           {showSession && (
-            <span className="ml-2 hidden items-center gap-1 border-l border-border pl-2 sm:flex">
-              <span className="text-[10px] uppercase tracking-wider text-muted-foreground/70">
+            <span className="ml-2 hidden items-center gap-1 border-l pl-2 sm:flex"
+                  style={{ borderColor: "var(--border-subtle)" }}>
+              <span className="text-[10px] uppercase tracking-wider" style={{ color: "var(--text-muted)" }}>
                 Sessão
               </span>
               {activeSession ? (
-                <span className="truncate font-medium text-foreground">{activeSession.name}</span>
+                <span className="truncate font-medium" style={{ color: "var(--text-primary)" }}>{activeSession.name}</span>
               ) : (
-                <span className="truncate text-muted-foreground">Nenhuma ativa</span>
+                <span className="truncate" style={{ color: "var(--text-muted)" }}>Nenhuma ativa</span>
               )}
             </span>
           )}
@@ -115,7 +119,8 @@ export function TopBar({ onToggleAI, onToggleSidebar }: TopBarProps) {
 
       <div className="flex shrink-0 items-center gap-1.5">
         <span
-          className={`hidden rounded-full px-2 py-0.5 text-[10px] font-medium sm:inline ${MODE_BADGE[mode]}`}
+          className="cn-badge hidden text-[10px] sm:inline"
+          style={modeBadgeStyle[mode]}
           title="Modo do usuário"
         >
           {MODE_LABEL[mode]}
@@ -123,18 +128,12 @@ export function TopBar({ onToggleAI, onToggleSidebar }: TopBarProps) {
 
         <AIAssistantButton onClick={onToggleAI} />
 
-        <button
-          type="button"
-          className="rounded p-1.5 text-muted-foreground hover:bg-accent hover:text-foreground"
-          aria-label="Notificações"
-        >
+        <button type="button" className="rounded p-1.5 transition-colors"
+                style={{ color: "var(--text-muted)" }} aria-label="Notificações">
           <Bell className="h-3.5 w-3.5" />
         </button>
-        <button
-          type="button"
-          className="rounded p-1.5 text-muted-foreground hover:bg-accent hover:text-foreground"
-          aria-label="Configurações"
-        >
+        <button type="button" className="rounded p-1.5 transition-colors"
+                style={{ color: "var(--text-muted)" }} aria-label="Configurações">
           <Settings className="h-3.5 w-3.5" />
         </button>
       </div>
