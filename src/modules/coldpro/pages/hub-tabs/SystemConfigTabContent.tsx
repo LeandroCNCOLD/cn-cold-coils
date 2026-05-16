@@ -11,8 +11,6 @@
 import { useState, useMemo } from "react";
 import { ArrowRight, Search, CheckCircle2, AlertCircle, X, Package, ChevronDown, ChevronUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
 import { CompressorForm } from "../../components/forms/CompressorForm";
@@ -97,37 +95,38 @@ function CatalogMachinePicker({
   }, [catalog, search]);
 
   return (
-    <Card className="border-[#1E6FD9]/30 bg-blue-50/40">
-      <CardHeader className="pb-2">
+    <div className="cn-card p-4" style={{ borderColor: "rgba(30,111,217,0.3)" }}>
+      <div className="pb-2">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Package className="h-4 w-4 text-[#1E6FD9]" />
-            <CardTitle className="text-sm text-[#1E6FD9]">
+            <Package className="h-4 w-4" style={{ color: "#1E6FD9" }} />
+            <p className="text-sm font-semibold" style={{ color: "#1E6FD9" }}>
               Selecionar Máquina do Catálogo
-            </CardTitle>
-            <Badge variant="secondary" className="text-[10px]">
+            </p>
+            <span className="cn-badge cn-badge--info text-[10px] font-mono">
               {catalog.length} equipamentos
-            </Badge>
+            </span>
           </div>
           <Button
             variant="ghost"
             size="sm"
-            className="h-6 px-2 text-xs text-slate-500"
+            className="h-6 px-2 text-xs"
+            style={{ color: "var(--text-muted)" }}
             onClick={() => setExpanded((v) => !v)}
           >
             {expanded ? <ChevronUp className="h-3.5 w-3.5" /> : <ChevronDown className="h-3.5 w-3.5" />}
           </Button>
         </div>
-        <CardDescription className="text-xs">
+        <p className="text-xs mt-1" style={{ color: "var(--text-muted)" }}>
           Selecione uma máquina para preencher automaticamente todos os campos abaixo.
-        </CardDescription>
-      </CardHeader>
+        </p>
+      </div>
 
       {expanded && (
-        <CardContent className="space-y-3">
+        <div className="space-y-3">
           {/* Campo de busca */}
           <div className="relative">
-            <Search className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-slate-400" />
+            <Search className="absolute left-2.5 top-2.5 h-3.5 w-3.5" style={{ color: "var(--text-muted)" }} />
             <Input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -138,7 +137,8 @@ function CatalogMachinePicker({
               <button
                 type="button"
                 onClick={() => setSearch("")}
-                className="absolute right-2.5 top-2.5 text-slate-400 hover:text-slate-600"
+                className="absolute right-2.5 top-2.5"
+                style={{ color: "var(--text-muted)" }}
               >
                 <X className="h-3.5 w-3.5" />
               </button>
@@ -146,9 +146,15 @@ function CatalogMachinePicker({
           </div>
 
           {/* Tabela de resultados */}
-          <div className="max-h-64 overflow-auto rounded-lg border border-slate-200 bg-white">
+          <div
+            className="max-h-64 overflow-auto rounded-lg border"
+            style={{ borderColor: "var(--border-subtle)", background: "var(--bg-800)" }}
+          >
             <table className="w-full text-xs">
-              <thead className="sticky top-0 bg-slate-50 text-[10px] uppercase text-slate-500">
+              <thead
+                className="sticky top-0 text-[10px] uppercase"
+                style={{ background: "var(--bg-700)", color: "var(--text-muted)" }}
+              >
                 <tr>
                   <th className="px-3 py-2 text-left">Modelo</th>
                   <th className="px-3 py-2 text-left">Linha</th>
@@ -163,7 +169,7 @@ function CatalogMachinePicker({
               <tbody>
                 {filtered.length === 0 && (
                   <tr>
-                    <td colSpan={8} className="px-3 py-4 text-center text-slate-400">
+                    <td colSpan={8} className="px-3 py-4 text-center" style={{ color: "var(--text-muted)" }}>
                       Nenhum equipamento encontrado
                     </td>
                   </tr>
@@ -174,36 +180,38 @@ function CatalogMachinePicker({
                   return (
                     <tr
                       key={row.id}
-                      className={`border-t border-slate-100 hover:bg-blue-50/60 ${
-                        isSelected ? "bg-blue-50" : ""
-                      }`}
+                      className="border-t"
+                      style={{
+                        borderColor: "var(--border-subtle)",
+                        background: isSelected ? "rgba(30,111,217,0.12)" : undefined,
+                      }}
                     >
                       <td className="px-3 py-1.5">
-                        <p className="font-medium text-slate-800">
+                        <p className="font-medium" style={{ color: "var(--text-primary)" }}>
                           {row.modeloBaseReferencia ?? row.modelo}
                         </p>
-                        <p className="text-[10px] text-slate-400">
+                        <p className="text-[10px]" style={{ color: "var(--text-muted)" }}>
                           {row.compressorModelo ?? "—"}
                         </p>
                       </td>
                       <td className="px-3 py-1.5">
-                        <span className="max-w-[120px] truncate block text-slate-600">
+                        <span className="max-w-[120px] truncate block" style={{ color: "var(--text-secondary)" }}>
                           {row.linha?.replace(/\[.*?\]/, "").trim() ?? "—"}
                         </span>
                       </td>
-                      <td className="px-3 py-1.5 text-slate-600">
+                      <td className="px-3 py-1.5" style={{ color: "var(--text-secondary)" }}>
                         {row.refrigerante ?? "—"}
                       </td>
-                      <td className="px-3 py-1.5 text-right text-slate-700">
+                      <td className="px-3 py-1.5 text-right font-mono" style={{ color: "var(--text-primary)" }}>
                         {cap != null ? cap.toLocaleString("pt-BR", { maximumFractionDigits: 0 }) : "—"}
                       </td>
-                      <td className="px-3 py-1.5 text-right text-slate-700">
+                      <td className="px-3 py-1.5 text-right font-mono" style={{ color: "var(--text-primary)" }}>
                         {row.cop != null ? row.cop.toFixed(2) : "—"}
                       </td>
-                      <td className="px-3 py-1.5 text-right text-slate-700">
+                      <td className="px-3 py-1.5 text-right font-mono" style={{ color: "var(--text-primary)" }}>
                         {row.tempEvaporacaoC != null ? row.tempEvaporacaoC.toFixed(1) : "—"}
                       </td>
-                      <td className="px-3 py-1.5 text-right text-slate-700">
+                      <td className="px-3 py-1.5 text-right font-mono" style={{ color: "var(--text-primary)" }}>
                         {row.tempCondensacaoC != null ? row.tempCondensacaoC.toFixed(1) : "—"}
                       </td>
                       <td className="px-3 py-1.5">
@@ -230,14 +238,14 @@ function CatalogMachinePicker({
               </tbody>
             </table>
             {!search && catalog.length > 50 && (
-              <p className="px-3 py-2 text-center text-[10px] text-slate-400">
+              <p className="px-3 py-2 text-center text-[10px]" style={{ color: "var(--text-muted)" }}>
                 Mostrando 50 de {catalog.length}. Use a busca para filtrar.
               </p>
             )}
           </div>
-        </CardContent>
+        </div>
       )}
-    </Card>
+    </div>
   );
 }
 
@@ -308,16 +316,20 @@ export function SystemConfigTabContent({ onDone }: Props) {
 
       {/* Banner de máquina selecionada */}
       {catalogSource && (
-        <div className="flex items-center gap-2 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-2.5">
-          <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-500" />
-          <span className="text-sm text-emerald-800">
+        <div
+          className="flex items-center gap-2 rounded-lg border px-4 py-2.5"
+          style={{ borderColor: "rgba(16,185,129,0.35)", background: "rgba(16,185,129,0.08)" }}
+        >
+          <CheckCircle2 className="h-4 w-4 shrink-0" style={{ color: "var(--color-success)" }} />
+          <span className="text-sm" style={{ color: "var(--text-primary)" }}>
             Campos preenchidos automaticamente com dados de{" "}
             <strong>{catalogSource}</strong>
           </span>
           <Button
             variant="ghost"
             size="sm"
-            className="ml-auto h-auto p-0 text-xs text-emerald-600 underline hover:text-emerald-800"
+            className="ml-auto h-auto p-0 text-xs underline"
+            style={{ color: "var(--color-success)" }}
             onClick={handleClearCatalog}
           >
             Limpar e preencher manualmente
@@ -327,18 +339,16 @@ export function SystemConfigTabContent({ onDone }: Props) {
 
       {/* Painel de capacidade em múltiplas unidades */}
       {compressor.cooling_capacity_w != null && compressor.cooling_capacity_w > 0 && (
-        <Card className="border-blue-100 bg-blue-50/40">
-          <CardContent className="p-4">
-            <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-blue-700">Capacidade Frigorífica</p>
-            <CapacityRow watts={compressor.cooling_capacity_w} primary="kW" />
-            {condenser.heat_rejection_capacity_w != null && condenser.heat_rejection_capacity_w > 0 && (
-              <>
-                <div className="my-2 border-t border-blue-100" />
-                <CapacityRow watts={condenser.heat_rejection_capacity_w} label="Calor rejeitado (condensador)" primary="kW" />
-              </>
-            )}
-          </CardContent>
-        </Card>
+        <div className="cn-card p-4" style={{ borderColor: "rgba(56,189,248,0.2)" }}>
+          <p className="mb-2 text-xs font-semibold uppercase tracking-wide" style={{ color: "var(--ice-400)" }}>Capacidade Frigorífica</p>
+          <CapacityRow watts={compressor.cooling_capacity_w} primary="kW" />
+          {condenser.heat_rejection_capacity_w != null && condenser.heat_rejection_capacity_w > 0 && (
+            <>
+              <div className="my-2 border-t" style={{ borderColor: "var(--border-subtle)" }} />
+              <CapacityRow watts={condenser.heat_rejection_capacity_w} label="Calor rejeitado (condensador)" primary="kW" />
+            </>
+          )}
+        </div>
       )}
 
       {/* Status dos componentes */}
@@ -348,24 +358,26 @@ export function SystemConfigTabContent({ onDone }: Props) {
           { label: "Evaporador", ok: hasEvaporator, source: selectedEvaporator?.modelo },
           { label: "Condensador", ok: hasCondenser, source: selectedCondenser?.modelo },
         ].map(({ label, ok, source }) => (
-          <Card key={label} className={`border ${ok ? "border-emerald-200 bg-emerald-50" : "border-slate-200"}`}>
-            <CardContent className="flex items-center gap-2 p-3">
-              {ok ? (
-                <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-500" />
-              ) : (
-                <AlertCircle className="h-4 w-4 shrink-0 text-slate-400" />
+          <div
+            key={label}
+            className="cn-card p-3 flex items-center gap-2"
+            style={ok ? { borderColor: "rgba(16,185,129,0.35)", background: "rgba(16,185,129,0.07)" } : undefined}
+          >
+            {ok ? (
+              <CheckCircle2 className="h-4 w-4 shrink-0" style={{ color: "var(--color-success)" }} />
+            ) : (
+              <AlertCircle className="h-4 w-4 shrink-0" style={{ color: "var(--text-muted)" }} />
+            )}
+            <div className="min-w-0">
+              <p className="text-xs font-medium" style={{ color: "var(--text-primary)" }}>{label}</p>
+              {source && (
+                <p className="truncate text-[10px]" style={{ color: "var(--text-muted)" }}>{source}</p>
               )}
-              <div className="min-w-0">
-                <p className="text-xs font-medium text-slate-700">{label}</p>
-                {source && (
-                  <p className="truncate text-[10px] text-slate-500">{source}</p>
-                )}
-                {!ok && (
-                  <p className="text-[10px] text-slate-400">Não configurado</p>
-                )}
-              </div>
-            </CardContent>
-          </Card>
+              {!ok && (
+                <p className="text-[10px]" style={{ color: "var(--text-muted)" }}>Não configurado</p>
+              )}
+            </div>
+          </div>
         ))}
       </div>
 
@@ -373,73 +385,65 @@ export function SystemConfigTabContent({ onDone }: Props) {
 
       {/* Formulários (editáveis mesmo após auto-preenchimento) */}
       <div className="grid gap-6 lg:grid-cols-2">
-        <Card>
-          <CardHeader className="pb-3">
+        <div className="cn-card p-4">
+          <div className="pb-3">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-sm">Compressor</CardTitle>
+              <p className="text-sm font-semibold" style={{ color: "var(--text-secondary)" }}>Compressor</p>
               {catalogSource && hasCompressor && (
-                <Badge variant="secondary" className="text-[10px]">Do catálogo</Badge>
+                <span className="cn-badge cn-badge--info text-[10px]">Do catálogo</span>
               )}
             </div>
-            <CardDescription className="text-xs">
+            <p className="text-xs mt-1" style={{ color: "var(--text-muted)" }}>
               Polinômios ARI 540 / EN12900 são usados automaticamente se disponíveis no catálogo.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <CompressorForm value={compressor} onChange={setCompressor} />
-          </CardContent>
-        </Card>
+            </p>
+          </div>
+          <CompressorForm value={compressor} onChange={setCompressor} />
+        </div>
 
-        <Card>
-          <CardHeader className="pb-3">
+        <div className="cn-card p-4">
+          <div className="pb-3">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-sm">Condensador</CardTitle>
+              <p className="text-sm font-semibold" style={{ color: "var(--text-secondary)" }}>Condensador</p>
               {catalogSource && hasCondenser && (
-                <Badge variant="secondary" className="text-[10px]">Do catálogo</Badge>
+                <span className="cn-badge cn-badge--info text-[10px]">Do catálogo</span>
               )}
             </div>
-            <CardDescription className="text-xs">
+            <p className="text-xs mt-1" style={{ color: "var(--text-muted)" }}>
               Capacidade de rejeição de calor e temperatura máxima de condensação.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <CondenserForm value={condenser} onChange={setCondenser} />
-          </CardContent>
-        </Card>
+            </p>
+          </div>
+          <CondenserForm value={condenser} onChange={setCondenser} />
+        </div>
 
-        <Card className="lg:col-span-2">
-          <CardHeader className="pb-3">
+        <div className="cn-card p-4 lg:col-span-2">
+          <div className="pb-3">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-sm">Evaporador</CardTitle>
+              <p className="text-sm font-semibold" style={{ color: "var(--text-secondary)" }}>Evaporador</p>
               {catalogSource && hasEvaporator && (
-                <Badge variant="secondary" className="text-[10px]">Do catálogo</Badge>
+                <span className="cn-badge cn-badge--info text-[10px]">Do catálogo</span>
               )}
             </div>
-            <CardDescription className="text-xs">
+            <p className="text-xs mt-1" style={{ color: "var(--text-muted)" }}>
               Geometria da serpentina. O motor usa os fatores de correção do UNILAB automaticamente.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <EvaporatorForm value={evaporator} onChange={setEvaporator} />
-          </CardContent>
-        </Card>
+            </p>
+          </div>
+          <EvaporatorForm value={evaporator} onChange={setEvaporator} />
+        </div>
 
-        <Card className="lg:col-span-2">
-          <CardHeader className="pb-3">
+        <div className="cn-card p-4 lg:col-span-2">
+          <div className="pb-3">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-sm">Condições de Operação</CardTitle>
+              <p className="text-sm font-semibold" style={{ color: "var(--text-secondary)" }}>Condições de Operação</p>
               {catalogSource && (
-                <Badge variant="secondary" className="text-[10px]">Do catálogo</Badge>
+                <span className="cn-badge cn-badge--info text-[10px]">Do catálogo</span>
               )}
             </div>
-            <CardDescription className="text-xs">
+            <p className="text-xs mt-1" style={{ color: "var(--text-muted)" }}>
               Temperatura ambiente, vazão de ar e condições de projeto.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <SystemConditionsForm value={conditions} onChange={setConditions} />
-          </CardContent>
-        </Card>
+            </p>
+          </div>
+          <SystemConditionsForm value={conditions} onChange={setConditions} />
+        </div>
       </div>
 
       {/* Seleção automática de válvula de expansão */}
