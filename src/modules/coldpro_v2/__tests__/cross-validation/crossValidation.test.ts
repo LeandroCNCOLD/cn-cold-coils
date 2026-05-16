@@ -97,11 +97,13 @@ function runEngineForCase(
     ? raw_capacity_w / (W_comp + W_fans)
     : undefined
 
-  // Aplica C_rich (fator de calibração por modelo derivado da cross-validation)
+  // Aplica C_rich(ΔT) — fator de calibração interpolado pela força motriz
+  const delta_T_c = input.T_air_in_db_c - input.Te_c
   const { capacity_w, cop_system } = applyCalibration(
     raw_capacity_w,
     raw_cop_system,
     input.geometry_code,
+    delta_T_c,
   )
 
   return {
