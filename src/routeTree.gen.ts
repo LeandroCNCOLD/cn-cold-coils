@@ -22,6 +22,7 @@ import { Route as AppColdproSettingsRouteImport } from './routes/_app/coldpro.se
 import { Route as AppColdproRegistryRouteImport } from './routes/_app/coldpro.registry'
 import { Route as AppColdproRecordRouteImport } from './routes/_app/coldpro.record'
 import { Route as AppColdproProjectsRouteImport } from './routes/_app/coldpro.projects'
+import { Route as AppColdproPipelineDpRouteImport } from './routes/_app/coldpro.pipeline-dp'
 import { Route as AppColdproPerformanceRouteImport } from './routes/_app/coldpro.performance'
 import { Route as AppColdproOptimizationRouteImport } from './routes/_app/coldpro.optimization'
 import { Route as AppColdproOperatingMapRouteImport } from './routes/_app/coldpro.operating-map'
@@ -38,6 +39,7 @@ import { Route as AppColdproComponentsRouteImport } from './routes/_app/coldpro.
 import { Route as AppColdproCompareRouteImport } from './routes/_app/coldpro.compare'
 import { Route as AppColdproCncoilsRouteImport } from './routes/_app/coldpro.cncoils'
 import { Route as AppColdproCnCoilsRouteImport } from './routes/_app/coldpro.cn-coils'
+import { Route as AppColdproCatalogComercialRouteImport } from './routes/_app/coldpro.catalog-comercial'
 import { Route as AppColdproCatalogRouteImport } from './routes/_app/coldpro.catalog'
 import { Route as AppColdproAuditRouteImport } from './routes/_app/coldpro.audit'
 import { Route as AppColdproAssemblyRouteImport } from './routes/_app/coldpro.assembly'
@@ -122,6 +124,11 @@ const AppColdproProjectsRoute = AppColdproProjectsRouteImport.update({
   path: '/projects',
   getParentRoute: () => AppColdproRoute,
 } as any)
+const AppColdproPipelineDpRoute = AppColdproPipelineDpRouteImport.update({
+  id: '/pipeline-dp',
+  path: '/pipeline-dp',
+  getParentRoute: () => AppColdproRoute,
+} as any)
 const AppColdproPerformanceRoute = AppColdproPerformanceRouteImport.update({
   id: '/performance',
   path: '/performance',
@@ -202,6 +209,12 @@ const AppColdproCnCoilsRoute = AppColdproCnCoilsRouteImport.update({
   path: '/cn-coils',
   getParentRoute: () => AppColdproRoute,
 } as any)
+const AppColdproCatalogComercialRoute =
+  AppColdproCatalogComercialRouteImport.update({
+    id: '/catalog-comercial',
+    path: '/catalog-comercial',
+    getParentRoute: () => AppColdproRoute,
+  } as any)
 const AppColdproCatalogRoute = AppColdproCatalogRouteImport.update({
   id: '/catalog',
   path: '/catalog',
@@ -323,6 +336,7 @@ export interface FileRoutesByFullPath {
   '/coldpro/assembly': typeof AppColdproAssemblyRoute
   '/coldpro/audit': typeof AppColdproAuditRoute
   '/coldpro/catalog': typeof AppColdproCatalogRoute
+  '/coldpro/catalog-comercial': typeof AppColdproCatalogComercialRoute
   '/coldpro/cn-coils': typeof AppColdproCnCoilsRouteWithChildren
   '/coldpro/cncoils': typeof AppColdproCncoilsRouteWithChildren
   '/coldpro/compare': typeof AppColdproCompareRoute
@@ -339,6 +353,7 @@ export interface FileRoutesByFullPath {
   '/coldpro/operating-map': typeof AppColdproOperatingMapRoute
   '/coldpro/optimization': typeof AppColdproOptimizationRoute
   '/coldpro/performance': typeof AppColdproPerformanceRoute
+  '/coldpro/pipeline-dp': typeof AppColdproPipelineDpRoute
   '/coldpro/projects': typeof AppColdproProjectsRoute
   '/coldpro/record': typeof AppColdproRecordRoute
   '/coldpro/registry': typeof AppColdproRegistryRoute
@@ -371,6 +386,7 @@ export interface FileRoutesByTo {
   '/coldpro/assembly': typeof AppColdproAssemblyRoute
   '/coldpro/audit': typeof AppColdproAuditRoute
   '/coldpro/catalog': typeof AppColdproCatalogRoute
+  '/coldpro/catalog-comercial': typeof AppColdproCatalogComercialRoute
   '/coldpro/cn-coils': typeof AppColdproCnCoilsRouteWithChildren
   '/coldpro/cncoils': typeof AppColdproCncoilsRouteWithChildren
   '/coldpro/compare': typeof AppColdproCompareRoute
@@ -387,6 +403,7 @@ export interface FileRoutesByTo {
   '/coldpro/operating-map': typeof AppColdproOperatingMapRoute
   '/coldpro/optimization': typeof AppColdproOptimizationRoute
   '/coldpro/performance': typeof AppColdproPerformanceRoute
+  '/coldpro/pipeline-dp': typeof AppColdproPipelineDpRoute
   '/coldpro/projects': typeof AppColdproProjectsRoute
   '/coldpro/record': typeof AppColdproRecordRoute
   '/coldpro/registry': typeof AppColdproRegistryRoute
@@ -422,6 +439,7 @@ export interface FileRoutesById {
   '/_app/coldpro/assembly': typeof AppColdproAssemblyRoute
   '/_app/coldpro/audit': typeof AppColdproAuditRoute
   '/_app/coldpro/catalog': typeof AppColdproCatalogRoute
+  '/_app/coldpro/catalog-comercial': typeof AppColdproCatalogComercialRoute
   '/_app/coldpro/cn-coils': typeof AppColdproCnCoilsRouteWithChildren
   '/_app/coldpro/cncoils': typeof AppColdproCncoilsRouteWithChildren
   '/_app/coldpro/compare': typeof AppColdproCompareRoute
@@ -438,6 +456,7 @@ export interface FileRoutesById {
   '/_app/coldpro/operating-map': typeof AppColdproOperatingMapRoute
   '/_app/coldpro/optimization': typeof AppColdproOptimizationRoute
   '/_app/coldpro/performance': typeof AppColdproPerformanceRoute
+  '/_app/coldpro/pipeline-dp': typeof AppColdproPipelineDpRoute
   '/_app/coldpro/projects': typeof AppColdproProjectsRoute
   '/_app/coldpro/record': typeof AppColdproRecordRoute
   '/_app/coldpro/registry': typeof AppColdproRegistryRoute
@@ -473,6 +492,7 @@ export interface FileRouteTypes {
     | '/coldpro/assembly'
     | '/coldpro/audit'
     | '/coldpro/catalog'
+    | '/coldpro/catalog-comercial'
     | '/coldpro/cn-coils'
     | '/coldpro/cncoils'
     | '/coldpro/compare'
@@ -489,6 +509,7 @@ export interface FileRouteTypes {
     | '/coldpro/operating-map'
     | '/coldpro/optimization'
     | '/coldpro/performance'
+    | '/coldpro/pipeline-dp'
     | '/coldpro/projects'
     | '/coldpro/record'
     | '/coldpro/registry'
@@ -521,6 +542,7 @@ export interface FileRouteTypes {
     | '/coldpro/assembly'
     | '/coldpro/audit'
     | '/coldpro/catalog'
+    | '/coldpro/catalog-comercial'
     | '/coldpro/cn-coils'
     | '/coldpro/cncoils'
     | '/coldpro/compare'
@@ -537,6 +559,7 @@ export interface FileRouteTypes {
     | '/coldpro/operating-map'
     | '/coldpro/optimization'
     | '/coldpro/performance'
+    | '/coldpro/pipeline-dp'
     | '/coldpro/projects'
     | '/coldpro/record'
     | '/coldpro/registry'
@@ -571,6 +594,7 @@ export interface FileRouteTypes {
     | '/_app/coldpro/assembly'
     | '/_app/coldpro/audit'
     | '/_app/coldpro/catalog'
+    | '/_app/coldpro/catalog-comercial'
     | '/_app/coldpro/cn-coils'
     | '/_app/coldpro/cncoils'
     | '/_app/coldpro/compare'
@@ -587,6 +611,7 @@ export interface FileRouteTypes {
     | '/_app/coldpro/operating-map'
     | '/_app/coldpro/optimization'
     | '/_app/coldpro/performance'
+    | '/_app/coldpro/pipeline-dp'
     | '/_app/coldpro/projects'
     | '/_app/coldpro/record'
     | '/_app/coldpro/registry'
@@ -710,6 +735,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppColdproProjectsRouteImport
       parentRoute: typeof AppColdproRoute
     }
+    '/_app/coldpro/pipeline-dp': {
+      id: '/_app/coldpro/pipeline-dp'
+      path: '/pipeline-dp'
+      fullPath: '/coldpro/pipeline-dp'
+      preLoaderRoute: typeof AppColdproPipelineDpRouteImport
+      parentRoute: typeof AppColdproRoute
+    }
     '/_app/coldpro/performance': {
       id: '/_app/coldpro/performance'
       path: '/performance'
@@ -820,6 +852,13 @@ declare module '@tanstack/react-router' {
       path: '/cn-coils'
       fullPath: '/coldpro/cn-coils'
       preLoaderRoute: typeof AppColdproCnCoilsRouteImport
+      parentRoute: typeof AppColdproRoute
+    }
+    '/_app/coldpro/catalog-comercial': {
+      id: '/_app/coldpro/catalog-comercial'
+      path: '/catalog-comercial'
+      fullPath: '/coldpro/catalog-comercial'
+      preLoaderRoute: typeof AppColdproCatalogComercialRouteImport
       parentRoute: typeof AppColdproRoute
     }
     '/_app/coldpro/catalog': {
@@ -1002,6 +1041,7 @@ interface AppColdproRouteChildren {
   AppColdproAssemblyRoute: typeof AppColdproAssemblyRoute
   AppColdproAuditRoute: typeof AppColdproAuditRoute
   AppColdproCatalogRoute: typeof AppColdproCatalogRoute
+  AppColdproCatalogComercialRoute: typeof AppColdproCatalogComercialRoute
   AppColdproCnCoilsRoute: typeof AppColdproCnCoilsRouteWithChildren
   AppColdproCncoilsRoute: typeof AppColdproCncoilsRouteWithChildren
   AppColdproCompareRoute: typeof AppColdproCompareRoute
@@ -1018,6 +1058,7 @@ interface AppColdproRouteChildren {
   AppColdproOperatingMapRoute: typeof AppColdproOperatingMapRoute
   AppColdproOptimizationRoute: typeof AppColdproOptimizationRoute
   AppColdproPerformanceRoute: typeof AppColdproPerformanceRoute
+  AppColdproPipelineDpRoute: typeof AppColdproPipelineDpRoute
   AppColdproProjectsRoute: typeof AppColdproProjectsRoute
   AppColdproRecordRoute: typeof AppColdproRecordRoute
   AppColdproRegistryRoute: typeof AppColdproRegistryRoute
@@ -1039,6 +1080,7 @@ const AppColdproRouteChildren: AppColdproRouteChildren = {
   AppColdproAssemblyRoute: AppColdproAssemblyRoute,
   AppColdproAuditRoute: AppColdproAuditRoute,
   AppColdproCatalogRoute: AppColdproCatalogRoute,
+  AppColdproCatalogComercialRoute: AppColdproCatalogComercialRoute,
   AppColdproCnCoilsRoute: AppColdproCnCoilsRouteWithChildren,
   AppColdproCncoilsRoute: AppColdproCncoilsRouteWithChildren,
   AppColdproCompareRoute: AppColdproCompareRoute,
@@ -1055,6 +1097,7 @@ const AppColdproRouteChildren: AppColdproRouteChildren = {
   AppColdproOperatingMapRoute: AppColdproOperatingMapRoute,
   AppColdproOptimizationRoute: AppColdproOptimizationRoute,
   AppColdproPerformanceRoute: AppColdproPerformanceRoute,
+  AppColdproPipelineDpRoute: AppColdproPipelineDpRoute,
   AppColdproProjectsRoute: AppColdproProjectsRoute,
   AppColdproRecordRoute: AppColdproRecordRoute,
   AppColdproRegistryRoute: AppColdproRegistryRoute,

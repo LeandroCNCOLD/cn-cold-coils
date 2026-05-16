@@ -20,6 +20,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { CheckCircle2, AlertCircle, XCircle, Flame, Zap, Snowflake, ArrowRight, Cpu } from "lucide-react";
+import { ResultDrillDown } from "../../components/ui/ResultDrillDown";
 import {
   calculateElectricalAnalysis,
   type CompressorSpec,
@@ -327,6 +328,102 @@ export function EnergyBalanceTabContent({ compressor, condenser, phResult }: Pro
           </AlertDescription>
         </Alert>
       )}
+
+      {/* Drill-down térmico — U4 */}
+      <Card>
+        <CardHeader className="pb-2">
+          <CardTitle className="text-sm">Detalhamento Térmico</CardTitle>
+          <CardDescription className="text-xs">
+            Clique em cada resultado para expandir os parâmetros de troca de calor estimados.
+            Valores típicos EN 12900 / ASHRAE — use o motor iterativo para valores exatos.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-2">
+          <ThermalDrillDownRows
+            Q_evap_W={balance.Q_evap_W}
+            W_comp_W={balance.W_comp_W}
+            Q_cond_required_W={balance.Q_cond_required_W}
+            Q_cond_available_W={balance.Q_cond_available_W}
+            COP={balance.COP}
+            Te_C={compressor.evap_temp_c ?? -10}
+            Tc_C={compressor.cond_temp_c ?? 40}
+            phResult={phResult}
+          />
+        </CardContent>
+      </Card>
     </div>
+  );
+}
+
+function ThermalDrillDownRows({
+  Q_evap_W, W_comp_W, Q_cond_required_W, Q_cond_available_W, COP, Te_C, Tc_C, phResult,
+}: {
+  Q_evap_W: number; W_comp_W: number; Q_cond_required_W: number; Q_cond_available_W: number;
+  COP: number; Te_C: number; Tc_C: number; phResult: PhDiagramResult | null;
+}) {
+  const Te = Te_C;
+  const Tc = Tc_C;
+  const compressionRatio = phResult?.compressionRatio ?? (Tc + 273) / Math.max(1, Te + 273);
+  const dischargeTemp = phResult?.dischargeTemp_C ?? Te + 80;
+  const superheat = phResult?.superheatK ?? 6;
+
+  // Evaporator: typical finned DX coil parameters
+  const LMTD_evap = 7.0; // ΔT_1=10K, ΔT_2=3K → 5.8K; use 7K including approach
+  const h_ar_evap = 45;  // W/m²K — typical j-factor finned coil
+  const h_ref_evap = 2500; // W/m²K — typical two-phase evaporation
+  const U_evap = 1 / (1 / h_ar_evap + 1 / h_ref_evap + 0.003); // fin resistance ~0.003
+  const A_evap_est = Q_evap_W / Math.max(0.1, U_evap * LMTD_evap);
+  const NTU_evap = Q_evap_W > 0 ? Math.log(1 / (1 - Math.min(0.99, Q_evap_W / Math.max(1, Q_evap_W * 1.2)))) : 0;
+
+  // Condenser: typical air-cooled parameters
+  const LMTD_cond = 10.0; // ΔT_1=15K, ΔT_2=8K → typical
+  const h_ar_cond = 60;   // W/m²K — condenser (higher velocity)
+  const h_ref_cond = 1200; // W/m²K — typical condensation
+  const U_cond = 1 / (1 / h_ar_cond + 1 / h_ref_cond + 0.002);
+
+  const fmt = (w: number) => w >= 1000 ? `${(w / 1000).toFixed(2)} kW` : `${w.toFixed(1)} W`;
+
+  return (
+    <>
+      <ResultDrillDown
+        label="Q_evap — Efeito Frigorífico"
+        value={fmt(Q_evap_W)}
+        accent="text-blue-700"
+        details={[
+          { label: "LMTD evaporador", value: LMTD_evap, unit: "K", note: "estimado" },
+          { label: "h_ar (lado externo)", value: h_ar_evap, unit: "W/m²K", note: "típico EN 12900" },
+          { label: "h_refrigerante (bifásico)", value: h_ref_evap, unit: "W/m²K", note: "Jung & Didion" },
+          { label: "U global estimado", value: U_evap, unit: "W/m²K" },
+          { label: "Área de troca estimada", value: A_evap_est, unit: "m²" },
+          { label: "Te evaporação", value: Te, unit: "°C" },
+          { label: "Superaquecimento", value: superheat, unit: "K" },
+        ]}
+      />
+      <ResultDrillDown
+        label="W_comp — Trabalho do Compressor"
+        value={fmt(W_comp_W)}
+        accent="text-amber-700"
+        details={[
+          { label: "Razão de compressão", value: compressionRatio, unit: "—" },
+          { label: "T descarga estimada", value: dischargeTemp, unit: "°C" },
+          { label: "η isentrópica estimada", value: 70, unit: "%", note: "típico compressor hermético" },
+          { label: "η volumétrica estimada", value: 80, unit: "%", note: "típico compressor hermético" },
+          { label: "COP compressor", value: COP },
+        ]}
+      />
+      <ResultDrillDown
+        label="Q_cond — Calor Rejeitado"
+        value={fmt(Q_cond_required_W)}
+        accent="text-red-700"
+        details={[
+          { label: "LMTD condensador", value: LMTD_cond, unit: "K", note: "estimado" },
+          { label: "h_ar (lado externo)", value: h_ar_cond, unit: "W/m²K", note: "típico EN 12900" },
+          { label: "h_refrigerante (condensação)", value: h_ref_cond, unit: "W/m²K", note: "Shah 1979" },
+          { label: "U global estimado", value: U_cond, unit: "W/m²K" },
+          { label: "Tc condensação", value: Tc, unit: "°C" },
+          { label: "Q_cond disponível (catálogo)", value: fmt(Q_cond_available_W), unit: "" },
+        ]}
+      />
+    </>
   );
 }

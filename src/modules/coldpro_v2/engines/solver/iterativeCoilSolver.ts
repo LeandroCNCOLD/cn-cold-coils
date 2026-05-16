@@ -20,7 +20,7 @@ import { calculateFinEfficiencySimplified } from "../core/finEfficiency";
 import { calculateTubeWallResistance } from "../core/wallResistance";
 import { calculateFluidProperties } from "../fluidSide/fluidProperties";
 import { calculateInternalFluidHTC } from "../fluidSide/fluidHeatTransfer";
-import { calculateInternalFluidPressureDrop } from "../fluidSide/fluidPressureDrop";
+import { calculateInternalFluidPressureDrop, calculateTwoPhaseFluidPressureDrop } from "../fluidSide/fluidPressureDrop";
 import { calculateCircuitFlowDistribution } from "../circuit/flowDistribution";
 import { calculateCircuitPerformance } from "../circuit/circuitPerformance";
 import { aggregateCircuitResults } from "../circuit/circuitAggregator";
@@ -33,11 +33,13 @@ import { calculateWetCoil } from "../psychrometrics/wetCoil";
 import { calculateReheat } from "../psychrometrics/reheatCoil";
 import type { WetCoilResult, ReheatResult } from "../../domain/types";
 import { KCALH_PER_KW, KCALH_PER_TR, KCALH_PER_BTUH } from "@/lib/physicalConstants";
+import { normalizeCoilInputUnits } from "../utils/normalizeCoilInputUnits";
 
 const DEFAULT_FLUID_H = 1000;
 const SMALL = 1e-6;
 
-export function solveCoilIterative(input: CoilIterativeInput): CoilIterativeResult {
+export function solveCoilIterative(rawInput: CoilIterativeInput): CoilIterativeResult {
+  const input = normalizeCoilInputUnits(rawInput) as CoilIterativeInput;
   const warnings: string[] = [];
 
   if (!input.rows) warnings.push("rows ausente");
@@ -84,6 +86,7 @@ export function solveCoilIterative(input: CoilIterativeInput): CoilIterativeResu
   const finThick = input.fin_thickness_m ?? 0.0001;
   const foulingAir = input.fouling_air_m2k_w ?? 0;
   const foulingFluid = input.fouling_fluid_m2k_w ?? 0;
+  const tubeType = input.tube_type ?? "smooth";
 
   const fluidName = input.fluid;
   const hasFluidCalcData = !!fluidName && m_f > 0 && tubeInnerDiamM > 0;
@@ -240,6 +243,19 @@ export function solveCoilIterative(input: CoilIterativeInput): CoilIterativeResu
       lastQualityX = tpHTC.quality_x;
       lastHTwoPhase = tpHTC.h_two_phase_w_m2k;
       lastHLiquidBase = tpHTC.h_liquid_base;
+
+      const tpDP = calculateTwoPhaseFluidPressureDrop({
+        mass_flow_kgs: m_f,
+        circuits,
+        tube_inner_diameter_m: tubeInnerDiamM,
+        tube_length_m: tubeLengthForFluid,
+        quality_x: qx,
+        density_liquid: tpProps.density_liquid,
+        density_vapor: tpProps.density_vapor,
+        viscosity_liquid: tpProps.viscosity_liquid,
+        viscosity_vapor: tpProps.viscosity_vapor,
+      });
+      lastFluidPressureDropKpa = tpDP.pressure_drop_kpa;
     } else if (useCircuitPath) {
       const fluidProps = calculateFluidProperties({
         fluid: fluidName!,
@@ -265,6 +281,7 @@ export function solveCoilIterative(input: CoilIterativeInput): CoilIterativeResu
           tube_length_m: explicitTubeLength!,
           fluid_properties: fluidProps,
           roughness_m: roughness,
+          tube_type: tubeType,
         });
         if (i === 0) warnings.push(...cr.warnings);
         circResults.push(cr);
@@ -316,6 +333,7 @@ export function solveCoilIterative(input: CoilIterativeInput): CoilIterativeResu
         fluid_properties: fluidProps,
         tube_length_m: tubeLengthForFluid,
         roughness_m: roughness,
+        tube_type: tubeType,
       });
       if (i === 0) warnings.push(...fluidHTC.warnings);
 

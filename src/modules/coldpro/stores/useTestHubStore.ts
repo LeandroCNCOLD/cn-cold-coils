@@ -136,6 +136,12 @@ function emptyAnalysis<T>(): AnalysisState<T> {
   return { result: null, loading: false, error: null, lastRunAt: null };
 }
 
+export interface HubDataOrigin {
+  label: string;
+  source: "catalog" | "manual" | "project";
+  detail?: string;
+}
+
 interface TestHubState {
   // Configuração da máquina
   selectedMachine: CatalogEquipmentRow | null;
@@ -144,6 +150,7 @@ interface TestHubState {
   evaporator: EvaporatorFormValue;
   conditions: Partial<SystemConditions>;
   isConfigured: boolean;
+  origin: HubDataOrigin | null;
 
   // Resultados das análises
   ph: AnalysisState<PhDiagramResult>;
@@ -153,11 +160,12 @@ interface TestHubState {
   ai: AnalysisState<AIAnalysisResult>;
 
   // Ações de configuração
-  setMachine: (row: CatalogEquipmentRow) => void;
-  setCompressor: (v: Partial<CompressorSpec>) => void;
-  setCondenser: (v: Partial<CondenserSpec>) => void;
-  setEvaporator: (v: EvaporatorFormValue) => void;
-  setConditions: (v: Partial<SystemConditions>) => void;
+  setMachine: (row: CatalogEquipmentRow, origin?: HubDataOrigin) => void;
+  setCompressor: (v: Partial<CompressorSpec> | ((prev: Partial<CompressorSpec>) => Partial<CompressorSpec>)) => void;
+  setCondenser: (v: Partial<CondenserSpec> | ((prev: Partial<CondenserSpec>) => Partial<CondenserSpec>)) => void;
+  setEvaporator: (v: EvaporatorFormValue | ((prev: EvaporatorFormValue) => EvaporatorFormValue)) => void;
+  setConditions: (v: Partial<SystemConditions> | ((prev: Partial<SystemConditions>) => Partial<SystemConditions>)) => void;
+  setOrigin: (origin: HubDataOrigin | null) => void;
   clearMachine: () => void;
 
   // Ações de análise
@@ -175,6 +183,7 @@ export const useTestHubStore = create<TestHubState>()((set) => ({
   evaporator: {},
   conditions: {},
   isConfigured: false,
+  origin: null,
 
   ph: emptyAnalysis<PhDiagramResult>(),
   montecarlo: emptyAnalysis<MonteCarloResult>(),
@@ -182,11 +191,28 @@ export const useTestHubStore = create<TestHubState>()((set) => ({
   optimization: emptyAnalysis<OptimizationResult>(),
   ai: emptyAnalysis<AIAnalysisResult>(),
 
-  setMachine: (row) => set({ selectedMachine: row }),
-  setCompressor: (v) => set((s) => ({ compressor: v, isConfigured: checkConfigured(v, s.condenser, s.evaporator) })),
-  setCondenser: (v) => set((s) => ({ condenser: v, isConfigured: checkConfigured(s.compressor, v, s.evaporator) })),
-  setEvaporator: (v) => set((s) => ({ evaporator: v, isConfigured: checkConfigured(s.compressor, s.condenser, v) })),
-  setConditions: (v) => set({ conditions: v }),
+  setMachine: (row, origin) => set({
+    selectedMachine: row,
+    origin: origin ?? {
+      label: row.modeloBaseReferencia ?? row.modelo ?? row.id,
+      source: "catalog",
+      detail: row.linha?.replace(/\[.*?\]/, "").trim(),
+    },
+  }),
+  setOrigin: (origin) => set({ origin }),
+  setCompressor: (v) => set((s) => {
+    const next = typeof v === "function" ? v(s.compressor) : v;
+    return { compressor: next, isConfigured: checkConfigured(next, s.condenser, s.evaporator) };
+  }),
+  setCondenser: (v) => set((s) => {
+    const next = typeof v === "function" ? v(s.condenser) : v;
+    return { condenser: next, isConfigured: checkConfigured(s.compressor, next, s.evaporator) };
+  }),
+  setEvaporator: (v) => set((s) => {
+    const next = typeof v === "function" ? v(s.evaporator) : v;
+    return { evaporator: next, isConfigured: checkConfigured(s.compressor, s.condenser, next) };
+  }),
+  setConditions: (v) => set((s) => ({ conditions: typeof v === "function" ? v(s.conditions) : v })),
   clearMachine: () => set({
     selectedMachine: null,
     compressor: { refrigerant: "R404A" },
@@ -194,6 +220,7 @@ export const useTestHubStore = create<TestHubState>()((set) => ({
     evaporator: {},
     conditions: {},
     isConfigured: false,
+    origin: null,
   }),
 
   setAnalysisLoading: (key, loading) =>

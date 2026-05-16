@@ -18,6 +18,8 @@ export type EvaporatorFormValue = Partial<
   rows_total?: number;
   /** Vazão volumétrica de ar (m³/h) — convertida internamente para kg/s. */
   airflow_m3_h?: number;
+  /** Tipo de superfície interna do tubo — habilita correção de tubo com ranhuras (B3). */
+  tube_type?: "smooth" | "micro_fin" | "grooved";
 };
 
 interface EvaporatorFormProps {
@@ -258,8 +260,30 @@ export function EvaporatorForm({ value, onChange }: EvaporatorFormProps) {
         />
 
         {/* Materiais */}
+        <div className="md:col-span-2">
+          <label
+            className="mb-1 block text-xs font-medium text-slate-700"
+            title="Tipo de superfície interna do tubo. Liso: Gnielinski padrão. Micro-aleta: fator E_i=1.5× (HTC), E_f=1.25× (ΔP) — Carnavos 1980. Ranhura espiral: E_i=1.8×, E_f=1.5×."
+          >
+            Superfície interna do tubo
+          </label>
+          <select
+            value={value.tube_type ?? "smooth"}
+            onChange={(e) => setStr("tube_type", e.target.value as EvaporatorFormValue["tube_type"])}
+            className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-[#1E6FD9] focus:outline-none focus:ring-1 focus:ring-[#1E6FD9]"
+          >
+            <option value="smooth">Liso (padrão)</option>
+            <option value="micro_fin">Micro-aleta interna (E_i=1.5×)</option>
+            <option value="grooved">Ranhura espiral (E_i=1.8×)</option>
+          </select>
+        </div>
         <div className="md:col-span-1">
-          <label className="mb-1 block text-xs font-medium text-slate-700">Material do tubo</label>
+          <label
+            className="mb-1 block text-xs font-medium text-slate-700"
+            title="Material dos tubos da serpentina. Cobre: k≈390 W/mK (padrão). Alumínio: k≈200 W/mK (mais leve, menos resistente à corrosão). Aço: k≈50 W/mK (industrial)."
+          >
+            Material do tubo
+          </label>
           <select
             value={value.tube_material ?? ""}
             onChange={(e) =>
@@ -277,7 +301,12 @@ export function EvaporatorForm({ value, onChange }: EvaporatorFormProps) {
           </select>
         </div>
         <div className="md:col-span-1">
-          <label className="mb-1 block text-xs font-medium text-slate-700">Material da aleta</label>
+          <label
+            className="mb-1 block text-xs font-medium text-slate-700"
+            title="Material das aletas da serpentina. Alumínio: padrão industrial (k≈200 W/mK). Cobre: alta condutividade (k≈390 W/mK), maior custo. Aço: uso industrial especial."
+          >
+            Material da aleta
+          </label>
           <select
             value={value.fin_material ?? ""}
             onChange={(e) =>
@@ -328,6 +357,7 @@ export function buildEvaporatorInputFromForm(
     air_mass_flow_kg_s: (airflowM3H * AIR_DENSITY_KG_M3) / 3600,
     T_evaporating_c: ev.T_evaporating_c ?? compressor.evap_temp_c ?? -10,
     refrigerant: compressor.refrigerant,
+    tube_type: ev.tube_type ?? "smooth",
   };
 }
 

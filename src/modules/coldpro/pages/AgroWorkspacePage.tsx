@@ -95,6 +95,11 @@ const DEFAULTS: WorkspaceState = {
 // ─────────────────────────────────────────────────────────────────────────────
 // Helpers
 // ─────────────────────────────────────────────────────────────────────────────
+function fmtSafe(value: number | undefined | null, decimals: number, unit = ""): string {
+  if (value == null || !Number.isFinite(value)) return "—";
+  return `${value.toFixed(decimals)}${unit ? ` ${unit}` : ""}`;
+}
+
 function modeBadge(m: HotGasBypassResult["mode"]) {
   switch (m) {
     case "cooling_only":   return { label: "Apenas Resfriamento", cls: "bg-blue-100 text-blue-700 border-blue-300" };
@@ -304,15 +309,15 @@ function CicloTab({ s, u, onSendToHub }: {
                 </div>
               </CardHeader>
               <CardContent className="grid gap-2 sm:grid-cols-2">
-                <KV label="Fração bypass β"   value={`${(result.bypass_fraction * 100).toFixed(1)} %`} />
-                <KV label="Q evaporador"      value={`${(result.Q_evap_w / 1000).toFixed(2)} kW`} accent="text-blue-700" />
-                <KV label="Q reaquecimento"   value={`${(result.Q_reheat_w / 1000).toFixed(2)} kW`} accent="text-amber-700" />
-                <KV label="W compressor"      value={`${(result.W_compressor_w / 1000).toFixed(2)} kW`} />
-                <KV label="COP do ciclo"      value={result.cop_cycle.toFixed(3)} accent="text-emerald-700" />
-                <KV label="Água removida"     value={`${result.water_removed_kg_h.toFixed(2)} kg/h`} />
-                <KV label="T saída"           value={`${result.T_air_out_c.toFixed(1)} °C`} />
-                <KV label="UR saída"          value={`${(result.RH_air_out * 100).toFixed(1)} %`} />
-                <KV label="T orvalho saída"   value={`${result.T_dew_out_c.toFixed(1)} °C`} />
+                <KV label="Fração bypass β"   value={fmtSafe(result.bypass_fraction * 100, 1, "%")} />
+                <KV label="Q evaporador"      value={fmtSafe(result.Q_evap_w / 1000, 2, "kW")} accent="text-blue-700" />
+                <KV label="Q reaquecimento"   value={fmtSafe(result.Q_reheat_w / 1000, 2, "kW")} accent="text-amber-700" />
+                <KV label="W compressor"      value={fmtSafe(result.W_compressor_w / 1000, 2, "kW")} />
+                <KV label="COP do ciclo"      value={fmtSafe(result.cop_cycle, 3)} accent="text-emerald-700" />
+                <KV label="Água removida"     value={fmtSafe(result.water_removed_kg_h, 2, "kg/h")} />
+                <KV label="T saída"           value={fmtSafe(result.T_air_out_c, 1, "°C")} />
+                <KV label="UR saída"          value={fmtSafe(result.RH_air_out * 100, 1, "%")} />
+                <KV label="T orvalho saída"   value={fmtSafe(result.T_dew_out_c, 1, "°C")} />
                 <KV label="Convergência"      value={result.converged ? `✓ (${result.iterations} iter.)` : "✗"} />
               </CardContent>
             </Card>
@@ -427,15 +432,15 @@ function AletadoTab({ s, u, qReheatW }: {
             </CardHeader>
             <CardContent className="grid gap-2 sm:grid-cols-2">
               <KV label="Filas necessárias"  value={`${result.rows_required}`} />
-              <KV label="Comprimento total"  value={`${result.total_tube_length_m.toFixed(1)} m`} />
-              <KV label="Área externa"       value={`${result.external_area_m2.toFixed(3)} m²`} />
-              <KV label="U global"           value={`${result.u_w_m2k.toFixed(1)} W/m²K`} />
-              <KV label="LMTD"               value={`${result.lmtd_k.toFixed(2)} K`} />
-              <KV label="Q disponível"       value={`${(result.Q_available_w / 1000).toFixed(2)} kW`} accent="text-emerald-700" />
-              <KV label="Q alvo"             value={`${(result.Q_target_w / 1000).toFixed(2)} kW`} />
-              <KV label="Razão Q/Q_alvo"     value={result.capacity_ratio.toFixed(3)} accent={result.capacity_ratio >= 1 ? "text-emerald-700" : "text-red-600"} />
-              <KV label="ΔP ar (reaquecimento)" value={`${result.reheat_air_pressure_drop_pa.toFixed(1)} Pa`} />
-              <KV label="T saída ar"         value={`${result.T_air_out_c.toFixed(1)} °C`} />
+              <KV label="Comprimento total"  value={fmtSafe(result.total_tube_length_m, 1, "m")} />
+              <KV label="Área externa"       value={fmtSafe(result.external_area_m2, 3, "m²")} />
+              <KV label="U global"           value={fmtSafe(result.u_w_m2k, 1, "W/m²K")} />
+              <KV label="LMTD"               value={fmtSafe(result.lmtd_k, 2, "K")} />
+              <KV label="Q disponível"       value={fmtSafe(result.Q_available_w / 1000, 2, "kW")} accent="text-emerald-700" />
+              <KV label="Q alvo"             value={fmtSafe(result.Q_target_w / 1000, 2, "kW")} />
+              <KV label="Razão Q/Q_alvo"     value={fmtSafe(result.capacity_ratio, 3)} accent={Number.isFinite(result.capacity_ratio) && result.capacity_ratio >= 1 ? "text-emerald-700" : "text-red-600"} />
+              <KV label="ΔP ar (reaquecimento)" value={fmtSafe(result.reheat_air_pressure_drop_pa, 1, "Pa")} />
+              <KV label="T saída ar"         value={fmtSafe(result.T_air_out_c, 1, "°C")} />
             </CardContent>
           </Card>
         )}

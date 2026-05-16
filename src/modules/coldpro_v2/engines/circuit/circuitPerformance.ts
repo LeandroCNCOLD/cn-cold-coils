@@ -1,6 +1,6 @@
 import type { CircuitPerformanceResult } from "../../domain/types";
 import type { FluidProperties } from "../fluidSide/fluidProperties";
-import { calculateInternalFluidHTC } from "../fluidSide/fluidHeatTransfer";
+import { calculateInternalFluidHTC, type TubeType } from "../fluidSide/fluidHeatTransfer";
 import { calculateInternalFluidPressureDrop } from "../fluidSide/fluidPressureDrop";
 
 export interface CircuitPerformanceInput {
@@ -10,6 +10,7 @@ export interface CircuitPerformanceInput {
   tube_length_m: number;
   fluid_properties: FluidProperties;
   roughness_m?: number;
+  tube_type?: TubeType;
 }
 
 export function calculateCircuitPerformance(
@@ -22,6 +23,7 @@ export function calculateCircuitPerformance(
     fluid_properties: input.fluid_properties,
     tube_length_m: input.tube_length_m,
     roughness_m: input.roughness_m ?? 0.0000015,
+    tube_type: input.tube_type,
   });
 
   const dpResult = calculateInternalFluidPressureDrop({

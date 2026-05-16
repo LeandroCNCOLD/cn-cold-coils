@@ -181,6 +181,9 @@ export interface CoilAdvancedInput {
   coupled_air_outlet_guess_c?: number;
   coupled_max_iterations?: number;
   coupled_tolerance_w?: number;
+  /** Internal tube surface type for enhanced-tube correction (B3).
+   *  smooth = plain tube (default). micro_fin / grooved apply Carnavos 1980 factors. */
+  tube_type?: "smooth" | "micro_fin" | "grooved";
 }
 
 export interface CoilAdvancedResult {
@@ -612,6 +615,8 @@ export interface ProgressiveCoilInput {
   frost_thermal_conductivity_w_mk?: number;
   /** Tipo de aleta — seleciona correlação Wang 2000/1999a/Chang-Wang. Padrão: "plain" */
   fin_type?: "plain" | "wavy" | "louver" | "slit";
+  /** Tipo de superfície interna do tubo — habilita correção Carnavos 1980 (B3). Padrão: "smooth". */
+  tube_type?: "smooth" | "micro_fin" | "grooved";
   /** Passo de aleta [mm] — necessário para Wang 2000/1999a */
   fin_pitch_mm?: number;
   /** Tempo de operação desde o último degelo [h] — ativa modelo de gelo dinâmico */
