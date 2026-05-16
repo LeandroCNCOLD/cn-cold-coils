@@ -44,6 +44,7 @@ import {
   type MachineDatasheetExport,
 } from "@/modules/coldpro_v2";
 
+import { CN_COLD_LOGO_BASE64 } from "@/assets/cn-cold-logo";
 import { getEquipmentCatalog } from "@/modules/coldpro_catalog/data/equipmentCatalog.index";
 import type { CatalogEquipmentRow } from "@/modules/coldpro_catalog/data/equipmentCatalog.types";
 import { catalogToCompressorSpec } from "@/modules/coldpro_catalog/adapters/compressorAdapter";
@@ -68,75 +69,249 @@ interface LogoConfig {
   logoDataUrl?: string;
 }
 
+// ── Lacuna 2: gráfico COP Sistema × Te ────────────────────────────────────────
+function drawCopChart(
+  doc: jsPDF,
+  performanceCurve: MachineDatasheetExport["performance_curve"],
+  yStart: number,
+): number {
+  if (!performanceCurve || performanceCurve.length === 0) return yStart;
+
+  const margin = 14;
+  const pageW   = doc.internal.pageSize.getWidth();
+  const chartH  = 58;   // mm
+  const chartW  = pageW - margin * 2;
+  const plotX   = margin + 18;  // space for Y-axis labels
+  const plotY   = yStart + 6;
+  const plotW   = chartW - 20;
+  const plotH   = chartH - 14;
+
+  // Collect unique Tc values and Te range
+  const tcValues = [...new Set(performanceCurve.map((p) => p.cond_temp_c))].sort((a, b) => a - b);
+  const teValues = [...new Set(performanceCurve.map((p) => p.evap_temp_c))].sort((a, b) => a - b);
+  const minTe = teValues[0];
+  const maxTe = teValues[teValues.length - 1];
+  const maxCop = Math.max(...performanceCurve.filter((p) => p.cop_system > 0).map((p) => p.cop_system));
+  const copMax = Math.ceil(maxCop * 10) / 10 + 0.2;
+  const copMin = 0;
+
+  // Line colors per Tc
+  const COLORS: [number, number, number][] = [
+    [59, 130, 246],   // blue
+    [16, 185, 129],   // green
+    [245, 158, 11],   // amber
+    [239, 68, 68],    // red
+    [139, 92, 246],   // purple
+  ];
+
+  const toX = (te: number) => plotX + ((te - minTe) / Math.max(maxTe - minTe, 1)) * plotW;
+  const toY = (cop: number) => plotY + plotH - ((cop - copMin) / Math.max(copMax - copMin, 0.1)) * plotH;
+
+  // Background
+  doc.setFillColor(248, 250, 252);
+  doc.rect(margin, yStart, chartW, chartH, "F");
+  doc.setDrawColor(220, 220, 220);
+  doc.rect(margin, yStart, chartW, chartH, "S");
+
+  // Title
+  doc.setFontSize(8);
+  doc.setFont("helvetica", "bold");
+  doc.setTextColor(30, 41, 59);
+  doc.text("COP Sistema × Temperatura de Evaporação", margin + 2, yStart + 4.5);
+
+  // Y-axis grid + labels
+  const yGridSteps = 5;
+  for (let i = 0; i <= yGridSteps; i++) {
+    const cop = copMin + (i / yGridSteps) * (copMax - copMin);
+    const py  = toY(cop);
+    doc.setDrawColor(220, 230, 240);
+    doc.setLineWidth(0.15);
+    doc.line(plotX, py, plotX + plotW, py);
+    doc.setFontSize(6);
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(120, 120, 120);
+    doc.text(cop.toFixed(1), plotX - 2, py + 1, { align: "right" });
+  }
+
+  // X-axis labels
+  teValues.forEach((te) => {
+    const px = toX(te);
+    doc.setFontSize(6);
+    doc.setTextColor(120, 120, 120);
+    doc.text(`${te}°`, px, plotY + plotH + 4, { align: "center" });
+    doc.setDrawColor(220, 230, 240);
+    doc.setLineWidth(0.15);
+    doc.line(px, plotY, px, plotY + plotH);
+  });
+
+  // Axis labels
+  doc.setFontSize(6.5);
+  doc.setTextColor(80, 80, 80);
+  doc.text("Te (°C)", plotX + plotW / 2, plotY + plotH + 8, { align: "center" });
+
+  // Draw lines per Tc
+  tcValues.forEach((tc, idx) => {
+    const pts = performanceCurve
+      .filter((p) => p.cond_temp_c === tc && p.cop_system > 0)
+      .sort((a, b) => a.evap_temp_c - b.evap_temp_c);
+    if (pts.length < 2) return;
+
+    const [r, g, b] = COLORS[idx % COLORS.length];
+    doc.setDrawColor(r, g, b);
+    doc.setLineWidth(0.5);
+
+    for (let i = 0; i < pts.length - 1; i++) {
+      doc.line(toX(pts[i].evap_temp_c), toY(pts[i].cop_system),
+               toX(pts[i + 1].evap_temp_c), toY(pts[i + 1].cop_system));
+    }
+    // Dots
+    pts.forEach((p) => {
+      doc.setFillColor(r, g, b);
+      doc.circle(toX(p.evap_temp_c), toY(p.cop_system), 0.8, "F");
+    });
+  });
+
+  // Legend
+  const legendX = plotX + plotW + 3;
+  tcValues.forEach((tc, idx) => {
+    const [r, g, b] = COLORS[idx % COLORS.length];
+    const ly = plotY + idx * 7;
+    doc.setFillColor(r, g, b);
+    doc.rect(legendX, ly, 4, 2.5, "F");
+    doc.setFontSize(6);
+    doc.setTextColor(60, 60, 60);
+    doc.text(`Tc=${tc}°C`, legendX + 5, ly + 2);
+  });
+
+  // Axes border
+  doc.setDrawColor(160, 170, 180);
+  doc.setLineWidth(0.3);
+  doc.line(plotX, plotY, plotX, plotY + plotH);              // Y axis
+  doc.line(plotX, plotY + plotH, plotX + plotW, plotY + plotH); // X axis
+
+  return yStart + chartH + 4;
+}
+
 function downloadDatasheetPdf(sheet: MachineDatasheetExport, logo: LogoConfig) {
   const doc = new jsPDF({ unit: "mm", format: "a4" });
   const margin = 14;
   const pageW = doc.internal.pageSize.getWidth();
   let y = margin;
 
-  // Header band
-  doc.setFillColor(30, 111, 217);
-  doc.rect(0, 0, pageW, 26, "F");
-  doc.setTextColor(255, 255, 255);
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(14);
+  // ── Lacuna 1: logo embutida ──────────────────────────────────────────────
+  const logoSrc = logo.logoDataUrl ?? CN_COLD_LOGO_BASE64;
 
-  if (logo.logoDataUrl) {
-    try {
-      doc.addImage(logo.logoDataUrl, "PNG", margin, 4, 24, 14);
-      doc.text("Data Sheet Técnico", margin + 28, 10);
-    } catch {
-      doc.text(`${logo.companyName} — Data Sheet Técnico`, margin, 10);
-    }
-  } else {
-    doc.text(`${logo.companyName} — Data Sheet Técnico`, margin, 10);
+  // ── Lacuna 3: header profissional ────────────────────────────────────────
+  // Faixa de fundo com gradiente simulado (dois rects)
+  doc.setFillColor(10, 22, 40);
+  doc.rect(0, 0, pageW, 30, "F");
+  doc.setFillColor(18, 38, 68);
+  doc.rect(0, 22, pageW, 8, "F");
+  // Linha de destaque colorida
+  doc.setFillColor(30, 111, 217);
+  doc.rect(0, 28, pageW, 2, "F");
+
+  // Logo
+  try {
+    const fmt = logoSrc.startsWith("data:image/svg") ? "SVG" : "PNG";
+    doc.addImage(logoSrc, fmt, margin, 4, 36, 11);
+  } catch {
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(13);
+    doc.setTextColor(255, 255, 255);
+    doc.text("CN COLD", margin, 12);
   }
 
-  doc.setFontSize(9);
+  // Modelo em destaque
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(16);
+  doc.setTextColor(255, 255, 255);
+  const modelLabel = sheet.product.model;
+  doc.text(modelLabel, pageW - margin, 12, { align: "right" });
+
+  // Subtítulo
   doc.setFont("helvetica", "normal");
+  doc.setFontSize(8);
+  doc.setTextColor(148, 163, 184);
   doc.text(
-    `${sheet.product.model}  ·  ${sheet.product.refrigerant}  ·  ${sheet.schema_version}`,
-    margin,
-    18,
+    `${sheet.product.family}  ·  ${sheet.product.refrigerant}  ·  Data Sheet Técnico`,
+    pageW - margin,
+    19,
+    { align: "right" },
   );
   doc.setTextColor(0, 0, 0);
-  y = 32;
+  y = 36;
 
-  // Selection table — key specs at a glance
-  const selectionBody: (string | number)[][] = [
-    ["Modelo", sheet.product.model],
-    ["Família / Linha", `${sheet.product.family} / ${sheet.product.line}`],
-    ["Refrigerante", sheet.product.refrigerant],
-    ["Status", sheet.validation_status.toUpperCase()],
+  // ── Lacuna 3: cards 3×2 de seleção rápida ──────────────────────────────
+  const e = sheet.electrical;
+  const nominalPoint = sheet.performance_curve?.find((p) => p.status === "approved")
+    ?? sheet.performance_curve?.[Math.floor((sheet.performance_curve.length ?? 0) / 2)];
+
+  type Card = { label: string; value: string; accent: [number, number, number] };
+  const cards: Card[] = [
+    {
+      label: "Capacidade",
+      value: nominalPoint ? `${(nominalPoint.capacity_w / 1000).toFixed(1)} kW` : "—",
+      accent: [30, 111, 217],
+    },
+    {
+      label: "COP Sistema",
+      value: e ? e.cop_system.toFixed(2) : "—",
+      accent: [16, 185, 129],
+    },
+    {
+      label: "Potência Total",
+      value: e ? `${e.total_power_w.toFixed(0)} W` : "—",
+      accent: [245, 158, 11],
+    },
+    {
+      label: "Corrente",
+      value: e ? `${e.estimated_current_a.toFixed(1)} A` : "—",
+      accent: [239, 68, 68],
+    },
+    {
+      label: "EER",
+      value: e ? `${e.eer_btu_wh.toFixed(2)} BTU/W·h` : "—",
+      accent: [139, 92, 246],
+    },
+    {
+      label: "Refrigerante",
+      value: sheet.product.refrigerant,
+      accent: [56, 189, 248],
+    },
   ];
-  if (sheet.electrical) {
-    selectionBody.push(
-      ["Capacidade frigorífica", `${sheet.electrical.total_power_w > 0 ? "—" : "—"} (ver curva)`],
-      ["Potência total", `${sheet.electrical.total_power_w.toFixed(0)} W`],
-      ["Corrente total", `${sheet.electrical.estimated_current_a.toFixed(2)} A`],
-      ["Tensão / Fases", `${sheet.electrical.voltage_v} V / ${sheet.electrical.phases}φ`],
-      ["COP sistema", sheet.electrical.cop_system.toFixed(3)],
-      ["EER", `${sheet.electrical.eer_btu_wh.toFixed(2)} BTU/W·h`],
-    );
-  }
-  if (sheet.operating_limits) {
-    const lim = sheet.operating_limits;
-    selectionBody.push(
-      ["Te operação (mín/máx)", `${lim.min_evap_temp_c.toFixed(1)} / ${lim.max_evap_temp_c.toFixed(1)} °C`],
-      ["Tc operação (mín/máx)", `${lim.min_cond_temp_c.toFixed(1)} / ${lim.max_cond_temp_c.toFixed(1)} °C`],
-    );
-  }
-  autoTable(doc, {
-    startY: y,
-    head: [["Tabela de Seleção Rápida", ""]],
-    body: selectionBody,
-    styles: { fontSize: 8, cellPadding: 1.5 },
-    headStyles: { fillColor: [15, 80, 160], textColor: 255, fontStyle: "bold" },
-    columnStyles: { 0: { fontStyle: "bold", cellWidth: 60 } },
-    margin: { left: margin, right: margin },
-    theme: "grid",
+
+  const cardW  = (pageW - margin * 2 - 4) / 3;
+  const cardH  = 14;
+  const cardGap = 2;
+
+  cards.forEach((card, i) => {
+    const col = i % 3;
+    const row = Math.floor(i / 3);
+    const cx  = margin + col * (cardW + cardGap);
+    const cy  = y + row * (cardH + cardGap);
+
+    // Card background
+    doc.setFillColor(248, 250, 252);
+    doc.roundedRect(cx, cy, cardW, cardH, 1, 1, "F");
+    doc.setDrawColor(...card.accent);
+    doc.setLineWidth(0.4);
+    doc.line(cx, cy, cx, cy + cardH);  // left accent bar
+
+    // Label
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(6.5);
+    doc.setTextColor(120, 130, 145);
+    doc.text(card.label, cx + 3, cy + 4.5);
+
+    // Value
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(11);
+    doc.setTextColor(...card.accent);
+    doc.text(card.value, cx + 3, cy + 11);
   });
-  y = (doc as unknown as { lastAutoTable: { finalY: number } }).lastAutoTable.finalY + 5;
+
+  y += 2 * (cardH + cardGap) + 6;
 
   // Gerado em
   doc.setFontSize(8);
@@ -192,7 +367,7 @@ function downloadDatasheetPdf(sheet: MachineDatasheetExport, logo: LogoConfig) {
     y = (doc as unknown as { lastAutoTable: { finalY: number } }).lastAutoTable.finalY + 5;
   }
 
-  // Performance
+  // Performance table
   if (sheet.performance_curve && sheet.performance_curve.length > 0) {
     autoTable(doc, {
       startY: y,
@@ -214,6 +389,13 @@ function downloadDatasheetPdf(sheet: MachineDatasheetExport, logo: LogoConfig) {
       theme: "striped",
     });
     y = (doc as unknown as { lastAutoTable: { finalY: number } }).lastAutoTable.finalY + 5;
+
+    // ── Lacuna 2: gráfico COP × Te ──────────────────────────────────────
+    if (y + 65 > doc.internal.pageSize.getHeight() - 20) {
+      doc.addPage();
+      y = margin;
+    }
+    y = drawCopChart(doc, sheet.performance_curve, y);
   }
 
   // Polinômios
