@@ -15,9 +15,6 @@
  * - EN 12900:2013 — Rating conditions for refrigerant compressors
  */
 import { useMemo } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Alert, AlertDescription } from "@/components/ui/alert";
 import { CheckCircle2, AlertCircle, XCircle } from "lucide-react";
 import {
   RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis,
@@ -147,96 +144,139 @@ export function OperatingEnvelopeTabContent({ machine, compressor, phResult }: P
   return (
     <div className="space-y-5">
       {/* Status geral */}
-      <Card className={`border-2 ${overallStatus === "critical" ? "border-red-300 bg-red-50" : overallStatus === "warning" ? "border-amber-300 bg-amber-50" : "border-emerald-300 bg-emerald-50"}`}>
-        <CardContent className="flex items-center gap-4 p-4">
+      <div
+        className="cn-card p-4"
+        style={{
+          borderWidth: 2,
+          borderColor: overallStatus === "critical" ? "var(--color-error)" : overallStatus === "warning" ? "#f59e0b" : "var(--color-success)",
+        }}
+      >
+        <div className="flex items-center gap-4">
           {overallStatus === "critical" ? (
-            <XCircle className="h-10 w-10 shrink-0 text-red-500" />
+            <span style={{ color: "var(--color-error)" }}>
+              <XCircle className="h-10 w-10 shrink-0" />
+            </span>
           ) : overallStatus === "warning" ? (
-            <AlertCircle className="h-10 w-10 shrink-0 text-amber-500" />
+            <span style={{ color: "#f59e0b" }}>
+              <AlertCircle className="h-10 w-10 shrink-0" />
+            </span>
           ) : (
-            <CheckCircle2 className="h-10 w-10 shrink-0 text-emerald-500" />
+            <span style={{ color: "var(--color-success)" }}>
+              <CheckCircle2 className="h-10 w-10 shrink-0" />
+            </span>
           )}
           <div>
-            <p className="text-lg font-bold text-slate-800">
+            <p className="text-lg font-bold" style={{ color: "var(--text-primary)" }}>
               {overallStatus === "critical" ? "Fora do Envelope Operacional" :
                overallStatus === "warning" ? "Próximo dos Limites" :
                "Dentro do Envelope Operacional"}
             </p>
-            <p className="text-sm text-slate-600">
+            <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
               {criticalCount > 0 ? `${criticalCount} limite(s) excedido(s) — ação imediata necessária. ` : ""}
               {warningCount > 0 ? `${warningCount} parâmetro(s) próximo(s) do limite.` : ""}
               {overallStatus === "ok" ? "Todos os parâmetros dentro dos limites operacionais." : ""}
             </p>
           </div>
           <div className="ml-auto flex gap-2">
-            {criticalCount > 0 && <Badge className="bg-red-500 text-white">{criticalCount} crítico</Badge>}
-            {warningCount > 0 && <Badge className="bg-amber-500 text-white">{warningCount} alerta</Badge>}
+            {criticalCount > 0 && (
+              <span className="cn-badge" style={{ background: "var(--color-error)", color: "#fff" }}>
+                {criticalCount} crítico
+              </span>
+            )}
+            {warningCount > 0 && (
+              <span className="cn-badge" style={{ background: "#f59e0b", color: "#fff" }}>
+                {warningCount} alerta
+              </span>
+            )}
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       <div className="grid gap-5 lg:grid-cols-2">
         {/* Gráfico Radar */}
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm">Mapa de Utilização dos Limites</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={260}>
-              <RadarChart data={radarData}>
-                <PolarGrid stroke="#e2e8f0" />
-                <PolarAngleAxis dataKey="subject" tick={{ fontSize: 10, fill: "#475569" }} />
-                <PolarRadiusAxis angle={30} domain={[0, 100]} tick={{ fontSize: 9 }} tickFormatter={(v: number) => `${v}%`} />
-                <Radar name="Utilização" dataKey="value" stroke="#1E6FD9" fill="#1E6FD9" fillOpacity={0.25} />
-                <Tooltip formatter={(v: number) => [`${v.toFixed(0)}%`, "Utilização"]} />
-              </RadarChart>
-            </ResponsiveContainer>
-            <p className="text-center text-[10px] text-slate-400">100% = no limite máximo do parâmetro</p>
-          </CardContent>
-        </Card>
+        <div className="cn-card p-4">
+          <p className="mb-3 text-sm font-semibold" style={{ color: "var(--text-primary)" }}>
+            Mapa de Utilização dos Limites
+          </p>
+          <ResponsiveContainer width="100%" height={260}>
+            <RadarChart data={radarData}>
+              <PolarGrid stroke="var(--border-subtle)" />
+              <PolarAngleAxis dataKey="subject" tick={{ fontSize: 10, fill: "var(--text-muted)" }} />
+              <PolarRadiusAxis angle={30} domain={[0, 100]} tick={{ fontSize: 9 }} tickFormatter={(v: number) => `${v}%`} />
+              <Radar name="Utilização" dataKey="value" stroke="#1E6FD9" fill="#1E6FD9" fillOpacity={0.25} />
+              <Tooltip formatter={(v: number) => [`${v.toFixed(0)}%`, "Utilização"]} />
+            </RadarChart>
+          </ResponsiveContainer>
+          <p className="text-center text-[10px]" style={{ color: "var(--text-muted)" }}>
+            100% = no limite máximo do parâmetro
+          </p>
+        </div>
 
         {/* Lista de limites */}
         <div className="space-y-3">
           {checks.map((check, i) => (
-            <Card key={i} className={`border ${check.status === "critical" ? "border-red-200 bg-red-50" : check.status === "warning" ? "border-amber-200 bg-amber-50" : "border-emerald-100 bg-emerald-50/30"}`}>
-              <CardContent className="p-3">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    {check.status === "ok" ? (
-                      <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-500" />
-                    ) : check.status === "warning" ? (
-                      <AlertCircle className="h-4 w-4 shrink-0 text-amber-500" />
-                    ) : (
-                      <XCircle className="h-4 w-4 shrink-0 text-red-500" />
-                    )}
-                    <span className="text-sm font-medium text-slate-700">{check.name}</span>
-                  </div>
-                  <span className={`text-sm font-bold font-mono ${check.status === "critical" ? "text-red-600" : check.status === "warning" ? "text-amber-600" : "text-emerald-700"}`}>
-                    {check.current.toFixed(check.unit === "°C" ? 1 : 2)} {check.unit}
-                  </span>
+            <div
+              key={i}
+              className="cn-card p-3"
+              style={{
+                borderColor: check.status === "critical" ? "var(--color-error)" : check.status === "warning" ? "#f59e0b" : "var(--color-success)",
+              }}
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  {check.status === "ok" ? (
+                    <span style={{ color: "var(--color-success)" }}>
+                      <CheckCircle2 className="h-4 w-4 shrink-0" />
+                    </span>
+                  ) : check.status === "warning" ? (
+                    <span style={{ color: "#f59e0b" }}>
+                      <AlertCircle className="h-4 w-4 shrink-0" />
+                    </span>
+                  ) : (
+                    <span style={{ color: "var(--color-error)" }}>
+                      <XCircle className="h-4 w-4 shrink-0" />
+                    </span>
+                  )}
+                  <span className="text-sm font-medium" style={{ color: "var(--text-secondary)" }}>{check.name}</span>
                 </div>
-                {/* Barra de progresso */}
-                <div className="mt-2 h-1.5 rounded-full bg-slate-200">
-                  <div
-                    className={`h-1.5 rounded-full transition-all ${check.status === "critical" ? "bg-red-500" : check.status === "warning" ? "bg-amber-500" : "bg-emerald-500"}`}
-                    style={{ width: `${check.pct}%` }}
-                  />
-                </div>
-                <p className="mt-1 text-[10px] text-slate-400">{check.note}</p>
-              </CardContent>
-            </Card>
+                <span
+                  className="text-sm font-bold font-mono"
+                  style={{
+                    color: check.status === "critical" ? "var(--color-error)" : check.status === "warning" ? "#f59e0b" : "var(--color-success)",
+                  }}
+                >
+                  {check.current.toFixed(check.unit === "°C" ? 1 : 2)} {check.unit}
+                </span>
+              </div>
+              {/* Barra de progresso */}
+              <div className="mt-2 h-1.5 rounded-full" style={{ background: "var(--bg-800)" }}>
+                <div
+                  className="h-1.5 rounded-full transition-all"
+                  style={{
+                    width: `${check.pct}%`,
+                    background: check.status === "critical" ? "var(--color-error)" : check.status === "warning" ? "#f59e0b" : "var(--color-success)",
+                  }}
+                />
+              </div>
+              <p className="mt-1 text-[10px]" style={{ color: "var(--text-muted)" }}>{check.note}</p>
+            </div>
           ))}
         </div>
       </div>
 
       {/* Alertas críticos */}
       {criticalCount > 0 && (
-        <Alert className="border-red-200 bg-red-50">
-          <XCircle className="h-4 w-4 text-red-500" />
-          <AlertDescription className="text-sm text-red-700">
+        <div
+          className="flex items-start gap-3 rounded p-3"
+          style={{ background: "var(--bg-800)", borderWidth: 1, borderColor: "var(--color-error)" }}
+        >
+          <span style={{ color: "var(--color-error)" }}>
+            <XCircle className="h-4 w-4 mt-0.5 shrink-0" />
+          </span>
+          <p className="text-sm" style={{ color: "var(--color-error)" }}>
             <strong>Operação fora do envelope!</strong> Revisar condições de operação antes de prosseguir. Risco de danos ao compressor e redução severa de vida útil.
-          </AlertDescription>
-        </Alert>
+          </p>
+        </div>
       )}
     </div>
   );

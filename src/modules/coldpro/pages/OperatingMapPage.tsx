@@ -153,7 +153,7 @@ export function OperatingMapPage() {
           type="button"
           onClick={handleCalculate}
           disabled={!canCalculate || isCalculating}
-          className="inline-flex items-center gap-2 rounded-md bg-[#1E6FD9] px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-[#1759b3] disabled:cursor-not-allowed disabled:bg-slate-300"
+          className="inline-flex items-center gap-2 rounded-md bg-[#1E6FD9] px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-[#1759b3] disabled:cursor-not-allowed disabled:opacity-50"
         >
           <Play className="h-4 w-4" />
           {isCalculating ? "Calculando..." : "Gerar Mapa"}
@@ -170,14 +170,14 @@ export function OperatingMapPage() {
 
         <div className="space-y-4 lg:col-span-3">
           {isCalculating && (
-            <div className="rounded-lg border border-slate-200 bg-white p-6">
+            <div className="rounded-lg p-6" style={{ border: "1px solid var(--border-subtle)", background: "var(--bg-700)" }}>
               <LoadingSpinner label="Gerando mapa..." />
             </div>
           )}
 
           {result?.success && !isCalculating && (
             <>
-              <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+              <section className="rounded-lg p-5" style={{ border: "1px solid var(--border-subtle)", background: "var(--bg-700)" }}>
                 <div className="mb-4 grid grid-cols-4 gap-3">
                   <Stat value={String(result.data.stats.total_points)} label="Pontos Total" />
                   <Stat value={String(feasibleCount)} label="Viáveis" tone="emerald" />
@@ -191,18 +191,19 @@ export function OperatingMapPage() {
               </section>
 
               {result.data.capacity_isolines.length > 0 && (
-                <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
-                  <h3 className="mb-3 text-sm font-semibold text-slate-900">Isolinhas de Capacidade</h3>
+                <section className="rounded-lg p-5" style={{ border: "1px solid var(--border-subtle)", background: "var(--bg-700)" }}>
+                  <h3 className="mb-3 text-sm font-semibold" style={{ color: "var(--text-primary)" }}>Isolinhas de Capacidade</h3>
                   <div className="space-y-2">
                     {result.data.capacity_isolines.map((iso, i) => (
                       <div
                         key={i}
-                        className="flex items-center justify-between rounded-md bg-slate-50 px-3 py-2 text-xs"
+                        className="flex items-center justify-between rounded-md px-3 py-2 text-xs"
+                        style={{ background: "var(--bg-800)" }}
                       >
-                        <span className="font-mono font-semibold text-slate-900">
+                        <span className="font-mono font-semibold" style={{ color: "var(--text-primary)" }}>
                           {formatCapacity(iso.value)}
                         </span>
-                        <span className="text-slate-500">{iso.points.length} pontos</span>
+                        <span style={{ color: "var(--text-muted)" }}>{iso.points.length} pontos</span>
                       </div>
                     ))}
                   </div>
@@ -213,8 +214,8 @@ export function OperatingMapPage() {
 
               <ModeGate minMode="intermediate">
                 {envelopeBounds && envelopeBounds.min_evap_temp_c !== null && (
-                  <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
-                    <h3 className="mb-3 text-sm font-semibold text-slate-900">Envelope Operacional</h3>
+                  <section className="rounded-lg p-5" style={{ border: "1px solid var(--border-subtle)", background: "var(--bg-700)" }}>
+                    <h3 className="mb-3 text-sm font-semibold" style={{ color: "var(--text-primary)" }}>Envelope Operacional</h3>
                     <div className="grid grid-cols-2 gap-3 text-sm">
                       <Row label="T_evap mín." value={formatTemp(envelopeBounds.min_evap_temp_c!)} />
                       <Row label="T_evap máx." value={formatTemp(envelopeBounds.max_evap_temp_c!)} />
@@ -228,15 +229,15 @@ export function OperatingMapPage() {
           )}
 
           {result && !result.success && !isCalculating && (
-            <div className="rounded-lg border border-red-200 bg-red-50 p-4">
-              <h4 className="text-sm font-semibold text-red-900">Erro no cálculo</h4>
-              <p className="mt-1 text-xs text-red-700">{result.error}</p>
+            <div className="rounded-lg p-4" style={{ border: "1px solid var(--color-error)", background: "var(--bg-800)" }}>
+              <h4 className="text-sm font-semibold" style={{ color: "var(--color-error)" }}>Erro no cálculo</h4>
+              <p className="mt-1 text-xs" style={{ color: "var(--color-error)", opacity: 0.8 }}>{result.error}</p>
             </div>
           )}
 
           {!result && !isCalculating && (
-            <div className="rounded-lg border-2 border-dashed border-slate-200 bg-white p-8 text-center">
-              <p className="text-sm text-slate-500">
+            <div className="rounded-lg border-2 border-dashed p-8 text-center" style={{ borderColor: "var(--border-subtle)", background: "var(--bg-700)" }}>
+              <p className="text-sm" style={{ color: "var(--text-muted)" }}>
                 Configure o sistema e clique em "Gerar Mapa".
               </p>
             </div>
@@ -256,20 +257,20 @@ function Stat({
   label: string;
   tone?: "slate" | "emerald";
 }) {
-  const color = tone === "emerald" ? "text-emerald-600" : "text-slate-900";
+  const valueColor = tone === "emerald" ? "var(--color-success)" : "var(--text-primary)";
   return (
-    <div className="rounded-md bg-slate-50 p-3 text-center">
-      <div className={`text-lg font-semibold ${color}`}>{value}</div>
-      <div className="mt-0.5 text-xs text-slate-500">{label}</div>
+    <div className="rounded-md p-3 text-center" style={{ background: "var(--bg-800)" }}>
+      <div className="text-lg font-mono font-semibold" style={{ color: valueColor }}>{value}</div>
+      <div className="mt-0.5 text-xs" style={{ color: "var(--text-muted)" }}>{label}</div>
     </div>
   );
 }
 
 function Row({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex items-center justify-between rounded-md bg-slate-50 px-3 py-2">
-      <span className="text-slate-600">{label}</span>
-      <span className="font-mono text-slate-900">{value}</span>
+    <div className="flex items-center justify-between rounded-md px-3 py-2" style={{ background: "var(--bg-800)" }}>
+      <span style={{ color: "var(--text-secondary)" }}>{label}</span>
+      <span className="font-mono" style={{ color: "var(--text-primary)" }}>{value}</span>
     </div>
   );
 }

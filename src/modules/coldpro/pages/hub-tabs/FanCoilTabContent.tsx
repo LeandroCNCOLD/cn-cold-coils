@@ -14,9 +14,6 @@
  * - AMCA Standard 210 (2016) — Laboratory Methods of Testing Fans
  */
 import { useMemo } from "react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Alert, AlertDescription } from "@/components/ui/alert";
 import { CheckCircle2, AlertCircle, XCircle, Wind } from "lucide-react";
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip,
@@ -100,36 +97,56 @@ export function FanCoilTabContent({ machine, evaporator }: Props) {
     };
   }, [machine, evaporator]);
 
-  const statusColor = analysis.status === "critical" ? "text-red-600" : analysis.status === "warning" ? "text-amber-600" : "text-emerald-600";
+  const statusColor =
+    analysis.status === "critical"
+      ? "var(--color-error)"
+      : analysis.status === "warning"
+      ? "#f59e0b"
+      : "var(--color-success)";
 
   return (
     <div className="space-y-5">
       {/* Status */}
-      <Card className={`border-2 ${analysis.status === "critical" ? "border-red-300 bg-red-50" : analysis.status === "warning" ? "border-amber-300 bg-amber-50" : "border-emerald-300 bg-emerald-50"}`}>
-        <CardContent className="flex items-center gap-4 p-4">
-          {analysis.status === "critical" ? (
-            <XCircle className="h-8 w-8 shrink-0 text-red-500" />
-          ) : analysis.status === "warning" ? (
-            <AlertCircle className="h-8 w-8 shrink-0 text-amber-500" />
-          ) : (
-            <CheckCircle2 className="h-8 w-8 shrink-0 text-emerald-500" />
-          )}
-          <div className="flex-1">
-            <p className="text-base font-bold text-slate-800">
-              {analysis.status === "critical" ? "Ventilador insuficiente para o coil" :
-               analysis.status === "warning" ? "Ventilador próximo do limite" :
-               "Ventilador adequado para o coil"}
-            </p>
-            <p className="text-sm text-slate-600">
-              Vazão real: {analysis.Q_op.toFixed(0)} m³/h ({(analysis.flow_ratio * 100).toFixed(0)}% da nominal {analysis.Q_nom.toFixed(0)} m³/h)
-            </p>
-          </div>
-          <div className="text-right">
-            <p className={`text-2xl font-bold ${statusColor}`}>{(analysis.flow_ratio * 100).toFixed(0)}%</p>
-            <p className="text-xs text-slate-400">da vazão nominal</p>
-          </div>
-        </CardContent>
-      </Card>
+      <div
+        className="cn-card p-4 flex items-center gap-4"
+        style={{
+          borderWidth: 2,
+          borderColor:
+            analysis.status === "critical"
+              ? "var(--color-error)"
+              : analysis.status === "warning"
+              ? "#f59e0b"
+              : "var(--color-success)",
+        }}
+      >
+        {analysis.status === "critical" ? (
+          <span style={{ color: "var(--color-error)" }}>
+            <XCircle className="h-8 w-8 shrink-0" />
+          </span>
+        ) : analysis.status === "warning" ? (
+          <span style={{ color: "#f59e0b" }}>
+            <AlertCircle className="h-8 w-8 shrink-0" />
+          </span>
+        ) : (
+          <span style={{ color: "var(--color-success)" }}>
+            <CheckCircle2 className="h-8 w-8 shrink-0" />
+          </span>
+        )}
+        <div className="flex-1">
+          <p className="text-base font-bold" style={{ color: "var(--text-primary)" }}>
+            {analysis.status === "critical" ? "Ventilador insuficiente para o coil" :
+             analysis.status === "warning" ? "Ventilador próximo do limite" :
+             "Ventilador adequado para o coil"}
+          </p>
+          <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
+            Vazão real: {analysis.Q_op.toFixed(0)} m³/h ({(analysis.flow_ratio * 100).toFixed(0)}% da nominal {analysis.Q_nom.toFixed(0)} m³/h)
+          </p>
+        </div>
+        <div className="text-right">
+          <p className="text-2xl font-bold font-mono" style={{ color: statusColor }}>{(analysis.flow_ratio * 100).toFixed(0)}%</p>
+          <p className="text-xs" style={{ color: "var(--text-muted)" }}>da vazão nominal</p>
+        </div>
+      </div>
 
       {/* Métricas */}
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
@@ -139,101 +156,108 @@ export function FanCoilTabContent({ machine, evaporator }: Props) {
           { label: "ΔP do Coil (nominal)", value: `${analysis.dp_coil_nom.toFixed(0)} Pa`, note: `${analysis.rows}R, aleta ${analysis.finSpacing}mm` },
           { label: "Margem de Pressão", value: `${analysis.margin_pa.toFixed(0)} Pa`, note: "P_fan - ΔP_coil" },
         ].map(({ label, value, note }) => (
-          <Card key={label}>
-            <CardContent className="p-3">
-              <p className="text-[10px] text-slate-500">{label}</p>
-              <p className="text-base font-bold text-slate-800">{value}</p>
-              <p className="text-[10px] text-slate-400">{note}</p>
-            </CardContent>
-          </Card>
+          <div key={label} className="cn-card p-3">
+            <p className="text-[10px]" style={{ color: "var(--text-muted)" }}>{label}</p>
+            <p className="text-base font-bold font-mono" style={{ color: "var(--text-primary)" }}>{value}</p>
+            <p className="text-[10px]" style={{ color: "var(--text-muted)" }}>{note}</p>
+          </div>
         ))}
       </div>
 
       {/* Gráfico de curvas */}
-      <Card>
-        <CardHeader className="pb-2">
-          <CardTitle className="text-sm">Curvas Ventilador × Coil</CardTitle>
-          <CardDescription className="text-xs">
+      <div className="cn-card p-4">
+        <div className="pb-2">
+          <p className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>Curvas Ventilador × Coil</p>
+          <p className="text-xs" style={{ color: "var(--text-muted)" }}>
             Interseção das curvas = ponto real de operação. Wang et al. (2000) para ΔP do coil.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <ResponsiveContainer width="100%" height={280}>
-            <ComposedChart data={analysis.points} margin={{ top: 10, right: 20, left: 0, bottom: 20 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-              <XAxis
-                dataKey="flow_m3h"
-                label={{ value: "Vazão [m³/h]", position: "insideBottom", offset: -10, fontSize: 11 }}
-                tick={{ fontSize: 10 }}
-              />
-              <YAxis
-                label={{ value: "Pressão [Pa]", angle: -90, position: "insideLeft", offset: 10, fontSize: 11 }}
-                tick={{ fontSize: 10 }}
-              />
-              <Tooltip
-                formatter={(v: number, name: string) => [
-                  `${v.toFixed(0)} Pa`,
-                  name === "fan_pa" ? "Ventilador" : "Coil (ΔP)",
-                ]}
-                labelFormatter={(l: number) => `Vazão: ${l} m³/h`}
-              />
-              <Legend
-                formatter={(value: string) => value === "fan_pa" ? "Curva do Ventilador" : "Resistência do Coil"}
-                wrapperStyle={{ fontSize: 11 }}
-              />
-              <Line type="monotone" dataKey="fan_pa" stroke="#1E6FD9" strokeWidth={2.5} dot={false} />
-              <Line type="monotone" dataKey="coil_pa" stroke="#ef4444" strokeWidth={2.5} dot={false} strokeDasharray="5 3" />
-              <ReferenceLine x={analysis.Q_op} stroke="#8b5cf6" strokeDasharray="4 4"
-                label={{ value: `Q_op = ${analysis.Q_op.toFixed(0)} m³/h`, fontSize: 9, fill: "#8b5cf6", position: "top" }} />
-              <ReferenceLine x={analysis.Q_nom} stroke="#64748b" strokeDasharray="4 4"
-                label={{ value: `Q_nom = ${analysis.Q_nom.toFixed(0)} m³/h`, fontSize: 9, fill: "#64748b", position: "insideTopRight" }} />
-            </ComposedChart>
-          </ResponsiveContainer>
-          <p className="mt-1 text-center text-[10px] text-slate-400">
-            Curva do ventilador: modelo quadrático (AMCA 210). Curva do coil: Wang et al. (2000) — ΔP ∝ Q^1.8
           </p>
-        </CardContent>
-      </Card>
+        </div>
+        <ResponsiveContainer width="100%" height={280}>
+          <ComposedChart data={analysis.points} margin={{ top: 10, right: 20, left: 0, bottom: 20 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+            <XAxis
+              dataKey="flow_m3h"
+              label={{ value: "Vazão [m³/h]", position: "insideBottom", offset: -10, fontSize: 11 }}
+              tick={{ fontSize: 10 }}
+            />
+            <YAxis
+              label={{ value: "Pressão [Pa]", angle: -90, position: "insideLeft", offset: 10, fontSize: 11 }}
+              tick={{ fontSize: 10 }}
+            />
+            <Tooltip
+              formatter={(v: number, name: string) => [
+                `${v.toFixed(0)} Pa`,
+                name === "fan_pa" ? "Ventilador" : "Coil (ΔP)",
+              ]}
+              labelFormatter={(l: number) => `Vazão: ${l} m³/h`}
+            />
+            <Legend
+              formatter={(value: string) => value === "fan_pa" ? "Curva do Ventilador" : "Resistência do Coil"}
+              wrapperStyle={{ fontSize: 11 }}
+            />
+            <Line type="monotone" dataKey="fan_pa" stroke="#1E6FD9" strokeWidth={2.5} dot={false} />
+            <Line type="monotone" dataKey="coil_pa" stroke="#ef4444" strokeWidth={2.5} dot={false} strokeDasharray="5 3" />
+            <ReferenceLine x={analysis.Q_op} stroke="#8b5cf6" strokeDasharray="4 4"
+              label={{ value: `Q_op = ${analysis.Q_op.toFixed(0)} m³/h`, fontSize: 9, fill: "#8b5cf6", position: "top" }} />
+            <ReferenceLine x={analysis.Q_nom} stroke="#64748b" strokeDasharray="4 4"
+              label={{ value: `Q_nom = ${analysis.Q_nom.toFixed(0)} m³/h`, fontSize: 9, fill: "#64748b", position: "insideTopRight" }} />
+          </ComposedChart>
+        </ResponsiveContainer>
+        <p className="mt-1 text-center text-[10px]" style={{ color: "var(--text-muted)" }}>
+          Curva do ventilador: modelo quadrático (AMCA 210). Curva do coil: Wang et al. (2000) — ΔP ∝ Q^1.8
+        </p>
+      </div>
 
       {/* Componentes da perda de carga */}
-      <Card>
-        <CardHeader className="pb-2">
-          <CardTitle className="text-sm">Decomposição da Perda de Carga</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-2">
-            {[
-              { name: "Aletado (Wang et al. 2000)", pct: 65, pa: analysis.dp_coil_nom * 0.65 },
-              { name: "Carcaça e distribuição de ar", pct: 20, pa: analysis.dp_coil_nom * 0.20 },
-              { name: "Filtro / acessórios (estimado)", pct: 10, pa: analysis.dp_coil_nom * 0.10 },
-              { name: "Entrada e saída do coil", pct: 5, pa: analysis.dp_coil_nom * 0.05 },
-            ].map(({ name, pct, pa }) => (
-              <div key={name} className="space-y-1">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs text-slate-700">{name}</span>
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs font-mono text-slate-600">{pa.toFixed(0)} Pa</span>
-                    <Badge variant="outline" className="text-[10px]">{pct}%</Badge>
-                  </div>
-                </div>
-                <div className="h-1.5 rounded-full bg-slate-100">
-                  <div className="h-1.5 rounded-full bg-[#1E6FD9]" style={{ width: `${pct}%` }} />
+      <div className="cn-card p-4">
+        <div className="pb-2">
+          <p className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>Decomposição da Perda de Carga</p>
+        </div>
+        <div className="space-y-2">
+          {[
+            { name: "Aletado (Wang et al. 2000)", pct: 65, pa: analysis.dp_coil_nom * 0.65 },
+            { name: "Carcaça e distribuição de ar", pct: 20, pa: analysis.dp_coil_nom * 0.20 },
+            { name: "Filtro / acessórios (estimado)", pct: 10, pa: analysis.dp_coil_nom * 0.10 },
+            { name: "Entrada e saída do coil", pct: 5, pa: analysis.dp_coil_nom * 0.05 },
+          ].map(({ name, pct, pa }) => (
+            <div key={name} className="space-y-1">
+              <div className="flex items-center justify-between">
+                <span className="text-xs" style={{ color: "var(--text-secondary)" }}>{name}</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-mono" style={{ color: "var(--text-secondary)" }}>{pa.toFixed(0)} Pa</span>
+                  <span className="cn-badge cn-badge--info text-[10px]">{pct}%</span>
                 </div>
               </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
+              <div className="h-1.5 rounded-full" style={{ background: "var(--bg-700)" }}>
+                <div className="h-1.5 rounded-full bg-[#1E6FD9]" style={{ width: `${pct}%` }} />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
 
       {analysis.status !== "ok" && (
-        <Alert className={`border ${analysis.status === "critical" ? "border-red-200 bg-red-50" : "border-amber-200 bg-amber-50"}`}>
-          <Wind className={`h-4 w-4 ${analysis.status === "critical" ? "text-red-500" : "text-amber-500"}`} />
-          <AlertDescription className={`text-sm ${analysis.status === "critical" ? "text-red-700" : "text-amber-700"}`}>
+        <div
+          className="rounded-md p-4 flex items-start gap-3"
+          style={{
+            background: "var(--bg-800)",
+            borderWidth: 1,
+            borderStyle: "solid",
+            borderColor: analysis.status === "critical" ? "var(--color-error)" : "#f59e0b",
+          }}
+        >
+          <span style={{ color: analysis.status === "critical" ? "var(--color-error)" : "#f59e0b" }}>
+            <Wind className="h-4 w-4 mt-0.5 shrink-0" />
+          </span>
+          <p
+            className="text-sm"
+            style={{ color: analysis.status === "critical" ? "var(--color-error)" : "#f59e0b" }}
+          >
             {analysis.status === "critical"
               ? `Ventilador entrega apenas ${(analysis.flow_ratio * 100).toFixed(0)}% da vazão nominal. Selecionar ventilador com maior pressão estática disponível (mínimo ${(analysis.dp_coil_nom * 1.3).toFixed(0)} Pa).`
               : `Ventilador entrega ${(analysis.flow_ratio * 100).toFixed(0)}% da vazão nominal. Verificar se há filtros ou acessórios adicionais que aumentem a resistência.`}
-          </AlertDescription>
-        </Alert>
+          </p>
+        </div>
       )}
     </div>
   );

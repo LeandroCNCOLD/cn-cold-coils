@@ -161,16 +161,16 @@ export function RevisionsTabContent() {
                     <button
                       type="button"
                       onClick={() => setCompareA(rev.id === compareA ? null : rev.id)}
-                      className={`rounded px-1.5 py-0.5 text-[10px] transition-colors ${compareA === rev.id ? "bg-red-900/40" : "bg-slate-800"}`}
-                      style={{ color: compareA === rev.id ? "var(--color-error)" : "var(--text-muted)" }}
+                      className={`rounded px-1.5 py-0.5 text-[10px] transition-colors ${compareA === rev.id ? "bg-red-900/40" : ""}`}
+                      style={{ background: compareA === rev.id ? undefined : "var(--bg-800)", color: compareA === rev.id ? "var(--color-error)" : "var(--text-muted)" }}
                     >
                       {compareA === rev.id ? "✓ Base" : "Comparar como base"}
                     </button>
                     <button
                       type="button"
                       onClick={() => setCompareB(rev.id === compareB ? null : rev.id)}
-                      className={`rounded px-1.5 py-0.5 text-[10px] transition-colors ${compareB === rev.id ? "bg-blue-900/40" : "bg-slate-800"}`}
-                      style={{ color: compareB === rev.id ? "var(--ice-400)" : "var(--text-muted)" }}
+                      className={`rounded px-1.5 py-0.5 text-[10px] transition-colors ${compareB === rev.id ? "bg-blue-900/40" : ""}`}
+                      style={{ background: compareB === rev.id ? undefined : "var(--bg-800)", color: compareB === rev.id ? "var(--ice-400)" : "var(--text-muted)" }}
                     >
                       {compareB === rev.id ? "✓ Nova" : "Comparar como nova"}
                     </button>
