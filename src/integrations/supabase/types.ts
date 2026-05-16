@@ -56,6 +56,45 @@ export type Database = {
         }
         Relationships: []
       }
+      product_revisions: {
+        Row: {
+          id: string
+          catalog_model_id: string | null
+          revision_number: number
+          revision_label: string
+          status: string
+          snapshot: Json
+          note: string | null
+          created_by: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id: string
+          catalog_model_id?: string | null
+          revision_number?: number
+          revision_label: string
+          status?: string
+          snapshot?: Json
+          note?: string | null
+          created_by?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          catalog_model_id?: string | null
+          revision_number?: number
+          revision_label?: string
+          status?: string
+          snapshot?: Json
+          note?: string | null
+          created_by?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       compressors: {
         Row: {
           capacity_w: number | null

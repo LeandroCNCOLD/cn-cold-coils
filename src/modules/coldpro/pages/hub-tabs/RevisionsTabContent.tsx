@@ -2,13 +2,13 @@
  * RevisionsTabContent — P3: Controle de Revisões
  *
  * Salva snapshots imutáveis da configuração atual do Hub e exibe diff entre versões.
- * Persistência via localStorage (sem Supabase). Máx. 20 revisões por sessão.
+ * Persistência: Supabase (product_revisions) com fallback localStorage. Máx. 20 revisões.
  */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { GitCommit, Trash2, GitCompare, AlertCircle, Plus } from "lucide-react";
+import { GitCommit, Trash2, GitCompare, AlertCircle, Plus, Cloud, CloudOff } from "lucide-react";
 import { useTestHubStore } from "../../stores/useTestHubStore";
 import {
   useRevisionStore,
@@ -55,13 +55,18 @@ function DiffTable({ a, b }: { a: RevisionSnapshot; b: RevisionSnapshot }) {
 
 export function RevisionsTabContent() {
   const { compressor, condenser, evaporator, conditions } = useTestHubStore();
-  const { revisions, saveRevision, deleteRevision, clearAll } = useRevisionStore();
+  const { revisions, saveRevision, deleteRevision, clearAll, loadFromSupabase } = useRevisionStore();
 
   const [label, setLabel] = useState("");
   const [note, setNote] = useState("");
   const [approvedBy, setApprovedBy] = useState("");
   const [compareA, setCompareA] = useState<string | null>(null);
   const [compareB, setCompareB] = useState<string | null>(null);
+
+  useEffect(() => {
+    loadFromSupabase();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   function handleSave() {
     if (!label.trim()) return;
@@ -119,8 +124,7 @@ export function RevisionsTabContent() {
             Salvar snapshot
           </Button>
           <p className="text-[10px]" style={{ color: "var(--text-muted)" }}>
-            Salva um snapshot imutável dos parâmetros atuais (compressor, evaporador, condensador, condições).
-            Persistido em localStorage — máx. 20 revisões.
+            Salva um snapshot imutável dos parâmetros atuais. Persistido no Supabase com fallback localStorage — máx. 20 revisões.
           </p>
         </div>
       </div>
@@ -154,6 +158,12 @@ export function RevisionsTabContent() {
                         ✓ {rev.approved_by}
                       </span>
                     )}
+                    <span title={rev.synced ? "Sincronizado com Supabase" : "Salvo localmente"}>
+                      {rev.synced
+                        ? <Cloud className="h-3 w-3 shrink-0" style={{ color: "var(--ice-400)" }} />
+                        : <CloudOff className="h-3 w-3 shrink-0" style={{ color: "var(--text-muted)" }} />
+                      }
+                    </span>
                   </div>
                   <p className="mt-0.5 text-[10px] font-mono" style={{ color: "var(--text-muted)" }}>{fmtDate(rev.created_at)}</p>
                   {rev.note && <p className="mt-0.5 text-[10px] italic" style={{ color: "var(--text-muted)" }}>{rev.note}</p>}
