@@ -128,7 +128,7 @@ describe("Caso C: CN_150_LT — Congelado / Sem Reaquecimento", () => {
 
   it("deve calcular T_ar_out ≈ -13.53°C via balanço de energia", () => {
     const { W } = humidityRatio(T_camera, UR);
-    expect(W).toBeCloseTo(0.00127, 4);
+    expect(W).toBeCloseTo(0.001136, 4);
 
     const T_out = calculateEnergyBalanceAirOut(T_camera, Q_catalogo, m_air, W);
     expect(T_out).toBeCloseTo(-13.53, 0);

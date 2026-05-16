@@ -9,8 +9,6 @@
  *   3. O Tailwind config usa os tokens via CSS vars
  */
 
-@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Barlow:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
-
 /* ─── TOKENS PRINCIPAIS ─────────────────────────────────────────── */
 :root {
 
