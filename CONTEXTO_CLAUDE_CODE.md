@@ -1,5 +1,10 @@
 # CN COLD Engenharia — Contexto Completo para Claude Code
 
+> **Package manager:** Bun (não npm/yarn/pnpm)
+> **Dev server:** porta 8080 · `bun run dev`
+> **Auth local:** bypass automático em dev — sem login necessário
+> **MCP Supabase:** configurado em `.mcp.json` → `sggfxewvxeagsfsqefjy`
+
 > Este documento resume tudo que foi analisado e decidido em uma sessão longa de
 > planejamento. Leia do início ao fim antes de tocar em qualquer arquivo.
 
@@ -34,7 +39,7 @@ de gás quente para controle de umidade), **BF** (blast freezer), **COMPACTice**
 | Estilo | Tailwind CSS 4 + shadcn/ui |
 | Estado | Zustand (stores por domínio) |
 | Gráficos | Recharts |
-| Build | Vite + pnpm |
+| Build | Vite + Bun |
 | Testes | Vitest (645+ testes passando — não quebrar!) |
 | Backend/BD | Supabase (PostgreSQL) — **projeto próprio: sggfxewvxeagsfsqefjy** |
 | Deploy | Cloudflare Workers |
@@ -58,7 +63,7 @@ src/modules/
 
 Os arquivos abaixo foram construídos via engenharia reversa do VapCyc 3.7 e
 CoilDesigner 4.8. São o ativo mais valioso do projeto. Qualquer mudança requer
-`pnpm test` passando antes e depois:
+`bun run vitest run` passando antes e depois:
 
 - `coldpro_v2/engines/heatTransfer.ts`
 - `coldpro_v2/engines/cycleEngine.ts`
@@ -268,10 +273,10 @@ Estas já causaram bugs reais. Verificar antes de qualquer PR:
 ## 13. Como rodar o projeto
 
 ```bash
-pnpm install
-pnpm dev          # servidor de desenvolvimento
-pnpm test         # rodar os 645+ testes
-pnpm build        # build de produção
+bun install
+bun run dev          # servidor de desenvolvimento
+bun run vitest run         # rodar os 645+ testes
+bun run build        # build de produção
 ```
 
 ---

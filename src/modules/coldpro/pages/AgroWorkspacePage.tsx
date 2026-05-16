@@ -11,10 +11,8 @@
  * Engines utilizados: calculateHotGasBypass, calculateReheatCoilSizing (coldpro_v2).
  */
 import { useState, useMemo } from "react";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -102,10 +100,10 @@ function fmtSafe(value: number | undefined | null, decimals: number, unit = ""):
 
 function modeBadge(m: HotGasBypassResult["mode"]) {
   switch (m) {
-    case "cooling_only":   return { label: "Apenas Resfriamento", cls: "bg-blue-100 text-blue-700 border-blue-300" };
-    case "hot_gas_bypass": return { label: "Hot Gas Bypass",       cls: "bg-violet-100 text-violet-700 border-violet-300" };
-    case "electric_reheat":return { label: "Reaquecimento Elétrico", cls: "bg-amber-100 text-amber-700 border-amber-300" };
-    default:               return { label: "Inválido",             cls: "bg-red-100 text-red-700 border-red-300" };
+    case "cooling_only":   return { label: "Apenas Resfriamento", cls: "cn-badge--info" };
+    case "hot_gas_bypass": return { label: "Hot Gas Bypass",       cls: "cn-badge--approved" };
+    case "electric_reheat":return { label: "Reaquecimento Elétrico", cls: "cn-badge--pending" };
+    default:               return { label: "Inválido",             cls: "cn-badge--rejected" };
   }
 }
 
@@ -128,9 +126,11 @@ function NumField({ label, unit, value, onChange, step = 0.1 }: {
 
 function KV({ label, value, accent }: { label: string; value: string; accent?: string }) {
   return (
-    <div className="flex items-baseline justify-between gap-2 rounded border border-slate-100 bg-slate-50/40 px-2 py-1">
-      <span className="text-[11px] text-slate-500">{label}</span>
-      <span className={`font-mono text-xs ${accent ?? "text-slate-800"}`}>{value}</span>
+    <div className="flex items-baseline justify-between gap-2 rounded border px-2 py-1"
+         style={{ borderColor: "var(--border-subtle)", background: "var(--bg-800)" }}>
+      <span className="text-[11px]" style={{ color: "var(--text-muted)" }}>{label}</span>
+      <span className={`font-mono text-xs ${accent ?? ""}`}
+            style={accent ? undefined : { color: "var(--text-primary)" }}>{value}</span>
     </div>
   );
 }
@@ -158,61 +158,54 @@ function CamaraTab({ s, u }: { s: WorkspaceState; u: (k: keyof WorkspaceState, v
   const load = calcThermalLoad(s);
   return (
     <div className="grid gap-5 lg:grid-cols-2">
-      <Card>
-        <CardHeader className="pb-2">
-          <CardTitle className="text-sm flex items-center gap-2">
-            <Layers className="h-4 w-4 text-blue-500" /> Dimensões e Envelope
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-3">
-          <div className="grid gap-2 sm:grid-cols-3">
-            <NumField label="Comprimento" unit="m" value={s.room_length_m} onChange={(v) => u("room_length_m", v)} />
-            <NumField label="Largura"     unit="m" value={s.room_width_m}  onChange={(v) => u("room_width_m",  v)} />
-            <NumField label="Altura"      unit="m" value={s.room_height_m} onChange={(v) => u("room_height_m", v)} />
-          </div>
-          <div className="grid gap-2 sm:grid-cols-2">
-            <NumField label="U parede"   unit="W/m²K" step={0.01} value={s.room_wall_u}   onChange={(v) => u("room_wall_u",   v)} />
-            <NumField label="T externo"  unit="°C"              value={s.T_outside_c}    onChange={(v) => u("T_outside_c",    v)} />
-            <NumField label="T câmara"   unit="°C"              value={s.T_room_c}        onChange={(v) => u("T_room_c",       v)} />
-            <NumField label="Iluminação" unit="W" step={10}     value={s.lighting_w}      onChange={(v) => u("lighting_w",     v)} />
-          </div>
-          <p className="text-[10px] font-bold uppercase text-slate-500">Produto</p>
-          <div className="grid gap-2 sm:grid-cols-2">
-            <NumField label="Massa produto" unit="kg" step={10} value={s.product_mass_kg}  onChange={(v) => u("product_mass_kg",  v)} />
-            <NumField label="Cp produto"   unit="kJ/kgK"       value={s.product_cp}       onChange={(v) => u("product_cp",       v)} />
-            <NumField label="ΔT produto"   unit="K"            value={s.product_dt_k}     onChange={(v) => u("product_dt_k",     v)} />
-            <NumField label="Tempo pull-down" unit="h"         value={s.product_time_h}   onChange={(v) => u("product_time_h",   v)} />
-          </div>
-        </CardContent>
-      </Card>
+      <div className="cn-card p-4 space-y-3">
+        <p className="text-sm font-semibold flex items-center gap-2" style={{ color: "var(--text-secondary)" }}>
+          <Layers className="h-4 w-4" style={{ color: "var(--ice-400)" }} /> Dimensões e Envelope
+        </p>
+        <div className="grid gap-2 sm:grid-cols-3">
+          <NumField label="Comprimento" unit="m" value={s.room_length_m} onChange={(v) => u("room_length_m", v)} />
+          <NumField label="Largura"     unit="m" value={s.room_width_m}  onChange={(v) => u("room_width_m",  v)} />
+          <NumField label="Altura"      unit="m" value={s.room_height_m} onChange={(v) => u("room_height_m", v)} />
+        </div>
+        <div className="grid gap-2 sm:grid-cols-2">
+          <NumField label="U parede"   unit="W/m²K" step={0.01} value={s.room_wall_u}   onChange={(v) => u("room_wall_u",   v)} />
+          <NumField label="T externo"  unit="°C"              value={s.T_outside_c}    onChange={(v) => u("T_outside_c",    v)} />
+          <NumField label="T câmara"   unit="°C"              value={s.T_room_c}        onChange={(v) => u("T_room_c",       v)} />
+          <NumField label="Iluminação" unit="W" step={10}     value={s.lighting_w}      onChange={(v) => u("lighting_w",     v)} />
+        </div>
+        <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: "var(--text-muted)" }}>Produto</p>
+        <div className="grid gap-2 sm:grid-cols-2">
+          <NumField label="Massa produto" unit="kg" step={10} value={s.product_mass_kg}  onChange={(v) => u("product_mass_kg",  v)} />
+          <NumField label="Cp produto"   unit="kJ/kgK"       value={s.product_cp}       onChange={(v) => u("product_cp",       v)} />
+          <NumField label="ΔT produto"   unit="K"            value={s.product_dt_k}     onChange={(v) => u("product_dt_k",     v)} />
+          <NumField label="Tempo pull-down" unit="h"         value={s.product_time_h}   onChange={(v) => u("product_time_h",   v)} />
+        </div>
+      </div>
 
-      <Card>
-        <CardHeader className="pb-2">
-          <CardTitle className="text-sm flex items-center gap-2">
-            <CheckCircle2 className="h-4 w-4 text-emerald-500" /> Carga Térmica Estimada
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-2">
-          <KV label="Área total parede/teto"     value={`${load.A_wall.toFixed(1)} m²`} />
-          <KV label="Q paredes + teto"           value={`${(load.Q_wall / 1000).toFixed(2)} kW`} accent="text-blue-700" />
-          <KV label="Q produto (pull-down)"      value={`${(load.Q_product / 1000).toFixed(2)} kW`} accent="text-amber-700" />
-          <KV label="Q iluminação"               value={`${(load.Q_lighting / 1000).toFixed(2)} kW`} />
-          <KV label="Q infiltração (15%)"        value={`${(load.Q_infiltration / 1000).toFixed(2)} kW`} />
-          <div className="rounded border-2 border-emerald-300 bg-emerald-50 px-2 py-2">
-            <div className="flex items-baseline justify-between">
-              <span className="text-xs font-bold text-emerald-800">Q Total</span>
-              <span className="font-mono text-base font-bold text-emerald-700">{(load.Q_total / 1000).toFixed(2)} kW</span>
-            </div>
-            <div className="mt-0.5 text-[10px] text-emerald-600">
-              = {load.Q_total.toFixed(0)} W ≈ {(load.Q_total * 0.860).toFixed(0)} kcal/h
-            </div>
+      <div className="cn-card p-4 space-y-2">
+        <p className="text-sm font-semibold flex items-center gap-2" style={{ color: "var(--text-secondary)" }}>
+          <CheckCircle2 className="h-4 w-4" style={{ color: "var(--color-success)" }} /> Carga Térmica Estimada
+        </p>
+        <KV label="Área total parede/teto"     value={`${load.A_wall.toFixed(1)} m²`} />
+        <KV label="Q paredes + teto"           value={`${(load.Q_wall / 1000).toFixed(2)} kW`} accent="text-[--ice-400]" />
+        <KV label="Q produto (pull-down)"      value={`${(load.Q_product / 1000).toFixed(2)} kW`} accent="text-amber-400" />
+        <KV label="Q iluminação"               value={`${(load.Q_lighting / 1000).toFixed(2)} kW`} />
+        <KV label="Q infiltração (15%)"        value={`${(load.Q_infiltration / 1000).toFixed(2)} kW`} />
+        <div className="rounded border-2 px-2 py-2"
+             style={{ borderColor: "rgba(16,185,129,0.4)", background: "rgba(16,185,129,0.1)" }}>
+          <div className="flex items-baseline justify-between">
+            <span className="text-xs font-bold" style={{ color: "var(--color-success)" }}>Q Total</span>
+            <span className="font-mono text-base font-bold" style={{ color: "var(--color-success)" }}>{(load.Q_total / 1000).toFixed(2)} kW</span>
           </div>
-          <p className="text-[10px] text-slate-400">
+          <div className="mt-0.5 text-[10px]" style={{ color: "var(--color-success)" }}>
+            = {load.Q_total.toFixed(0)} W ≈ {(load.Q_total * 0.860).toFixed(0)} kcal/h
+          </div>
+        </div>
+          <p className="text-[10px]" style={{ color: "var(--text-muted)" }}>
             Modelo simplificado: paredes + produto + iluminação + infiltração.
             Não inclui carga de pessoas, motores ou equipamentos auxiliares.
           </p>
-        </CardContent>
-      </Card>
+      </div>
     </div>
   );
 }
@@ -254,86 +247,87 @@ function CicloTab({ s, u, onSendToHub }: {
 
   return (
     <div className="grid gap-5 lg:grid-cols-2">
-      <Card>
-        <CardHeader className="pb-2">
-          <CardTitle className="text-sm flex items-center gap-2">
-            <Zap className="h-4 w-4 text-violet-500" /> Parâmetros do Ciclo
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-3">
-          <p className="text-[10px] font-bold uppercase text-slate-500">Ar da câmara</p>
-          <div className="grid gap-2 sm:grid-cols-2">
-            <NumField label="T câmara"     unit="°C" value={s.T_room_c}         onChange={(v) => u("T_room_c",         v)} />
-            <NumField label="UR câmara"    unit="%"  value={s.RH_room_pct}      onChange={(v) => u("RH_room_pct",      v)} />
-          </div>
-          <p className="text-[10px] font-bold uppercase text-slate-500">Setpoint de insuflamento</p>
-          <div className="grid gap-2 sm:grid-cols-2">
-            <NumField label="T insuflamento" unit="°C" value={s.T_supply_c}    onChange={(v) => u("T_supply_c",       v)} />
-            <NumField label="UR alvo"        unit="%"  value={s.RH_target_pct} onChange={(v) => u("RH_target_pct",    v)} />
-          </div>
-          <p className="text-[10px] font-bold uppercase text-slate-500">Ciclo de refrigeração</p>
-          <div className="grid gap-2 sm:grid-cols-2">
-            <NumField label="T evaporação"   unit="°C" value={s.T_evaporating_c}    onChange={(v) => u("T_evaporating_c",    v)} />
-            <NumField label="T condensação"  unit="°C" value={s.T_condensing_c}     onChange={(v) => u("T_condensing_c",     v)} />
-            <NumField label="Vazão de ar"    unit="kg/s" step={0.05} value={s.air_mass_flow_kg_s} onChange={(v) => u("air_mass_flow_kg_s", v)} />
-            <NumField label="β máx bypass"   unit="0..1" step={0.05} value={s.max_bypass_fraction} onChange={(v) => u("max_bypass_fraction", v)} />
-          </div>
-          <div className="flex justify-end pt-1">
-            <Button onClick={handleCalc} className="gap-2"><Play className="h-4 w-4" /> Calcular</Button>
-          </div>
-        </CardContent>
-      </Card>
+      <div className="cn-card p-4 space-y-3">
+        <p className="text-sm font-semibold flex items-center gap-2" style={{ color: "var(--text-secondary)" }}>
+          <Zap className="h-4 w-4" style={{ color: "#a78bfa" }} /> Parâmetros do Ciclo
+        </p>
+        <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: "var(--text-muted)" }}>Ar da câmara</p>
+        <div className="grid gap-2 sm:grid-cols-2">
+          <NumField label="T câmara"     unit="°C" value={s.T_room_c}         onChange={(v) => u("T_room_c",         v)} />
+          <NumField label="UR câmara"    unit="%"  value={s.RH_room_pct}      onChange={(v) => u("RH_room_pct",      v)} />
+        </div>
+        <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: "var(--text-muted)" }}>Setpoint de insuflamento</p>
+        <div className="grid gap-2 sm:grid-cols-2">
+          <NumField label="T insuflamento" unit="°C" value={s.T_supply_c}    onChange={(v) => u("T_supply_c",       v)} />
+          <NumField label="UR alvo"        unit="%"  value={s.RH_target_pct} onChange={(v) => u("RH_target_pct",    v)} />
+        </div>
+        <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: "var(--text-muted)" }}>Ciclo de refrigeração</p>
+        <div className="grid gap-2 sm:grid-cols-2">
+          <NumField label="T evaporação"   unit="°C" value={s.T_evaporating_c}    onChange={(v) => u("T_evaporating_c",    v)} />
+          <NumField label="T condensação"  unit="°C" value={s.T_condensing_c}     onChange={(v) => u("T_condensing_c",     v)} />
+          <NumField label="Vazão de ar"    unit="kg/s" step={0.05} value={s.air_mass_flow_kg_s} onChange={(v) => u("air_mass_flow_kg_s", v)} />
+          <NumField label="β máx bypass"   unit="0..1" step={0.05} value={s.max_bypass_fraction} onChange={(v) => u("max_bypass_fraction", v)} />
+        </div>
+        <div className="flex justify-end pt-1">
+          <Button onClick={handleCalc} className="gap-2"><Play className="h-4 w-4" /> Calcular</Button>
+        </div>
+      </div>
 
       <div className="space-y-4">
         {error && (
-          <Alert className="border-red-200 bg-red-50">
-            <AlertCircle className="h-4 w-4 text-red-500" />
-            <AlertDescription className="text-xs text-red-700">{error}</AlertDescription>
-          </Alert>
+          <div className="flex items-start gap-2 rounded-md border px-4 py-3"
+               style={{ background: "rgba(239,68,68,0.08)", borderColor: "rgba(239,68,68,0.3)" }}>
+            <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-red-400" />
+            <span className="text-xs text-red-400">{error}</span>
+          </div>
         )}
         {!result && !error && (
-          <Alert><Sprout className="h-4 w-4" /><AlertDescription className="text-xs">Clique em <strong>Calcular</strong> para gerar o ciclo.</AlertDescription></Alert>
+          <div className="flex items-start gap-2 rounded-md border px-4 py-3"
+               style={{ background: "var(--bg-800)", borderColor: "var(--border-subtle)" }}>
+            <Sprout className="mt-0.5 h-4 w-4 shrink-0" style={{ color: "var(--color-success)" }} />
+            <span className="text-xs" style={{ color: "var(--text-secondary)" }}>Clique em <strong style={{ color: "var(--text-primary)" }}>Calcular</strong> para gerar o ciclo.</span>
+          </div>
         )}
         {result && mode && (
           <>
-            <Card>
-              <CardHeader className="pb-2">
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-sm">Resultado</CardTitle>
-                  <div className="flex items-center gap-2">
-                    <Badge variant="outline" className={`${mode.cls} text-xs`}>{mode.label}</Badge>
-                    <Button size="sm" variant="outline" onClick={() => onSendToHub(result)} className="h-7 gap-1 text-xs">
-                      <Send className="h-3 w-3" /> Hub
-                    </Button>
-                  </div>
+            <div className="cn-card p-4">
+              <div className="mb-3 flex items-center justify-between">
+                <p className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>Resultado</p>
+                <div className="flex items-center gap-2">
+                  <span className={`cn-badge text-xs ${mode.cls}`}>{mode.label}</span>
+                  <Button size="sm" variant="outline" onClick={() => onSendToHub(result)} className="h-7 gap-1 text-xs">
+                    <Send className="h-3 w-3" /> Hub
+                  </Button>
                 </div>
-              </CardHeader>
-              <CardContent className="grid gap-2 sm:grid-cols-2">
+              </div>
+              <div className="grid gap-2 sm:grid-cols-2">
                 <KV label="Fração bypass β"   value={fmtSafe(result.bypass_fraction * 100, 1, "%")} />
-                <KV label="Q evaporador"      value={fmtSafe(result.Q_evap_w / 1000, 2, "kW")} accent="text-blue-700" />
-                <KV label="Q reaquecimento"   value={fmtSafe(result.Q_reheat_w / 1000, 2, "kW")} accent="text-amber-700" />
+                <KV label="Q evaporador"      value={fmtSafe(result.Q_evap_w / 1000, 2, "kW")} accent="text-[--ice-400]" />
+                <KV label="Q reaquecimento"   value={fmtSafe(result.Q_reheat_w / 1000, 2, "kW")} accent="text-amber-400" />
                 <KV label="W compressor"      value={fmtSafe(result.W_compressor_w / 1000, 2, "kW")} />
-                <KV label="COP do ciclo"      value={fmtSafe(result.cop_cycle, 3)} accent="text-emerald-700" />
+                <KV label="COP do ciclo"      value={fmtSafe(result.cop_cycle, 3)} accent="text-[--color-success]" />
                 <KV label="Água removida"     value={fmtSafe(result.water_removed_kg_h, 2, "kg/h")} />
                 <KV label="T saída"           value={fmtSafe(result.T_air_out_c, 1, "°C")} />
                 <KV label="UR saída"          value={fmtSafe(result.RH_air_out * 100, 1, "%")} />
                 <KV label="T orvalho saída"   value={fmtSafe(result.T_dew_out_c, 1, "°C")} />
                 <KV label="Convergência"      value={result.converged ? `✓ (${result.iterations} iter.)` : "✗"} />
-              </CardContent>
-            </Card>
+              </div>
+            </div>
             {rhExceeds && (
-              <Alert className="border-amber-200 bg-amber-50">
-                <AlertCircle className="h-4 w-4 text-amber-500" />
-                <AlertDescription className="text-xs text-amber-700">
+              <div className="flex items-start gap-2 rounded-md border px-4 py-3"
+                   style={{ background: "rgba(245,158,11,0.08)", borderColor: "rgba(245,158,11,0.3)" }}>
+                <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-amber-400" />
+                <span className="text-xs text-amber-400">
                   UR saída ({(result.RH_air_out * 100).toFixed(1)} %) excede alvo em mais de 5 % —
                   aumente β, reduza T_evap ou use reaquecimento elétrico.
-                </AlertDescription>
-              </Alert>
+                </span>
+              </div>
             )}
             {result.warnings.length > 0 && (
-              <div className="rounded border border-amber-200 bg-amber-50/60 p-2 text-xs">
-                <p className="font-bold text-amber-700">Avisos:</p>
-                <ul className="ml-4 list-disc text-amber-700">
+              <div className="rounded border p-2 text-xs"
+                   style={{ background: "rgba(245,158,11,0.08)", borderColor: "rgba(245,158,11,0.3)" }}>
+                <p className="font-bold text-amber-400">Avisos:</p>
+                <ul className="ml-4 list-disc text-amber-400">
                   {result.warnings.map((w, i) => <li key={i}>{w}</li>)}
                 </ul>
               </div>
@@ -385,64 +379,65 @@ function AletadoTab({ s, u, qReheatW }: {
 
   return (
     <div className="grid gap-5 lg:grid-cols-2">
-      <Card>
-        <CardHeader className="pb-2">
-          <CardTitle className="text-sm flex items-center gap-2">
-            <Wind className="h-4 w-4 text-amber-500" /> Bateria de Reaquecimento
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-3">
-          <div className="rounded border border-blue-200 bg-blue-50 px-3 py-2 text-xs text-blue-700">
-            Q alvo (do ciclo): <strong>{qReheatW > 0 ? `${(qReheatW / 1000).toFixed(2)} kW` : "—"}</strong>
-            {qReheatW <= 0 && " — execute o ciclo AGRO primeiro"}
-          </div>
-          <p className="text-[10px] font-bold uppercase text-slate-500">Geometria do tubo</p>
-          <div className="grid gap-2 sm:grid-cols-2">
-            <NumField label="Ø externo tubo" unit="m"  step={0.001} value={s.reheat_tube_od_m}    onChange={(v) => u("reheat_tube_od_m",    v)} />
-            <NumField label="Espessura tubo" unit="m"  step={0.0001}value={s.reheat_tube_thick_m} onChange={(v) => u("reheat_tube_thick_m", v)} />
-            <NumField label="Passo aleta"    unit="mm" step={0.5}   value={s.reheat_fin_spacing_mm}onChange={(v) => u("reheat_fin_spacing_mm", v)} />
-            <NumField label="Comp. serpentina" unit="mm" step={50}  value={s.reheat_coil_length_mm}onChange={(v) => u("reheat_coil_length_mm", v)} />
-            <NumField label="Circuitos"      unit="n"  step={1}     value={s.reheat_circuits}      onChange={(v) => u("reheat_circuits",      v)} />
-          </div>
-          <div className="flex justify-end pt-1">
-            <Button onClick={handleCalc} className="gap-2"><Play className="h-4 w-4" /> Dimensionar</Button>
-          </div>
-        </CardContent>
-      </Card>
+      <div className="cn-card p-4 space-y-3">
+        <p className="text-sm font-semibold flex items-center gap-2" style={{ color: "var(--text-secondary)" }}>
+          <Wind className="h-4 w-4 text-amber-400" /> Bateria de Reaquecimento
+        </p>
+        <div className="rounded border px-3 py-2 text-xs"
+             style={{ background: "rgba(56,189,248,0.07)", borderColor: "rgba(56,189,248,0.25)", color: "var(--text-secondary)" }}>
+          Q alvo (do ciclo): <strong style={{ color: "var(--ice-400)" }}>{qReheatW > 0 ? `${(qReheatW / 1000).toFixed(2)} kW` : "—"}</strong>
+          {qReheatW <= 0 && " — execute o ciclo AGRO primeiro"}
+        </div>
+        <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: "var(--text-muted)" }}>Geometria do tubo</p>
+        <div className="grid gap-2 sm:grid-cols-2">
+          <NumField label="Ø externo tubo" unit="m"  step={0.001} value={s.reheat_tube_od_m}    onChange={(v) => u("reheat_tube_od_m",    v)} />
+          <NumField label="Espessura tubo" unit="m"  step={0.0001}value={s.reheat_tube_thick_m} onChange={(v) => u("reheat_tube_thick_m", v)} />
+          <NumField label="Passo aleta"    unit="mm" step={0.5}   value={s.reheat_fin_spacing_mm}onChange={(v) => u("reheat_fin_spacing_mm", v)} />
+          <NumField label="Comp. serpentina" unit="mm" step={50}  value={s.reheat_coil_length_mm}onChange={(v) => u("reheat_coil_length_mm", v)} />
+          <NumField label="Circuitos"      unit="n"  step={1}     value={s.reheat_circuits}      onChange={(v) => u("reheat_circuits",      v)} />
+        </div>
+        <div className="flex justify-end pt-1">
+          <Button onClick={handleCalc} className="gap-2"><Play className="h-4 w-4" /> Dimensionar</Button>
+        </div>
+      </div>
 
       <div className="space-y-4">
         {error && (
-          <Alert className="border-amber-200 bg-amber-50">
-            <AlertCircle className="h-4 w-4 text-amber-500" />
-            <AlertDescription className="text-xs text-amber-700">{error}</AlertDescription>
-          </Alert>
+          <div className="flex items-start gap-2 rounded-md border px-4 py-3"
+               style={{ background: "rgba(245,158,11,0.08)", borderColor: "rgba(245,158,11,0.3)" }}>
+            <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-amber-400" />
+            <span className="text-xs text-amber-400">{error}</span>
+          </div>
         )}
         {!result && !error && (
-          <Alert><Wind className="h-4 w-4" /><AlertDescription className="text-xs">Clique em <strong>Dimensionar</strong> para calcular a bateria.</AlertDescription></Alert>
+          <div className="flex items-start gap-2 rounded-md border px-4 py-3"
+               style={{ background: "var(--bg-800)", borderColor: "var(--border-subtle)" }}>
+            <Wind className="mt-0.5 h-4 w-4 shrink-0" style={{ color: "var(--text-muted)" }} />
+            <span className="text-xs" style={{ color: "var(--text-secondary)" }}>Clique em <strong style={{ color: "var(--text-primary)" }}>Dimensionar</strong> para calcular a bateria.</span>
+          </div>
         )}
         {result && (
-          <Card className={result.sizing_feasible ? "border-emerald-300" : "border-red-300"}>
-            <CardHeader className="pb-2">
-              <div className="flex items-center justify-between">
-                <CardTitle className="text-sm">Resultado</CardTitle>
-                <Badge variant="outline" className={result.sizing_feasible ? "bg-emerald-100 text-emerald-700 border-emerald-300" : "bg-red-100 text-red-700 border-red-300"}>
-                  {result.sizing_feasible ? "VIÁVEL" : "INVIÁVEL"}
-                </Badge>
-              </div>
-            </CardHeader>
-            <CardContent className="grid gap-2 sm:grid-cols-2">
+          <div className="cn-card p-4"
+               style={{ borderColor: result.sizing_feasible ? "rgba(16,185,129,0.4)" : "rgba(239,68,68,0.4)" }}>
+            <div className="mb-3 flex items-center justify-between">
+              <p className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>Resultado</p>
+              <span className={`cn-badge text-xs ${result.sizing_feasible ? "cn-badge--approved" : "cn-badge--rejected"}`}>
+                {result.sizing_feasible ? "VIÁVEL" : "INVIÁVEL"}
+              </span>
+            </div>
+            <div className="grid gap-2 sm:grid-cols-2">
               <KV label="Filas necessárias"  value={`${result.rows_required}`} />
               <KV label="Comprimento total"  value={fmtSafe(result.total_tube_length_m, 1, "m")} />
               <KV label="Área externa"       value={fmtSafe(result.external_area_m2, 3, "m²")} />
               <KV label="U global"           value={fmtSafe(result.u_w_m2k, 1, "W/m²K")} />
               <KV label="LMTD"               value={fmtSafe(result.lmtd_k, 2, "K")} />
-              <KV label="Q disponível"       value={fmtSafe(result.Q_available_w / 1000, 2, "kW")} accent="text-emerald-700" />
+              <KV label="Q disponível"       value={fmtSafe(result.Q_available_w / 1000, 2, "kW")} accent="text-[--color-success]" />
               <KV label="Q alvo"             value={fmtSafe(result.Q_target_w / 1000, 2, "kW")} />
-              <KV label="Razão Q/Q_alvo"     value={fmtSafe(result.capacity_ratio, 3)} accent={Number.isFinite(result.capacity_ratio) && result.capacity_ratio >= 1 ? "text-emerald-700" : "text-red-600"} />
+              <KV label="Razão Q/Q_alvo"     value={fmtSafe(result.capacity_ratio, 3)} accent={Number.isFinite(result.capacity_ratio) && result.capacity_ratio >= 1 ? "text-[--color-success]" : "text-red-400"} />
               <KV label="ΔP ar (reaquecimento)" value={fmtSafe(result.reheat_air_pressure_drop_pa, 1, "Pa")} />
               <KV label="T saída ar"         value={fmtSafe(result.T_air_out_c, 1, "°C")} />
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         )}
       </div>
     </div>
@@ -584,41 +579,39 @@ function CondensadorTab({ s, qEvapW }: { s: WorkspaceState; qEvapW: number }) {
 
   return (
     <div className="space-y-4">
-      <Card>
-        <CardHeader className="pb-2">
-          <CardTitle className="text-sm flex items-center gap-2">
-            <Thermometer className="h-4 w-4 text-orange-500" /> Carga de Condensação Estimada
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-2">
-          <KV label="Q evaporador (câmara ou ciclo)" value={`${(qEvapEst / 1000).toFixed(2)} kW`} accent="text-blue-700" />
+      <div className="cn-card p-4 space-y-2">
+        <p className="text-sm font-semibold flex items-center gap-2" style={{ color: "var(--text-secondary)" }}>
+          <Thermometer className="h-4 w-4 text-orange-400" /> Carga de Condensação Estimada
+        </p>
+        <div className="space-y-1.5">
+          <KV label="Q evaporador (câmara ou ciclo)" value={`${(qEvapEst / 1000).toFixed(2)} kW`} accent="text-[--ice-400]" />
           <KV label="COP estimado"                  value={copEst.toFixed(1)} />
-          <KV label="Q condensador total"           value={`${(qCond / 1000).toFixed(2)} kW`} accent="text-orange-700" />
+          <KV label="Q condensador total"           value={`${(qCond / 1000).toFixed(2)} kW`} accent="text-orange-400" />
           <KV label="Carga específica (por m² piso)" value={`${specificLoad.toFixed(0)} W/m²`} />
           <KV label="T condensação"                 value={`${s.T_condensing_c.toFixed(1)} °C`} />
           <KV label="T externo"                     value={`${s.T_outside_c.toFixed(1)} °C`} />
           <KV label="ΔT condensador"                value={`${(s.T_condensing_c - s.T_outside_c).toFixed(1)} K`} />
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
-      <Card className="border-blue-200 bg-blue-50">
-        <CardContent className="p-4 text-xs text-blue-700 space-y-1">
-          <p className="font-semibold">Sugestão de dimensionamento:</p>
-          <ul className="ml-4 list-disc space-y-0.5">
-            <li>Q_cond ≥ <strong>{(qCond / 1000).toFixed(2)} kW</strong> na condição T_ext = {s.T_outside_c} °C.</li>
-            <li>ΔT condensador de {(s.T_condensing_c - s.T_outside_c).toFixed(0)} K — verificar seleção pelo fabricante.</li>
-            <li>Para dimensionamento preciso: use a aba <em>Configuração</em> do Hub de Testes com os parâmetros calculados aqui.</li>
-          </ul>
-        </CardContent>
-      </Card>
+      <div className="rounded-md border p-4 text-xs space-y-1"
+           style={{ background: "rgba(56,189,248,0.07)", borderColor: "rgba(56,189,248,0.25)", color: "var(--ice-400)" }}>
+        <p className="font-semibold">Sugestão de dimensionamento:</p>
+        <ul className="ml-4 list-disc space-y-0.5" style={{ color: "var(--text-secondary)" }}>
+          <li>Q_cond ≥ <strong style={{ color: "var(--ice-400)" }}>{(qCond / 1000).toFixed(2)} kW</strong> na condição T_ext = {s.T_outside_c} °C.</li>
+          <li>ΔT condensador de {(s.T_condensing_c - s.T_outside_c).toFixed(0)} K — verificar seleção pelo fabricante.</li>
+          <li>Para dimensionamento preciso: use a aba <em>Configuração</em> do Hub de Testes com os parâmetros calculados aqui.</li>
+        </ul>
+      </div>
 
-      <Alert>
-        <AlertCircle className="h-4 w-4" />
-        <AlertDescription className="text-xs">
-          COP estimado. Para cálculo exato, execute o ciclo na aba <strong>Ciclo AGRO</strong>
+      <div className="flex items-start gap-2 rounded-md border px-4 py-3"
+           style={{ background: "var(--bg-800)", borderColor: "var(--border-subtle)" }}>
+        <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" style={{ color: "var(--text-muted)" }} />
+        <span className="text-xs" style={{ color: "var(--text-secondary)" }}>
+          COP estimado. Para cálculo exato, execute o ciclo na aba <strong style={{ color: "var(--text-primary)" }}>Ciclo AGRO</strong>
           e envie ao Hub de Testes via botão <em>Hub</em>.
-        </AlertDescription>
-      </Alert>
+        </span>
+      </div>
     </div>
   );
 }
@@ -648,47 +641,50 @@ export function AgroWorkspacePage() {
     navigate({ to: "/coldpro/hub-de-testes" });
   }
 
+  const [activeTab, setActiveTab] = useState<"camara" | "ciclo" | "aletado" | "psicrometria" | "condensador">("camara");
+
   return (
     <div className="mx-auto flex max-w-7xl flex-col gap-5 p-5">
-      <div className="border-b border-slate-200 pb-3">
+      <div className="border-b pb-3" style={{ borderColor: "var(--border-subtle)" }}>
         <div className="flex items-center gap-2">
-          <Sprout className="h-5 w-5 text-emerald-600" />
-          <h1 className="text-lg font-bold text-slate-900">Workspace AGRO</h1>
-          <Badge variant="outline" className="text-[10px] text-emerald-700">
+          <Sprout className="h-5 w-5" style={{ color: "var(--color-success)" }} />
+          <h1 className="font-display text-lg font-bold tracking-wide" style={{ color: "var(--text-primary)" }}>Workspace AGRO</h1>
+          <span className="cn-badge cn-badge--approved text-[10px]">
             Hot Gas Bypass · Controle de UR · Sprint 4
-          </Badge>
+          </span>
         </div>
-        <p className="mt-1 text-xs text-slate-500">
+        <p className="mt-1 text-xs" style={{ color: "var(--text-muted)" }}>
           Câmara agrícola com controle simultâneo de temperatura e umidade via gás quente.
           Engines: calculateHotGasBypass + calculateReheatCoilSizing (coldpro_v2).
         </p>
       </div>
 
-      <Tabs defaultValue="camara">
-        <TabsList className="mb-4 flex-wrap gap-1 h-auto">
-          <TabsTrigger value="camara"       className="text-xs">A1 Câmara</TabsTrigger>
-          <TabsTrigger value="ciclo"        className="text-xs">A3 Ciclo AGRO</TabsTrigger>
-          <TabsTrigger value="aletado"      className="text-xs">A2 Aletado</TabsTrigger>
-          <TabsTrigger value="psicrometria" className="text-xs">A4 Psicrometria</TabsTrigger>
-          <TabsTrigger value="condensador"  className="text-xs">A5 Condensador</TabsTrigger>
-        </TabsList>
+      {/* Tab nav */}
+      <div className="border-b" style={{ borderColor: "var(--border-subtle)" }}>
+        <div className="flex flex-wrap gap-1">
+          {(["camara", "ciclo", "aletado", "psicrometria", "condensador"] as const).map((tab, i) => {
+            const labels = { camara: "A1 Câmara", ciclo: "A3 Ciclo AGRO", aletado: "A2 Aletado", psicrometria: "A4 Psicrometria", condensador: "A5 Condensador" };
+            return (
+              <button
+                key={tab}
+                type="button"
+                onClick={() => setActiveTab(tab)}
+                className={`cn-tab text-xs ${activeTab === tab ? "active" : ""}`}
+              >
+                {labels[tab]}
+              </button>
+            );
+          })}
+        </div>
+      </div>
 
-        <TabsContent value="camara">
-          <CamaraTab s={s} u={u} />
-        </TabsContent>
-        <TabsContent value="ciclo">
-          <CicloTab s={s} u={u} onSendToHub={handleSendToHub} />
-        </TabsContent>
-        <TabsContent value="aletado">
-          <AletadoTab s={s} u={u} qReheatW={cycleResult?.Q_reheat_w ?? 0} />
-        </TabsContent>
-        <TabsContent value="psicrometria">
-          <PsicrometriaTab s={s} />
-        </TabsContent>
-        <TabsContent value="condensador">
-          <CondensadorTab s={s} qEvapW={cycleResult?.Q_evap_w ?? 0} />
-        </TabsContent>
-      </Tabs>
+      <div className="mt-2">
+        {activeTab === "camara"       && <CamaraTab s={s} u={u} />}
+        {activeTab === "ciclo"        && <CicloTab s={s} u={u} onSendToHub={handleSendToHub} />}
+        {activeTab === "aletado"      && <AletadoTab s={s} u={u} qReheatW={cycleResult?.Q_reheat_w ?? 0} />}
+        {activeTab === "psicrometria" && <PsicrometriaTab s={s} />}
+        {activeTab === "condensador"  && <CondensadorTab s={s} qEvapW={cycleResult?.Q_evap_w ?? 0} />}
+      </div>
     </div>
   );
 }

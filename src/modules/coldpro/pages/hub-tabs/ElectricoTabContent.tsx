@@ -1,7 +1,4 @@
 import { useMemo } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Alert, AlertDescription } from "@/components/ui/alert";
 import { AlertCircle, Zap, Activity, Thermometer, CheckCircle2 } from "lucide-react";
 import {
   calculateElectricalAnalysis,
@@ -47,12 +44,15 @@ export function ElectricoTabContent({ compressor, condenser }: Props) {
 
   if (!result) {
     return (
-      <Alert>
-        <AlertCircle className="h-4 w-4" />
-        <AlertDescription>
+      <div
+        className="flex gap-3 rounded-md border p-3 text-xs"
+        style={{ background: "var(--bg-800)", borderColor: "var(--border-subtle)" }}
+      >
+        <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" style={{ color: "var(--text-muted)" }} />
+        <span style={{ color: "var(--text-secondary)" }}>
           Configure compressor (capacidade + potência) para calcular a análise elétrica.
-        </AlertDescription>
-      </Alert>
+        </span>
+      </div>
     );
   }
 
@@ -63,151 +63,145 @@ export function ElectricoTabContent({ compressor, condenser }: Props) {
   return (
     <div className="space-y-4">
       {/* Parâmetros elétricos de referência */}
-      <Card>
-        <CardHeader className="pb-2">
-          <CardTitle className="flex items-center gap-2 text-sm font-semibold">
-            <Zap className="h-4 w-4 text-amber-500" />
+      <div className="cn-card p-4">
+        <div className="pb-2">
+          <p className="flex items-center gap-2 text-sm font-semibold" style={{ color: "var(--text-primary)" }}>
+            <Zap className="h-4 w-4" style={{ color: "#f59e0b" }} />
             Parâmetros Elétricos
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-3 gap-4 text-sm">
-            <div>
-              <div className="text-xs text-muted-foreground">Tensão</div>
-              <div className="font-semibold">{result.voltage_v} V</div>
-            </div>
-            <div>
-              <div className="text-xs text-muted-foreground">Fases</div>
-              <div className="font-semibold">{result.phases}φ</div>
-            </div>
-            <div>
-              <div className="text-xs text-muted-foreground">Fator de Potência</div>
-              <div className="font-semibold">{result.power_factor.toFixed(2)}</div>
-            </div>
+          </p>
+        </div>
+        <div className="grid grid-cols-3 gap-4 text-sm">
+          <div>
+            <div className="text-xs" style={{ color: "var(--text-muted)" }}>Tensão</div>
+            <div className="font-semibold font-mono" style={{ color: "var(--text-primary)" }}>{result.voltage_v} V</div>
           </div>
-        </CardContent>
-      </Card>
+          <div>
+            <div className="text-xs" style={{ color: "var(--text-muted)" }}>Fases</div>
+            <div className="font-semibold font-mono" style={{ color: "var(--text-primary)" }}>{result.phases}φ</div>
+          </div>
+          <div>
+            <div className="text-xs" style={{ color: "var(--text-muted)" }}>Fator de Potência</div>
+            <div className="font-semibold font-mono" style={{ color: "var(--text-primary)" }}>{result.power_factor.toFixed(2)}</div>
+          </div>
+        </div>
+      </div>
 
       {/* Potências */}
-      <Card>
-        <CardHeader className="pb-2">
-          <CardTitle className="flex items-center gap-2 text-sm font-semibold">
-            <Activity className="h-4 w-4 text-blue-500" />
+      <div className="cn-card p-4">
+        <div className="pb-2">
+          <p className="flex items-center gap-2 text-sm font-semibold" style={{ color: "var(--text-primary)" }}>
+            <Activity className="h-4 w-4" style={{ color: "var(--ice-400)" }} />
             Distribuição de Potência
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-2 text-sm">
-            <div className="flex items-center justify-between border-b border-border pb-2">
-              <span className="text-muted-foreground">Compressor</span>
-              <span className="font-medium">{fmtPower(result.compressor_power_w)}</span>
-            </div>
-            <div className="flex items-center justify-between border-b border-border pb-2">
-              <span className="text-muted-foreground">Ventilador evaporador</span>
-              <span className="font-medium">{fmtPower(result.evap_fan_power_w)}</span>
-            </div>
-            <div className="flex items-center justify-between border-b border-border pb-2">
-              <span className="text-muted-foreground">Ventilador condensador</span>
-              <span className="font-medium">{fmtPower(result.cond_fan_power_w)}</span>
-            </div>
-            <div className="flex items-center justify-between pt-1 font-semibold">
-              <span>Total</span>
-              <span className="text-blue-700">{fmtPower(result.total_electrical_power_w)}</span>
-            </div>
+          </p>
+        </div>
+        <div className="space-y-2 text-sm">
+          <div className="flex items-center justify-between border-b pb-2" style={{ borderColor: "var(--border-subtle)" }}>
+            <span style={{ color: "var(--text-muted)" }}>Compressor</span>
+            <span className="font-medium font-mono" style={{ color: "var(--text-primary)" }}>{fmtPower(result.compressor_power_w)}</span>
           </div>
-        </CardContent>
-      </Card>
+          <div className="flex items-center justify-between border-b pb-2" style={{ borderColor: "var(--border-subtle)" }}>
+            <span style={{ color: "var(--text-muted)" }}>Ventilador evaporador</span>
+            <span className="font-medium font-mono" style={{ color: "var(--text-primary)" }}>{fmtPower(result.evap_fan_power_w)}</span>
+          </div>
+          <div className="flex items-center justify-between border-b pb-2" style={{ borderColor: "var(--border-subtle)" }}>
+            <span style={{ color: "var(--text-muted)" }}>Ventilador condensador</span>
+            <span className="font-medium font-mono" style={{ color: "var(--text-primary)" }}>{fmtPower(result.cond_fan_power_w)}</span>
+          </div>
+          <div className="flex items-center justify-between pt-1 font-semibold">
+            <span style={{ color: "var(--text-primary)" }}>Total</span>
+            <span className="font-mono" style={{ color: "var(--ice-400)" }}>{fmtPower(result.total_electrical_power_w)}</span>
+          </div>
+        </div>
+      </div>
 
       {/* Correntes */}
-      <Card>
-        <CardHeader className="pb-2">
-          <CardTitle className="flex items-center gap-2 text-sm font-semibold">
-            <Activity className="h-4 w-4 text-purple-500" />
+      <div className="cn-card p-4">
+        <div className="pb-2">
+          <p className="flex items-center gap-2 text-sm font-semibold" style={{ color: "var(--text-primary)" }}>
+            <Activity className="h-4 w-4" style={{ color: "var(--ice-400)" }} />
             Correntes Elétricas
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-2 text-sm">
-            <div className="flex items-center justify-between border-b border-border pb-2">
-              <span className="text-muted-foreground">Compressor</span>
-              <span className="font-medium">{fmtCurrent(result.compressor_current_a)}</span>
-            </div>
-            <div className="flex items-center justify-between border-b border-border pb-2">
-              <span className="text-muted-foreground">Ventiladores</span>
-              <span className="font-medium">{fmtCurrent(result.fans_current_a)}</span>
-            </div>
-            <div className="flex items-center justify-between pt-1 font-semibold">
-              <span>Total</span>
-              <span className={result.total_current_a > 63 ? "text-red-600" : "text-purple-700"}>
-                {fmtCurrent(result.total_current_a)}
-              </span>
-            </div>
+          </p>
+        </div>
+        <div className="space-y-2 text-sm">
+          <div className="flex items-center justify-between border-b pb-2" style={{ borderColor: "var(--border-subtle)" }}>
+            <span style={{ color: "var(--text-muted)" }}>Compressor</span>
+            <span className="font-medium font-mono" style={{ color: "var(--text-primary)" }}>{fmtCurrent(result.compressor_current_a)}</span>
           </div>
-        </CardContent>
-      </Card>
+          <div className="flex items-center justify-between border-b pb-2" style={{ borderColor: "var(--border-subtle)" }}>
+            <span style={{ color: "var(--text-muted)" }}>Ventiladores</span>
+            <span className="font-medium font-mono" style={{ color: "var(--text-primary)" }}>{fmtCurrent(result.fans_current_a)}</span>
+          </div>
+          <div className="flex items-center justify-between pt-1 font-semibold">
+            <span style={{ color: "var(--text-primary)" }}>Total</span>
+            <span
+              className="font-mono"
+              style={{ color: result.total_current_a > 63 ? "var(--color-error)" : "var(--ice-400)" }}
+            >
+              {fmtCurrent(result.total_current_a)}
+            </span>
+          </div>
+        </div>
+      </div>
 
       {/* COP */}
-      <Card>
-        <CardHeader className="pb-2">
-          <CardTitle className="flex items-center gap-2 text-sm font-semibold">
-            <Thermometer className="h-4 w-4 text-green-500" />
+      <div className="cn-card p-4">
+        <div className="pb-2">
+          <p className="flex items-center gap-2 text-sm font-semibold" style={{ color: "var(--text-primary)" }}>
+            <Thermometer className="h-4 w-4" style={{ color: "var(--color-success)" }} />
             COP
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-2 gap-6 text-sm">
-            <div>
-              <div className="text-xs text-muted-foreground">COP Compressor (Q/W_comp)</div>
-              <div className="text-lg font-bold text-slate-700">{fmtCOP(result.cop_compressor)}</div>
-            </div>
-            <div>
-              <div className="text-xs text-muted-foreground">COP Sistema (Q/W_total)</div>
-              <div className="text-lg font-bold text-green-700">{fmtCOP(result.cop_system)}</div>
-              {copDiff > 0 && (
-                <div className="text-xs text-amber-600">
-                  Ventiladores reduzem COP em {copDiff.toFixed(1)}%
-                </div>
-              )}
-            </div>
+          </p>
+        </div>
+        <div className="grid grid-cols-2 gap-6 text-sm">
+          <div>
+            <div className="text-xs" style={{ color: "var(--text-muted)" }}>COP Compressor (Q/W_comp)</div>
+            <div className="text-lg font-bold font-mono" style={{ color: "var(--text-secondary)" }}>{fmtCOP(result.cop_compressor)}</div>
           </div>
-        </CardContent>
-      </Card>
+          <div>
+            <div className="text-xs" style={{ color: "var(--text-muted)" }}>COP Sistema (Q/W_total)</div>
+            <div className="text-lg font-bold font-mono" style={{ color: "var(--color-success)" }}>{fmtCOP(result.cop_system)}</div>
+            {copDiff > 0 && (
+              <div className="text-xs" style={{ color: "#f59e0b" }}>
+                Ventiladores reduzem COP em <span className="font-mono">{copDiff.toFixed(1)}%</span>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
 
       {/* Avisos */}
       {result.warnings.length > 0 && (
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="flex items-center gap-2 text-sm font-semibold">
-              <CheckCircle2 className="h-4 w-4 text-amber-500" />
-              Avisos ({result.warnings.length})
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-1 text-xs text-muted-foreground">
-              {result.warnings.map((w, i) => (
-                <li key={i} className="flex gap-2">
-                  <AlertCircle className="mt-0.5 h-3 w-3 shrink-0 text-amber-400" />
-                  {w}
-                </li>
-              ))}
-            </ul>
-          </CardContent>
-        </Card>
+        <div className="cn-card p-4">
+          <div className="pb-2">
+            <p className="flex items-center gap-2 text-sm font-semibold" style={{ color: "var(--text-primary)" }}>
+              <CheckCircle2 className="h-4 w-4" style={{ color: "#f59e0b" }} />
+              Avisos (<span className="font-mono">{result.warnings.length}</span>)
+            </p>
+          </div>
+          <ul className="space-y-1 text-xs" style={{ color: "var(--text-muted)" }}>
+            {result.warnings.map((w, i) => (
+              <li key={i} className="flex gap-2">
+                <AlertCircle className="mt-0.5 h-3 w-3 shrink-0" style={{ color: "#f59e0b" }} />
+                {w}
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
 
       {/* Dimensionamento elétrico */}
-      <Card className="border-slate-200 bg-slate-50">
-        <CardContent className="p-4">
-          <div className="flex items-start gap-2 text-xs text-slate-600">
-            <Badge variant="outline" className="shrink-0 text-[10px]">Referência</Badge>
-            <span>
-              Corrente total {fmtCurrent(result.total_current_a)} @ {result.voltage_v} V / {result.phases}φ / fp {result.power_factor.toFixed(2)}.
-              {" "}Disjuntor recomendado: {Math.ceil(result.total_current_a * 1.25 / 5) * 5} A.
-              {" "}Seção mínima de cabo: verificar tabela NBR 5410 para corrente contínua aplicável.
-            </span>
-          </div>
-        </CardContent>
-      </Card>
+      <div
+        className="cn-card p-4"
+        style={{ background: "var(--bg-800)" }}
+      >
+        <div className="flex items-start gap-2 text-xs" style={{ color: "var(--text-secondary)" }}>
+          <span className="cn-badge shrink-0 text-[10px]">Referência</span>
+          <span>
+            Corrente total <span className="font-mono">{fmtCurrent(result.total_current_a)}</span> @ <span className="font-mono">{result.voltage_v} V</span> / <span className="font-mono">{result.phases}φ</span> / fp <span className="font-mono">{result.power_factor.toFixed(2)}</span>.
+            {" "}Disjuntor recomendado: <span className="font-mono">{Math.ceil(result.total_current_a * 1.25 / 5) * 5} A</span>.
+            {" "}Seção mínima de cabo: verificar tabela NBR 5410 para corrente contínua aplicável.
+          </span>
+        </div>
+      </div>
     </div>
   );
 }

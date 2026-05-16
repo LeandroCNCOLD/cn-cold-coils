@@ -83,7 +83,7 @@ export function DashboardPage() {
         <button
           type="button"
           onClick={handleNewSession}
-          className="inline-flex items-center gap-1.5 rounded-md bg-[#1E6FD9] px-3 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-[#1858b0]"
+          className="cn-btn cn-btn--primary inline-flex items-center gap-1.5 px-3 py-2 text-sm"
         >
           <Plus className="h-4 w-4" />
           {t("dashboard.newSession")}
@@ -91,20 +91,21 @@ export function DashboardPage() {
       }
     >
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-        <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm lg:col-span-2">
+        <section className="cn-card p-5 lg:col-span-2">
           <div className="flex items-center justify-between">
-            <h2 className="text-sm font-semibold text-slate-900">{t("dashboard.recentSessions")}</h2>
-            <span className="text-xs text-slate-400">
+            <h2 className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>{t("dashboard.recentSessions")}</h2>
+            <span className="text-xs" style={{ color: "var(--text-muted)" }}>
               {sessions.length} {t("dashboard.total")}
             </span>
           </div>
 
           {recent.length === 0 ? (
-            <div className="mt-4 rounded-md border border-dashed border-slate-300 p-6 text-center text-sm text-slate-500">
+            <div className="mt-4 rounded-md border border-dashed p-6 text-center text-sm"
+                 style={{ borderColor: "var(--border-subtle)", color: "var(--text-muted)" }}>
               {t("dashboard.emptySessions")}
             </div>
           ) : (
-            <ul className="mt-4 divide-y divide-slate-100">
+            <ul className="mt-4 divide-y" style={{ borderColor: "var(--border-subtle)" }}>
               {recent.map((s) => {
                 const isActive = s.id === activeSessionId;
                 return (
@@ -113,8 +114,8 @@ export function DashboardPage() {
                     className="flex items-center justify-between gap-3 py-2.5 text-sm"
                   >
                     <div className="min-w-0">
-                      <p className="truncate font-medium text-slate-800">{s.name}</p>
-                      <p className="text-xs text-slate-500">
+                      <p className="truncate font-medium" style={{ color: "var(--text-primary)" }}>{s.name}</p>
+                      <p className="text-xs" style={{ color: "var(--text-muted)" }}>
                         {formatDateTime(s.createdAt)} · {t("dashboard.mode")} {s.mode}
                       </p>
                     </div>
@@ -122,9 +123,7 @@ export function DashboardPage() {
                       type="button"
                       onClick={() => setActiveSession(s.id)}
                       className={`shrink-0 rounded-md px-2.5 py-1 text-xs font-medium transition ${
-                        isActive
-                          ? "bg-[#1E6FD9] text-white"
-                          : "border border-slate-300 text-slate-600 hover:bg-slate-50"
+                        isActive ? "cn-btn cn-btn--primary" : "cn-btn"
                       }`}
                     >
                       {isActive ? t("common.active") : t("common.select")}
@@ -136,27 +135,27 @@ export function DashboardPage() {
           )}
         </section>
 
-        <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
-          <h2 className="text-sm font-semibold text-slate-900">{t("dashboard.engineStatus")}</h2>
+        <section className="cn-card p-5">
+          <h2 className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>{t("dashboard.engineStatus")}</h2>
           <dl className="mt-4 space-y-2 text-sm">
             <div className="flex items-center justify-between">
-              <dt className="text-slate-500">{t("dashboard.version")}</dt>
-              <dd className="font-medium text-slate-800">ColdPro V2</dd>
+              <dt style={{ color: "var(--text-muted)" }}>{t("dashboard.version")}</dt>
+              <dd className="font-mono font-medium" style={{ color: "var(--text-primary)" }}>ColdPro V2</dd>
             </div>
             <div className="flex items-center justify-between">
-              <dt className="text-slate-500">{t("dashboard.currentMode")}</dt>
-              <dd className="font-medium capitalize text-slate-800">{mode}</dd>
+              <dt style={{ color: "var(--text-muted)" }}>{t("dashboard.currentMode")}</dt>
+              <dd className="font-medium capitalize" style={{ color: "var(--ice-400)" }}>{mode}</dd>
             </div>
             <div className="flex items-center justify-between">
-              <dt className="text-slate-500">{t("dashboard.memorySessions")}</dt>
-              <dd className="font-medium text-slate-800">{sessions.length}</dd>
+              <dt style={{ color: "var(--text-muted)" }}>{t("dashboard.memorySessions")}</dt>
+              <dd className="font-mono font-medium" style={{ color: "var(--text-primary)" }}>{sessions.length}</dd>
             </div>
           </dl>
         </section>
       </div>
 
       <section className="mt-6">
-        <h2 className="mb-3 text-sm font-semibold text-slate-900">{t("dashboard.availableModules")}</h2>
+        <h2 className="mb-3 text-sm font-semibold" style={{ color: "var(--text-secondary)" }}>{t("dashboard.availableModules")}</h2>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {MODULES.map((m) => {
             const Icon = m.Icon;
@@ -164,16 +163,18 @@ export function DashboardPage() {
               <Link
                 key={m.to}
                 to={m.to}
-                className="group flex flex-col gap-2 rounded-lg border border-slate-200 bg-white p-4 shadow-sm transition hover:border-[#1E6FD9]/40 hover:shadow-md"
+                className="cn-card group flex flex-col gap-2 p-4 transition-all hover:border-[--ice-400]/40 hover:shadow-[0_0_12px_rgba(56,189,248,0.08)]"
               >
                 <div className="flex items-center justify-between">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-md bg-[#1E6FD9]/10 text-[#1E6FD9]">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-md"
+                       style={{ background: "rgba(56,189,248,0.12)", color: "var(--ice-400)" }}>
                     <Icon className="h-4 w-4" />
                   </div>
-                  <ArrowRight className="h-4 w-4 text-slate-300 transition group-hover:translate-x-0.5 group-hover:text-[#1E6FD9]" />
+                  <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5"
+                              style={{ color: "var(--border-strong)" }} />
                 </div>
-                <h3 className="text-sm font-semibold text-slate-900">{t(m.labelKey)}</h3>
-                <p className="text-xs text-slate-500">{m.description}</p>
+                <h3 className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>{t(m.labelKey)}</h3>
+                <p className="text-xs" style={{ color: "var(--text-muted)" }}>{m.description}</p>
               </Link>
             );
           })}

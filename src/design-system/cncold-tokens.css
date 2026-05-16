@@ -310,6 +310,7 @@ h3, .h3 {
 .cn-badge--failed   { background: var(--color-danger-bg);  color: var(--color-danger);   border-color: var(--color-danger-bd); }
 .cn-badge--draft    { background: var(--bg-600);            color: var(--text-secondary); border-color: var(--border-default);  }
 .cn-badge--info     { background: var(--color-info-bg);     color: var(--color-info);     border-color: var(--color-info-bd);   }
+.cn-badge--rejected { background: var(--color-danger-bg);  color: var(--color-danger);   border-color: var(--color-danger-bd); }
 
 /* ── Tabs ── */
 .cn-tab-bar {

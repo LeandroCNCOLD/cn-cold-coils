@@ -310,12 +310,13 @@ export function SimulationPage() {
                 <button
                   type="button"
                   onClick={handleClearAll}
-                  className="inline-flex items-center gap-1 text-slate-500 hover:text-slate-700"
+                  className="inline-flex items-center gap-1"
+                  style={{ color: "var(--text-muted)" }}
                 >
                   <X className="h-3 w-3" /> Limpar
                 </button>
               </div>
-              <p className="text-slate-600">
+              <p style={{ color: "var(--text-secondary)" }}>
                 {selectedCompressor && (
                   <>Compressor: <strong>{selectedCompressor.modeloBaseReferencia ?? selectedCompressor.modelo}</strong>. </>
                 )}
@@ -331,7 +332,7 @@ export function SimulationPage() {
                 Os campos abaixo continuam editáveis.
               </p>
               {catalogWarnings.length > 0 && (
-                <ul className="mt-2 list-disc space-y-0.5 pl-5 text-[11px] text-amber-700">
+                <ul className="mt-2 list-disc space-y-0.5 pl-5 text-[11px]" style={{ color: "#f59e0b" }}>
                   {catalogWarnings.map((w, i) => (
                     <li key={i}>{w}</li>
                   ))}
@@ -339,7 +340,14 @@ export function SimulationPage() {
               )}
             </div>
           ) : (
-            <div className="rounded-lg border border-dashed border-slate-200 bg-slate-50 p-3 text-xs text-slate-600">
+            <div
+              className="rounded-lg border border-dashed p-3 text-xs"
+              style={{
+                borderColor: "var(--border-subtle)",
+                background: "var(--bg-800)",
+                color: "var(--text-secondary)",
+              }}
+            >
               Dica: você pode pré-carregar os componentes a partir do{" "}
               <Link to="/coldpro/catalog" className="font-medium text-[#1E6FD9] hover:underline">
                 Catálogo CN COLD
@@ -348,7 +356,14 @@ export function SimulationPage() {
             </div>
           )}
           {!canCalculate && (
-            <div className="rounded-lg border border-amber-200 bg-amber-50 p-3 text-xs text-amber-900">
+            <div
+              className="rounded-lg border p-3 text-xs"
+              style={{
+                borderColor: "#f59e0b",
+                background: "var(--bg-800)",
+                color: "#f59e0b",
+              }}
+            >
               <div className="mb-1 font-semibold">Para calcular o equilíbrio, ainda falta preencher:</div>
               <ul className="list-disc space-y-0.5 pl-5">
                 {missingFields.slice(0, 6).map((f, i) => (
@@ -363,17 +378,34 @@ export function SimulationPage() {
           <EvaporatorForm value={evaporator} onChange={setEvaporator} />
           <SystemConditionsForm value={conditions} onChange={setConditions} />
           <ModeGate minMode="professional">
-            <section className="rounded-lg border border-slate-200 bg-white shadow-sm">
+            <section
+              className="rounded-lg shadow-sm"
+              style={{
+                borderWidth: 1,
+                borderStyle: "solid",
+                borderColor: "var(--border-subtle)",
+                background: "var(--bg-700)",
+              }}
+            >
               <button
                 type="button"
                 onClick={() => setShowAdvanced((v) => !v)}
-                className="flex w-full items-center justify-between px-5 py-4 text-sm font-medium text-slate-700 hover:bg-slate-50"
+                className="flex w-full items-center justify-between px-5 py-4 text-sm font-medium"
+                style={{ color: "var(--text-secondary)" }}
               >
                 Configuração Avançada do Evaporador
                 {showAdvanced ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
               </button>
               {showAdvanced && (
-                <div className="border-t border-slate-100 p-5 text-xs text-slate-600">
+                <div
+                  className="p-5 text-xs"
+                  style={{
+                    borderTopWidth: 1,
+                    borderTopStyle: "solid",
+                    borderColor: "var(--border-subtle)",
+                    color: "var(--text-secondary)",
+                  }}
+                >
                   Configuração detalhada da serpentina progressiva disponível em prompts futuros. Os
                   parâmetros básicos são preenchidos automaticamente com valores típicos.
                 </div>
@@ -384,16 +416,32 @@ export function SimulationPage() {
 
         <div className="space-y-4">
           {isCalculating && (
-            <div className="rounded-lg border border-slate-200 bg-white p-6">
+            <div
+              className="rounded-lg p-6"
+              style={{
+                borderWidth: 1,
+                borderStyle: "solid",
+                borderColor: "var(--border-subtle)",
+                background: "var(--bg-700)",
+              }}
+            >
               <LoadingSpinner label="Calculando equilíbrio..." />
             </div>
           )}
 
           {result && !isCalculating && result.success && (
             <>
-              <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+              <section
+                className="rounded-lg p-5 shadow-sm"
+                style={{
+                  borderWidth: 1,
+                  borderStyle: "solid",
+                  borderColor: "var(--border-subtle)",
+                  background: "var(--bg-700)",
+                }}
+              >
                 <div className="mb-4 flex items-center justify-between">
-                  <h3 className="text-sm font-semibold text-slate-900">Balanço Térmico</h3>
+                  <h3 className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>Balanço Térmico</h3>
                   <StatusBadge status={result.data.status} />
                 </div>
                 <div className="grid grid-cols-2 gap-3">
@@ -416,16 +464,32 @@ export function SimulationPage() {
                 </div>
               </section>
 
-              <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
-                <h3 className="mb-3 text-sm font-semibold text-slate-900">Utilização dos Componentes</h3>
+              <section
+                className="rounded-lg p-5 shadow-sm"
+                style={{
+                  borderWidth: 1,
+                  borderStyle: "solid",
+                  borderColor: "var(--border-subtle)",
+                  background: "var(--bg-700)",
+                }}
+              >
+                <h3 className="mb-3 text-sm font-semibold" style={{ color: "var(--text-primary)" }}>Utilização dos Componentes</h3>
                 <UtilizationChart utilization={result.data.utilization} />
               </section>
 
               {result.data.warnings.length > 0 && <WarningBanner warnings={result.data.warnings} />}
 
               <ModeGate minMode="intermediate">
-                <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
-                  <h3 className="mb-3 text-sm font-semibold text-slate-900">Detalhes do Balanço</h3>
+                <section
+                  className="rounded-lg p-5 shadow-sm"
+                  style={{
+                    borderWidth: 1,
+                    borderStyle: "solid",
+                    borderColor: "var(--border-subtle)",
+                    background: "var(--bg-700)",
+                  }}
+                >
+                  <h3 className="mb-3 text-sm font-semibold" style={{ color: "var(--text-primary)" }}>Detalhes do Balanço</h3>
                   <div className="space-y-2 text-sm">
                     <Row
                       label="q_cond_required"
@@ -437,9 +501,12 @@ export function SimulationPage() {
                     />
                   </div>
                   {result.data.bottlenecks.length > 0 && (
-                    <div className="mt-3 rounded-md bg-slate-50 p-3 text-xs">
-                      <div className="mb-1 font-semibold text-slate-700">Gargalos identificados</div>
-                      <ul className="list-disc space-y-0.5 pl-4 text-slate-600">
+                    <div
+                      className="mt-3 rounded-md p-3 text-xs"
+                      style={{ background: "var(--bg-800)" }}
+                    >
+                      <div className="mb-1 font-semibold" style={{ color: "var(--text-secondary)" }}>Gargalos identificados</div>
+                      <ul className="list-disc space-y-0.5 pl-4" style={{ color: "var(--text-muted)" }}>
                         {result.data.bottlenecks.map((b, i) => (
                           <li key={i}>{b}</li>
                         ))}
@@ -452,15 +519,29 @@ export function SimulationPage() {
           )}
 
           {result && !result.success && !isCalculating && (
-            <div className="rounded-lg border border-red-200 bg-red-50 p-4">
-              <h4 className="text-sm font-semibold text-red-900">Erro no cálculo</h4>
-              <p className="mt-1 text-xs text-red-700">{result.error}</p>
+            <div
+              className="rounded-lg p-4"
+              style={{
+                borderWidth: 1,
+                borderStyle: "solid",
+                borderColor: "var(--color-error)",
+                background: "var(--bg-800)",
+              }}
+            >
+              <h4 className="text-sm font-semibold" style={{ color: "var(--color-error)" }}>Erro no cálculo</h4>
+              <p className="mt-1 text-xs" style={{ color: "var(--color-error)" }}>{result.error}</p>
             </div>
           )}
 
           {!result && !isCalculating && (
-            <div className="rounded-lg border-2 border-dashed border-slate-200 bg-white p-8 text-center">
-              <p className="text-sm text-slate-500">
+            <div
+              className="rounded-lg border-2 border-dashed p-8 text-center"
+              style={{
+                borderColor: "var(--border-subtle)",
+                background: "var(--bg-700)",
+              }}
+            >
+              <p className="text-sm" style={{ color: "var(--text-muted)" }}>
                 Preencha os parâmetros e clique em "Calcular Equilíbrio".
               </p>
             </div>
@@ -473,9 +554,9 @@ export function SimulationPage() {
 
 function Metric({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-md bg-slate-50 p-3">
-      <div className="text-xs text-slate-500">{label}</div>
-      <div className="mt-1 text-lg font-semibold text-slate-900">{value}</div>
+    <div className="rounded-md p-3" style={{ background: "var(--bg-800)" }}>
+      <div className="text-xs" style={{ color: "var(--text-muted)" }}>{label}</div>
+      <div className="mt-1 text-lg font-semibold font-mono" style={{ color: "var(--text-primary)" }}>{value}</div>
     </div>
   );
 }
@@ -483,8 +564,8 @@ function Metric({ label, value }: { label: string; value: string }) {
 function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex items-center justify-between">
-      <span className="text-slate-600">{label}</span>
-      <span className="font-mono text-slate-900">{value}</span>
+      <span style={{ color: "var(--text-secondary)" }}>{label}</span>
+      <span className="font-mono" style={{ color: "var(--text-primary)" }}>{value}</span>
     </div>
   );
 }

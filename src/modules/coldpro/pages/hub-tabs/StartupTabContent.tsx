@@ -2,9 +2,6 @@
  * StartupTabContent — Aba "Start-up" do Hub de Testes
  */
 import { useMemo, useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -127,22 +124,22 @@ const TYPICAL_HINTS: Record<string, string> = {
 };
 
 function statusIcon(s: StartupParameterStatus) {
-  if (s === "pass") return <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />;
-  if (s === "warning") return <AlertCircle className="h-3.5 w-3.5 text-amber-500" />;
-  if (s === "fail") return <XCircle className="h-3.5 w-3.5 text-red-500" />;
-  return <span className="inline-block h-3.5 w-3.5 rounded-full border border-slate-300" />;
+  if (s === "pass") return <CheckCircle2 className="h-3.5 w-3.5" style={{ color: "var(--color-success)" }} />;
+  if (s === "warning") return <AlertCircle className="h-3.5 w-3.5" style={{ color: "#f59e0b" }} />;
+  if (s === "fail") return <XCircle className="h-3.5 w-3.5" style={{ color: "var(--color-error)" }} />;
+  return <span className="inline-block h-3.5 w-3.5 rounded-full border" style={{ borderColor: "var(--border-subtle)" }} />;
 }
 
 function statusBadgeProps(status: CommissioningReport["final_status"]) {
   switch (status) {
     case "approved":
-      return { label: "APROVADO", className: "bg-emerald-100 text-emerald-700 border-emerald-300" };
+      return { label: "APROVADO", extraClass: "cn-badge--success" };
     case "conditional":
-      return { label: "CONDICIONAL", className: "bg-amber-100 text-amber-700 border-amber-300" };
+      return { label: "CONDICIONAL", extraClass: "cn-badge--warning" };
     case "rejected":
-      return { label: "REJEITADO", className: "bg-red-100 text-red-700 border-red-300" };
+      return { label: "REJEITADO", extraClass: "cn-badge--error" };
     default:
-      return { label: "INCOMPLETO", className: "bg-slate-100 text-slate-700 border-slate-300" };
+      return { label: "INCOMPLETO", extraClass: "" };
   }
 }
 
@@ -303,17 +300,20 @@ export function StartupTabContent({
   // ── 3. Render ────────────────────────────────────────────────────────────
   if (!referenceState.ok) {
     return (
-      <Alert className="border-amber-200 bg-amber-50">
-        <AlertCircle className="h-4 w-4 text-amber-500" />
-        <AlertDescription className="text-xs text-amber-700">
+      <div
+        className="flex gap-3 rounded-md border p-3 text-xs"
+        style={{ background: "var(--bg-800)", borderColor: "var(--border-subtle)" }}
+      >
+        <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" style={{ color: "#f59e0b" }} />
+        <div style={{ color: "var(--text-secondary)" }}>
           <strong>Dados insuficientes para gerar a planilha de referências.</strong> Faltam:
           <ul className="ml-4 mt-1 list-disc">
             {referenceState.missing.map((m, i) => (
               <li key={i}>{m}</li>
             ))}
           </ul>
-        </AlertDescription>
-      </Alert>
+        </div>
+      </div>
     );
   }
 
@@ -353,38 +353,39 @@ export function StartupTabContent({
       </div>
 
       {/* Cabeçalho */}
-      <Card className="border border-emerald-200 bg-emerald-50/30 card-print-clean">
-        <CardContent className="flex flex-wrap items-start justify-between gap-3 p-4">
-          <div className="flex items-start gap-3">
-            <ClipboardCheck className="mt-0.5 h-5 w-5 text-emerald-600" />
-            <div>
-              <p className="text-sm font-bold text-slate-800">{sheet.machine_model}</p>
-              <p className="text-xs text-slate-500">
-                {sheet.refrigerant} · Te {sheet.design_evap_temp_c.toFixed(1)} °C · Tc{" "}
-                {sheet.design_cond_temp_c.toFixed(1)} °C · Ambiente{" "}
-                {sheet.design_ambient_temp_c.toFixed(1)} °C
-              </p>
-              <p className="mt-1 text-[11px] text-slate-500">
-                Carga estimada: <strong>{sheet.estimated_charge_kg.toFixed(2)} kg</strong> ±{" "}
-                {sheet.charge_tolerance_kg.toFixed(2)} kg
-              </p>
-            </div>
+      <div
+        className="cn-card p-4 card-print-clean flex flex-wrap items-start justify-between gap-3"
+        style={{ borderColor: "var(--color-success)" }}
+      >
+        <div className="flex items-start gap-3">
+          <ClipboardCheck className="mt-0.5 h-5 w-5" style={{ color: "var(--color-success)" }} />
+          <div>
+            <p className="text-sm font-bold" style={{ color: "var(--text-primary)" }}>{sheet.machine_model}</p>
+            <p className="text-xs" style={{ color: "var(--text-muted)" }}>
+              {sheet.refrigerant} · Te {sheet.design_evap_temp_c.toFixed(1)} °C · Tc{" "}
+              {sheet.design_cond_temp_c.toFixed(1)} °C · Ambiente{" "}
+              {sheet.design_ambient_temp_c.toFixed(1)} °C
+            </p>
+            <p className="mt-1 text-[11px]" style={{ color: "var(--text-muted)" }}>
+              Carga estimada: <strong className="font-mono">{sheet.estimated_charge_kg.toFixed(2)} kg</strong> ±{" "}
+              <span className="font-mono">{sheet.charge_tolerance_kg.toFixed(2)} kg</span>
+            </p>
           </div>
-          <Badge variant="outline" className="text-[10px] text-emerald-700">
-            Motor v2 · {sheet.groups.reduce((s, g) => s + g.parameters.length, 0)} parâmetros
-          </Badge>
-        </CardContent>
-      </Card>
+        </div>
+        <span className="cn-badge" style={{ color: "var(--color-success)" }}>
+          Motor v2 · {sheet.groups.reduce((s, g) => s + g.parameters.length, 0)} parâmetros
+        </span>
+      </div>
 
       {/* Identificação */}
-      <Card className="card-print-clean">
-        <CardHeader className="pb-3">
-          <CardTitle className="text-sm">Identificação do equipamento</CardTitle>
-          <CardDescription className="text-xs">
+      <div className="cn-card p-4 card-print-clean">
+        <div className="pb-3">
+          <p className="text-sm font-bold" style={{ color: "var(--text-primary)" }}>Identificação do equipamento</p>
+          <p className="text-xs mt-1" style={{ color: "var(--text-muted)" }}>
             Preencha os dados do equipamento, técnico e local. Campos com * são obrigatórios.
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-3">
+          </p>
+        </div>
+        <div className="space-y-3">
           <div className="grid gap-3 sm:grid-cols-2">
             <div>
               <Label className="text-xs">Modelo do equipamento *</Label>
@@ -433,39 +434,44 @@ export function StartupTabContent({
               className="text-xs"
             />
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       {/* Grupos de parâmetros */}
       {sheet.groups.map((group) => {
         const isPressuresGroup = group.group_id === "pressures";
         const isChargeGroup = group.group_id === "charge";
         return (
-          <Card key={group.group_id} className="card-print-clean">
-            <CardHeader className="pb-2">
+          <div key={group.group_id} className="cn-card p-4 card-print-clean">
+            <div className="pb-2">
               <div className="flex items-center justify-between gap-2">
-                <CardTitle className="text-sm">{group.group_label}</CardTitle>
+                <p className="text-sm font-bold" style={{ color: "var(--text-primary)" }}>{group.group_label}</p>
                 {isPressuresGroup && (
-                  <div className="no-print inline-flex overflow-hidden rounded-md border border-slate-200 text-[11px]">
+                  <div
+                    className="no-print inline-flex overflow-hidden rounded-md border text-[11px]"
+                    style={{ borderColor: "var(--border-subtle)" }}
+                  >
                     <button
                       type="button"
                       onClick={() => setPressureUnit("bar")}
-                      className={`px-2 py-0.5 ${
+                      className={`px-2 py-0.5`}
+                      style={
                         pressureUnit === "bar"
-                          ? "bg-slate-800 text-white"
-                          : "bg-white text-slate-600 hover:bg-slate-50"
-                      }`}
+                          ? { background: "var(--text-primary)", color: "var(--bg-800)" }
+                          : { background: "var(--bg-700)", color: "var(--text-secondary)" }
+                      }
                     >
                       bar
                     </button>
                     <button
                       type="button"
                       onClick={() => setPressureUnit("PSI")}
-                      className={`px-2 py-0.5 ${
+                      className={`px-2 py-0.5`}
+                      style={
                         pressureUnit === "PSI"
-                          ? "bg-slate-800 text-white"
-                          : "bg-white text-slate-600 hover:bg-slate-50"
-                      }`}
+                          ? { background: "var(--text-primary)", color: "var(--bg-800)" }
+                          : { background: "var(--bg-700)", color: "var(--text-secondary)" }
+                      }
                     >
                       PSI
                     </button>
@@ -473,7 +479,10 @@ export function StartupTabContent({
                 )}
               </div>
               {isChargeGroup && (
-                <div className="mt-1 inline-flex items-start gap-1.5 rounded-md border border-amber-200 bg-amber-50 px-2 py-1 text-[11px] text-amber-700">
+                <div
+                  className="mt-1 inline-flex items-start gap-1.5 rounded-md border px-2 py-1 text-[11px]"
+                  style={{ borderColor: "#f59e0b", background: "var(--bg-800)", color: "#f59e0b" }}
+                >
                   <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0" />
                   <span>
                     Valor depende do volume da serpentina. Para unidades grandes (CN 500+),
@@ -481,11 +490,11 @@ export function StartupTabContent({
                   </span>
                 </div>
               )}
-            </CardHeader>
-            <CardContent className="p-0">
+            </div>
+            <div className="p-0">
               <div className="overflow-x-auto">
                 <table className="w-full text-xs">
-                  <thead className="bg-slate-50 text-slate-500">
+                  <thead style={{ background: "var(--bg-800)", color: "var(--text-muted)" }}>
                     <tr>
                       <th className="px-3 py-2 text-left">Parâmetro</th>
                       <th className="px-3 py-2 text-right">Referência</th>
@@ -496,7 +505,7 @@ export function StartupTabContent({
                       <th className="px-3 py-2 text-right">Medido em campo</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100">
+                  <tbody className="divide-y" style={{ borderColor: "var(--border-subtle)" }}>
                     {group.parameters.map((p) => {
                       const isPressure = isPressureBarParam(p.id);
                       const showAsPSI = isPressure && pressureUnit === "PSI";
@@ -516,29 +525,25 @@ export function StartupTabContent({
                           ? validateFieldRange(p.id, valueForRangeCheck)
                           : null;
 
-                      const rowHighlight = isChargeGroup
-                        ? "bg-amber-50/40 hover:bg-amber-50/70"
-                        : "hover:bg-slate-50/50";
-
                       return (
-                        <tr key={p.id} className={rowHighlight}>
+                        <tr key={p.id}>
                           <td className="px-3 py-2">
-                            <div className="font-medium text-slate-700">{p.label}</div>
-                            <div className="text-[10px] text-slate-400">
+                            <div className="font-medium" style={{ color: "var(--text-secondary)" }}>{p.label}</div>
+                            <div className="text-[10px]" style={{ color: "var(--text-muted)" }}>
                               {p.measurement_instruction}
                             </div>
                           </td>
                           <td className="px-3 py-2 text-right font-mono">
                             {(p.reference_value * factor).toFixed(2)}
                           </td>
-                          <td className="px-3 py-2 text-right font-mono text-slate-500">
+                          <td className="px-3 py-2 text-right font-mono" style={{ color: "var(--text-muted)" }}>
                             {(p.tolerance_min * factor).toFixed(2)}
                           </td>
-                          <td className="px-3 py-2 text-right font-mono text-slate-500">
+                          <td className="px-3 py-2 text-right font-mono" style={{ color: "var(--text-muted)" }}>
                             {(p.tolerance_max * factor).toFixed(2)}
                           </td>
-                          <td className="px-3 py-2 text-right text-slate-500">{unitLabel}</td>
-                          <td className="px-3 py-2 text-right text-[10px] text-slate-400">
+                          <td className="px-3 py-2 text-right" style={{ color: "var(--text-muted)" }}>{unitLabel}</td>
+                          <td className="px-3 py-2 text-right text-[10px]" style={{ color: "var(--text-muted)" }}>
                             {TYPICAL_HINTS[p.id] ?? "—"}
                           </td>
                           <td className="px-3 py-2 text-right">
@@ -552,7 +557,7 @@ export function StartupTabContent({
                               className="ml-auto h-7 w-24 text-right text-xs"
                             />
                             {rangeWarn && (
-                              <div className="mt-1 flex items-center justify-end gap-1 text-[10px] text-amber-600">
+                              <div className="mt-1 flex items-center justify-end gap-1 text-[10px]" style={{ color: "#f59e0b" }}>
                                 <AlertTriangle className="h-3 w-3" />
                                 <span>{rangeWarn}</span>
                               </div>
@@ -564,8 +569,8 @@ export function StartupTabContent({
                   </tbody>
                 </table>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         );
       })}
 
@@ -597,84 +602,92 @@ export function StartupTabContent({
       </div>
 
       {validationErrors.length > 0 && (
-        <Alert className="border-red-200 bg-red-50 no-print">
-          <XCircle className="h-4 w-4 text-red-500" />
-          <AlertDescription className="text-xs text-red-700">
+        <div
+          className="flex gap-3 rounded-md border p-3 text-xs no-print"
+          style={{ background: "var(--bg-800)", borderColor: "var(--color-error)" }}
+        >
+          <XCircle className="h-4 w-4 shrink-0 mt-0.5" style={{ color: "var(--color-error)" }} />
+          <div style={{ color: "var(--color-error)" }}>
             <strong>Não foi possível gerar o relatório:</strong>
             <ul className="ml-4 mt-1 list-disc">
               {validationErrors.map((e, i) => (
                 <li key={i}>{e}</li>
               ))}
             </ul>
-          </AlertDescription>
-        </Alert>
+          </div>
+        </div>
       )}
 
       {/* Resumo do relatório */}
       {report && (
-        <Card className="border-2 border-slate-200 card-print-clean">
-          <CardHeader className="pb-3">
+        <div
+          className="cn-card p-4 card-print-clean"
+          style={{ borderWidth: 2, borderColor: "var(--border-subtle)" }}
+        >
+          <div className="pb-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <FileText className="h-5 w-5 text-slate-600" />
+                <FileText className="h-5 w-5" style={{ color: "var(--text-secondary)" }} />
                 <div>
-                  <CardTitle className="text-sm">Relatório de Comissionamento</CardTitle>
-                  <CardDescription className="text-xs">
+                  <p className="text-sm font-bold" style={{ color: "var(--text-primary)" }}>Relatório de Comissionamento</p>
+                  <p className="text-xs mt-0.5" style={{ color: "var(--text-muted)" }}>
                     {summarizeCommissioningReport(report)}
-                  </CardDescription>
+                  </p>
                 </div>
               </div>
               {(() => {
                 const b = statusBadgeProps(report.final_status);
                 return (
-                  <Badge variant="outline" className={`${b.className} text-xs`}>
+                  <span className={`cn-badge ${b.extraClass} text-xs`}>
                     {b.label}
-                  </Badge>
+                  </span>
                 );
               })()}
             </div>
-          </CardHeader>
-          <CardContent className="space-y-4">
+          </div>
+          <div className="space-y-4">
             <div className="flex flex-wrap gap-3 text-xs">
               <span className="flex items-center gap-1.5">
-                <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
-                {report.summary.passed} OK
+                <CheckCircle2 className="h-3.5 w-3.5" style={{ color: "var(--color-success)" }} />
+                <span className="font-mono">{report.summary.passed}</span> OK
               </span>
               <span className="flex items-center gap-1.5">
-                <AlertCircle className="h-3.5 w-3.5 text-amber-500" />
-                {report.summary.warnings} avisos
+                <AlertCircle className="h-3.5 w-3.5" style={{ color: "#f59e0b" }} />
+                <span className="font-mono">{report.summary.warnings}</span> avisos
               </span>
               <span className="flex items-center gap-1.5">
-                <XCircle className="h-3.5 w-3.5 text-red-500" />
-                {report.summary.failed} falhas
+                <XCircle className="h-3.5 w-3.5" style={{ color: "var(--color-error)" }} />
+                <span className="font-mono">{report.summary.failed}</span> falhas
               </span>
-              <span className="text-slate-400">
-                {report.summary.measured}/{report.summary.total_parameters} parâmetros medidos
+              <span style={{ color: "var(--text-muted)" }}>
+                <span className="font-mono">{report.summary.measured}</span>/
+                <span className="font-mono">{report.summary.total_parameters}</span> parâmetros medidos
               </span>
             </div>
 
             {report.summary.failed > 0 && (
               <div className="space-y-2">
-                <p className="text-xs font-bold text-red-700">Parâmetros críticos</p>
+                <p className="text-xs font-bold" style={{ color: "var(--color-error)" }}>Parâmetros críticos</p>
                 {report.groups.flatMap((g) =>
                   g.parameters
                     .filter((p) => p.status === "fail")
                     .map((p) => (
                       <div
                         key={`${g.group_id}_${p.parameter_id}`}
-                        className="rounded-md border border-red-200 bg-red-50/50 p-2 text-xs"
+                        className="rounded-md border p-2 text-xs"
+                        style={{ borderColor: "var(--color-error)", background: "var(--bg-800)" }}
                       >
                         <div className="flex items-start justify-between gap-2">
                           <div>
-                            <span className="font-bold">{p.label}</span>{" "}
-                            <span className="text-slate-500">({g.group_label})</span>
+                            <span className="font-bold" style={{ color: "var(--text-primary)" }}>{p.label}</span>{" "}
+                            <span style={{ color: "var(--text-muted)" }}>({g.group_label})</span>
                           </div>
-                          <span className="font-mono text-red-700">
+                          <span className="font-mono" style={{ color: "var(--color-error)" }}>
                             {p.measured_value.toFixed(2)} {p.unit} (ref. {p.reference_value.toFixed(2)})
                           </span>
                         </div>
                         {p.diagnosis && (
-                          <p className="mt-1 italic text-slate-600">↳ {p.diagnosis}</p>
+                          <p className="mt-1 italic" style={{ color: "var(--text-secondary)" }}>↳ {p.diagnosis}</p>
                         )}
                       </div>
                     )),
@@ -684,9 +697,13 @@ export function StartupTabContent({
 
             <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
               {report.groups.map((g) => (
-                <div key={g.group_id} className="rounded-md border border-slate-200 p-2 text-xs">
+                <div
+                  key={g.group_id}
+                  className="rounded-md border p-2 text-xs"
+                  style={{ borderColor: "var(--border-subtle)", background: "var(--bg-800)" }}
+                >
                   <div className="mb-1 flex items-center justify-between">
-                    <span className="font-bold text-slate-700">{g.group_label}</span>
+                    <span className="font-bold" style={{ color: "var(--text-secondary)" }}>{g.group_label}</span>
                     {statusIcon(g.group_status)}
                   </div>
                   <ul className="space-y-0.5">
@@ -697,9 +714,9 @@ export function StartupTabContent({
                       >
                         <span className="flex min-w-0 items-center gap-1.5">
                           {statusIcon(p.status)}
-                          <span className="truncate text-slate-600">{p.label}</span>
+                          <span className="truncate" style={{ color: "var(--text-secondary)" }}>{p.label}</span>
                         </span>
-                        <span className="shrink-0 font-mono text-slate-500">
+                        <span className="shrink-0 font-mono" style={{ color: "var(--text-muted)" }}>
                           {p.status === "not_measured"
                             ? "—"
                             : `${p.measured_value.toFixed(1)} ${p.unit}`}
@@ -710,12 +727,12 @@ export function StartupTabContent({
                 </div>
               ))}
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       )}
 
       {/* Rodapé de impressão */}
-      <div className="startup-print-footer text-center text-[9pt] text-slate-500 border-t pt-2 mt-4">
+      <div className="startup-print-footer text-center text-[9pt] border-t pt-2 mt-4" style={{ color: "var(--text-muted)" }}>
         CN Coils Engenharia | Gerado em {printDate}
       </div>
     </div>
