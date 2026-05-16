@@ -1,4 +1,6 @@
 import { useMemo, useState } from "react";
+import { Link } from "@tanstack/react-router";
+import { Download } from "lucide-react";
 import { CatalogFilters } from "../components/CatalogFilters";
 import { EquipmentTable } from "../components/EquipmentTable";
 import { CatalogSimulationPanel, type SimulationParams } from "../components/CatalogSimulationPanel";
@@ -55,14 +57,24 @@ export default function ComponentSelectorPage() {
 
   return (
     <div className="space-y-4 p-4 lg:p-6">
-      <header>
-        <h1 className="text-2xl font-bold text-foreground">
-          Validação de Catálogo CN Cold
-        </h1>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Selecione um equipamento, ajuste as condições e compare os resultados
-          do motor CycleEngine V2 com os dados oficiais do catálogo.
-        </p>
+      <header className="flex items-start justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-bold text-foreground">
+            Validação de Catálogo CN Cold
+          </h1>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Selecione um equipamento, ajuste as condições e compare os resultados
+            do motor CycleEngine V2 com os dados oficiais do catálogo.
+          </p>
+        </div>
+        <Link
+          to="/coldpro/catalog/export"
+          className="flex shrink-0 items-center gap-1.5 rounded-md border px-3 py-1.5 text-xs font-medium transition-colors hover:bg-blue-50"
+          style={{ borderColor: "#1E6FD9", color: "#1E6FD9" }}
+        >
+          <Download className="h-3.5 w-3.5" />
+          Exportar em lote
+        </Link>
       </header>
 
       <div className="grid grid-cols-1 gap-4 xl:grid-cols-[1.4fr_1fr_1fr]">
