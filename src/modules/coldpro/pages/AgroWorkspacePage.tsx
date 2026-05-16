@@ -570,47 +570,86 @@ function PsicrometriaTab({ s }: { s: WorkspaceState }) {
 // ─────────────────────────────────────────────────────────────────────────────
 // Tab: Condensador (A5)
 // ─────────────────────────────────────────────────────────────────────────────
-function CondensadorTab({ s, qEvapW }: { s: WorkspaceState; qEvapW: number }) {
-  const qEvapEst = qEvapW > 0 ? qEvapW : calcThermalLoad(s).Q_total;
-  // Q_cond ≈ Q_evap × (1 + 1/COP) — rough estimate with COP=2.5
-  const copEst = 2.5;
-  const qCond = qEvapEst * (1 + 1 / copEst);
+function CondensadorTab({
+  s,
+  cycleResult,
+}: {
+  s: WorkspaceState;
+  cycleResult: HotGasBypassResult | null;
+}) {
+  // Fonte primária: balanço de energia do ciclo (Q_cond = Q_evap + W_comp).
+  // Fallback: carga térmica da câmara quando ciclo não foi executado.
+  const hasCycle = cycleResult !== null;
+  const qEvapW   = hasCycle ? cycleResult.Q_evap_w : calcThermalLoad(s).Q_total;
+  const wCompW   = hasCycle ? cycleResult.W_compressor_w : 0;
+  const qCond    = hasCycle
+    ? qEvapW + wCompW           // balanço termodinâmico exato
+    : qEvapW * (1 + 1 / 2.5);  // estimativa com COP fixo quando sem ciclo
+
+  const cop         = hasCycle && wCompW > 0 ? qEvapW / wCompW : 2.5;
   const specificLoad = qCond / (s.room_length_m * s.room_width_m);
+  const dtCond       = s.T_condensing_c - s.T_outside_c;
+  const passViable   = dtCond >= 10 && dtCond <= 25;
 
   return (
     <div className="space-y-4">
+      {/* Origem dos dados */}
+      {hasCycle ? (
+        <div className="flex items-center gap-2 rounded px-3 py-2 text-xs"
+             style={{ background: "rgba(56,189,248,0.08)", borderLeft: "3px solid var(--ice-400)", color: "var(--ice-400)" }}>
+          ✓ Valores calculados via balanço de energia do ciclo AGRO (Q_cond = Q_evap + W_comp)
+        </div>
+      ) : (
+        <div className="flex items-start gap-2 rounded-md border px-3 py-2"
+             style={{ background: "var(--bg-800)", borderColor: "var(--border-subtle)" }}>
+          <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" style={{ color: "#f59e0b" }} />
+          <span className="text-xs" style={{ color: "var(--text-secondary)" }}>
+            Ciclo AGRO não executado — usando estimativa com COP = 2,5. Execute a aba{" "}
+            <strong style={{ color: "var(--text-primary)" }}>A3 Ciclo AGRO</strong> para resultados exatos.
+          </span>
+        </div>
+      )}
+
+      {/* Resultados */}
       <div className="cn-card p-4 space-y-2">
         <p className="text-sm font-semibold flex items-center gap-2" style={{ color: "var(--text-secondary)" }}>
-          <Thermometer className="h-4 w-4 text-orange-400" /> Carga de Condensação Estimada
+          <Thermometer className="h-4 w-4 text-orange-400" /> Carga de Condensação
         </p>
         <div className="space-y-1.5">
-          <KV label="Q evaporador (câmara ou ciclo)" value={`${(qEvapEst / 1000).toFixed(2)} kW`} accent="text-[--ice-400]" />
-          <KV label="COP estimado"                  value={copEst.toFixed(1)} />
-          <KV label="Q condensador total"           value={`${(qCond / 1000).toFixed(2)} kW`} accent="text-orange-400" />
+          <KV label="Q evaporador"                  value={`${(qEvapW / 1000).toFixed(2)} kW`}  accent="text-[--ice-400]" />
+          {hasCycle && <KV label="W compressor"     value={`${(wCompW / 1000).toFixed(2)} kW`}  accent="text-yellow-400" />}
+          <KV label="Q condensador (Q_evap + W_comp)" value={`${(qCond / 1000).toFixed(2)} kW`} accent="text-orange-400" />
+          <KV label="COP ciclo"                     value={cop.toFixed(2)} />
           <KV label="Carga específica (por m² piso)" value={`${specificLoad.toFixed(0)} W/m²`} />
           <KV label="T condensação"                 value={`${s.T_condensing_c.toFixed(1)} °C`} />
           <KV label="T externo"                     value={`${s.T_outside_c.toFixed(1)} °C`} />
-          <KV label="ΔT condensador"                value={`${(s.T_condensing_c - s.T_outside_c).toFixed(1)} K`} />
+          <KV label="ΔT condensador"                value={`${dtCond.toFixed(1)} K`} />
         </div>
       </div>
 
+      {/* Validação */}
+      <div className="cn-card p-4 space-y-2">
+        <p className="text-sm font-semibold" style={{ color: "var(--text-secondary)" }}>Validação</p>
+        <div className="flex items-center gap-2 text-xs">
+          {passViable
+            ? <span className="rounded px-2 py-0.5 font-bold" style={{ background: "rgba(34,197,94,0.15)", color: "#22c55e" }}>✓ VIÁVEL</span>
+            : <span className="rounded px-2 py-0.5 font-bold" style={{ background: "rgba(239,68,68,0.15)", color: "#ef4444" }}>✗ REVISAR</span>
+          }
+          <span style={{ color: "var(--text-secondary)" }}>
+            ΔT = {dtCond.toFixed(0)} K {passViable ? "(faixa típica 10–25 K)" : "(fora da faixa típica 10–25 K — revisar T_cond ou T_ext)"}
+          </span>
+        </div>
+      </div>
+
+      {/* Sugestão */}
       <div className="rounded-md border p-4 text-xs space-y-1"
            style={{ background: "rgba(56,189,248,0.07)", borderColor: "rgba(56,189,248,0.25)", color: "var(--ice-400)" }}>
         <p className="font-semibold">Sugestão de dimensionamento:</p>
         <ul className="ml-4 list-disc space-y-0.5" style={{ color: "var(--text-secondary)" }}>
           <li>Q_cond ≥ <strong style={{ color: "var(--ice-400)" }}>{(qCond / 1000).toFixed(2)} kW</strong> na condição T_ext = {s.T_outside_c} °C.</li>
-          <li>ΔT condensador de {(s.T_condensing_c - s.T_outside_c).toFixed(0)} K — verificar seleção pelo fabricante.</li>
-          <li>Para dimensionamento preciso: use a aba <em>Configuração</em> do Hub de Testes com os parâmetros calculados aqui.</li>
+          <li>ΔT condensador de {dtCond.toFixed(0)} K — verificar seleção pelo fabricante.</li>
+          <li>Para dimensionamento completo: use o Hub de Testes com condensador ativo.</li>
         </ul>
-      </div>
-
-      <div className="flex items-start gap-2 rounded-md border px-4 py-3"
-           style={{ background: "var(--bg-800)", borderColor: "var(--border-subtle)" }}>
-        <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" style={{ color: "var(--text-muted)" }} />
-        <span className="text-xs" style={{ color: "var(--text-secondary)" }}>
-          COP estimado. Para cálculo exato, execute o ciclo na aba <strong style={{ color: "var(--text-primary)" }}>Ciclo AGRO</strong>
-          e envie ao Hub de Testes via botão <em>Hub</em>.
-        </span>
       </div>
     </div>
   );
@@ -683,7 +722,7 @@ export function AgroWorkspacePage() {
         {activeTab === "ciclo"        && <CicloTab s={s} u={u} onSendToHub={handleSendToHub} />}
         {activeTab === "aletado"      && <AletadoTab s={s} u={u} qReheatW={cycleResult?.Q_reheat_w ?? 0} />}
         {activeTab === "psicrometria" && <PsicrometriaTab s={s} />}
-        {activeTab === "condensador"  && <CondensadorTab s={s} qEvapW={cycleResult?.Q_evap_w ?? 0} />}
+        {activeTab === "condensador"  && <CondensadorTab s={s} cycleResult={cycleResult} />}
       </div>
     </div>
   );

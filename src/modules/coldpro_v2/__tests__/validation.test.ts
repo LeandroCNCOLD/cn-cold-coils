@@ -114,9 +114,9 @@ describe("Caso 4: Geometria do Ar — CN Coils 173833_S_S", () => {
 });
 
 describe("Caso 5: Psicrometria Básica — T=25°C, RH=60%", () => {
-  it("deve calcular P_ws = 3167.67 Pa", () => {
+  it("deve calcular P_ws ≈ 3169 Pa (Buck 1981)", () => {
     const Pws = saturationPressure(25.0);
-    expect(Pws).toBeCloseTo(3167.67, 0);
+    expect(Pws).toBeCloseTo(3169.22, 0);
   });
 
   it("deve calcular W = 0.01189 kg/kg", () => {

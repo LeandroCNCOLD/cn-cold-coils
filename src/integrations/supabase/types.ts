@@ -95,6 +95,60 @@ export type Database = {
         }
         Relationships: []
       }
+      compressors_catalog: {
+        Row: {
+          id: string
+          manufacturer: string
+          model: string
+          refrigerant: string
+          evap_temp_c: number
+          cond_temp_c: number
+          capacity_w: number
+          power_kw: number
+          cop: number
+          voltage_v: number | null
+          phases: number | null
+          displacement_cc: number | null
+          notes: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          manufacturer: string
+          model: string
+          refrigerant: string
+          evap_temp_c: number
+          cond_temp_c: number
+          capacity_w: number
+          power_kw: number
+          cop: number
+          voltage_v?: number | null
+          phases?: number | null
+          displacement_cc?: number | null
+          notes?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          manufacturer?: string
+          model?: string
+          refrigerant?: string
+          evap_temp_c?: number
+          cond_temp_c?: number
+          capacity_w?: number
+          power_kw?: number
+          cop?: number
+          voltage_v?: number | null
+          phases?: number | null
+          displacement_cc?: number | null
+          notes?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       compressors: {
         Row: {
           capacity_w: number | null
