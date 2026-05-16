@@ -20,7 +20,6 @@ import {
   Cog,
 } from "lucide-react";
 import { useState } from "react";
-import { CnLogo } from "@/components/cn-logo";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/i18n/useTranslation";
 import { useAuth } from "@/lib/auth";
@@ -30,6 +29,7 @@ type NavItem = {
   label: string;
   Icon: typeof LayoutDashboard;
   exact?: boolean;
+  badge?: string;
 };
 
 const NAV_PROJETOS: NavItem[] = [
@@ -77,23 +77,21 @@ function NavSection({
   const [open, setOpen] = useState(defaultOpen);
 
   return (
-    <div className="mb-3">
+    <div className="mb-2">
       <button
         type="button"
         onClick={() => collapsible && setOpen((v) => !v)}
-        className={`mb-1 flex w-full items-center justify-between px-3 ${collapsible ? "cursor-pointer hover:text-slate-300" : "cursor-default"}`}
+        className={`cn-nav-section flex w-full items-center justify-between ${collapsible ? "cursor-pointer" : "cursor-default"}`}
       >
-        <p className="text-[10px] font-semibold uppercase tracking-widest text-slate-500">
-          {title}
-        </p>
+        <span>{title}</span>
         {collapsible && (
           open
-            ? <ChevronDown className="h-3 w-3 text-slate-500" />
-            : <ChevronRight className="h-3 w-3 text-slate-500" />
+            ? <ChevronDown className="h-3 w-3" style={{ color: "var(--text-muted)" }} />
+            : <ChevronRight className="h-3 w-3" style={{ color: "var(--text-muted)" }} />
         )}
       </button>
       {open && (
-        <ul className="space-y-0.5">
+        <ul className="space-y-0.5 mt-0.5">
           {items.map((item) => {
             const Icon = item.Icon;
             return (
@@ -101,17 +99,17 @@ function NavSection({
                 <Link
                   to={item.to}
                   activeOptions={{ exact: item.exact ?? false }}
-                  activeProps={{
-                    className:
-                      "flex items-center gap-2.5 rounded-md bg-[#1E6FD9] px-3 py-2 text-sm font-medium text-white",
-                  }}
-                  inactiveProps={{
-                    className:
-                      "flex items-center gap-2.5 rounded-md px-3 py-2 text-sm text-slate-300 hover:bg-white/5 hover:text-white",
-                  }}
+                  activeProps={{ className: "cn-nav-item active flex items-center gap-2.5" }}
+                  inactiveProps={{ className: "cn-nav-item flex items-center gap-2.5" }}
                 >
                   <Icon className="h-4 w-4 shrink-0" />
-                  <span className="truncate">{t(item.label)}</span>
+                  <span className="truncate flex-1">{t(item.label)}</span>
+                  {item.badge && (
+                    <span className="ml-auto rounded px-1.5 py-0.5 text-[10px] font-semibold"
+                          style={{ background: "var(--bg-500)", color: "var(--ice-400)" }}>
+                      {item.badge}
+                    </span>
+                  )}
                 </Link>
               </li>
             );
@@ -128,18 +126,27 @@ export function Sidebar({ onClose: _onClose }: { onClose?: () => void } = {}) {
   const navigate = useNavigate();
 
   return (
-    <aside className="flex h-full w-64 shrink-0 flex-col bg-[#0F2744] text-slate-100">
-      <div className="flex items-center gap-3 border-b border-white/10 px-5 py-4">
-        <CnLogo variant="dark" />
+    <aside className="app-sidebar flex h-full flex-col" style={{ width: "var(--sidebar-w, 240px)" }}>
+      {/* Logo mark */}
+      <div className="flex items-center gap-3 border-b px-5 py-4"
+           style={{ borderColor: "var(--border-subtle)" }}>
+        <div className="flex h-9 w-9 items-center justify-center rounded-md font-display font-black text-white text-base"
+             style={{ background: "linear-gradient(135deg, var(--ice-600), var(--ice-400))" }}>
+          CN
+        </div>
         <div className="min-w-0">
-          <p className="text-sm font-semibold leading-tight">CN COLD</p>
-          <p className="text-[10px] uppercase tracking-wider text-slate-400">
-            {t("navigation.engineV2")}
+          <p className="font-display font-bold text-lg tracking-wide"
+             style={{ color: "var(--text-primary)", lineHeight: 1.1 }}>
+            CN COLD
+          </p>
+          <p className="text-[10px] font-semibold uppercase tracking-widest"
+             style={{ color: "var(--ice-400)" }}>
+            Engenharia
           </p>
         </div>
       </div>
 
-      <nav className="flex-1 overflow-y-auto px-3 py-4">
+      <nav className="flex-1 overflow-y-auto px-3 py-3 space-y-1">
         <NavSection title={t("navigation.sectionProjects")} items={NAV_PROJETOS} />
         <NavSection title={t("navigation.sectionEngineering")} items={NAV_ENGENHARIA} />
         <NavSection
@@ -154,19 +161,21 @@ export function Sidebar({ onClose: _onClose }: { onClose?: () => void } = {}) {
         )}
       </nav>
 
-      <div className="space-y-2 border-t border-white/10 px-4 py-3">
+      <div className="border-t px-4 py-3 space-y-2"
+           style={{ borderColor: "var(--border-subtle)" }}>
         <div>
-          <p className="truncate text-xs font-medium text-slate-100">
+          <p className="truncate text-xs font-semibold" style={{ color: "var(--text-secondary)" }}>
             {user?.user_metadata?.full_name || user?.email}
           </p>
-          <p className="truncate text-[10px] text-slate-400">
+          <p className="truncate text-[10px]" style={{ color: "var(--text-muted)" }}>
             {isAdmin ? t("common.administrator") : t("common.engineer")}
           </p>
         </div>
         <Button
           variant="ghost"
           size="sm"
-          className="w-full justify-start gap-2 text-slate-300 hover:bg-white/10 hover:text-white"
+          className="w-full justify-start gap-2"
+          style={{ color: "var(--text-secondary)" }}
           onClick={async () => {
             await signOut();
             navigate({ to: "/auth" });
