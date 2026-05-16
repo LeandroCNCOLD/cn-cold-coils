@@ -11,9 +11,7 @@
  * Pode ser copiado para clipboard ou impresso.
  */
 import { useCallback, useMemo } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { FileText, Copy, Printer, CheckCircle2 } from "lucide-react";
 import { useTestHubStore } from "../../stores/useTestHubStore";
 import type { CatalogEquipmentRow } from "@/modules/coldpro_catalog/data/equipmentCatalog.types";
@@ -191,41 +189,39 @@ export function TechnicalReportTabContent({ machine }: Props) {
   return (
     <div className="space-y-5">
       {/* Header */}
-      <Card>
-        <CardContent className="flex items-center justify-between p-4">
-          <div className="flex items-center gap-3">
-            <FileText className="h-6 w-6 text-[#1E6FD9]" />
-            <div>
-              <p className="text-sm font-bold text-slate-800">Relatório Técnico Completo</p>
-              <p className="text-xs text-slate-500">
-                {completedAnalyses}/4 análises incluídas · {machine?.modelo ?? "Máquina não selecionada"}
-              </p>
-            </div>
+      <div className="cn-card p-4 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <span style={{ color: "#1E6FD9" }}>
+            <FileText className="h-6 w-6" />
+          </span>
+          <div>
+            <p className="text-sm font-bold" style={{ color: "var(--text-primary)" }}>Relatório Técnico Completo</p>
+            <p className="text-xs" style={{ color: "var(--text-muted)" }}>
+              {completedAnalyses}/4 análises incluídas · {machine?.modelo ?? "Máquina não selecionada"}
+            </p>
           </div>
-          <div className="flex gap-2">
-            <Button variant="outline" size="sm" onClick={handleCopy}>
-              {copied ? (
-                <><CheckCircle2 className="mr-1.5 h-3.5 w-3.5 text-emerald-500" />Copiado!</>
-              ) : (
-                <><Copy className="mr-1.5 h-3.5 w-3.5" />Copiar</>
-              )}
-            </Button>
-            <Button variant="outline" size="sm" onClick={handlePrint}>
-              <Printer className="mr-1.5 h-3.5 w-3.5" />
-              Imprimir
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
+        </div>
+        <div className="flex gap-2">
+          <Button variant="outline" size="sm" onClick={handleCopy}>
+            {copied ? (
+              <><span style={{ color: "var(--color-success)" }}><CheckCircle2 className="mr-1.5 h-3.5 w-3.5" /></span>Copiado!</>
+            ) : (
+              <><Copy className="mr-1.5 h-3.5 w-3.5" />Copiar</>
+            )}
+          </Button>
+          <Button variant="outline" size="sm" onClick={handlePrint}>
+            <Printer className="mr-1.5 h-3.5 w-3.5" />
+            Imprimir
+          </Button>
+        </div>
+      </div>
 
       {/* Relatório */}
-      <Card>
-        <CardContent className="p-0">
-          <pre className="overflow-auto rounded-lg bg-slate-900 p-5 text-[11px] leading-relaxed text-slate-200 font-mono">
-            {reportText}
-          </pre>
-        </CardContent>
-      </Card>
+      <div className="cn-card p-0">
+        <pre className="overflow-auto rounded-lg p-5 text-[11px] leading-relaxed font-mono" style={{ background: "var(--bg-800)", color: "var(--text-primary)" }}>
+          {reportText}
+        </pre>
+      </div>
     </div>
   );
 }

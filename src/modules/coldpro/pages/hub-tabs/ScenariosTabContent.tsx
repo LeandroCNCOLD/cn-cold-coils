@@ -13,10 +13,8 @@
  * - ASHRAE Standard 23.1 (2010) — Performance Testing of Positive Displacement Refrigerant Compressors
  */
 import { useMemo, useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { CheckCircle2, AlertCircle, XCircle, Play } from "lucide-react";
+import { CheckCircle2, AlertCircle, XCircle } from "lucide-react";
 import {
   RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis,
   ResponsiveContainer, Tooltip, Legend,
@@ -158,7 +156,18 @@ export function ScenariosTabContent({ machine, compressor, condenser, evaporator
             onClick={() => setSelected(r.id)}
           >
             <span className="font-medium">{r.name}</span>
-            <span className={`text-[9px] ${selected === r.id ? "text-blue-100" : r.status === "critical" ? "text-red-500" : r.status === "warning" ? "text-amber-500" : "text-emerald-500"}`}>
+            <span
+              className="text-[9px]"
+              style={{
+                color: selected === r.id
+                  ? "rgba(219,234,254,0.9)"
+                  : r.status === "critical"
+                  ? "var(--color-error)"
+                  : r.status === "warning"
+                  ? "#f59e0b"
+                  : "var(--color-success)",
+              }}
+            >
               {r.status === "critical" ? "⚠ Crítico" : r.status === "warning" ? "⚠ Alerta" : "✓ OK"}
             </span>
           </Button>
@@ -166,134 +175,167 @@ export function ScenariosTabContent({ machine, compressor, condenser, evaporator
       </div>
 
       {/* Detalhes do cenário selecionado */}
-      <Card className={`border-2 ${selectedResult.status === "critical" ? "border-red-300 bg-red-50" : selectedResult.status === "warning" ? "border-amber-300 bg-amber-50" : "border-emerald-300 bg-emerald-50"}`}>
-        <CardHeader className="pb-2">
+      <div
+        className="rounded-lg border-2 p-4"
+        style={{
+          borderColor: selectedResult.status === "critical"
+            ? "rgba(239,68,68,0.5)"
+            : selectedResult.status === "warning"
+            ? "rgba(245,158,11,0.5)"
+            : "rgba(16,185,129,0.5)",
+          background: selectedResult.status === "critical"
+            ? "rgba(239,68,68,0.08)"
+            : selectedResult.status === "warning"
+            ? "rgba(245,158,11,0.08)"
+            : "rgba(16,185,129,0.08)",
+        }}
+      >
+        <div className="pb-2">
           <div className="flex items-center justify-between">
             <div>
-              <CardTitle className="text-base">{selectedResult.name}</CardTitle>
-              <CardDescription className="text-xs">{selectedResult.description}</CardDescription>
+              <p className="text-base font-bold" style={{ color: "var(--text-primary)" }}>{selectedResult.name}</p>
+              <p className="text-xs" style={{ color: "var(--text-muted)" }}>{selectedResult.description}</p>
             </div>
             {selectedResult.status === "ok" ? (
-              <CheckCircle2 className="h-8 w-8 text-emerald-500" />
+              <span style={{ color: "var(--color-success)" }}><CheckCircle2 className="h-8 w-8" /></span>
             ) : selectedResult.status === "warning" ? (
-              <AlertCircle className="h-8 w-8 text-amber-500" />
+              <span style={{ color: "#f59e0b" }}><AlertCircle className="h-8 w-8" /></span>
             ) : (
-              <XCircle className="h-8 w-8 text-red-500" />
+              <span style={{ color: "var(--color-error)" }}><XCircle className="h-8 w-8" /></span>
             )}
           </div>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {[
-              { label: "Q_evap", value: `${(selectedResult.Q_evap_W / 1000).toFixed(2)} kW`, delta: nominalResult.Q_evap_W > 0 ? ((selectedResult.Q_evap_W / nominalResult.Q_evap_W - 1) * 100) : 0 },
-              { label: "W_comp", value: `${(selectedResult.W_comp_W / 1000).toFixed(2)} kW`, delta: nominalResult.W_comp_W > 0 ? ((selectedResult.W_comp_W / nominalResult.W_comp_W - 1) * 100) : 0 },
-              { label: "COP", value: selectedResult.COP.toFixed(3), delta: nominalResult.COP > 0 ? ((selectedResult.COP / nominalResult.COP - 1) * 100) : 0 },
-              { label: "Tc", value: `${selectedResult.Tc.toFixed(1)}°C`, delta: selectedResult.Tc - nominalResult.Tc },
-            ].map(({ label, value, delta }) => (
-              <div key={label} className="rounded-lg bg-white/70 p-3">
-                <p className="text-[10px] text-slate-500">{label}</p>
-                <p className="text-lg font-bold text-slate-800">{value}</p>
-                <p className={`text-[10px] font-medium ${delta > 0 ? (label === "COP" || label === "Q_evap" ? "text-emerald-600" : "text-red-600") : (label === "COP" || label === "Q_evap" ? "text-red-600" : "text-emerald-600")}`}>
-                  {delta > 0 ? "+" : ""}{delta.toFixed(1)}{label === "Tc" ? "°C" : "%"} vs nominal
-                </p>
+        </div>
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+          {[
+            { label: "Q_evap", value: `${(selectedResult.Q_evap_W / 1000).toFixed(2)} kW`, delta: nominalResult.Q_evap_W > 0 ? ((selectedResult.Q_evap_W / nominalResult.Q_evap_W - 1) * 100) : 0 },
+            { label: "W_comp", value: `${(selectedResult.W_comp_W / 1000).toFixed(2)} kW`, delta: nominalResult.W_comp_W > 0 ? ((selectedResult.W_comp_W / nominalResult.W_comp_W - 1) * 100) : 0 },
+            { label: "COP", value: selectedResult.COP.toFixed(3), delta: nominalResult.COP > 0 ? ((selectedResult.COP / nominalResult.COP - 1) * 100) : 0 },
+            { label: "Tc", value: `${selectedResult.Tc.toFixed(1)}°C`, delta: selectedResult.Tc - nominalResult.Tc },
+          ].map(({ label, value, delta }) => (
+            <div key={label} className="rounded-lg p-3" style={{ background: "var(--bg-800)" }}>
+              <p className="text-[10px]" style={{ color: "var(--text-muted)" }}>{label}</p>
+              <p className="text-lg font-bold font-mono" style={{ color: "var(--text-primary)" }}>{value}</p>
+              <p
+                className="text-[10px] font-medium font-mono"
+                style={{
+                  color: delta > 0
+                    ? (label === "COP" || label === "Q_evap" ? "var(--color-success)" : "var(--color-error)")
+                    : (label === "COP" || label === "Q_evap" ? "var(--color-error)" : "var(--color-success)"),
+                }}
+              >
+                {delta > 0 ? "+" : ""}{delta.toFixed(1)}{label === "Tc" ? "°C" : "%"} vs nominal
+              </p>
+            </div>
+          ))}
+        </div>
+        {selectedResult.notes.length > 0 && (
+          <div className="mt-3 space-y-1">
+            {selectedResult.notes.map((note, i) => (
+              <div key={i} className="flex items-center gap-2 text-xs" style={{ color: "var(--text-secondary)" }}>
+                <span style={{ color: "#f59e0b" }}><AlertCircle className="h-3 w-3 shrink-0" /></span>
+                {note}
               </div>
             ))}
           </div>
-          {selectedResult.notes.length > 0 && (
-            <div className="mt-3 space-y-1">
-              {selectedResult.notes.map((note, i) => (
-                <div key={i} className="flex items-center gap-2 text-xs text-slate-600">
-                  <AlertCircle className="h-3 w-3 shrink-0 text-amber-500" />
-                  {note}
-                </div>
-              ))}
-            </div>
-          )}
-        </CardContent>
-      </Card>
+        )}
+      </div>
 
       <div className="grid gap-5 lg:grid-cols-2">
         {/* Radar de desempenho relativo */}
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm">Desempenho Relativo ao Nominal</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={220}>
-              <RadarChart data={radarData}>
-                <PolarGrid stroke="#e2e8f0" />
-                <PolarAngleAxis dataKey="subject" tick={{ fontSize: 10, fill: "#475569" }} />
-                <PolarRadiusAxis angle={30} domain={[0, 120]} tick={{ fontSize: 9 }} tickFormatter={(v: number) => `${v}%`} />
-                <Radar name={selectedResult.name} dataKey="value" stroke="#1E6FD9" fill="#1E6FD9" fillOpacity={0.3} />
-                <Tooltip formatter={(v: number) => [`${v.toFixed(0)}%`, ""]} />
-              </RadarChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
+        <div className="cn-card p-4">
+          <p className="text-sm font-semibold mb-3" style={{ color: "var(--text-primary)" }}>Desempenho Relativo ao Nominal</p>
+          <ResponsiveContainer width="100%" height={220}>
+            <RadarChart data={radarData}>
+              <PolarGrid stroke="var(--border-subtle)" />
+              <PolarAngleAxis dataKey="subject" tick={{ fontSize: 10, fill: "var(--text-muted)" }} />
+              <PolarRadiusAxis angle={30} domain={[0, 120]} tick={{ fontSize: 9, fill: "var(--text-muted)" }} tickFormatter={(v: number) => `${v}%`} />
+              <Radar name={selectedResult.name} dataKey="value" stroke="#1E6FD9" fill="#1E6FD9" fillOpacity={0.3} />
+              <Tooltip formatter={(v: number) => [`${v.toFixed(0)}%`, ""]} />
+            </RadarChart>
+          </ResponsiveContainer>
+        </div>
 
         {/* COP por cenário */}
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm">COP por Cenário</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={220}>
-              <BarChart data={barData} margin={{ top: 10, right: 10, left: 0, bottom: 30 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-                <XAxis dataKey="name" tick={{ fontSize: 9 }} angle={-30} textAnchor="end" />
-                <YAxis tick={{ fontSize: 10 }} domain={[0, "auto"]} />
-                <Tooltip formatter={(v: number) => [v.toFixed(3), "COP"]} />
-                <Bar dataKey="COP" radius={[3, 3, 0, 0]}>
-                  {barData.map((entry, i) => (
-                    <Cell key={i} fill={statusColors[entry.status] ?? "#10b981"} />
-                  ))}
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
+        <div className="cn-card p-4">
+          <p className="text-sm font-semibold mb-3" style={{ color: "var(--text-primary)" }}>COP por Cenário</p>
+          <ResponsiveContainer width="100%" height={220}>
+            <BarChart data={barData} margin={{ top: 10, right: 10, left: 0, bottom: 30 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="var(--border-subtle)" />
+              <XAxis dataKey="name" tick={{ fontSize: 9, fill: "var(--text-muted)" }} angle={-30} textAnchor="end" />
+              <YAxis tick={{ fontSize: 10, fill: "var(--text-muted)" }} domain={[0, "auto"]} />
+              <Tooltip formatter={(v: number) => [v.toFixed(3), "COP"]} />
+              <Bar dataKey="COP" radius={[3, 3, 0, 0]}>
+                {barData.map((entry, i) => (
+                  <Cell key={i} fill={statusColors[entry.status] ?? "#10b981"} />
+                ))}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
       </div>
 
       {/* Tabela resumo */}
-      <Card>
-        <CardHeader className="pb-2">
-          <CardTitle className="text-sm">Resumo de Todos os Cenários</CardTitle>
-        </CardHeader>
-        <CardContent className="p-0">
-          <div className="overflow-auto">
-            <table className="w-full text-xs">
-              <thead className="bg-slate-50 text-[10px] uppercase text-slate-500">
-                <tr>
-                  <th className="px-3 py-2 text-left">Cenário</th>
-                  <th className="px-3 py-2 text-right">T_amb</th>
-                  <th className="px-3 py-2 text-right">Te</th>
-                  <th className="px-3 py-2 text-right">Tc</th>
-                  <th className="px-3 py-2 text-right">Q_evap</th>
-                  <th className="px-3 py-2 text-right">COP</th>
-                  <th className="px-3 py-2 text-center">Status</th>
+      <div className="cn-card p-4">
+        <p className="text-sm font-semibold mb-3" style={{ color: "var(--text-primary)" }}>Resumo de Todos os Cenários</p>
+        <div className="overflow-auto -mx-4 -mb-4">
+          <table className="w-full text-xs">
+            <thead className="text-[10px] uppercase" style={{ background: "var(--bg-800)", color: "var(--text-muted)" }}>
+              <tr>
+                <th className="px-3 py-2 text-left">Cenário</th>
+                <th className="px-3 py-2 text-right">T_amb</th>
+                <th className="px-3 py-2 text-right">Te</th>
+                <th className="px-3 py-2 text-right">Tc</th>
+                <th className="px-3 py-2 text-right">Q_evap</th>
+                <th className="px-3 py-2 text-right">COP</th>
+                <th className="px-3 py-2 text-center">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {results.map((r) => (
+                <tr
+                  key={r.id}
+                  className="cursor-pointer border-t"
+                  style={{
+                    borderColor: "var(--border-subtle)",
+                    background: selected === r.id ? "rgba(30,111,217,0.12)" : undefined,
+                  }}
+                  onMouseEnter={(e) => {
+                    if (selected !== r.id) (e.currentTarget as HTMLTableRowElement).style.background = "var(--bg-800)";
+                  }}
+                  onMouseLeave={(e) => {
+                    if (selected !== r.id) (e.currentTarget as HTMLTableRowElement).style.background = "";
+                  }}
+                  onClick={() => setSelected(r.id)}
+                >
+                  <td className="px-3 py-2 font-medium" style={{ color: "var(--text-secondary)" }}>{r.name}</td>
+                  <td className="px-3 py-2 text-right font-mono" style={{ color: "var(--text-secondary)" }}>{r.T_amb.toFixed(0)}°C</td>
+                  <td className="px-3 py-2 text-right font-mono" style={{ color: "var(--text-secondary)" }}>{r.Te.toFixed(1)}°C</td>
+                  <td
+                    className="px-3 py-2 text-right font-mono font-bold"
+                    style={{ color: r.Tc > 50 ? "var(--color-error)" : r.Tc > 45 ? "#f59e0b" : "var(--text-secondary)" }}
+                  >
+                    {r.Tc.toFixed(1)}°C
+                  </td>
+                  <td className="px-3 py-2 text-right font-mono" style={{ color: "var(--text-secondary)" }}>{(r.Q_evap_W / 1000).toFixed(1)} kW</td>
+                  <td
+                    className="px-3 py-2 text-right font-mono font-bold"
+                    style={{ color: r.COP < 1.5 ? "var(--color-error)" : r.COP < 2.0 ? "#f59e0b" : "var(--color-success)" }}
+                  >
+                    {r.COP.toFixed(3)}
+                  </td>
+                  <td className="px-3 py-2 text-center">
+                    <span
+                      className={`cn-badge ${r.status === "critical" ? "cn-badge--rejected" : r.status === "warning" ? "cn-badge--pending" : "cn-badge--approved"}`}
+                    >
+                      {r.status === "critical" ? "Crítico" : r.status === "warning" ? "Alerta" : "OK"}
+                    </span>
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {results.map((r) => (
-                  <tr key={r.id} className={`cursor-pointer border-t border-slate-100 hover:bg-slate-50 ${selected === r.id ? "bg-blue-50" : ""}`} onClick={() => setSelected(r.id)}>
-                    <td className="px-3 py-2 font-medium text-slate-700">{r.name}</td>
-                    <td className="px-3 py-2 text-right font-mono text-slate-600">{r.T_amb.toFixed(0)}°C</td>
-                    <td className="px-3 py-2 text-right font-mono text-slate-600">{r.Te.toFixed(1)}°C</td>
-                    <td className={`px-3 py-2 text-right font-mono font-bold ${r.Tc > 50 ? "text-red-600" : r.Tc > 45 ? "text-amber-600" : "text-slate-600"}`}>{r.Tc.toFixed(1)}°C</td>
-                    <td className="px-3 py-2 text-right font-mono text-slate-600">{(r.Q_evap_W / 1000).toFixed(1)} kW</td>
-                    <td className={`px-3 py-2 text-right font-mono font-bold ${r.COP < 1.5 ? "text-red-600" : r.COP < 2.0 ? "text-amber-600" : "text-emerald-600"}`}>{r.COP.toFixed(3)}</td>
-                    <td className="px-3 py-2 text-center">
-                      <Badge variant="outline" className={`text-[10px] ${r.status === "critical" ? "border-red-400 text-red-600" : r.status === "warning" ? "border-amber-400 text-amber-600" : "border-emerald-400 text-emerald-600"}`}>
-                        {r.status === "critical" ? "Crítico" : r.status === "warning" ? "Alerta" : "OK"}
-                      </Badge>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </CardContent>
-      </Card>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 }

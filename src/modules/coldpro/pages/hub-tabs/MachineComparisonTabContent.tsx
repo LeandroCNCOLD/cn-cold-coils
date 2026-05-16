@@ -10,10 +10,8 @@
  * - AHRI Standard 540 (2020) — Compressor Performance Ratings
  */
 import { useMemo, useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Star, ArrowUpRight, CheckCircle2 } from "lucide-react";
+import { Star } from "lucide-react";
 import {
   RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis,
   ResponsiveContainer, Tooltip, Legend,
@@ -121,125 +119,122 @@ export function MachineComparisonTabContent({ machine, compressor }: Props) {
 
   if (!machine || !current) {
     return (
-      <Card>
-        <CardContent className="flex items-center justify-center p-8">
-          <p className="text-sm text-slate-500">Selecione uma máquina do catálogo para ver alternativas.</p>
-        </CardContent>
-      </Card>
+      <div className="cn-card p-4 flex items-center justify-center p-8">
+        <p className="text-sm" style={{ color: "var(--text-muted)" }}>Selecione uma máquina do catálogo para ver alternativas.</p>
+      </div>
     );
   }
 
   return (
     <div className="space-y-5">
       {/* Máquina atual */}
-      <Card className="border-[#1E6FD9]/30 bg-blue-50/40">
-        <CardHeader className="pb-2">
+      <div className="cn-card p-4" style={{ borderColor: "rgba(30,111,217,0.3)" }}>
+        <div className="pb-2">
           <div className="flex items-center justify-between">
             <div>
-              <CardTitle className="text-sm text-[#1E6FD9]">Máquina Atual: {machine.modelo}</CardTitle>
-              <CardDescription className="text-xs">{machine.application} · {machine.refrigerante} · {machine.linha ?? "—"}</CardDescription>
+              <p className="text-sm font-semibold" style={{ color: "var(--ice-400)" }}>Máquina Atual: {machine.modelo}</p>
+              <p className="text-xs" style={{ color: "var(--text-muted)" }}>{machine.application} · {machine.refrigerante} · {machine.linha ?? "—"}</p>
             </div>
-            <Badge className="bg-[#1E6FD9] text-white">Referência</Badge>
+            <span className="cn-badge cn-badge--info">Referência</span>
           </div>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-3 gap-3">
-            <div>
-              <p className="text-[10px] text-slate-500">Capacidade</p>
-              <p className="text-base font-bold text-slate-800">{(current.capacity_W / 1000).toFixed(2)} kW</p>
-              <p className="text-[10px] text-slate-400">{(machine.capacidadeFrigorificaKcalH ?? 0).toFixed(0)} kcal/h</p>
-            </div>
-            <div>
-              <p className="text-[10px] text-slate-500">Potência</p>
-              <p className="text-base font-bold text-slate-800">{(current.power_W / 1000).toFixed(2)} kW</p>
-            </div>
-            <div>
-              <p className="text-[10px] text-slate-500">COP Estimado</p>
-              <p className="text-base font-bold text-emerald-600">{current.COP.toFixed(3)}</p>
-            </div>
+        </div>
+        <div className="grid grid-cols-3 gap-3 mt-2">
+          <div>
+            <p className="text-[10px]" style={{ color: "var(--text-muted)" }}>Capacidade</p>
+            <p className="text-base font-bold font-mono" style={{ color: "var(--text-primary)" }}>{(current.capacity_W / 1000).toFixed(2)} kW</p>
+            <p className="text-[10px] font-mono" style={{ color: "var(--text-muted)" }}>{(machine.capacidadeFrigorificaKcalH ?? 0).toFixed(0)} kcal/h</p>
           </div>
-        </CardContent>
-      </Card>
+          <div>
+            <p className="text-[10px]" style={{ color: "var(--text-muted)" }}>Potência</p>
+            <p className="text-base font-bold font-mono" style={{ color: "var(--text-primary)" }}>{(current.power_W / 1000).toFixed(2)} kW</p>
+          </div>
+          <div>
+            <p className="text-[10px]" style={{ color: "var(--text-muted)" }}>COP Estimado</p>
+            <p className="text-base font-bold font-mono" style={{ color: "var(--color-success)" }}>{current.COP.toFixed(3)}</p>
+          </div>
+        </div>
+      </div>
 
       {alternatives.length === 0 ? (
-        <Card>
-          <CardContent className="flex items-center justify-center p-8">
-            <p className="text-sm text-slate-500">Nenhuma alternativa encontrada para a mesma aplicação e refrigerante.</p>
-          </CardContent>
-        </Card>
+        <div className="cn-card p-4 flex items-center justify-center p-8">
+          <p className="text-sm" style={{ color: "var(--text-muted)" }}>Nenhuma alternativa encontrada para a mesma aplicação e refrigerante.</p>
+        </div>
       ) : (
         <>
           {/* Grid de alternativas */}
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {alternatives.map((alt, i) => (
-              <Card
+              <div
                 key={alt.row.id}
-                className={`cursor-pointer border transition-all hover:shadow-md ${selectedAlt === alt.row.id ? "border-[#1E6FD9] bg-blue-50" : "border-slate-200"}`}
+                className="cn-card p-4 cursor-pointer transition-all hover:shadow-md"
+                style={selectedAlt === alt.row.id ? { borderColor: "var(--ice-400)" } : { borderColor: "var(--border-subtle)" }}
                 onClick={() => setSelectedAlt(alt.row.id)}
               >
-                <CardContent className="p-4">
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <p className="text-xs font-bold text-slate-800">{alt.row.modelo}</p>
-                      <p className="text-[10px] text-slate-400">{alt.row.application} · {alt.row.refrigerante}</p>
-                    </div>
-                    {i === 0 && <Badge className="bg-amber-500 text-white text-[10px]"><Star className="h-2.5 w-2.5 mr-0.5" />Top</Badge>}
+                <div className="flex items-start justify-between">
+                  <div>
+                    <p className="text-xs font-bold" style={{ color: "var(--text-primary)" }}>{alt.row.modelo}</p>
+                    <p className="text-[10px]" style={{ color: "var(--text-muted)" }}>{alt.row.application} · {alt.row.refrigerante}</p>
                   </div>
-                  <div className="mt-3 grid grid-cols-3 gap-1 text-center">
-                    <div>
-                      <p className="text-[9px] text-slate-400">Capacidade</p>
-                      <p className={`text-[11px] font-bold ${alt.capacity_delta_pct > 0 ? "text-emerald-600" : "text-red-600"}`}>
-                        {alt.capacity_delta_pct > 0 ? "+" : ""}{alt.capacity_delta_pct.toFixed(0)}%
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-[9px] text-slate-400">Potência</p>
-                      <p className={`text-[11px] font-bold ${alt.power_delta_pct < 0 ? "text-emerald-600" : "text-amber-600"}`}>
-                        {alt.power_delta_pct > 0 ? "+" : ""}{alt.power_delta_pct.toFixed(0)}%
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-[9px] text-slate-400">COP</p>
-                      <p className={`text-[11px] font-bold ${alt.COP_delta_pct > 0 ? "text-emerald-600" : "text-red-600"}`}>
-                        {alt.COP_delta_pct > 0 ? "+" : ""}{alt.COP_delta_pct.toFixed(0)}%
-                      </p>
-                    </div>
+                  {i === 0 && (
+                    <span className="cn-badge" style={{ background: "#f59e0b", color: "#fff", fontSize: "10px" }}>
+                      <span style={{ display: "inline-flex", alignItems: "center", gap: "2px" }}>
+                        <Star className="h-2.5 w-2.5" />Top
+                      </span>
+                    </span>
+                  )}
+                </div>
+                <div className="mt-3 grid grid-cols-3 gap-1 text-center">
+                  <div>
+                    <p className="text-[9px]" style={{ color: "var(--text-muted)" }}>Capacidade</p>
+                    <p className="text-[11px] font-bold font-mono" style={{ color: alt.capacity_delta_pct > 0 ? "var(--color-success)" : "var(--color-error)" }}>
+                      {alt.capacity_delta_pct > 0 ? "+" : ""}{alt.capacity_delta_pct.toFixed(0)}%
+                    </p>
                   </div>
-                  <p className="mt-2 text-[10px] text-slate-500">{alt.recommendation}</p>
-                </CardContent>
-              </Card>
+                  <div>
+                    <p className="text-[9px]" style={{ color: "var(--text-muted)" }}>Potência</p>
+                    <p className="text-[11px] font-bold font-mono" style={{ color: alt.power_delta_pct < 0 ? "var(--color-success)" : "#f59e0b" }}>
+                      {alt.power_delta_pct > 0 ? "+" : ""}{alt.power_delta_pct.toFixed(0)}%
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-[9px]" style={{ color: "var(--text-muted)" }}>COP</p>
+                    <p className="text-[11px] font-bold font-mono" style={{ color: alt.COP_delta_pct > 0 ? "var(--color-success)" : "var(--color-error)" }}>
+                      {alt.COP_delta_pct > 0 ? "+" : ""}{alt.COP_delta_pct.toFixed(0)}%
+                    </p>
+                  </div>
+                </div>
+                <p className="mt-2 text-[10px]" style={{ color: "var(--text-muted)" }}>{alt.recommendation}</p>
+              </div>
             ))}
           </div>
 
           {/* Comparação detalhada */}
           {selectedMachine && (
             <div className="grid gap-5 lg:grid-cols-2">
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm">Comparação: {machine.modelo} vs {selectedMachine.row.modelo}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ResponsiveContainer width="100%" height={220}>
-                    <RadarChart data={radarData}>
-                      <PolarGrid stroke="#e2e8f0" />
-                      <PolarAngleAxis dataKey="subject" tick={{ fontSize: 10, fill: "#475569" }} />
-                      <PolarRadiusAxis angle={30} domain={[0, 100]} tick={{ fontSize: 9 }} />
-                      <Radar name="Atual" dataKey="current" stroke="#64748b" fill="#64748b" fillOpacity={0.2} />
-                      <Radar name={selectedMachine.row.modelo} dataKey="alt" stroke="#1E6FD9" fill="#1E6FD9" fillOpacity={0.3} />
-                      <Legend wrapperStyle={{ fontSize: 10 }} />
-                      <Tooltip formatter={(v: number) => [`${v.toFixed(0)}%`, ""]} />
-                    </RadarChart>
-                  </ResponsiveContainer>
-                </CardContent>
-              </Card>
+              <div className="cn-card p-4">
+                <div className="pb-2">
+                  <p className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>Comparação: {machine.modelo} vs {selectedMachine.row.modelo}</p>
+                </div>
+                <ResponsiveContainer width="100%" height={220}>
+                  <RadarChart data={radarData}>
+                    <PolarGrid stroke="var(--border-subtle)" />
+                    <PolarAngleAxis dataKey="subject" tick={{ fontSize: 10, fill: "var(--text-secondary)" }} />
+                    <PolarRadiusAxis angle={30} domain={[0, 100]} tick={{ fontSize: 9, fill: "var(--text-muted)" }} />
+                    <Radar name="Atual" dataKey="current" stroke="var(--text-muted)" fill="var(--text-muted)" fillOpacity={0.2} />
+                    <Radar name={selectedMachine.row.modelo} dataKey="alt" stroke="var(--ice-400)" fill="var(--ice-400)" fillOpacity={0.3} />
+                    <Legend wrapperStyle={{ fontSize: 10 }} />
+                    <Tooltip formatter={(v: number) => [`${v.toFixed(0)}%`, ""]} />
+                  </RadarChart>
+                </ResponsiveContainer>
+              </div>
 
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm">Tabela Comparativa</CardTitle>
-                </CardHeader>
-                <CardContent className="p-0">
+              <div className="cn-card p-4">
+                <div className="pb-2">
+                  <p className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>Tabela Comparativa</p>
+                </div>
+                <div className="p-0 -mx-4 -mb-4">
                   <table className="w-full text-xs">
-                    <thead className="bg-slate-50 text-[10px] uppercase text-slate-500">
+                    <thead className="text-[10px] uppercase" style={{ background: "var(--bg-800)", color: "var(--text-muted)" }}>
                       <tr>
                         <th className="px-3 py-2 text-left">Parâmetro</th>
                         <th className="px-3 py-2 text-right">Atual</th>
@@ -255,17 +250,17 @@ export function MachineComparisonTabContent({ machine, compressor }: Props) {
                         { label: "Refrigerante", curr: machine.refrigerante, alt: selectedMachine.row.refrigerante, delta: machine.refrigerante === selectedMachine.row.refrigerante ? "Igual" : "Diferente", positive: machine.refrigerante === selectedMachine.row.refrigerante },
                         { label: "Aplicação", curr: machine.application, alt: selectedMachine.row.application, delta: "—", positive: true },
                       ].map(({ label, curr, alt, delta, positive }) => (
-                        <tr key={label} className="border-t border-slate-100">
-                          <td className="px-3 py-2 font-medium text-slate-700">{label}</td>
-                          <td className="px-3 py-2 text-right font-mono text-slate-600">{curr}</td>
-                          <td className="px-3 py-2 text-right font-mono font-bold text-slate-800">{alt}</td>
-                          <td className={`px-3 py-2 text-right font-mono font-bold ${positive ? "text-emerald-600" : "text-red-600"}`}>{delta}</td>
+                        <tr key={label} className="border-t" style={{ borderColor: "var(--border-subtle)" }}>
+                          <td className="px-3 py-2 font-medium" style={{ color: "var(--text-secondary)" }}>{label}</td>
+                          <td className="px-3 py-2 text-right font-mono" style={{ color: "var(--text-secondary)" }}>{curr}</td>
+                          <td className="px-3 py-2 text-right font-mono font-bold" style={{ color: "var(--text-primary)" }}>{alt}</td>
+                          <td className="px-3 py-2 text-right font-mono font-bold" style={{ color: positive ? "var(--color-success)" : "var(--color-error)" }}>{delta}</td>
                         </tr>
                       ))}
                     </tbody>
                   </table>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             </div>
           )}
         </>
