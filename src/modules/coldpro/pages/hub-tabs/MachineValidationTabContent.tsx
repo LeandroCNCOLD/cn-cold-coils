@@ -1,7 +1,4 @@
 import { useMemo } from "react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Alert, AlertDescription } from "@/components/ui/alert";
 import { CheckCircle2, AlertCircle, XCircle, ShieldCheck } from "lucide-react";
 import type { CatalogEquipmentRow } from "@/modules/coldpro_catalog/data/equipmentCatalog.types";
 import {
@@ -32,9 +29,9 @@ type ValidationState =
   | { ok: false; missing: string[] };
 
 function statusIcon(s: ValidationStatus) {
-  if (s === "pass") return <CheckCircle2 className="h-4 w-4 text-emerald-500" />;
-  if (s === "warning") return <AlertCircle className="h-4 w-4 text-amber-500" />;
-  return <XCircle className="h-4 w-4 text-red-500" />;
+  if (s === "pass") return <CheckCircle2 className="h-4 w-4" style={{ color: "var(--color-success)" }} />;
+  if (s === "warning") return <AlertCircle className="h-4 w-4" style={{ color: "#f59e0b" }} />;
+  return <XCircle className="h-4 w-4" style={{ color: "var(--color-error)" }} />;
 }
 
 function fmtVal(v: number, unit: string): string {
@@ -45,9 +42,9 @@ function fmtVal(v: number, unit: string): string {
 }
 
 const FINAL_STATUS_STYLE = {
-  approved: { label: "APROVADA", className: "bg-emerald-100 text-emerald-700 border-emerald-300" },
-  conditional: { label: "CONDICIONAL", className: "bg-amber-100 text-amber-700 border-amber-300" },
-  rejected: { label: "REJEITADA", className: "bg-red-100 text-red-700 border-red-300" },
+  approved: { label: "APROVADA", badgeClass: "cn-badge cn-badge--approved" },
+  conditional: { label: "CONDICIONAL", badgeClass: "cn-badge cn-badge--pending" },
+  rejected: { label: "REJEITADA", badgeClass: "cn-badge cn-badge--rejected" },
 } as const;
 
 export function MachineValidationTabContent({
@@ -119,63 +116,61 @@ export function MachineValidationTabContent({
 
   return (
     <div className="space-y-4">
-      <Card className="border-2 border-slate-200">
-        <CardHeader className="pb-3">
+      <div className="cn-card p-4" style={{ borderWidth: 2, borderStyle: "solid", borderColor: "var(--border-subtle)" }}>
+        <div className="pb-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <ShieldCheck className="h-5 w-5 text-slate-600" />
+              <ShieldCheck className="h-5 w-5" style={{ color: "var(--text-secondary)" }} />
               <div>
                 <div className="flex items-center gap-2">
-                  <CardTitle className="text-sm">Validação de Máquina</CardTitle>
+                  <p className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>Validação de Máquina</p>
                   {(conditions.nominal_delta_t_evap_k != null ||
                     conditions.nominal_delta_t_cond_k != null) && (
-                    <Badge
-                      variant="outline"
-                      className="border-blue-300 bg-blue-50 text-[10px] text-blue-700"
-                    >
-                      ΔT ativo
-                    </Badge>
+                    <span className="cn-badge cn-badge--info text-[10px]">ΔT ativo</span>
                   )}
                 </div>
-                <CardDescription className="text-xs">
+                <p className="text-xs" style={{ color: "var(--text-muted)" }}>
                   Checklist PASS/WARNING/FAIL por critério — motor{" "}
                   <code>validateMachine</code> (coldpro_v2)
-                </CardDescription>
+                </p>
               </div>
             </div>
             {validation.ok && (() => {
               const b = FINAL_STATUS_STYLE[validation.report.final_status];
-              return <Badge variant="outline" className={`${b.className} text-xs`}>{b.label}</Badge>;
+              return <span className={`${b.badgeClass} text-xs`}>{b.label}</span>;
             })()}
           </div>
-        </CardHeader>
-        <CardContent>
+        </div>
+        <div>
           {!validation.ok ? (
-            <Alert className="border-amber-200 bg-amber-50">
-              <AlertCircle className="h-4 w-4 text-amber-500" />
-              <AlertDescription className="text-xs text-amber-700">
+            <div
+              className="rounded-lg p-3 flex gap-2"
+              style={{ background: "rgba(245,158,11,0.1)", borderWidth: 1, borderStyle: "solid", borderColor: "rgba(245,158,11,0.3)" }}
+            >
+              <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" style={{ color: "#f59e0b" }} />
+              <div className="text-xs" style={{ color: "#f59e0b" }}>
                 <strong>Dados insuficientes para validação.</strong> Faltam:
                 <ul className="ml-4 mt-1 list-disc">
                   {validation.missing.map((m, i) => <li key={i}>{m}</li>)}
                 </ul>
-              </AlertDescription>
-            </Alert>
+              </div>
+            </div>
           ) : (
             <div className="space-y-4">
               <div className="flex flex-wrap gap-3 text-xs">
-                <span className="flex items-center gap-1.5">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
+                <span className="flex items-center gap-1.5" style={{ color: "var(--text-secondary)" }}>
+                  <CheckCircle2 className="h-3.5 w-3.5" style={{ color: "var(--color-success)" }} />
                   {validation.report.summary.passed} aprovados
                 </span>
-                <span className="flex items-center gap-1.5">
-                  <AlertCircle className="h-3.5 w-3.5 text-amber-500" />
+                <span className="flex items-center gap-1.5" style={{ color: "var(--text-secondary)" }}>
+                  <AlertCircle className="h-3.5 w-3.5" style={{ color: "#f59e0b" }} />
                   {validation.report.summary.warnings} avisos
                 </span>
-                <span className="flex items-center gap-1.5">
-                  <XCircle className="h-3.5 w-3.5 text-red-500" />
+                <span className="flex items-center gap-1.5" style={{ color: "var(--text-secondary)" }}>
+                  <XCircle className="h-3.5 w-3.5" style={{ color: "var(--color-error)" }} />
                   {validation.report.summary.failed} falhas
                 </span>
-                <span className="ml-auto text-slate-400">
+                <span className="ml-auto font-mono" style={{ color: "var(--text-muted)" }}>
                   Te {validation.report.operating_point.evap_temp_c.toFixed(1)} °C ·{" "}
                   Tc {validation.report.operating_point.cond_temp_c.toFixed(1)} °C
                 </span>
@@ -185,30 +180,36 @@ export function MachineValidationTabContent({
                 {validation.report.criteria.map((c) => (
                   <div
                     key={c.criterion_id}
-                    className={`rounded-lg border p-3 ${
-                      c.status === "pass"
-                        ? "border-emerald-200 bg-emerald-50/40"
+                    className="rounded-lg border p-3"
+                    style={{
+                      borderColor: c.status === "pass"
+                        ? "rgba(16,185,129,0.35)"
                         : c.status === "warning"
-                        ? "border-amber-200 bg-amber-50/40"
-                        : "border-red-200 bg-red-50/40"
-                    }`}
+                        ? "rgba(245,158,11,0.35)"
+                        : "rgba(239,68,68,0.35)",
+                      background: c.status === "pass"
+                        ? "rgba(16,185,129,0.08)"
+                        : c.status === "warning"
+                        ? "rgba(245,158,11,0.08)"
+                        : "rgba(239,68,68,0.08)",
+                    }}
                   >
                     <div className="flex items-start gap-2">
                       {statusIcon(c.status)}
                       <div className="min-w-0 flex-1">
-                        <p className="text-xs font-bold text-slate-800">{c.label}</p>
-                        <p className="mt-0.5 font-mono text-[11px] text-slate-600">
+                        <p className="text-xs font-bold" style={{ color: "var(--text-primary)" }}>{c.label}</p>
+                        <p className="mt-0.5 font-mono text-[11px]" style={{ color: "var(--text-secondary)" }}>
                           {fmtVal(c.calculated_value, c.unit)}{" "}
-                          <span className="text-slate-400">vs.</span>{" "}
+                          <span style={{ color: "var(--text-muted)" }}>vs.</span>{" "}
                           {fmtVal(c.reference_value, c.unit)} nominal
                         </p>
-                        <p className="text-[10px] text-slate-500">
+                        <p className="font-mono text-[10px]" style={{ color: "var(--text-muted)" }}>
                           Desvio: {c.deviation_pct >= 0 ? "+" : ""}
                           {c.deviation_pct.toFixed(2)}%
                         </p>
-                        <p className="mt-1 text-[10px] text-slate-600">{c.message}</p>
+                        <p className="mt-1 text-[10px]" style={{ color: "var(--text-secondary)" }}>{c.message}</p>
                         {c.diagnosis && c.status !== "pass" && (
-                          <p className="mt-1 text-[10px] italic text-slate-500">↳ {c.diagnosis}</p>
+                          <p className="mt-1 text-[10px] italic" style={{ color: "var(--text-muted)" }}>↳ {c.diagnosis}</p>
                         )}
                       </div>
                     </div>
@@ -218,20 +219,23 @@ export function MachineValidationTabContent({
 
               {validation.report.recommendations.length > 0 &&
                 validation.report.final_status !== "approved" && (
-                  <Alert className="border-slate-200 bg-slate-50">
-                    <AlertCircle className="h-4 w-4 text-slate-500" />
-                    <AlertDescription className="text-xs text-slate-700">
+                  <div
+                    className="rounded-lg p-3 flex gap-2"
+                    style={{ background: "var(--bg-800)", borderWidth: 1, borderStyle: "solid", borderColor: "var(--border-subtle)" }}
+                  >
+                    <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" style={{ color: "var(--text-muted)" }} />
+                    <div className="text-xs" style={{ color: "var(--text-secondary)" }}>
                       <strong>Recomendações de ajuste:</strong>
                       <ul className="ml-4 mt-1 list-disc space-y-0.5">
                         {validation.report.recommendations.map((r, i) => <li key={i}>{r}</li>)}
                       </ul>
-                    </AlertDescription>
-                  </Alert>
+                    </div>
+                  </div>
                 )}
             </div>
           )}
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       <AIEngineerPanel
         spec={validation.ok ? validation.spec : null}
