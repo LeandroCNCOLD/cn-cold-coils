@@ -161,10 +161,10 @@ interface TestHubState {
 
   // Ações de configuração
   setMachine: (row: CatalogEquipmentRow, origin?: HubDataOrigin) => void;
-  setCompressor: (v: Partial<CompressorSpec>) => void;
-  setCondenser: (v: Partial<CondenserSpec>) => void;
-  setEvaporator: (v: EvaporatorFormValue) => void;
-  setConditions: (v: Partial<SystemConditions>) => void;
+  setCompressor: (v: Partial<CompressorSpec> | ((prev: Partial<CompressorSpec>) => Partial<CompressorSpec>)) => void;
+  setCondenser: (v: Partial<CondenserSpec> | ((prev: Partial<CondenserSpec>) => Partial<CondenserSpec>)) => void;
+  setEvaporator: (v: EvaporatorFormValue | ((prev: EvaporatorFormValue) => EvaporatorFormValue)) => void;
+  setConditions: (v: Partial<SystemConditions> | ((prev: Partial<SystemConditions>) => Partial<SystemConditions>)) => void;
   setOrigin: (origin: HubDataOrigin | null) => void;
   clearMachine: () => void;
 
@@ -200,10 +200,19 @@ export const useTestHubStore = create<TestHubState>()((set) => ({
     },
   }),
   setOrigin: (origin) => set({ origin }),
-  setCompressor: (v) => set((s) => ({ compressor: v, isConfigured: checkConfigured(v, s.condenser, s.evaporator) })),
-  setCondenser: (v) => set((s) => ({ condenser: v, isConfigured: checkConfigured(s.compressor, v, s.evaporator) })),
-  setEvaporator: (v) => set((s) => ({ evaporator: v, isConfigured: checkConfigured(s.compressor, s.condenser, v) })),
-  setConditions: (v) => set({ conditions: v }),
+  setCompressor: (v) => set((s) => {
+    const next = typeof v === "function" ? v(s.compressor) : v;
+    return { compressor: next, isConfigured: checkConfigured(next, s.condenser, s.evaporator) };
+  }),
+  setCondenser: (v) => set((s) => {
+    const next = typeof v === "function" ? v(s.condenser) : v;
+    return { condenser: next, isConfigured: checkConfigured(s.compressor, next, s.evaporator) };
+  }),
+  setEvaporator: (v) => set((s) => {
+    const next = typeof v === "function" ? v(s.evaporator) : v;
+    return { evaporator: next, isConfigured: checkConfigured(s.compressor, s.condenser, next) };
+  }),
+  setConditions: (v) => set((s) => ({ conditions: typeof v === "function" ? v(s.conditions) : v })),
   clearMachine: () => set({
     selectedMachine: null,
     compressor: { refrigerant: "R404A" },

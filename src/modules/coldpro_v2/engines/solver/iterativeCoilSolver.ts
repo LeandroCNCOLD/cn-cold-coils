@@ -33,11 +33,13 @@ import { calculateWetCoil } from "../psychrometrics/wetCoil";
 import { calculateReheat } from "../psychrometrics/reheatCoil";
 import type { WetCoilResult, ReheatResult } from "../../domain/types";
 import { KCALH_PER_KW, KCALH_PER_TR, KCALH_PER_BTUH } from "@/lib/physicalConstants";
+import { normalizeCoilInputUnits } from "../utils/normalizeCoilInputUnits";
 
 const DEFAULT_FLUID_H = 1000;
 const SMALL = 1e-6;
 
-export function solveCoilIterative(input: CoilIterativeInput): CoilIterativeResult {
+export function solveCoilIterative(rawInput: CoilIterativeInput): CoilIterativeResult {
+  const input = normalizeCoilInputUnits(rawInput) as CoilIterativeInput;
   const warnings: string[] = [];
 
   if (!input.rows) warnings.push("rows ausente");
