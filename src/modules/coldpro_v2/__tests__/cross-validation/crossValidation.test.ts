@@ -20,7 +20,6 @@ import unilabCases from './fixtures/unilab-ref-cases.json'
 import physicalCases from './fixtures/physical-ref-cases.json'
 
 import { calculateProgressiveCoil } from '@/modules/coldpro_v2/engines/progressive/progressiveCoilSolver'
-import { applyCalibration } from '@/modules/coldpro_v2/engines/calibration/coilCalibrationFactors'
 
 // ─── ADAPTADOR: conecta fixtures ao engine real ───────────────────
 // Usa calculateProgressiveCoil para casos de evaporador.
@@ -84,27 +83,20 @@ function runEngineForCase(
     refrigerant:               input.refrigerant,
     fin_pitch_mm,
     fin_type:                  'plain',
+    model_code:                input.geometry_code,  // C_rich(ΔT) aplicado internamente
   })
 
   if (result.status === 'error') {
     return { capacity_w: 0 }
   }
 
-  const raw_capacity_w = result.total_capacity_w
+  // C_rich(ΔT) já aplicado internamente pelo solver (via model_code)
+  const capacity_w = result.total_capacity_w
   const W_comp = input.compressor_power_w ?? 0
   const W_fans = input.fans_total_power_w ?? 0
-  const raw_cop_system = W_comp + W_fans > 0
-    ? raw_capacity_w / (W_comp + W_fans)
+  const cop_system = W_comp + W_fans > 0
+    ? capacity_w / (W_comp + W_fans)
     : undefined
-
-  // Aplica C_rich(ΔT) — fator de calibração interpolado pela força motriz
-  const delta_T_c = input.T_air_in_db_c - input.Te_c
-  const { capacity_w, cop_system } = applyCalibration(
-    raw_capacity_w,
-    raw_cop_system,
-    input.geometry_code,
-    delta_T_c,
-  )
 
   return {
     capacity_w,

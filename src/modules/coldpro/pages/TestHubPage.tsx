@@ -13,7 +13,7 @@ import {
   AlertCircle, CheckCircle2, Clock, Zap, Brain,
   FileText, Wind, Shield, Target, GitCompare, BarChart2,
   Gauge, FlaskConical, Play, Loader2, LayoutDashboard, ClipboardCheck,
-  ShieldCheck, BookOpen, Database,
+  ShieldCheck, BookOpen, Database, Crosshair,
 } from "lucide-react";
 import { HubConfigSidebar } from "../components/HubConfigSidebar";
 import { useHubStoreSync } from "../hooks/useHubStoreSync";
@@ -43,6 +43,7 @@ import { MachineValidationTabContent } from "./hub-tabs/MachineValidationTabCont
 import { CatalogDataSheetTabContent } from "./hub-tabs/CatalogDataSheetTabContent";
 import { SensitivityAnalysisTabContent } from "./hub-tabs/SensitivityAnalysisTabContent";
 import { RevisionsTabContent } from "./hub-tabs/RevisionsTabContent";
+import { GoalSeekingTabContent } from "./hub-tabs/GoalSeekingTabContent";
 
 import { useCatalogSessionStore } from "@/modules/coldpro_catalog/store/useCatalogSessionStore";
 import { useCoilEnvelopeStore } from "@/modules/cn_coils/store/useCoilEnvelopeStore";
@@ -61,7 +62,8 @@ type TabId =
   | "montecarlo" | "polynomial" | "autoopt" | "envelope" | "energy" | "fancoil"
   | "sanity" | "bottleneck" | "scenarios" | "frost" | "comparison"
   | "startup" | "ai" | "report"
-  | "eletrico" | "machine-validation" | "catalog-datasheet" | "sensitivity" | "revisions";
+  | "eletrico" | "machine-validation" | "catalog-datasheet" | "sensitivity" | "revisions"
+  | "goalseek";
 
 interface TabDef {
   id: TabId;
@@ -97,6 +99,7 @@ const TABS: TabDef[] = [
   { id: "catalog-datasheet", label: "Data Sheet", icon: Database, description: "Registro técnico completo do produto com curva de desempenho e exportação PDF", group: "diagnosis" },
   { id: "sensitivity", label: "Sensibilidade", icon: Activity, description: "Análise de sensibilidade: impacto de ΔTe e ΔTc na capacidade e COP (EN12900)", group: "diagnosis" },
   { id: "revisions", label: "Revisões", icon: GitCompare, description: "Snapshots de configuração com diff entre revisões — controle de versão local sem banco de dados", group: "config" },
+  { id: "goalseek", label: "Objetivo", icon: Crosshair, description: "Encontra automaticamente Te ou velocidade para atingir uma capacidade alvo (bissecção)", group: "advanced" },
 ];
 
 const GROUP_LABELS: Record<string, string> = {
@@ -399,6 +402,9 @@ export function TestHubPage() {
         </TabsContent>
         <TabsContent value="revisions" className="mt-0">
           <RevisionsTabContent />
+        </TabsContent>
+        <TabsContent value="goalseek" className="mt-0">
+          <GoalSeekingTabContent />
         </TabsContent>
             </Tabs>
           </div>

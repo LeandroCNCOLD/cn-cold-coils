@@ -623,6 +623,8 @@ export interface ProgressiveCoilInput {
   operation_time_h?: number;
   /** Ativa modelo de gelo dinâmico (iceModel.ts). Padrão: false */
   use_ice_model?: boolean;
+  /** Código do modelo para busca de C_rich(ΔT). Se fornecido, aplica calibração na saída. */
+  model_code?: string;
 }
 
 export interface RollResult {
@@ -670,6 +672,8 @@ export interface ProgressiveCoilResult {
   enthalpy_out_j_kg: number;
   estimated_time_to_defrost_h: number | null;
   energy_balance_error_pct: number;
+  /** Fator de calibração aplicado. 1.0 se sem model_code ou modelo desconhecido. */
+  C_rich?: number;
 }
 
 export interface OperationalOrchestratorInput {
