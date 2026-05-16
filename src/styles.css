@@ -1,20 +1,61 @@
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
+@import "./design-system/cncold-tokens.css";
 
 @custom-variant dark (&:is(.dark *));
 
 /*
- * CNCold Engenharia — Design System
+ * CNCold Engenharia — Design System v2
  *
- * Paleta azul/gelo da marca com suporte a modo claro/escuro.
+ * Paleta azul/gelo da marca (Industrial Bold · Azul Frio + Dark).
+ * Fontes: Barlow Condensed (display) + Barlow (body) + JetBrains Mono (dados).
  * Os tokens semânticos abaixo são cores CSS completas porque o projeto usa
  * Tailwind CSS v4 com @theme apontando direto para var(--token).
  */
 
 @theme inline {
-  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
-  --font-display: "Sora", system-ui, -apple-system, sans-serif;
+  /* CN COLD fonts — Barlow family */
+  --font-sans:    "Barlow", system-ui, -apple-system, sans-serif;
+  --font-display: "Barlow Condensed", system-ui, sans-serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, monospace;
+  --font-body:    "Barlow", system-ui, -apple-system, sans-serif;
+
+  /* Ice color tokens (from cncold-tokens.css) mapped for Tailwind utilities */
+  --color-ice-50:  var(--ice-50);
+  --color-ice-100: var(--ice-100);
+  --color-ice-200: var(--ice-200);
+  --color-ice-300: var(--ice-300);
+  --color-ice-400: var(--ice-400);
+  --color-ice-500: var(--ice-500);
+  --color-ice-600: var(--ice-600);
+  --color-ice-700: var(--ice-700);
+  --color-ice-800: var(--ice-800);
+  --color-ice-900: var(--ice-900);
+
+  /* CN COLD semantic colors */
+  --color-cn-success: var(--color-success-cn, #10B981);
+  --color-cn-warning: var(--color-warning-cn, #F59E0B);
+  --color-cn-danger:  var(--color-danger-cn, #EF4444);
+  --color-cn-agro:    var(--color-agro, #10B981);
+
+  /* Bg tokens */
+  --color-bg-base:  var(--bg-base);
+  --color-bg-900:   var(--bg-900);
+  --color-bg-800:   var(--bg-800);
+  --color-bg-700:   var(--bg-700);
+  --color-bg-600:   var(--bg-600);
+
+  /* CN COLD animations */
+  --animate-fade-up:    cn-fade-up 0.3s ease both;
+  --animate-pulse-glow: cn-pulse-glow 2s infinite;
+  --animate-blink:      cn-blink 1.5s infinite;
+
+  /* Font sizes */
+  --text-9:  0.5625rem;
+  --text-10: 0.625rem;
+  --text-11: 0.6875rem;
+  --text-13: 0.8125rem;
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
