@@ -111,7 +111,14 @@ import type { CycleResult, CycleSystemConfig } from "../engines/cycle/cycleTypes
 import type { CoilCycleInputs, CoilCycleResult } from "../engines/coil/coilCycleAdapter";
 
 // ── Refrigerantes ────────────────────────────────────────────────────────────
-const REFRIGERANT_OPTIONS = ["R404A", "R22", "R134a", "R410A", "R507", "R448A", "R449A"];
+const REFRIGERANT_OPTIONS = [
+  // HFCs tradicionais
+  "R404A", "R22", "R134a", "R410A", "R507A", "R448A", "R449A", "R407C",
+  // HFO — baixo GWP (substitutos obrigatórios UE F-Gas 2024)
+  "R1234yf", "R1234ze(E)", "R32",
+  // Naturais
+  "R290", "R744",
+];
 
 type CalcMode = "verify" | "design";
 type EngineMode = "v1" | "v2";

@@ -175,9 +175,11 @@ export async function computeMonteCarlo(
   const warnings: string[] = [];
   const rng = new LCGRandom(42);
 
-  // Valores nominais
+  // Valores nominais — C1: COP = Q / (W_comp + W_fans) conforme ASHRAE
   const Q_nom = compressor.cooling_capacity_w ?? 5000;
-  const W_nom = compressor.power_w ?? Q_nom / 2.5;
+  const W_comp_nom = compressor.power_w ?? Q_nom / 2.5;
+  const W_fans_nom = (compressor as Record<string, number>).evap_fan_power_w ?? 0;
+  const W_nom = W_comp_nom + W_fans_nom;
   const COP_nom = W_nom > 0 ? Q_nom / W_nom : 2.5;
   const EER_nom = COP_nom * 3.41214;
   const dP_nom = 50; // Pa — queda de pressão nominal estimada
@@ -223,7 +225,9 @@ export async function computeMonteCarlo(
 
     const U_sample = clamp(U_nom * f_U, U_nom * 0.3, U_nom * 2.0);
     const Q_sample = clamp(Q_nom * f_Q_comp * (U_sample / U_nom) ** 0.6, Q_nom * 0.4, Q_nom * 2.0);
-    const W_sample = clamp(W_nom * f_W_comp, W_nom * 0.5, W_nom * 1.8);
+    // W_sample inclui compressor + fans (C1: COP = Q / W_total)
+    const W_comp_sample = clamp(W_comp_nom * f_W_comp, W_comp_nom * 0.5, W_comp_nom * 1.8);
+    const W_sample = W_comp_sample + W_fans_nom;
     const COP_sample = W_sample > 0 ? Q_sample / W_sample : COP_nom;
     const EER_sample = COP_sample * 3.41214;
     // Queda de pressão: proporcional a f_h_air^(1/0.6) (Wang 2000: j ~ Re^-0.4)
@@ -630,13 +634,16 @@ export async function computeAIAnalysis(
 
   const Q_comp = compressor.cooling_capacity_w ?? 0;
   const W_comp = compressor.power_w ?? Q_comp / 2.5;
+  // C1: COP = Q / (W_comp + W_fans) — inclui potência dos ventiladores
+  const W_fans_ai = (compressor as Record<string, number>).evap_fan_power_w ?? 0;
+  const W_total_ai = W_comp + W_fans_ai;
   const Q_cond = condenser.heat_rejection_capacity_w ?? 0;
   const Te = compressor.evap_temp_c ?? evaporator.T_evaporating_c ?? -10;
   const Tc = compressor.cond_temp_c ?? 40;
   const T_amb = conditions.ambient_temp_c ?? 35;
   // COP: prioriza ciclo P-H (mais preciso), senão calcula dos dados nominais do compressor
   const COP_ph = phResult?.COP ?? 0;
-  const COP_nom_raw = W_comp > 0 ? Q_comp / W_comp : 0;
+  const COP_nom_raw = W_total_ai > 0 ? Q_comp / W_total_ai : 0;
   const COP_nom = COP_ph > 0 ? COP_ph : COP_nom_raw;
   // Só avalia eficiência se há dados reais (capacidade configurada)
   const has_cop_data = Q_comp > 0 && (COP_ph > 0 || W_comp > 0);

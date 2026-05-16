@@ -1,6 +1,7 @@
 import type { ProgressiveCoilInput, ProgressiveCoilResult, RollResult } from "../../domain/types";
 import { saturationPressure, humidityRatio, dewPoint } from "../psychrometrics/psychrometricCore";
 import { calculateIceAccumulation } from "../defrost/iceModel";
+import { applyCalibration } from "../calibration/coilCalibrationFactors";
 
 const MU_AIR = 1.846e-5;
 const CP_AIR = 1006;
@@ -221,14 +222,21 @@ export function calculateProgressiveCoil(input: ProgressiveCoilInput): Progressi
   if (totalCap <= 0) status = "error";
   else if (warnings.length > 0) status = "warning";
 
+  // Aplica C_rich(ΔT) se model_code fornecido — calibra superestimativa do engine Wang
+  const delta_T_c = input.air_temperature_in_c - input.T_evaporating_c;
+  const { capacity_w: calibratedCap, C_rich } = applyCalibration(
+    totalCap, undefined, input.model_code, delta_T_c,
+  );
+
   return {
     status, warnings, rolls: rollResults,
-    total_capacity_w: totalCap, total_air_pressure_drop_pa: totalDP,
+    total_capacity_w: calibratedCap, total_air_pressure_drop_pa: totalDP,
     total_condensation_rate_kg_s: totalCond,
     air_temperature_out_c: last.air_temperature_out_c,
     air_relative_humidity_out: last.air_relative_humidity_out,
     W_out_kg_kg: last.W_out_kg_kg, enthalpy_out_j_kg: last.enthalpy_out_j_kg,
     estimated_time_to_defrost_h: estimatedDefrost, energy_balance_error_pct: energyError,
+    C_rich,
   };
 }
 

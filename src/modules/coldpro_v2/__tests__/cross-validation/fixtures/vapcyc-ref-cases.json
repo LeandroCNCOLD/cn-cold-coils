@@ -1,0 +1,165 @@
+[
+  {
+    "id": "CATALOG-CN750LT-001",
+    "description": "CN_750_LT · 4BES-9Y · R404A · Te=-22.2°C · Tc=54.2°C — ponto nominal do catálogo CN COLD",
+    "source": "physical",
+    "version": "Catálogo CN COLD Rev.2026",
+    "date": "2026-05-16",
+    "notes": "Dados reais do catálogo (equipmentCatalog.raw.ts linha 12180). Capacidade: 7380 kcal/h × 1.163 = 8583 W. COP_sistema = 8583 / (8070 + 1400) = 0.907. NÃO é placeholder.",
+    "input": {
+      "geometry_code": "CN_750_LT_EVAP",
+      "tube_outer_diameter_m": 0.0127,
+      "tube_pitch_transverse_m": 0.027,
+      "tube_pitch_longitudinal_m": 0.0315,
+      "fin_pitch_m": 0.007,
+      "fin_thickness_m": 0.0001,
+      "n_rows": 4,
+      "n_tubes_per_row": 20,
+      "n_circuits": 5,
+      "coil_length_m": 1.025,
+      "Te_c": -22.2,
+      "Tc_c": 54.2,
+      "T_air_in_db_c": -12.0,
+      "RH_air_in": 0.85,
+      "air_velocity_ms": 3.74,
+      "refrigerant": "R404A",
+      "superheat_k": 8.0,
+      "subcooling_k": 3.0,
+      "compressor_power_w": 8070,
+      "fans_total_power_w": 1400
+    },
+    "reference": {
+      "capacity_w": 8583,
+      "cop_system": 0.907
+    }
+  },
+  {
+    "id": "CATALOG-CN750LT-002",
+    "description": "CN_750_LT · R404A · Te=-18°C · Tc=48°C — operação leve (menor carga, primavera/outono)",
+    "source": "physical",
+    "version": "Catálogo CN COLD — extrapolação ε-NTU do ponto nominal",
+    "date": "2026-05-16",
+    "notes": "Ponto off-design via ε-NTU. ε=0.299, NTU=0.355 derivados do ponto nominal (catálogo). ΔT=6°C. Mesma geometria CN_750_LT.",
+    "input": {
+      "geometry_code": "CN_750_LT_EVAP",
+      "tube_outer_diameter_m": 0.0127,
+      "tube_pitch_transverse_m": 0.027,
+      "tube_pitch_longitudinal_m": 0.0315,
+      "fin_pitch_m": 0.007,
+      "fin_thickness_m": 0.0001,
+      "n_rows": 4,
+      "n_tubes_per_row": 20,
+      "n_circuits": 5,
+      "coil_length_m": 1.025,
+      "Te_c": -18.0,
+      "Tc_c": 48.0,
+      "T_air_in_db_c": -12.0,
+      "RH_air_in": 0.85,
+      "air_velocity_ms": 3.74,
+      "refrigerant": "R404A",
+      "superheat_k": 8.0,
+      "subcooling_k": 3.0
+    },
+    "reference": {
+      "capacity_w": 5049
+    }
+  },
+  {
+    "id": "CATALOG-CN750LT-003",
+    "description": "CN_750_LT · R404A · Te=-26°C · Tc=58°C — pico de verão (maior força motriz)",
+    "source": "physical",
+    "version": "Catálogo CN COLD — extrapolação ε-NTU do ponto nominal",
+    "date": "2026-05-16",
+    "notes": "Ponto off-design via ε-NTU. ΔT=14°C. Capacidade estimada maior que nominal. Mesma geometria CN_750_LT.",
+    "input": {
+      "geometry_code": "CN_750_LT_EVAP",
+      "tube_outer_diameter_m": 0.0127,
+      "tube_pitch_transverse_m": 0.027,
+      "tube_pitch_longitudinal_m": 0.0315,
+      "fin_pitch_m": 0.007,
+      "fin_thickness_m": 0.0001,
+      "n_rows": 4,
+      "n_tubes_per_row": 20,
+      "n_circuits": 5,
+      "coil_length_m": 1.025,
+      "Te_c": -26.0,
+      "Tc_c": 58.0,
+      "T_air_in_db_c": -12.0,
+      "RH_air_in": 0.85,
+      "air_velocity_ms": 3.74,
+      "refrigerant": "R404A",
+      "superheat_k": 8.0,
+      "subcooling_k": 3.0
+    },
+    "reference": {
+      "capacity_w": 11781
+    }
+  },
+  {
+    "id": "CATALOG-COND-CN750LT-001",
+    "description": "CN_750_LT · Condensador · 22×25.4mm · Ø3/8\" · 4R × 20T × 1115mm — calor rejeitado catálogo",
+    "source": "physical",
+    "version": "Catálogo CN COLD Rev.2026",
+    "date": "2026-05-16",
+    "notes": "Geometria real do condensador CN_750_LT. Calor rejeitado: 14445 kcal/h × 1.163 = 16799 W. TODO: implementar adaptador condensador no test adapter.",
+    "input": {
+      "geometry_code": "CN_750_LT_COND",
+      "tube_outer_diameter_m": 0.009525,
+      "tube_pitch_transverse_m": 0.022,
+      "tube_pitch_longitudinal_m": 0.0254,
+      "fin_pitch_m": 0.0021,
+      "fin_thickness_m": 0.0001,
+      "n_rows": 4,
+      "n_tubes_per_row": 20,
+      "n_circuits": 8,
+      "coil_length_m": 1.115,
+      "Te_c": -22.2,
+      "Tc_c": 54.2,
+      "T_air_in_db_c": 40.0,
+      "RH_air_in": 0.75,
+      "air_velocity_ms": 3.42,
+      "refrigerant": "R404A",
+      "superheat_k": 8.0,
+      "subcooling_k": 3.0,
+      "compressor_power_w": 8070,
+      "fans_total_power_w": 1400
+    },
+    "reference": {
+      "capacity_w": 16799
+    }
+  },
+  {
+    "id": "CATALOG-COP-SYSTEM-CN750LT",
+    "description": "COP Sistema CN_750_LT — valida Q/(W_comp+W_fans) vs Q/W_comp (Bug C1)",
+    "source": "physical",
+    "version": "Catálogo CN COLD Rev.2026",
+    "date": "2026-05-16",
+    "notes": "COP_compressor do catálogo = 1.063. COP_sistema = 8583/(8070+1400) = 0.907. Valida que W_fans está incluído no denominador.",
+    "input": {
+      "geometry_code": "CN_750_LT_EVAP",
+      "tube_outer_diameter_m": 0.0127,
+      "tube_pitch_transverse_m": 0.027,
+      "tube_pitch_longitudinal_m": 0.0315,
+      "fin_pitch_m": 0.007,
+      "fin_thickness_m": 0.0001,
+      "n_rows": 4,
+      "n_tubes_per_row": 20,
+      "n_circuits": 5,
+      "coil_length_m": 1.025,
+      "Te_c": -22.2,
+      "Tc_c": 54.2,
+      "T_air_in_db_c": -12.0,
+      "RH_air_in": 0.85,
+      "air_velocity_ms": 3.74,
+      "refrigerant": "R404A",
+      "superheat_k": 8.0,
+      "subcooling_k": 3.0,
+      "compressor_power_w": 8070,
+      "fans_total_power_w": 1400
+    },
+    "reference": {
+      "capacity_w": 8583,
+      "cop_system": 0.907
+    }
+  }
+]
