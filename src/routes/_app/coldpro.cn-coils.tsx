@@ -8,7 +8,7 @@ export const Route = createFileRoute("/_app/coldpro/cn-coils")({
 function CnCoilsLayout() {
   const matches = useMatches();
   const hasChild = matches.some(
-    (m) => m.routeId === "/_app/coldpro/cncoils/workspace",
+    (m) => m.routeId === "/_app/coldpro/cn-coils/workspace",
   );
   return hasChild ? <Outlet /> : <CnCoilsDashboardPage />;
 }
