@@ -23,11 +23,12 @@ import {
   ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine,
 } from "recharts";
 
-import { calculateHotGasBypass, calculateReheatCoilSizing } from "@/modules/coldpro_v2";
+import { calculateAgroWorkspace } from "@/modules/coldpro_v2/engines/agro/agroWorkspaceEngine";
+import { calculateReheatCoilSizing } from "@/modules/coldpro_v2";
 import {
   humidityRatio, enthalpyMoistAir, dewPoint, saturationPressure,
 } from "@/modules/coldpro_v2/engines/psychrometrics/psychrometricCore";
-import type { HotGasBypassInput, HotGasBypassResult, ReheatCoilSizingInput, ReheatCoilSizingResult } from "@/modules/coldpro_v2/domain/types";
+import type { HotGasBypassResult, ReheatCoilSizingInput, ReheatCoilSizingResult, AgroWorkspaceResult } from "@/modules/coldpro_v2/domain/types";
 import { useTestHubStore } from "../stores/useTestHubStore";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -213,36 +214,44 @@ function CamaraTab({ s, u }: { s: WorkspaceState; u: (k: keyof WorkspaceState, v
 // ─────────────────────────────────────────────────────────────────────────────
 // Tab: Ciclo AGRO (A3)
 // ─────────────────────────────────────────────────────────────────────────────
-function CicloTab({ s, u, onSendToHub }: {
+function CicloTab({ s, u, onSendToHub, onCalculate }: {
   s: WorkspaceState;
   u: (k: keyof WorkspaceState, v: number) => void;
   onSendToHub: (r: HotGasBypassResult) => void;
+  onCalculate?: (workspace: AgroWorkspaceResult) => void;
 }) {
-  const [result, setResult] = useState<HotGasBypassResult | null>(null);
+  const [workspace, setWorkspace] = useState<AgroWorkspaceResult | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const result = workspace?.hot_gas_bypass ?? null;
 
   function handleCalc() {
     setError(null);
     try {
-      const input: HotGasBypassInput = {
-        T_air_in_c: s.T_room_c,
-        RH_air_in: s.RH_room_pct / 100,
-        T_air_out_setpoint_c: s.T_supply_c,
-        RH_air_out_setpoint: s.RH_target_pct / 100,
-        air_mass_flow_kg_s: s.air_mass_flow_kg_s,
-        T_evaporating_c: s.T_evaporating_c,
-        T_condensing_c: s.T_condensing_c,
+      const ws = calculateAgroWorkspace({
+        agro_cycle: {
+          T_room_c:           s.T_room_c,
+          RH_room:            s.RH_room_pct / 100,
+          T_setpoint_c:       s.T_supply_c,
+          RH_setpoint:        s.RH_target_pct / 100,
+          air_mass_flow_kg_s: s.air_mass_flow_kg_s,
+          P_atm:              s.P_atm,
+        },
+        T_evaporating_c:    s.T_evaporating_c,
+        T_condensing_c:     s.T_condensing_c,
         max_bypass_fraction: s.max_bypass_fraction,
-        P_atm: s.P_atm,
-      };
-      setResult(calculateHotGasBypass(input));
+      });
+      setWorkspace(ws);
+      onCalculate?.(ws);
     } catch (e) {
       setError(String(e));
-      setResult(null);
+      setWorkspace(null);
     }
   }
 
-  const mode = result ? modeBadge(result.mode) : null;
+  const recommended = workspace?.recommended_mode;
+  const mode = recommended
+    ? modeBadge(recommended as HotGasBypassResult["mode"])
+    : result ? modeBadge(result.mode) : null;
   const rhExceeds = result && result.RH_air_out * 100 > s.RH_target_pct + 5;
 
   return (
@@ -664,6 +673,10 @@ export function AgroWorkspacePage() {
   const navigate = useNavigate();
   const setConditions = useTestHubStore((s) => s.setConditions);
 
+  function handleCalculate(ws: AgroWorkspaceResult) {
+    if (ws.hot_gas_bypass) setCycleResult(ws.hot_gas_bypass);
+  }
+
   function u(k: keyof WorkspaceState, v: number) {
     setS((prev) => ({ ...prev, [k]: v }));
   }
@@ -694,7 +707,7 @@ export function AgroWorkspacePage() {
         </div>
         <p className="mt-1 text-xs" style={{ color: "var(--text-muted)" }}>
           Câmara agrícola com controle simultâneo de temperatura e umidade via gás quente.
-          Engines: calculateHotGasBypass + calculateReheatCoilSizing (coldpro_v2).
+          Engine: calculateAgroWorkspace (orquestrador coldpro_v2 — detecta modo automaticamente).
         </p>
       </div>
 
@@ -719,7 +732,7 @@ export function AgroWorkspacePage() {
 
       <div className="mt-2">
         {activeTab === "camara"       && <CamaraTab s={s} u={u} />}
-        {activeTab === "ciclo"        && <CicloTab s={s} u={u} onSendToHub={handleSendToHub} />}
+        {activeTab === "ciclo"        && <CicloTab s={s} u={u} onSendToHub={handleSendToHub} onCalculate={handleCalculate} />}
         {activeTab === "aletado"      && <AletadoTab s={s} u={u} qReheatW={cycleResult?.Q_reheat_w ?? 0} />}
         {activeTab === "psicrometria" && <PsicrometriaTab s={s} />}
         {activeTab === "condensador"  && <CondensadorTab s={s} cycleResult={cycleResult} />}
