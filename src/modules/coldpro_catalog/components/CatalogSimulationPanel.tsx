@@ -17,6 +17,7 @@ import type { CatalogEquipmentRow } from "../data/equipmentCatalog.types";
 const REFRIGERANT_OPTIONS = [
   "R404A", "R507A", "R134a", "R22", "R410A",
   "R448A", "R449A", "R452A", "R290", "R32", "R717", "R744",
+  "R1234yf", "R1234ze(E)",
 ];
 
 export interface SimulationParams {
