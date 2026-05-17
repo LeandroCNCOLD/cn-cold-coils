@@ -811,6 +811,42 @@ export type Database = {
         }
         Relationships: []
       }
+      validation_results: {
+        Row: {
+          id: string
+          catalog_model_id: string | null
+          validated_at: string
+          overall_status: string
+          score_pct: number
+          criteria: Json
+          engine_version: string | null
+          inputs_snapshot: Json | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          catalog_model_id?: string | null
+          validated_at: string
+          overall_status: string
+          score_pct: number
+          criteria: Json
+          engine_version?: string | null
+          inputs_snapshot?: Json | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          catalog_model_id?: string | null
+          validated_at?: string
+          overall_status?: string
+          score_pct?: number
+          criteria?: Json
+          engine_version?: string | null
+          inputs_snapshot?: Json | null
+          created_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

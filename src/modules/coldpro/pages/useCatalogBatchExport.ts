@@ -10,6 +10,7 @@ import { filterCatalog } from "@/modules/coldpro_catalog/services/catalogFilterS
 import type { CatalogEquipmentRow } from "@/modules/coldpro_catalog/data/equipmentCatalog.types";
 import type { TemperatureApplication, Refrigerant } from "@/modules/coldpro_catalog/data/equipmentCatalog.types";
 import { buildSheetFromRow, downloadDatasheetPdf } from "../utils/datasheetPdfGenerator";
+import { supabase } from "@/integrations/supabase/client";
 
 export interface BatchFilters {
   application: TemperatureApplication | "all";
@@ -36,8 +37,15 @@ function sleep(ms: number) {
   return new Promise<void>((r) => setTimeout(r, ms));
 }
 
+// Modelos com configuração completa — exclui aliases base sem compressor
+function getExportableModels() {
+  return getEquipmentCatalog().filter(
+    (m) => m.family !== "plugin" || !!m.compressorModelo,
+  );
+}
+
 export function useCatalogBatchExport() {
-  const models  = useMemo(() => getEquipmentCatalog(), []);
+  const models  = useMemo(() => getExportableModels(), []);
 
   const [filters, setFiltersState] = useState<BatchFilters>(DEFAULT_FILTERS);
   const [selected, setSelected]    = useState<Set<string>>(new Set());
@@ -97,16 +105,36 @@ export function useCatalogBatchExport() {
       if (!row) continue;
 
       setQueue((prev) => ({ ...prev, current: id }));
+      let pass = false;
       try {
         const sheet = buildSheetFromRow(row);
         if (sheet) {
           downloadDatasheetPdf(sheet);
+          pass = true;
         } else {
           setQueue((prev) => ({ ...prev, errors: [...prev.errors, id] }));
         }
       } catch {
         setQueue((prev) => ({ ...prev, errors: [...prev.errors, id] }));
       }
+
+      // Persiste resultado no Supabase — falhas silenciosas (PDF já gerado)
+      supabase.from("validation_results").insert({
+        catalog_model_id: row.id,
+        validated_at: new Date().toISOString(),
+        overall_status: pass ? "PASS" : "FAIL",
+        score_pct: pass ? 100 : 0,
+        criteria: [
+          {
+            name: "data_sheet_gerado",
+            status: pass ? "PASS" : "FAIL",
+            expected: "PDF gerado sem erros",
+            calculated: pass ? "OK" : "Dados insuficientes",
+          },
+        ],
+        engine_version: "1.0",
+        inputs_snapshot: { model: row.modelo, family: row.family },
+      }).then(() => undefined, () => undefined);
 
       setQueue((prev) => ({ ...prev, done: prev.done + 1 }));
       await sleep(300);

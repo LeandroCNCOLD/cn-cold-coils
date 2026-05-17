@@ -11,7 +11,7 @@ const APPLICATIONS = ["all", "LT", "MT", "HT", "AGRO"] as const;
 
 export function CatalogBatchExportPage() {
   const {
-    filtered, selected, filters, queue, isExporting,
+    models, filtered, selected, filters, queue, isExporting,
     linhas, refrigerantes,
     toggleSelect, selectNone, selectFiltered,
     setFilter, startExport,
@@ -19,6 +19,7 @@ export function CatalogBatchExportPage() {
 
   const selCount = selected.size;
   const progress = queue.total > 0 ? (queue.done / queue.total) * 100 : 0;
+  const totalExcluded = 480 - models.length;
 
   return (
     <div className="flex h-full min-h-0 gap-0" style={{ background: "var(--bg-900)" }}>
@@ -33,6 +34,9 @@ export function CatalogBatchExportPage() {
           </h1>
           <p className="mt-0.5 text-[11px]" style={{ color: "var(--text-muted)" }}>
             {filtered.length} modelos filtrados · {selCount} selecionados
+          </p>
+          <p className="mt-0.5 text-[10px]" style={{ color: "var(--text-muted)", opacity: 0.7 }}>
+            {models.length} com configuração completa · {totalExcluded} modelos base excluídos
           </p>
         </div>
 
