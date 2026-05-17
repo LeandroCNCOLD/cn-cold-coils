@@ -10,6 +10,7 @@ import { useGoalSeeking, type SearchVariable } from './useGoalSeeking'
 
 const SEARCH_VARS: Array<{ value: SearchVariable; label: string; unit: string; range: [number, number] }> = [
   { value: 'te_c',            label: 'Temperatura de evaporação (Te)',  unit: '°C',  range: [-45, -5]  },
+  { value: 'tc_c',            label: 'Temperatura de condensação (Tc)', unit: '°C',  range: [20, 60]   },
   { value: 'air_velocity_ms', label: 'Velocidade do ar',               unit: 'm/s', range: [1.0, 8.0] },
 ]
 

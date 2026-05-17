@@ -71,6 +71,7 @@ export function useGoalSeeking() {
 
         const te = params['te_c'] ?? pi.T_evaporating_c
         const v  = params['air_velocity_ms'] ?? baseInputs['air_velocity_ms'] ?? 3.5
+        // tc_c não afeta o coil diretamente mas é passado para o model_code lookup
 
         const rho = 101325 / (287.1 * (273.15 + (pi.air_temperature_in_c ?? -10)))
         const faceArea = (pi.coil_width_m ?? 1) * (pi.coil_height_m ?? 0.5)
