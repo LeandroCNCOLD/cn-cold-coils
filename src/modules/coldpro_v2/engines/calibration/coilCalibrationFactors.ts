@@ -44,27 +44,62 @@ export interface CalibrationEntry {
 // ─── DADOS DE CALIBRAÇÃO ──────────────────────────────────────────
 
 export const COIL_CALIBRATION_ENTRIES: CalibrationEntry[] = [
+  // ── Modelos específicos (precedência sobre fallbacks de família) ──────────
   {
     model_id: 'CN_750_LT',
     date:     '2026-05-16',
     points: [
       {
-        // Âncora física: ΔT=0 → sem geada → engine correto → C_rich=1.0
         delta_T_c: 0,
         C_rich:    1.0,
         source:    'catalog',
         notes:     'Âncora física. ΔT=0 implica sem troca térmica e sem geada.',
       },
       {
-        // Ponto nominal real do catálogo CN COLD 2026:
-        // Q_catalogo = 7380 kcal/h × 1.163 = 8583 W
-        // Q_engine   = 9517 W  →  C_rich = 8583 / 9517 = 0.9019
-        // ΔT = T_camara − Te = −12 − (−22.2) = 10.2°C
+        // Q_catalogo=8583 W / Q_engine=9517 W → C_rich=0.902; ΔT=10.2°C
         delta_T_c: 10.2,
         C_rich:    0.902,
         source:    'catalog',
         notes:     'CN_750_LT nominal. Catálogo: 8583 W. Engine: 9517 W. Desvio: +10.88%.',
       },
+    ],
+  },
+
+  // ── Fallbacks de família — derivados do catálogo (slope Wang: −0.00961/K) ─
+  // Método: C_rich(ΔT) = 1.0 − 0.00961 × ΔT (âncora ΔT=0 → 1.0)
+  // ΔT_avg catálogo CN COLD 2026: LT=9.7°C, MT=9.6°C, HT=9.5°C, AGRO=16.2°C
+  {
+    model_id: '_LT_',
+    date:     '2026-05-17',
+    points: [
+      { delta_T_c: 0,    C_rich: 1.000, source: 'catalog', notes: 'Âncora física.' },
+      { delta_T_c: 9.7,  C_rich: 0.907, source: 'catalog', notes: 'LT nominal catálogo. Slope Wang −0.00961/K.' },
+      { delta_T_c: 15.0, C_rich: 0.856, source: 'catalog', notes: 'LT extrapolado alta geada.' },
+    ],
+  },
+  {
+    model_id: '_MT_',
+    date:     '2026-05-17',
+    points: [
+      { delta_T_c: 0,    C_rich: 1.000, source: 'catalog', notes: 'Âncora física.' },
+      { delta_T_c: 9.6,  C_rich: 0.908, source: 'catalog', notes: 'MT nominal catálogo. Slope Wang −0.00961/K.' },
+    ],
+  },
+  {
+    model_id: '_HT_',
+    date:     '2026-05-17',
+    points: [
+      { delta_T_c: 0,    C_rich: 1.000, source: 'catalog', notes: 'Âncora física.' },
+      { delta_T_c: 9.5,  C_rich: 0.909, source: 'catalog', notes: 'HT nominal catálogo. Slope Wang −0.00961/K.' },
+    ],
+  },
+  {
+    model_id: '_AGRO_',
+    date:     '2026-05-17',
+    points: [
+      { delta_T_c: 0,    C_rich: 1.000, source: 'catalog', notes: 'Âncora física.' },
+      { delta_T_c: 16.2, C_rich: 0.844, source: 'catalog', notes: 'AGRO nominal catálogo. ΔT alto por câmara quente.' },
+      { delta_T_c: 20.0, C_rich: 0.808, source: 'catalog', notes: 'AGRO extrapolado.' },
     ],
   },
 ]
