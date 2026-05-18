@@ -273,15 +273,20 @@ export function calculateProgressiveCoil(input: ProgressiveCoilInput): Progressi
     totalCap * unilabFactor, undefined, input.model_code, delta_T_c,
   );
 
+  // Fator de segurança de projeto (P3 auditoria UNILAB) — multiplicado após C_rich
+  const sf = Math.max(0.05, Math.min(1.95, input.security_factor ?? 1.0));
+  const finalCap = calibratedCap * sf;
+
   return {
     status, warnings, rolls: rollResults,
-    total_capacity_w: calibratedCap, total_air_pressure_drop_pa: totalDP,
+    total_capacity_w: finalCap, total_air_pressure_drop_pa: totalDP,
     total_condensation_rate_kg_s: totalCond,
     air_temperature_out_c: last.air_temperature_out_c,
     air_relative_humidity_out: last.air_relative_humidity_out,
     W_out_kg_kg: last.W_out_kg_kg, enthalpy_out_j_kg: last.enthalpy_out_j_kg,
     estimated_time_to_defrost_h: estimatedDefrost, energy_balance_error_pct: energyError,
     C_rich, unilab_correction_factor: unilabFactor, unilab_serie_used: unilabSerieUsed,
+    security_factor_applied: sf,
   };
 }
 

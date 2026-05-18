@@ -70,36 +70,35 @@ export const COIL_CALIBRATION_ENTRIES: CalibrationEntry[] = [
   // ΔT_avg catálogo CN COLD 2026: LT=9.7°C, MT=9.6°C, HT=9.5°C, AGRO=16.2°C
   {
     model_id: '_LT_',
-    date:     '2026-05-17',
+    date:     '2026-05-18',
     points: [
       { delta_T_c: 0,    C_rich: 1.000, source: 'catalog', notes: 'Âncora física.' },
-      { delta_T_c: 9.7,  C_rich: 0.907, source: 'catalog', notes: 'LT nominal catálogo. Slope Wang −0.00961/K.' },
-      { delta_T_c: 15.0, C_rich: 0.856, source: 'catalog', notes: 'LT extrapolado alta geada.' },
+      { delta_T_c: 9.7,  C_rich: 0.882, source: 'catalog', notes: 'LT nominal catálogo. Recalibrado com NTU-ε entálpico ativo (2026-05-18). n=126 modelos, C_rich médio global=0.879.' },
+      { delta_T_c: 15.0, C_rich: 0.836, source: 'catalog', notes: 'LT extrapolado alta geada (slope ~−0.00878/K medido no lote NTU-ε).' },
     ],
   },
   {
     model_id: '_MT_',
-    date:     '2026-05-17',
+    date:     '2026-05-18',
     points: [
       { delta_T_c: 0,    C_rich: 1.000, source: 'catalog', notes: 'Âncora física.' },
-      { delta_T_c: 9.6,  C_rich: 0.908, source: 'catalog', notes: 'MT nominal catálogo. Slope Wang −0.00961/K.' },
+      { delta_T_c: 9.6,  C_rich: 1.000, source: 'catalog', notes: 'MT: engine subestima catálogo em ~49% com NTU-ε (C_rich_bruto=1.49). Gap atribuído à geada real e circuitos não modelados. Calibração pendente — investigar geometria de circuitos.' },
     ],
   },
   {
     model_id: '_HT_',
-    date:     '2026-05-17',
+    date:     '2026-05-18',
     points: [
       { delta_T_c: 0,    C_rich: 1.000, source: 'catalog', notes: 'Âncora física.' },
-      { delta_T_c: 9.5,  C_rich: 0.909, source: 'catalog', notes: 'HT nominal catálogo. Slope Wang −0.00961/K.' },
+      { delta_T_c: 9.5,  C_rich: 1.000, source: 'catalog', notes: 'HT: engine subestima catálogo em ~66% com NTU-ε (C_rich_bruto=1.66). Calibração pendente — investigar geometria de circuitos.' },
     ],
   },
   {
     model_id: '_AGRO_',
-    date:     '2026-05-17',
+    date:     '2026-05-18',
     points: [
       { delta_T_c: 0,    C_rich: 1.000, source: 'catalog', notes: 'Âncora física.' },
-      { delta_T_c: 16.2, C_rich: 0.844, source: 'catalog', notes: 'AGRO nominal catálogo. ΔT alto por câmara quente.' },
-      { delta_T_c: 20.0, C_rich: 0.808, source: 'catalog', notes: 'AGRO extrapolado.' },
+      { delta_T_c: 16.2, C_rich: 1.000, source: 'catalog', notes: 'AGRO: engine subestima catálogo em ~120% com NTU-ε (C_rich_bruto=2.20). Calibração pendente — investigar geometria de circuitos.' },
     ],
   },
 ]

@@ -19,8 +19,23 @@ export interface ExtractedGeometry {
   tubeRows: number;
   tubesPerRow: number;
   circuitCount: number;
+  /**
+   * @deprecated Fator de correção para aletas de alumínio extraído do UNILAB.
+   * O progressiveCoilSolver já calcula condutividade por `fin_material: "aluminum" | "copper"`.
+   * Este campo nunca é lido por nenhum engine. Candidato à remoção em sprint futura.
+   */
   fatCorAl?: number;
+  /**
+   * @deprecated fatCoeflattub é sempre 1.0 em todas as 39 entradas do UNILAB.
+   * O campo foi extraído do UNILAB mas não tem variação real.
+   * Usar securityFactor diretamente se necessário como parâmetro de projeto.
+   */
   fatCoeflattub?: number;
+  /**
+   * @deprecated Fator de redução/aumento de superfície extraído do UNILAB.
+   * Nunca aplicado em nenhum cálculo de Q ou ΔP.
+   * Candidato à remoção em sprint futura.
+   */
   fatRidAumSup?: number;
   extractedAt: number; // UTC timestamp ms
 }
