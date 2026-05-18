@@ -1,1 +1,101 @@
-[]
+[
+  {
+    "id": "UNILAB-1263AD-V25",
+    "description": "Série 1263-A D · v=2.5 m/s — fator UNILAB ≈ 1.0045 (dentro da faixa nominal)",
+    "source": "vapcyc",
+    "version": "coilCorrectionCoefficients.json id=10",
+    "date": "2026-05-18",
+    "notes": "Fator verificado analiticamente: Σ coeffs[i]·2.5^i ≈ 1.004463. Capacidade deve ser ~0.45% maior que sem correção.",
+    "input": {
+      "geometry_code": "1263-A D",
+      "tube_outer_diameter_m": 0.0127,
+      "tube_pitch_transverse_m": 0.027,
+      "tube_pitch_longitudinal_m": 0.0315,
+      "fin_pitch_m": 0.0045,
+      "fin_thickness_m": 0.00012,
+      "n_rows": 3,
+      "n_tubes_per_row": 12,
+      "n_circuits": 6,
+      "coil_length_m": 1.0,
+      "Te_c": -10,
+      "Tc_c": 40,
+      "T_air_in_db_c": 2,
+      "RH_air_in": 0.85,
+      "air_velocity_ms": 2.5,
+      "refrigerant": "R404A",
+      "superheat_k": 8,
+      "subcooling_k": 3,
+      "unilab_serie": "1263-A D",
+      "apply_unilab_correction": true
+    },
+    "reference": {
+      "unilab_factor": 1.0045
+    }
+  },
+  {
+    "id": "UNILAB-1263AD-V30",
+    "description": "Série 1263-A D · v=3.0 m/s — fator UNILAB ≈ 0.9710 (redução de ~2.9%)",
+    "source": "vapcyc",
+    "version": "coilCorrectionCoefficients.json id=10",
+    "date": "2026-05-18",
+    "notes": "v=3.0 → factor≈0.9710. Capacidade com correção deve ser ~2.9% menor que sem correção.",
+    "input": {
+      "geometry_code": "1263-A D",
+      "tube_outer_diameter_m": 0.0127,
+      "tube_pitch_transverse_m": 0.027,
+      "tube_pitch_longitudinal_m": 0.0315,
+      "fin_pitch_m": 0.0045,
+      "fin_thickness_m": 0.00012,
+      "n_rows": 3,
+      "n_tubes_per_row": 12,
+      "n_circuits": 6,
+      "coil_length_m": 1.0,
+      "Te_c": -10,
+      "Tc_c": 40,
+      "T_air_in_db_c": 2,
+      "RH_air_in": 0.85,
+      "air_velocity_ms": 3.0,
+      "refrigerant": "R404A",
+      "superheat_k": 8,
+      "subcooling_k": 3,
+      "unilab_serie": "1263-A D",
+      "apply_unilab_correction": true
+    },
+    "reference": {
+      "unilab_factor": 0.9710
+    }
+  },
+  {
+    "id": "UNILAB-1263AD-V374-CLAMPED",
+    "description": "Série 1263-A D · v=3.74 m/s — clampado a vMax=3.3, fator ≈ 0.9564",
+    "source": "vapcyc",
+    "version": "coilCorrectionCoefficients.json id=10",
+    "date": "2026-05-18",
+    "notes": "v=3.74 excede vMax=3.3. Engine clampeia para 3.3 → factor≈0.9564. Deve emitir warning de clamping.",
+    "input": {
+      "geometry_code": "1263-A D",
+      "tube_outer_diameter_m": 0.0127,
+      "tube_pitch_transverse_m": 0.027,
+      "tube_pitch_longitudinal_m": 0.0315,
+      "fin_pitch_m": 0.0045,
+      "fin_thickness_m": 0.00012,
+      "n_rows": 3,
+      "n_tubes_per_row": 12,
+      "n_circuits": 6,
+      "coil_length_m": 1.0,
+      "Te_c": -10,
+      "Tc_c": 40,
+      "T_air_in_db_c": 2,
+      "RH_air_in": 0.85,
+      "air_velocity_ms": 3.74,
+      "refrigerant": "R404A",
+      "superheat_k": 8,
+      "subcooling_k": 3,
+      "unilab_serie": "1263-A D",
+      "apply_unilab_correction": true
+    },
+    "reference": {
+      "unilab_factor": 0.9564
+    }
+  }
+]

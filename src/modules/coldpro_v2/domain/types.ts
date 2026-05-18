@@ -625,6 +625,11 @@ export interface ProgressiveCoilInput {
   use_ice_model?: boolean;
   /** Código do modelo para busca de C_rich(ΔT). Se fornecido, aplica calibração na saída. */
   model_code?: string;
+  /** Série UNILAB/VapCyc para correção de velocidade (ex: "1263-A D"). Ignorado se apply_unilab_correction=false. */
+  unilab_serie?: string;
+  /** Aplica fator de correção UNILAB/VapCyc por velocidade frontal. PADRÃO: false.
+   *  NÃO ativar junto com C_rich calibrado — causa dupla-correção de ~4.4%. */
+  apply_unilab_correction?: boolean;
 }
 
 export interface RollResult {
@@ -674,6 +679,10 @@ export interface ProgressiveCoilResult {
   energy_balance_error_pct: number;
   /** Fator de calibração aplicado. 1.0 se sem model_code ou modelo desconhecido. */
   C_rich?: number;
+  /** Fator UNILAB/VapCyc aplicado. 1.0 quando apply_unilab_correction=false (padrão). */
+  unilab_correction_factor?: number;
+  /** Série UNILAB efetivamente usada para o fator. null quando não aplicado. */
+  unilab_serie_used?: string | null;
 }
 
 export interface OperationalOrchestratorInput {
