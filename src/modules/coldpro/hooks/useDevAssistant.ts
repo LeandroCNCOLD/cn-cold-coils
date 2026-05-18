@@ -194,7 +194,7 @@ export function useDevAssistant() {
           "anthropic-dangerous-direct-browser-access": "true",
         },
         body: JSON.stringify({
-          model: "claude-opus-4-7",
+          model: "claude-sonnet-4-20250514",
           max_tokens: 4096,
           system: systemPrompt,
           messages: [{ role: "user", content: userContent }],
