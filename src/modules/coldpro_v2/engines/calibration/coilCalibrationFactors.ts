@@ -47,7 +47,7 @@ export const COIL_CALIBRATION_ENTRIES: CalibrationEntry[] = [
   // ── Modelos específicos (precedência sobre fallbacks de família) ──────────
   {
     model_id: 'CN_750_LT',
-    date:     '2026-05-16',
+    date:     '2026-05-18',
     points: [
       {
         delta_T_c: 0,
@@ -56,25 +56,29 @@ export const COIL_CALIBRATION_ENTRIES: CalibrationEntry[] = [
         notes:     'Âncora física. ΔT=0 implica sem troca térmica e sem geada.',
       },
       {
-        // Q_catalogo=8583 W / Q_engine=9517 W → C_rich=0.902; ΔT=10.2°C
+        // Q_catalogo=8583 W / Q_engine=15947 W → C_rich=0.538; ΔT=10.2°C
+        // Geometria real: coil_width=1.025m, n_tubos=20, 4R, fin=7mm, ṁ_ar=2.798 kg/s.
+        // Recalibrado após correção área de aletas + η_o (2026-05-18).
         delta_T_c: 10.2,
-        C_rich:    0.902,
+        C_rich:    0.538,
         source:    'catalog',
-        notes:     'CN_750_LT nominal. Catálogo: 8583 W. Engine: 9517 W. Desvio: +10.88%.',
+        notes:     'CN_750_LT. Catálogo: 8583 W. Engine (pós área+η_o, geom real 1.025m): 15947 W. C_rich=0.538.',
       },
     ],
   },
 
-  // ── Fallbacks de família — derivados do catálogo (slope Wang: −0.00961/K) ─
-  // Método: C_rich(ΔT) = 1.0 − 0.00961 × ΔT (âncora ΔT=0 → 1.0)
-  // ΔT_avg catálogo CN COLD 2026: LT=9.7°C, MT=9.6°C, HT=9.5°C, AGRO=16.2°C
+  // ── Fallbacks de família — recalibrados após correção de área de aletas + η_o ─
+  // Correção aplicada em 2026-05-18: fórmula A_fin corrigida para N_fins × 2 × (h × d − furos_tubos)
+  // e eficiência de aleta η_o integrada em R_ext. Engine mais físico mas precisa de C_rich < 1.
+  // ΔT_avg catálogo CN COLD 2026: LT=9.7°C, MT=9.6°C, HT=9.4°C, AGRO=16.3°C
   {
     model_id: '_LT_',
     date:     '2026-05-18',
     points: [
       { delta_T_c: 0,    C_rich: 1.000, source: 'catalog', notes: 'Âncora física.' },
-      { delta_T_c: 9.7,  C_rich: 0.882, source: 'catalog', notes: 'LT nominal catálogo. Recalibrado com NTU-ε entálpico ativo (2026-05-18). n=126 modelos, C_rich médio global=0.879.' },
-      { delta_T_c: 15.0, C_rich: 0.836, source: 'catalog', notes: 'LT extrapolado alta geada (slope ~−0.00878/K medido no lote NTU-ε).' },
+      { delta_T_c: 8.0,  C_rich: 0.525, source: 'catalog', notes: 'LT ΔT≈8°C. n=21 modelos. Recalibrado pós área+η_o (2026-05-18).' },
+      { delta_T_c: 10.0, C_rich: 0.560, source: 'catalog', notes: 'LT nominal. n=84 modelos. C_rich médio global=0.556. Recalibrado pós área+η_o (2026-05-18).' },
+      { delta_T_c: 12.0, C_rich: 0.570, source: 'catalog', notes: 'LT ΔT≈12°C. n=21 modelos. Recalibrado pós área+η_o (2026-05-18).' },
     ],
   },
   {
@@ -82,7 +86,7 @@ export const COIL_CALIBRATION_ENTRIES: CalibrationEntry[] = [
     date:     '2026-05-18',
     points: [
       { delta_T_c: 0,    C_rich: 1.000, source: 'catalog', notes: 'Âncora física.' },
-      { delta_T_c: 9.6,  C_rich: 1.000, source: 'catalog', notes: 'MT: engine subestima catálogo em ~49% com NTU-ε (C_rich_bruto=1.49). Gap atribuído à geada real e circuitos não modelados. Calibração pendente — investigar geometria de circuitos.' },
+      { delta_T_c: 9.6,  C_rich: 0.586, source: 'catalog', notes: 'MT nominal. n=77 modelos (41 ignorados por vazaoArEvaporadorM3H ausente). C_rich médio=0.579. Recalibrado pós área+η_o (2026-05-18).' },
     ],
   },
   {
@@ -90,7 +94,7 @@ export const COIL_CALIBRATION_ENTRIES: CalibrationEntry[] = [
     date:     '2026-05-18',
     points: [
       { delta_T_c: 0,    C_rich: 1.000, source: 'catalog', notes: 'Âncora física.' },
-      { delta_T_c: 9.5,  C_rich: 1.000, source: 'catalog', notes: 'HT: engine subestima catálogo em ~66% com NTU-ε (C_rich_bruto=1.66). Calibração pendente — investigar geometria de circuitos.' },
+      { delta_T_c: 9.4,  C_rich: 0.504, source: 'catalog', notes: 'HT nominal. n=84 modelos. C_rich médio=0.504 (ΔT≈8: 0.625 n=21; ΔT≈10: 0.464 n=63). Comportamento não-monotônico — possível diferença de condições std entre subgrupos. Recalibrado pós área+η_o (2026-05-18).' },
     ],
   },
   {
@@ -98,7 +102,7 @@ export const COIL_CALIBRATION_ENTRIES: CalibrationEntry[] = [
     date:     '2026-05-18',
     points: [
       { delta_T_c: 0,    C_rich: 1.000, source: 'catalog', notes: 'Âncora física.' },
-      { delta_T_c: 16.2, C_rich: 1.000, source: 'catalog', notes: 'AGRO: engine subestima catálogo em ~120% com NTU-ε (C_rich_bruto=2.20). Calibração pendente — investigar geometria de circuitos.' },
+      { delta_T_c: 16.3, C_rich: 0.956, source: 'catalog', notes: 'AGRO nominal. n=61 modelos. C_rich médio=0.956 (min=0.857 max=1.012). Melhor família pós área+η_o. Recalibrado pós área+η_o (2026-05-18).' },
     ],
   },
 ]
