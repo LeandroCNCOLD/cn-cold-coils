@@ -2,6 +2,7 @@ import type { ProgressiveCoilInput, ProgressiveCoilResult, RollResult } from "..
 import { saturationPressure, humidityRatio, dewPoint } from "../psychrometrics/psychrometricCore";
 import { calculateIceAccumulation } from "../defrost/iceModel";
 import { applyCalibration } from "../calibration/coilCalibrationFactors";
+import { applyUnilabVelocityCorrection } from "../coilVelocityCorrection";
 
 const MU_AIR = 1.846e-5;
 const CP_AIR = 1006;
@@ -222,10 +223,28 @@ export function calculateProgressiveCoil(input: ProgressiveCoilInput): Progressi
   if (totalCap <= 0) status = "error";
   else if (warnings.length > 0) status = "warning";
 
+  // Fator UNILAB/VapCyc — padrão OFF; NÃO ativar com C_rich calibrado (dupla-correção ~4.4%)
+  const applyUnilab = input.apply_unilab_correction === true;
+  let unilabFactor = 1.0;
+  let unilabSerieUsed: string | null = null;
+  if (applyUnilab) {
+    // Velocidade frontal (approach) = ṁ / (ρ × A_face). É a variável dos polinômios UNILAB.
+    // V_max_m_s nos rolls é a velocidade contraída (pós-sigma) — diferente da frontal.
+    const rhoApprox = 1.2929 * (273.15 / (273.15 + input.air_temperature_in_c));
+    const A_face = input.coil_width_m * input.coil_height_m;
+    const vFrontal = A_face > 0 && rhoApprox > 0
+      ? input.air_mass_flow_kg_s / (rhoApprox * A_face)
+      : 2.5;
+    const unilabResult = applyUnilabVelocityCorrection(vFrontal, input.unilab_serie);
+    unilabFactor = unilabResult.factor;
+    unilabSerieUsed = unilabResult.serie_used;
+    if (unilabResult.warning) warnings.push(`UNILAB: ${unilabResult.warning}`);
+  }
+
   // Aplica C_rich(ΔT) se model_code fornecido — calibra superestimativa do engine Wang
   const delta_T_c = input.air_temperature_in_c - input.T_evaporating_c;
   const { capacity_w: calibratedCap, C_rich } = applyCalibration(
-    totalCap, undefined, input.model_code, delta_T_c,
+    totalCap * unilabFactor, undefined, input.model_code, delta_T_c,
   );
 
   return {
@@ -236,7 +255,7 @@ export function calculateProgressiveCoil(input: ProgressiveCoilInput): Progressi
     air_relative_humidity_out: last.air_relative_humidity_out,
     W_out_kg_kg: last.W_out_kg_kg, enthalpy_out_j_kg: last.enthalpy_out_j_kg,
     estimated_time_to_defrost_h: estimatedDefrost, energy_balance_error_pct: energyError,
-    C_rich,
+    C_rich, unilab_correction_factor: unilabFactor, unilab_serie_used: unilabSerieUsed,
   };
 }
 
@@ -246,5 +265,6 @@ function emptyResult(warnings: string[], status: "ok" | "warning" | "error"): Pr
     total_capacity_w: 0, total_air_pressure_drop_pa: 0, total_condensation_rate_kg_s: 0,
     air_temperature_out_c: 0, air_relative_humidity_out: 0, W_out_kg_kg: 0,
     enthalpy_out_j_kg: 0, estimated_time_to_defrost_h: null, energy_balance_error_pct: 0,
+    unilab_correction_factor: 1.0, unilab_serie_used: null,
   };
 }

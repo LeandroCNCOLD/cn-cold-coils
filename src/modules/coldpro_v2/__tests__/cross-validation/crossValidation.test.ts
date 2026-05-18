@@ -17,6 +17,7 @@ import { describe, it, expect } from 'vitest'
 import { runCrossValidation, type ReferenceCase } from './crossValidationEngine'
 import vapcycCases from './fixtures/vapcyc-ref-cases.json'
 import unilabCases from './fixtures/unilab-ref-cases.json'
+import { applyUnilabVelocityCorrection } from '@/modules/coldpro_v2/engines/coilVelocityCorrection'
 import physicalCases from './fixtures/physical-ref-cases.json'
 
 import { calculateProgressiveCoil } from '@/modules/coldpro_v2/engines/progressive/progressiveCoilSolver'
@@ -238,4 +239,26 @@ describe('COP Sistema — Q / (W_comp + W_fans)', () => {
     expect(engineOut.cop_system!).toBeLessThan(cop_no_fans)
     expect(engineOut.cop_system!).toBeCloseTo(cop_from_total, 5)
   })
+})
+
+// ─── SUITE: Fatores de velocidade UNILAB/VapCyc ──────────────────
+// Valida fator polinomial de cada caso em unilab-ref-cases.json.
+// Tolerância: ±0.5% (fator é calculado analiticamente, sem incerteza de medição).
+
+describe('UNILAB/VapCyc — Fatores de velocidade por série', () => {
+  type UnilabCase = {
+    id: string
+    description: string
+    input: { air_velocity_ms: number; unilab_serie?: string }
+    reference: { unilab_factor: number }
+  }
+
+  it.each(unilabCases as UnilabCase[])(
+    '$id — $description',
+    ({ input, reference }) => {
+      const r = applyUnilabVelocityCorrection(input.air_velocity_ms, input.unilab_serie)
+      const dev = Math.abs(r.factor - reference.unilab_factor) / reference.unilab_factor * 100
+      expect(dev).toBeLessThan(0.5) // ±0.5% — fator analítico, sem incerteza de bancada
+    }
+  )
 })
