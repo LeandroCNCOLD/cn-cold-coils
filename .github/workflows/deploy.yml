@@ -23,15 +23,9 @@ jobs:
 
       - name: Build
         run: pnpm run build:pages
-
-      - name: Verify build output
-        run: |
-          echo "=== dist/client contents ==="
-          ls -la dist/client/
-          echo "=== index.html exists? ==="
-          test -f dist/client/index.html && echo "YES" || echo "NO - MISSING"
-          echo "=== worker.ts ==="
-          cat src/worker.ts
+        env:
+          VITE_ANTHROPIC_API_KEY: ${{ secrets.VITE_ANTHROPIC_API_KEY }}
+          VITE_GITHUB_TOKEN: ${{ secrets.VITE_GITHUB_TOKEN }}
 
       - name: Deploy to Cloudflare Workers
         run: npx wrangler@latest deploy 2>&1
