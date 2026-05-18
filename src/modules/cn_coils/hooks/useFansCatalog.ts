@@ -1,8 +1,5 @@
-/**
- * DESATIVADO. O catálogo de ventiladores agora é estático
- * (src/modules/cn_coils/data/fanCatalog.ts). Mantemos as interfaces
- * para não quebrar importadores legados; o hook retorna lista vazia.
- */
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 export interface FanOperatingPoint {
   query_airflow_m3h: number | null;
@@ -44,10 +41,41 @@ export interface FanCatalogRow {
   operating_points: FanOperatingPoint[];
 }
 
+let _cache: FanCatalogRow[] | null = null;
+let _cacheError: string | null = null;
+
 export function useFansCatalog() {
-  return {
-    data: [] as FanCatalogRow[],
-    loading: false,
-    error: null as string | null,
-  };
+  const [data, setData]       = useState<FanCatalogRow[]>(_cache ?? []);
+  const [loading, setLoading] = useState(_cache === null);
+  const [error, setError]     = useState<string | null>(_cacheError);
+
+  useEffect(() => {
+    if (_cache !== null) return;
+    let cancelled = false;
+
+    (async () => {
+      const { data: rows, error: err } = await supabase
+        .from("fans_catalog")
+        .select("*")
+        .order("manufacturer")
+        .order("type_key");
+
+      if (cancelled) return;
+
+      if (err) {
+        _cacheError = err.message;
+        setError(err.message);
+        setLoading(false);
+        return;
+      }
+
+      _cache = (rows ?? []) as unknown as FanCatalogRow[];
+      setData(_cache);
+      setLoading(false);
+    })();
+
+    return () => { cancelled = true; };
+  }, []);
+
+  return { data, loading, error };
 }

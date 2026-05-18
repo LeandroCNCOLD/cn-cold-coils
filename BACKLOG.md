@@ -21,10 +21,10 @@
 
 | # | Tarefa | Status |
 |---|---|---|
-| C1 | **COP do sistema incorreto** — corrigir para `Q / (W_comp + W_fans)` em todos os pontos da curva | [ ] |
+| C1 | **COP do sistema incorreto** — corrigir para `Q / (W_comp + W_fans)` em todos os pontos da curva | [x] Mai/2026 |
 | C2 | **Dados elétricos no `CompressorSpec`** — adicionar corrente, tensão, fases, fator de potência, frequência | [x] Mai/2026 |
 | C3 | **`electricalAnalysisEngine`** — motor que calcula `W_total`, `I_total`, `COP_sistema` | [x] Mai/2026 |
-| C4 | **Polinômio `cop_system(Te, Tc)`** e **`total_power_w(Te, Tc)`** como novos targets | [ ] |
+| C4 | **Polinômio `cop_system(Te, Tc)`** e **`total_power_w(Te, Tc)`** como novos targets | [x] Mai/2026 |
 | C5 | **Queda de pressão bifásica** (Lockhart-Martinelli) — motor atual subestima ΔP em 2–5× | [x] Mai/2026 |
 | C6 | **Campos undefined/NaN na edição ao vivo** — valores não resolvidos aparecem na tela (`fmtSafe`) | [x] Mai/2026 |
 
@@ -59,10 +59,10 @@
 
 | # | Tarefa | Status |
 |---|---|---|
-| S1 | **`StartupReferenceSheet`** — tipo com parâmetros de campo (pressões, temperaturas, SH, SC, correntes, carga de fluido, ar) com tolerâncias | [ ] |
-| S2 | **`startupReferenceEngine.ts`** — calcula referências de campo a partir do `ProductTechnicalRecord` | [ ] |
-| S3 | **Estimativa de carga de fluido** — volume interno do evaporador × densidade do refrigerante | [ ] |
-| S4 | **`startup_reference` no `ProductTechnicalRecord`** — campo novo no registro técnico | [ ] |
+| S1 | **`StartupReferenceSheet`** — tipo com parâmetros de campo (pressões, temperaturas, SH, SC, correntes, carga de fluido, ar) com tolerâncias | [x] Mai/2026 |
+| S2 | **`startupReferenceEngine.ts`** — calcula referências de campo a partir do `ProductTechnicalRecord` | [x] Mai/2026 |
+| S3 | **Estimativa de carga de fluido** — volume interno do evaporador × densidade do refrigerante | [x] Mai/2026 |
+| S4 | **`startup_reference` no `ProductTechnicalRecord`** — campo novo no registro técnico | [x] Mai/2026 |
 
 ---
 
@@ -131,9 +131,9 @@
 
 | Sprint | Tarefas | Entrega |
 |---|---|---|
-| **1** | C1, C2✅, C3✅, C4 | Análise elétrica + COP correto do sistema |
+| **1** | C1✅, C2✅, C3✅, C4✅ | Análise elétrica + COP correto do sistema |
 | **2** | H1✅, H2✅, H3✅, H4✅, H5✅ | Abas do Hub de Testes |
-| **3** | S1, S2, S3, S4 | Motor de referências de start-up |
+| **3** | S1✅, S2✅, S3✅, S4✅ | Motor de referências de start-up |
 | **4** | A1✅, A2✅, A3✅, A4✅, A5✅, A6 | Workspace AGRO completo |
 | **5** | E1, E2, E3, E4, E5✅, E6 | Catálogo e exportação profissional |
 | **6** | SC1, SC3, SC4, P1✅, P2 | Sistemas completos + ponte workspace |

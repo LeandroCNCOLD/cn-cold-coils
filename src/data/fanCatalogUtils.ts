@@ -1,11 +1,7 @@
-// Utilitários para o catálogo combinado de ventiladores
-// (31 modelos legados + 69 ZIEHL-ABEGG = 100 modelos)
 import type { FanModel, FanCurvePoint } from './fanCatalogTypes';
 import { FAN_CATALOG } from './fanCatalog';
-import { FAN_CATALOG_ZIEHL } from './fanCatalogZiehl';
 
-/** Catálogo completo: 31 modelos legados + 69 ZIEHL-ABEGG = 100 modelos */
-export const ALL_FAN_CATALOG: FanModel[] = [...FAN_CATALOG, ...FAN_CATALOG_ZIEHL];
+export const ALL_FAN_CATALOG: FanModel[] = FAN_CATALOG;
 
 /**
  * Retorna os pontos da curva ativa para cálculo.
