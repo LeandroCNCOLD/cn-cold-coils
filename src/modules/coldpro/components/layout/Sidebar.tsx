@@ -8,6 +8,7 @@ import {
   Library,
   ShieldCheck,
   Settings,
+  Terminal,
   LogOut,
   BookOpen,
   Cpu,
@@ -60,6 +61,7 @@ const NAV_DOCUMENTACAO: NavItem[] = [
 const NAV_ADMIN: NavItem[] = [
   { to: "/coldpro/audit", label: "navigation.audit", Icon: ShieldCheck },
   { to: "/coldpro/settings", label: "navigation.settings", Icon: Settings },
+  { to: "/coldpro/dev", label: "DevAssistant", Icon: Terminal },
 ];
 
 function NavSection({
