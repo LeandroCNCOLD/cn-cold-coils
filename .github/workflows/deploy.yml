@@ -25,8 +25,8 @@ jobs:
       - name: Build
         run: pnpm run build:pages
 
-      - name: Deploy
-        run: pnpm exec wrangler deploy
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: 072e962a0afc96168ae7314028a22e3d
+      - name: Deploy to Cloudflare Workers
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: 072e962a0afc96168ae7314028a22e3d
