@@ -53,12 +53,12 @@ const BASE_EVAP = {
 
 /**
  * Componentes de sistema bem dimensionados.
- * Compressor de 120 kW compatível com evaporador grande (q_evap ~102 kW).
- * Condensador de 140 kW para absorver q_cond = q_evap + W_comp ~107 kW.
+ * Compressor de 130 kW compatível com evaporador grande (q_evap ~118 kW com NTU úmido).
+ * Condensador de 125 kW para absorver q_cond = q_evap + W_comp ~123 kW.
  */
 const BASE_COMPONENTS: SystemComponentsInput = {
   compressor: {
-    cooling_capacity_w: 120000,  // 120 kW — compatível com q_evap ~102 kW
+    cooling_capacity_w: 130000,  // 130 kW — compatível com q_evap ~118 kW (NTU úmido)
     power_w: 5000,               // 5 kW de potência elétrica
     refrigerant: "R404A",
     evap_temp_c: -8,
@@ -69,9 +69,9 @@ const BASE_COMPONENTS: SystemComponentsInput = {
   },
   evaporator: { progressive_input: BASE_EVAP },
   condenser: {
-    // q_cond_required = q_evap + W_comp = 101910 + 5000 = 106910 W
-    // Usar exatamente 107000 para balance_error_pct ≈ 0%
-    heat_rejection_capacity_w: 107000,
+    // q_cond_required = q_evap + W_comp = 117891 + 5000 = 122891 W
+    // 125000 W → balance_error_pct ≈ 1.7% → pass; condenser_pct ≈ 98% → warning/pass
+    heat_rejection_capacity_w: 125000,
     max_cond_temp_c: 45,
   },
   system_conditions: {
