@@ -24,8 +24,17 @@ jobs:
       - name: Build
         run: pnpm run build:pages
 
+      - name: Verify build output
+        run: |
+          echo "=== dist/client contents ==="
+          ls -la dist/client/
+          echo "=== index.html exists? ==="
+          test -f dist/client/index.html && echo "YES" || echo "NO - MISSING"
+          echo "=== worker.ts ==="
+          cat src/worker.ts
+
       - name: Deploy to Cloudflare Workers
-        run: npx wrangler@latest deploy --no-bundle 2>&1
+        run: npx wrangler@latest deploy 2>&1
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: 072e962a0afc96168ae7314028a22e3d
