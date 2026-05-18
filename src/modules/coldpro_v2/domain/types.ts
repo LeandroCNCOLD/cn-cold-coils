@@ -630,6 +630,13 @@ export interface ProgressiveCoilInput {
   /** Aplica fator de correção UNILAB/VapCyc por velocidade frontal. PADRÃO: false.
    *  NÃO ativar junto com C_rich calibrado — causa dupla-correção de ~4.4%. */
   apply_unilab_correction?: boolean;
+  /**
+   * Habilita o NTU-ε entálpico para coil úmido (Braun 1989 / ASHRAE HF 2017 Cap. 23).
+   * Quando true e Te < T_dp, usa C_wet = ṁ × cs(Te) em vez de C_air = ṁ × cp.
+   * Padrão: true (comportamento correto para MT/HT/AGRO).
+   * Setar false apenas para diagnóstico ou comparação com versão legada.
+   */
+  use_wet_ntu?: boolean;
 }
 
 export interface RollResult {
@@ -662,6 +669,8 @@ export interface RollResult {
   R_ice_dynamic_m2k_w?: number;
   /** Tempo estimado até degelo necessário [h] */
   time_to_defrost_h?: number | null;
+  /** Modo de cálculo do NTU-ε nesta fila: "wet_enthalpy" ou "dry_sensible" */
+  ntu_mode?: "wet_enthalpy" | "dry_sensible";
 }
 
 export interface ProgressiveCoilResult {

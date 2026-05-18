@@ -57,3 +57,24 @@ export function dewPoint(
 export function cpMoistAir(W: number): number {
   return moistAirCp(W) / 1000;
 }
+
+/** Entalpia do ar saturado [J/kg ar seco] a T_c. Auxiliar interno. */
+function _enthalpySat(T_c: number, P_atm: number): number {
+  const p_sat = saturationPressure(T_c);
+  const W_sat = 0.621945 * p_sat / Math.max(P_atm - p_sat, 1);
+  return 1006 * T_c + W_sat * (2501000 + 1860 * T_c);
+}
+
+/**
+ * Slope da curva de entalpia de saturação do ar úmido [J/(kg·K)].
+ * cs(T) = dh_sat/dT — usado no NTU-ε entálpico para coil úmido (Braun 1989 / ASHRAE HF 2017 Cap. 23).
+ *
+ * Calculado por diferença finita centrada com passo dT = 0.1 K.
+ * Faixa de validade: −40°C a +20°C (faixa de evaporação de refrigeração).
+ */
+export function saturationEnthalpySlope(T_c: number, P_atm = 101325): number {
+  const dT = 0.1;
+  const h_plus  = _enthalpySat(T_c + dT, P_atm);
+  const h_minus = _enthalpySat(T_c - dT, P_atm);
+  return (h_plus - h_minus) / (2 * dT);
+}

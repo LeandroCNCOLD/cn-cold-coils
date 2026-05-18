@@ -1,5 +1,5 @@
 import type { ProgressiveCoilInput, ProgressiveCoilResult, RollResult } from "../../domain/types";
-import { saturationPressure, humidityRatio, dewPoint } from "../psychrometrics/psychrometricCore";
+import { saturationPressure, humidityRatio, dewPoint, saturationEnthalpySlope } from "../psychrometrics/psychrometricCore";
 import { calculateIceAccumulation } from "../defrost/iceModel";
 import { applyCalibration } from "../calibration/coilCalibrationFactors";
 import { applyUnilabVelocityCorrection } from "../coilVelocityCorrection";
@@ -74,6 +74,7 @@ export function calculateProgressiveCoil(input: ProgressiveCoilInput): Progressi
   let W_air = W_inlet;
   let h_air = h_air_inlet;
   const rollResults: RollResult[] = [];
+  const useWetNtu = input.use_wet_ntu !== false; // padrão true — NTU-ε entálpico para coil úmido
 
   for (let i = 0; i < input.rolls.length; i++) {
     const roll = input.rolls[i]!;
@@ -152,13 +153,37 @@ export function calculateProgressiveCoil(input: ProgressiveCoilInput): Progressi
     const U = A_external > 0 ? UA / A_external : 0;
 
     const cp_moist = CP_AIR + 1860 * W_air;
-    const C_air = input.air_mass_flow_kg_s * cp_moist;
-    const NTU = C_air > 0 ? UA / C_air : 0;
-    const eff = 1 - Math.exp(-NTU);
-    let Q = Math.max(0, eff * C_air * (T_air - input.T_evaporating_c));
-    let T_out = Math.max(input.T_evaporating_c + 0.1, C_air > 0 ? T_air - Q / C_air : T_air);
-
     const { T_dp } = dewPoint(T_air, RH_air);
+    const isWet = useWetNtu && input.T_evaporating_c < T_dp;
+
+    let Q: number;
+    let T_out: number;
+    let NTU: number;
+    let eff: number;
+
+    if (isWet) {
+      // NTU-ε entálpico — Braun et al. (1989) / ASHRAE HF 2017 Cap. 23
+      // C_wet = ṁ × cs(Te) onde cs = dh_sat/dT — capacidade efetiva do lado do ar úmido
+      const cs = saturationEnthalpySlope(input.T_evaporating_c, P_atm);
+      const C_wet = input.air_mass_flow_kg_s * cs;
+      NTU = C_wet > 0 ? UA / C_wet : 0;
+      eff = 1 - Math.exp(-NTU);
+      const p_sat_Te = saturationPressure(input.T_evaporating_c);
+      const W_sat_Te = 0.621945 * p_sat_Te / Math.max(P_atm - p_sat_Te, 1);
+      const h_sat_Te = 1006 * input.T_evaporating_c + W_sat_Te * (2501000 + 1860 * input.T_evaporating_c);
+      const h_air_roll = CP_AIR * T_air + W_air * (2501000 + 1860 * T_air);
+      const delta_h = Math.max(0, h_air_roll - h_sat_Te);
+      Q = Math.max(0, eff * input.air_mass_flow_kg_s * delta_h);
+      const C_sens = input.air_mass_flow_kg_s * cp_moist;
+      T_out = Math.max(input.T_evaporating_c + 0.1, C_sens > 0 ? T_air - Q / C_sens : T_air);
+    } else {
+      // NTU-ε seco — comportamento original
+      const C_air = input.air_mass_flow_kg_s * cp_moist;
+      NTU = C_air > 0 ? UA / C_air : 0;
+      eff = 1 - Math.exp(-NTU);
+      Q = Math.max(0, eff * C_air * (T_air - input.T_evaporating_c));
+      T_out = Math.max(input.T_evaporating_c + 0.1, C_air > 0 ? T_air - Q / C_air : T_air);
+    }
     let W_out: number; let condensRate = 0; let RH_out: number;
     if (input.T_evaporating_c < T_dp) {
       const { W: W_sat } = humidityRatio(T_out, 1.0, P_atm);
@@ -192,6 +217,7 @@ export function calculateProgressiveCoil(input: ProgressiveCoilInput): Progressi
       air_temperature_out_c: T_out, air_relative_humidity_out: RH_out,
       W_out_kg_kg: W_out, enthalpy_out_j_kg: h_out,
       correlation_used,
+      ntu_mode: isWet ? "wet_enthalpy" : "dry_sensible",
       ice_thickness_dynamic_mm: useIceModel ? ice_thickness_dynamic_mm : undefined,
       R_ice_dynamic_m2k_w: useIceModel ? R_ice_dynamic : undefined,
       time_to_defrost_h: useIceModel ? time_to_defrost_h : undefined,
