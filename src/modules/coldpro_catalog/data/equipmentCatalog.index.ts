@@ -56,6 +56,11 @@ function enrichCoilMetrics(row: CatalogEquipmentRow) {
   setIfMissing(row, "evaporadorAirRelativeHumidityIn", row.umidadeCamaraPercent !== undefined ? row.umidadeCamaraPercent / 100 : undefined);
   setIfMissing(row, "evaporadorAirMassFlowKgS", airMassFlowKgS(row.vazaoArEvaporadorM3H));
 
+  // Padrão Lantery: tubo 1/2" cobre, parede 0.3 mm
+  setIfMissing(row, "evaporadorTuboEspessuraMm", 0.3);
+  setIfMissing(row, "evaporadorTubeInnerDiameterMm",
+    tubeInnerDiameterMm(row.evaporadorTuboDiametroMm, row.evaporadorTuboEspessuraMm));
+
   setIfMissing(row, "condensadorFinThicknessMm", DEFAULT_FIN_THICKNESS_MM);
   setIfMissing(row, "evaporadorFinThicknessMm", DEFAULT_FIN_THICKNESS_MM);
   setIfMissing(row, "reheatFinThicknessM", DEFAULT_FIN_THICKNESS_MM / 1000);
@@ -106,6 +111,7 @@ function enrichSizedCoil(
     setIfMissing(row, "evaporadorFinHeightMm", heightM * 1000);
     setIfMissing(row, "evaporadorAreaFaceM2", faceM2);
     setIfMissing(row, "evaporadorAreaTrocaM2", row.evaporadorAreaSuperficieM2 ?? exchangeM2);
+    setIfMissing(row, "evaporadorVolumeInternoL", volumeL);
   } else {
     setIfMissing(row, "reheatCoilWidthM", widthM);
     setIfMissing(row, "reheatCoilHeightM", heightM);
