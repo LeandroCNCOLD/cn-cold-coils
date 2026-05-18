@@ -1,15 +1,39 @@
-/**
- * ValidationDashboardPage — Dashboard de resultados de validação em lote
- * Rota: /coldpro/validation
- * Consulta validation_results do Supabase. Sem lógica — tudo em useValidationDashboard.
- */
-import { RefreshCw, CheckCircle2, XCircle, Clock, BarChart3, Filter } from "lucide-react";
+import { useState, useCallback } from "react";
+import { RefreshCw, CheckCircle2, XCircle, Clock, BarChart3, Filter, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useValidationDashboard } from "./useValidationDashboard";
+import {
+  runBatchValidation,
+  type BatchValidationReport,
+} from "@/modules/coldpro_catalog/services/batchValidationService";
 
 export function ValidationDashboardPage() {
   const { rows, summary, filter, setFilter, isLoading, error, refresh, lastUpdated } =
     useValidationDashboard();
+
+  const [running, setRunning]         = useState(false);
+  const [progress, setProgress]       = useState<{ done: number; total: number } | null>(null);
+  const [localReport, setLocalReport] = useState<BatchValidationReport | null>(null);
+  const [runError, setRunError]       = useState<string | null>(null);
+
+  const handleRun = useCallback(async () => {
+    setRunning(true);
+    setLocalReport(null);
+    setRunError(null);
+    setProgress({ done: 0, total: 0 });
+    try {
+      const report = await runBatchValidation((done, total) =>
+        setProgress({ done, total }),
+      );
+      setLocalReport(report);
+      await refresh();
+    } catch (e) {
+      setRunError(e instanceof Error ? e.message : String(e));
+    } finally {
+      setRunning(false);
+      setProgress(null);
+    }
+  }, [refresh]);
 
   return (
     <div className="space-y-4 p-4 lg:p-6">
@@ -28,14 +52,64 @@ export function ValidationDashboardPage() {
             )}
           </p>
         </div>
-        <Button size="sm" variant="outline" onClick={refresh} disabled={isLoading}
-          className="shrink-0 gap-1.5">
-          <RefreshCw className={`h-3.5 w-3.5 ${isLoading ? "animate-spin" : ""}`} />
-          Atualizar
-        </Button>
+        <div className="flex shrink-0 items-center gap-2">
+          <Button size="sm" variant="outline" onClick={refresh} disabled={isLoading || running}
+            className="gap-1.5">
+            <RefreshCw className={`h-3.5 w-3.5 ${isLoading ? "animate-spin" : ""}`} />
+            Atualizar
+          </Button>
+          <Button size="sm" onClick={handleRun} disabled={running || isLoading}
+            className="gap-1.5"
+            style={{ background: "var(--ice-400)", color: "#0A1628" }}>
+            <Play className="h-3.5 w-3.5" />
+            {running ? "Rodando…" : "▶ Rodar validação (215 modelos)"}
+          </Button>
+        </div>
       </header>
 
-      {/* ── Cartões de resumo ── */}
+      {/* ── Barra de progresso ── */}
+      {running && progress && progress.total > 0 && (
+        <div className="space-y-1">
+          <div className="flex justify-between text-xs text-muted-foreground">
+            <span>Processando modelos…</span>
+            <span>{progress.done} / {progress.total}</span>
+          </div>
+          <div className="h-1.5 w-full overflow-hidden rounded-full bg-muted">
+            <div
+              className="h-full rounded-full transition-all duration-100"
+              style={{
+                width: `${(progress.done / progress.total) * 100}%`,
+                background: "var(--ice-400)",
+              }}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* ── Resumo da última execução ── */}
+      {localReport && (
+        <div className="rounded-md border p-3 text-xs"
+          style={{ borderColor: "var(--border-subtle)", background: "var(--bg-800, #1e293b)" }}>
+          <p className="mb-1.5 font-semibold text-foreground">
+            Resultado da execução — {new Date(localReport.ran_at).toLocaleString("pt-BR")}
+          </p>
+          <div className="flex flex-wrap gap-4">
+            <Stat label="Total" value={localReport.total} />
+            <Stat label="PASS (≤5%)" value={localReport.passed} color="#22c55e" />
+            <Stat label="WARN (5–15%)" value={localReport.warned} color="#f59e0b" />
+            <Stat label="FAIL (>15%)" value={localReport.failed} color="#ef4444" />
+            <Stat label="SKIP" value={localReport.skipped} />
+          </div>
+        </div>
+      )}
+
+      {runError && (
+        <div className="rounded-md border border-red-500/30 bg-red-500/10 p-3 text-xs text-red-400">
+          Erro na execução: {runError}
+        </div>
+      )}
+
+      {/* ── Cartões de resumo (Supabase) ── */}
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         <SummaryCard label="Total" value={summary.total} icon={<Clock className="h-4 w-4 text-muted-foreground" />} />
         <SummaryCard label="PASS" value={summary.pass}
@@ -75,11 +149,11 @@ export function ValidationDashboardPage() {
         </div>
       )}
 
-      {!error && rows.length === 0 && !isLoading && (
+      {!error && rows.length === 0 && !isLoading && !running && (
         <div className="rounded-md border p-8 text-center text-sm text-muted-foreground"
           style={{ borderColor: "var(--border-subtle)" }}>
-          Nenhum resultado encontrado. Use{" "}
-          <strong className="text-foreground">Exportação em Lote</strong> para gerar validações.
+          Nenhum resultado encontrado. Clique em{" "}
+          <strong className="text-foreground">▶ Rodar validação</strong> para processar os 215 modelos.
         </div>
       )}
 
@@ -119,6 +193,14 @@ export function ValidationDashboardPage() {
         </div>
       )}
     </div>
+  );
+}
+
+function Stat({ label, value, color }: { label: string; value: number; color?: string }) {
+  return (
+    <span className="text-muted-foreground">
+      {label}: <strong style={{ color: color ?? "var(--text-primary)" }}>{value}</strong>
+    </span>
   );
 }
 
