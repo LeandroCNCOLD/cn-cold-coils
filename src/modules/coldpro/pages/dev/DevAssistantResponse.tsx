@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ExternalLink, GitPullRequest, Loader2, CheckCircle, AlertCircle, Copy } from "lucide-react";
-import type { DiagnosisResult } from "../../hooks/useDevAssistant";
+import { ExternalLink, GitPullRequest, Loader2, CheckCircle, AlertCircle, Copy, Palette, ArrowRight } from "lucide-react";
+import type { DiagnosisResult, DesignFix } from "../../hooks/useDevAssistant";
 import type { PRResult } from "../../services/githubService";
 
 interface Props {
@@ -14,9 +14,7 @@ interface Props {
 }
 
 function CodeBlock({ code, language = "typescript" }: { code: string; language?: string }) {
-  function copy() {
-    navigator.clipboard.writeText(code).catch(() => {});
-  }
+  function copy() { navigator.clipboard.writeText(code).catch(() => {}); }
   return (
     <div className="relative group rounded-md bg-slate-950 text-slate-100">
       <div className="flex items-center justify-between px-3 py-1.5 border-b border-slate-800 text-xs text-slate-400">
@@ -33,7 +31,63 @@ function CodeBlock({ code, language = "typescript" }: { code: string; language?:
   );
 }
 
+function DesignFixCard({ fix }: { fix: DesignFix }) {
+  return (
+    <div className="border rounded-lg overflow-hidden">
+      <div className="flex items-center gap-2 px-4 py-2.5 bg-slate-50 border-b">
+        <Palette className="size-4 text-slate-500 shrink-0" />
+        <span className="font-medium text-sm text-slate-700">{fix.component}</span>
+        <code className="ml-auto text-xs font-mono bg-slate-200 px-1.5 py-0.5 rounded text-slate-600 max-w-[220px] truncate">
+          {fix.file}
+        </code>
+      </div>
+
+      <div className="p-4 space-y-3">
+        {/* Token badge */}
+        <div className="flex flex-wrap gap-1.5">
+          {fix.tokenUsed.split(",").map((t) => (
+            <Badge key={t} variant="secondary" className="font-mono text-xs">{t.trim()}</Badge>
+          ))}
+        </div>
+
+        {/* Before / After class names */}
+        <div className="grid grid-cols-[1fr_auto_1fr] items-start gap-2 text-xs">
+          <div className="space-y-1">
+            <p className="font-semibold text-slate-400 uppercase tracking-wide text-[10px]">Antes</p>
+            <code className="block bg-red-50 border border-red-200 rounded px-2 py-1.5 text-red-700 break-all leading-relaxed">
+              {fix.classNameBefore || "(sem classe)"}
+            </code>
+          </div>
+          <ArrowRight className="size-4 text-slate-400 mt-6 shrink-0" />
+          <div className="space-y-1">
+            <p className="font-semibold text-slate-400 uppercase tracking-wide text-[10px]">Depois</p>
+            <code className="block bg-green-50 border border-green-200 rounded px-2 py-1.5 text-green-700 break-all leading-relaxed">
+              {fix.classNameAfter}
+            </code>
+          </div>
+        </div>
+
+        {/* Visual preview */}
+        {(fix.beforePreview || fix.afterPreview) && (
+          <div className="grid grid-cols-2 gap-2 text-xs text-slate-500">
+            <div className="bg-slate-100 rounded px-3 py-2 italic">{fix.beforePreview}</div>
+            <div className="bg-slate-100 rounded px-3 py-2 italic text-green-700">{fix.afterPreview}</div>
+          </div>
+        )}
+
+        {fix.explanation && (
+          <p className="text-xs text-slate-600">{fix.explanation}</p>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export function DevAssistantResponse({ result, prResult, isLoading, error, onApplyFix, onReset }: Props) {
+  const hasDesign = result.designFixes.length > 0;
+  const hasCode = result.filesToModify.length > 0;
+  const hasAnything = hasDesign || hasCode;
+
   return (
     <div className="space-y-6">
       {error && (
@@ -58,7 +112,20 @@ export function DevAssistantResponse({ result, prResult, isLoading, error, onApp
         </div>
       )}
 
-      {result.filesToModify.length > 0 && (
+      {hasDesign && (
+        <div className="space-y-3">
+          <h3 className="font-semibold text-sm text-slate-500 uppercase tracking-wide flex items-center gap-2">
+            <Palette className="size-4" />
+            Correções de Design
+            <Badge variant="secondary">{result.designFixes.length}</Badge>
+          </h3>
+          {result.designFixes.map((fix, i) => (
+            <DesignFixCard key={i} fix={fix} />
+          ))}
+        </div>
+      )}
+
+      {hasCode && (
         <div className="space-y-4">
           <h3 className="font-semibold text-sm text-slate-500 uppercase tracking-wide">
             Arquivos a Modificar
@@ -66,12 +133,8 @@ export function DevAssistantResponse({ result, prResult, isLoading, error, onApp
           </h3>
           {result.filesToModify.map((f, i) => (
             <div key={i} className="space-y-2 border rounded-lg p-4">
-              <div className="flex items-center gap-2">
-                <code className="text-xs font-mono bg-slate-100 px-2 py-0.5 rounded text-slate-700">{f.path}</code>
-              </div>
-              {f.explanation && (
-                <p className="text-xs text-slate-600">{f.explanation}</p>
-              )}
+              <code className="text-xs font-mono bg-slate-100 px-2 py-0.5 rounded text-slate-700">{f.path}</code>
+              {f.explanation && <p className="text-xs text-slate-600">{f.explanation}</p>}
               <CodeBlock code={f.content} />
             </div>
           ))}
@@ -79,7 +142,7 @@ export function DevAssistantResponse({ result, prResult, isLoading, error, onApp
       )}
 
       <div className="flex flex-wrap gap-3 pt-2 border-t">
-        {result.filesToModify.length > 0 && !prResult && (
+        {hasAnything && !prResult && (
           <Button onClick={() => onApplyFix(result)} disabled={isLoading}>
             {isLoading ? (
               <>
@@ -89,7 +152,7 @@ export function DevAssistantResponse({ result, prResult, isLoading, error, onApp
             ) : (
               <>
                 <GitPullRequest className="size-4 mr-2" />
-                Aplicar Fix (criar PR)
+                Aplicar {hasDesign ? "design fix" : "fix"} (criar PR)
               </>
             )}
           </Button>
@@ -98,9 +161,7 @@ export function DevAssistantResponse({ result, prResult, isLoading, error, onApp
         {prResult && (
           <div className="flex items-center gap-3 px-4 py-2 bg-green-50 border border-green-200 rounded-lg">
             <CheckCircle className="size-5 text-green-600" />
-            <div className="text-sm">
-              <span className="text-green-700 font-medium">PR #{prResult.number} criado!</span>
-            </div>
+            <span className="text-sm text-green-700 font-medium">PR #{prResult.number} criado!</span>
             <a
               href={prResult.url}
               target="_blank"

@@ -31,14 +31,17 @@ function DevAssistantPageContent() {
 
       {!result && (
         <div className="border rounded-xl p-6 bg-white shadow-sm">
-          <DevAssistantInput isLoading={isLoading} onSubmit={diagnose} />
+          <DevAssistantInput
+            isLoading={isLoading}
+            onSubmit={(text, img, log, mode) => diagnose(text, img, log, mode)}
+          />
         </div>
       )}
 
       {(result || error) && (
         <div className="border rounded-xl p-6 bg-white shadow-sm">
           <DevAssistantResponse
-            result={result ?? { diagnosis: "", rootCause: "", filesToModify: [], rawResponse: "" }}
+            result={result ?? { diagnosis: "", rootCause: "", filesToModify: [], designFixes: [], rawResponse: "" }}
             prResult={prResult}
             isLoading={isLoading}
             error={error}
