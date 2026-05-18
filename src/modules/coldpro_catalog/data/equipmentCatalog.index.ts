@@ -1,4 +1,4 @@
-import { EQUIPMENT_CATALOG_RAW } from "./equipmentCatalog.raw";
+import equipmentJson from "../../../../public/data/catalogs/equipment.json";
 import type { CatalogEquipmentRow } from "./equipmentCatalog.types";
 
 const AIR_DENSITY_KG_M3 = 1.2;
@@ -116,7 +116,7 @@ function enrichSizedCoil(
   }
 }
 
-const EQUIPMENT_CATALOG: CatalogEquipmentRow[] = EQUIPMENT_CATALOG_RAW.map((item) => {
+const EQUIPMENT_CATALOG: CatalogEquipmentRow[] = (equipmentJson as CatalogEquipmentRow[]).map((item) => {
   const row: CatalogEquipmentRow = { ...item };
   enrichCoilMetrics(row);
   enrichSizedCoil(row, "condensador");
