@@ -1,6 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { SimulationPage } from "@/modules/coldpro/pages/SimulationPage";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_app/coldpro/system-balance")({
-  component: SimulationPage,
+  beforeLoad: () => { throw redirect({ to: "/coldpro/simulation" }); },
 });

@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { PlaceholderPage } from "@/modules/coldpro/pages/PlaceholderPage";
+import { RegistryPage } from "@/modules/coldpro/pages/RegistryPage";
 
 export const Route = createFileRoute("/_app/coldpro/registry")({
-  component: () => <PlaceholderPage title="Registry de Produtos" />,
+  component: RegistryPage,
 });

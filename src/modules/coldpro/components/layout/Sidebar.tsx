@@ -19,6 +19,12 @@ import {
   ChevronRight,
   Sprout,
   Cog,
+  GitCompare,
+  Zap,
+  CheckCircle2,
+  FolderOpen,
+  Store,
+  GitBranch,
 } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -35,12 +41,18 @@ type NavItem = {
 
 const NAV_PROJETOS: NavItem[] = [
   { to: "/coldpro", label: "navigation.dashboard", Icon: LayoutDashboard, exact: true },
+  { to: "/coldpro/projects", label: "Projetos", Icon: FolderOpen },
 ];
 
 const NAV_ENGENHARIA: NavItem[] = [
   { to: "/coldpro/catalog", label: "navigation.catalogSelection", Icon: Database },
+  { to: "/coldpro/catalog-comercial", label: "Catálogo Comercial", Icon: Store },
   { to: "/coldpro/cncoils", label: "navigation.cnCoilsSimulator", Icon: Gauge },
   { to: "/coldpro/hub-de-testes", label: "navigation.testHub", Icon: FlaskConical },
+  { to: "/coldpro/simulation", label: "Simulação", Icon: Zap },
+  { to: "/coldpro/pipeline-dp", label: "Pipeline ΔP", Icon: GitBranch },
+  { to: "/coldpro/validation", label: "Validação", Icon: CheckCircle2 },
+  { to: "/coldpro/compare", label: "Comparação", Icon: GitCompare },
   { to: "/coldpro/application-engineering", label: "navigation.applicationEngineering", Icon: Cog },
   { to: "/coldpro/agro", label: "AGRO", Icon: Sprout },
 ];

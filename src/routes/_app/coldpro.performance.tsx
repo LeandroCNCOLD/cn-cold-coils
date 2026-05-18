@@ -1,6 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { PerformanceCurvePage } from "@/modules/coldpro/pages/PerformanceCurvePage";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_app/coldpro/performance")({
-  component: PerformanceCurvePage,
+  beforeLoad: () => { throw redirect({ to: "/coldpro/curve" }); },
 });
