@@ -5,7 +5,7 @@
  * - aiReconstructMachine: gera propostas via LLM e simula cada uma
  */
 import { createServerFn } from "@tanstack/react-start";
-import { requireAuthOrDev } from "@/server/auth-or-dev";
+import { requireAuthOrDev } from "@/api/auth-or-dev";
 import {
   validateMachine,
   type MachineSpec,
