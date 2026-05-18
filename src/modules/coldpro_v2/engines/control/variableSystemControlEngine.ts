@@ -1,13 +1,26 @@
 import type {
   CompressorControlMode,
   FanControlMode,
+  FanSpec,
   SystemComponentsInput,
   VariableControlInput,
   VariableControlResult,
 } from "../../domain/types";
 import { evaluateSystemEquilibrium } from "../equilibrium/systemEquilibriumEngine";
 
-const FAN_BASE_POWER_W = 500;
+function fanPowerAtSpeed(fan: FanSpec | undefined, speed_pct: number): number {
+  const frac = speed_pct / 100;
+  if (fan?.power_coefficients && fan.power_coefficients.length > 0) {
+    const Q = (fan.airflow_m3_h ?? 0) * frac;
+    return Math.max(0, fan.power_coefficients.reduce(
+      (acc, coef, i) => acc + coef * Math.pow(Q, i), 0,
+    ));
+  }
+  if (fan?.motor_power_w && fan.motor_power_w > 0) {
+    return fan.motor_power_w * Math.pow(frac, 3);
+  }
+  return 500 * Math.pow(frac, 3);
+}
 
 function safeDivide(num: number, den: number, fallback = 0): number {
   if (den === 0 || !Number.isFinite(den)) return fallback;
@@ -258,8 +271,8 @@ export function simulateVariableSystemControl(input: VariableControlInput): Vari
     }
   }
 
-  const condFanPower = FAN_BASE_POWER_W * Math.pow(condenser_fan_speed_pct / 100, 3);
-  const evapFanPower = FAN_BASE_POWER_W * Math.pow(evaporator_fan_speed_pct / 100, 3);
+  const condFanPower = fanPowerAtSpeed(input.base_system.condenser_fan, condenser_fan_speed_pct);
+  const evapFanPower = fanPowerAtSpeed(input.base_system.evaporator_fan, evaporator_fan_speed_pct);
   const fan_power_w = condFanPower + evapFanPower;
   const cop_system = safeDivide(delivered_capacity_w, compressor_power_w + fan_power_w);
 

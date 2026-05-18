@@ -53,12 +53,12 @@ const BASE_EVAP = {
 
 /**
  * Componentes de sistema bem dimensionados.
- * Compressor de 130 kW compatível com evaporador grande (q_evap ~118 kW com NTU úmido).
- * Condensador de 125 kW para absorver q_cond = q_evap + W_comp ~123 kW.
+ * Compressor de 200 kW compatível com evaporador grande (q_evap ~174 kW pós área+η_o).
+ * Condensador de 185 kW para absorver q_cond = q_evap + W_comp ~179 kW.
  */
 const BASE_COMPONENTS: SystemComponentsInput = {
   compressor: {
-    cooling_capacity_w: 130000,  // 130 kW — compatível com q_evap ~118 kW (NTU úmido)
+    cooling_capacity_w: 200000,  // 200 kW — compatível com q_evap ~174 kW (pós área+η_o fix)
     power_w: 5000,               // 5 kW de potência elétrica
     refrigerant: "R404A",
     evap_temp_c: -8,
@@ -69,9 +69,9 @@ const BASE_COMPONENTS: SystemComponentsInput = {
   },
   evaporator: { progressive_input: BASE_EVAP },
   condenser: {
-    // q_cond_required = q_evap + W_comp = 117891 + 5000 = 122891 W
-    // 125000 W → balance_error_pct ≈ 1.7% → pass; condenser_pct ≈ 98% → warning/pass
-    heat_rejection_capacity_w: 125000,
+    // q_cond_required = q_evap + W_comp = 173672 + 5000 = 178672 W
+    // 185000 W → balance_error_pct ≈ 3.5% → warning/pass; condenser_pct ≈ 96.6% → pass
+    heat_rejection_capacity_w: 185000,
     max_cond_temp_c: 45,
   },
   system_conditions: {
@@ -86,10 +86,10 @@ const BASE_COMPONENTS: SystemComponentsInput = {
   },
   condenser_fan: {
     // 1 ventilador de 200 W
-    // condenserFanCapW = airflow_m3_h * 2.5 deve ser > q_cond_required (~107 kW)
-    // 50000 * 2.5 = 125000 W > 106910 W → condenser_fan_pct = 85.5% → pass
+    // condenserFanCapW = airflow_m3_h * 2.5 deve ser > q_cond_required (~179 kW)
+    // 80000 * 2.5 = 200000 W > 178672 W → condenser_fan_pct = 89.3% → pass
     motor_power_w: 200,
-    airflow_m3_h: 50000,
+    airflow_m3_h: 80000,
     available_static_pressure_pa: 20,
   },
 };
@@ -103,10 +103,10 @@ const BASE_COMPONENTS: SystemComponentsInput = {
 const BASE_SPEC: MachineSpec = {
   machine_id: "PLUGIN-001",
   model: "CN-PLUG-5000",
-  // Motor calcula q_evap ~102 kW, W_total ~5800 W, COP_sistema ~17.6
-  nominal_capacity_w: 90000,  // conservador — motor calcula ~102 kW (desvio ~13%)
+  // Motor calcula q_evap ~174 kW, W_total ~5800 W, COP_sistema ~30
+  nominal_capacity_w: 150000, // conservador — motor calcula ~174 kW (desvio ~13%)
   nominal_power_w: 7000,      // conservador — motor calcula ~5800 W (desvio ~21%)
-  nominal_cop: 12.0,          // conservador — motor calcula ~17.6 (COP alto está acima do nominal → pass)
+  nominal_cop: 20.0,          // conservador — motor calcula ~30 (COP alto está acima do nominal → pass)
   nominal_evap_temp_c: -8,
   nominal_cond_temp_c: 35,
   nominal_ambient_temp_c: 32,
@@ -198,8 +198,8 @@ describe("Estrutura do MachineValidationReport", () => {
     const report = validateMachine(BASE_SPEC, BASE_COMPONENTS);
     expect(report.machine_spec.machine_id).toBe("PLUGIN-001");
     expect(report.machine_spec.model).toBe("CN-PLUG-5000");
-    // BASE_SPEC.nominal_capacity_w = 90000 (valor conservador definido no fixture)
-    expect(report.machine_spec.nominal_capacity_w).toBe(90000);
+    // BASE_SPEC.nominal_capacity_w = 150000 (valor conservador definido no fixture)
+    expect(report.machine_spec.nominal_capacity_w).toBe(150000);
   });
 
   it("deve calcular o resumo corretamente", () => {

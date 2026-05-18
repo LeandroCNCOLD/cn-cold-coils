@@ -181,10 +181,14 @@ export function evaluateSystemEquilibrium(input: SystemComponentsInput): SystemE
       ) * 100;
 
     const dp = evapResult.total_air_pressure_drop_pa ?? 0;
+    // TODO P4 (auditoria UNILAB): integrar findOperatingPoint() de fanCatalogUtils.ts
+    // para calcular Q_ar real no ponto de equilíbrio curva-do-fan × curva-do-sistema.
+    // Impacto estimado: −5 a −15% em Q quando ΔP_ar calculado ≈ SPH disponível.
+    // Ref: AUDITORIA_UNILAB_VAPCYC_PONTOS_ESCUROS.md — P4
     if (dp > input.evaporator_fan.available_static_pressure_pa) {
       bottleneck_codes.push("evaporator_fan_pressure_insufficient");
       bottlenecks.push(
-        `Pressão estática do ventilador do evaporador insuficiente: requerido ${Math.round(dp)} Pa, disponível ${input.evaporator_fan.available_static_pressure_pa} Pa.`,
+        `Pressão estática do ventilador do evaporador insuficiente: requerido ${Math.round(dp)} Pa, disponível ${input.evaporator_fan.available_static_pressure_pa} Pa. TODO P4.`,
       );
     }
   }

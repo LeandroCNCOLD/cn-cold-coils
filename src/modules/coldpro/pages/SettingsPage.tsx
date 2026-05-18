@@ -39,7 +39,7 @@ import {
   setUserActive,
   deleteUser,
   updateModulePermission,
-} from "@/server/users.functions";
+} from "@/api/users.functions";
 
 const ROLES = ["admin", "gerente", "engenheiro", "visualizador"] as const;
 type Role = (typeof ROLES)[number];

@@ -637,6 +637,13 @@ export interface ProgressiveCoilInput {
    * Setar false apenas para diagnóstico ou comparação com versão legada.
    */
   use_wet_ntu?: boolean;
+  /**
+   * Fator de segurança de projeto [0.05–1.95]. Multiplicado sobre Q_final após C_rich.
+   * Equivalente ao subcoolingCorrections.securityFactor do UNILAB Coils 6.0.
+   * Padrão: 1.0 (sem margem de segurança).
+   * Uso: projetos conservadores usam 0.85–0.95; projetos com folga usam 1.05–1.20.
+   */
+  security_factor?: number;
 }
 
 export interface RollResult {
@@ -692,6 +699,8 @@ export interface ProgressiveCoilResult {
   unilab_correction_factor?: number;
   /** Série UNILAB efetivamente usada para o fator. null quando não aplicado. */
   unilab_serie_used?: string | null;
+  /** Fator de segurança de projeto aplicado sobre Q_final. 1.0 quando não fornecido. */
+  security_factor_applied?: number;
 }
 
 export interface OperationalOrchestratorInput {

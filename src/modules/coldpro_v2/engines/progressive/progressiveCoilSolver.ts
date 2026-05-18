@@ -88,7 +88,10 @@ export function calculateProgressiveCoil(input: ProgressiveCoilInput): Progressi
 
     if (useIceModel && opTimeH > 0) {
       const L_est = input.coil_width_m * N_tubes_per_row * N_rows_i;
-      const A_ext_est = Math.PI * D_o * L_est + 2 * (A_face - (Math.PI * D_o * D_o / 4) * N_tubes_per_row) * N_rows_i;
+      const N_fins_est = s_i_clean > 0 ? input.coil_width_m / s_i_clean : 0;
+      const fin_depth_est = N_rows_i * P_l;
+      const A_ext_est = Math.PI * D_o * L_est + N_fins_est * 2 * Math.max(0,
+        input.coil_height_m * fin_depth_est - (Math.PI * D_o * D_o / 4) * N_tubes_per_row * N_rows_i);
       const iceResult = calculateIceAccumulation({
         T_sat_c: input.T_evaporating_c, T_air_in_c: T_air, RH_air_in: RH_air,
         W_air_in_kg_kg: W_air, V_max_m_s: Math.max(0.5, input.air_mass_flow_kg_s / (1.2 * A_face * 0.5)),
@@ -140,14 +143,29 @@ export function calculateProgressiveCoil(input: ProgressiveCoilInput): Progressi
     const L_tube_roll = input.coil_width_m * N_tubes_per_row * N_rows_i;
     const A_internal = Math.PI * D_i * L_tube_roll;
     const A_tube = Math.PI * D_o * L_tube_roll;
-    const A_fin = 2 * (A_face - ((Math.PI * D_o * D_o) / 4) * N_tubes_per_row) * N_rows_i;
-    const A_external = A_tube + Math.max(0, A_fin);
+    // Área de aleta: N_fins × 2 × (altura × profundidade − buracos dos tubos)
+    // N_fins = coil_width / fin_spacing (conta as aletas discretas no sentido do tubo)
+    // fin_depth = N_rows × pitchL (profundidade da aleta na direção do fluxo de ar)
+    const N_fins_roll = s_i_clean > 0 ? input.coil_width_m / s_i_clean : 0;
+    const fin_depth_m = N_rows_i * P_l;
+    const A_fin = N_fins_roll * 2 * Math.max(0,
+      input.coil_height_m * fin_depth_m - (Math.PI * D_o * D_o / 4) * N_tubes_per_row * N_rows_i);
+    const A_external = A_tube + A_fin;
+
+    // Eficiência global de superfície (η_o) — rectangular fin approx, braço L=(Pt−Do)/2
+    // Wang 2000 fornece h_o para a superfície total; η_o corrige a resistência ext.
+    const k_fin = input.fin_material === "copper" ? 385 : input.fin_material === "steel" ? 50 : 205;
+    const L_fin = Math.max(1e-4, (P_t - D_o) / 2);
+    const m_fin = t_f > 0 && k_fin > 0 ? Math.sqrt(2 * h_o / (k_fin * t_f)) : 0;
+    const mL = m_fin * L_fin;
+    const eta_f = mL > 1e-6 ? Math.tanh(mL) / mL : 1.0;
+    const eta_o = A_external > 0 ? 1 - (A_fin / A_external) * (1 - eta_f) : 1.0;
 
     let frostResistance = useIceModel ? R_ice_dynamic : 0;
     if (!useIceModel && deltaFrost > 0 && frostK > 0) frostResistance = deltaFrost / frostK;
 
     const R_wall = D_o > D_i && L_tube_roll > 0 ? Math.log(D_o/D_i) / (2 * Math.PI * k_tube * L_tube_roll) : 0;
-    const R_ext = A_external > 0 ? 1 / (h_o * A_external) : 1e10;
+    const R_ext = A_external > 0 && eta_o > 0 ? 1 / (eta_o * h_o * A_external) : 1e10;
     const R_int = A_internal > 0 ? 1 / (h_i * A_internal) : 1e10;
     const UA = (R_ext + frostResistance + R_wall + R_int) > 0 ? 1 / (R_ext + frostResistance + R_wall + R_int) : 0;
     const U = A_external > 0 ? UA / A_external : 0;
@@ -273,15 +291,20 @@ export function calculateProgressiveCoil(input: ProgressiveCoilInput): Progressi
     totalCap * unilabFactor, undefined, input.model_code, delta_T_c,
   );
 
+  // Fator de segurança de projeto (P3 auditoria UNILAB) — multiplicado após C_rich
+  const sf = Math.max(0.05, Math.min(1.95, input.security_factor ?? 1.0));
+  const finalCap = calibratedCap * sf;
+
   return {
     status, warnings, rolls: rollResults,
-    total_capacity_w: calibratedCap, total_air_pressure_drop_pa: totalDP,
+    total_capacity_w: finalCap, total_air_pressure_drop_pa: totalDP,
     total_condensation_rate_kg_s: totalCond,
     air_temperature_out_c: last.air_temperature_out_c,
     air_relative_humidity_out: last.air_relative_humidity_out,
     W_out_kg_kg: last.W_out_kg_kg, enthalpy_out_j_kg: last.enthalpy_out_j_kg,
     estimated_time_to_defrost_h: estimatedDefrost, energy_balance_error_pct: energyError,
     C_rich, unilab_correction_factor: unilabFactor, unilab_serie_used: unilabSerieUsed,
+    security_factor_applied: sf,
   };
 }
 
