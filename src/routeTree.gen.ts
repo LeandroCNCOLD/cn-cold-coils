@@ -20,6 +20,7 @@ import { Route as AppColdproValidationRouteImport } from './routes/_app/coldpro.
 import { Route as AppColdproSystemBalanceRouteImport } from './routes/_app/coldpro.system-balance'
 import { Route as AppColdproSimulationRouteImport } from './routes/_app/coldpro.simulation'
 import { Route as AppColdproSettingsRouteImport } from './routes/_app/coldpro.settings'
+import { Route as AppColdproDevRouteImport } from './routes/_app/coldpro.dev'
 import { Route as AppColdproRegistryRouteImport } from './routes/_app/coldpro.registry'
 import { Route as AppColdproRecordRouteImport } from './routes/_app/coldpro.record'
 import { Route as AppColdproProjectsRouteImport } from './routes/_app/coldpro.projects'
@@ -113,6 +114,11 @@ const AppColdproSimulationRoute = AppColdproSimulationRouteImport.update({
 const AppColdproSettingsRoute = AppColdproSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
+  getParentRoute: () => AppColdproRoute,
+} as any)
+const AppColdproDevRoute = AppColdproDevRouteImport.update({
+  id: '/dev',
+  path: '/dev',
   getParentRoute: () => AppColdproRoute,
 } as any)
 const AppColdproRegistryRoute = AppColdproRegistryRouteImport.update({
@@ -362,6 +368,7 @@ export interface FileRoutesByFullPath {
   '/coldpro/projects': typeof AppColdproProjectsRoute
   '/coldpro/record': typeof AppColdproRecordRoute
   '/coldpro/registry': typeof AppColdproRegistryRoute
+  '/coldpro/dev': typeof AppColdproDevRoute
   '/coldpro/settings': typeof AppColdproSettingsRoute
   '/coldpro/simulation': typeof AppColdproSimulationRoute
   '/coldpro/system-balance': typeof AppColdproSystemBalanceRoute
@@ -413,6 +420,7 @@ export interface FileRoutesByTo {
   '/coldpro/projects': typeof AppColdproProjectsRoute
   '/coldpro/record': typeof AppColdproRecordRoute
   '/coldpro/registry': typeof AppColdproRegistryRoute
+  '/coldpro/dev': typeof AppColdproDevRoute
   '/coldpro/settings': typeof AppColdproSettingsRoute
   '/coldpro/simulation': typeof AppColdproSimulationRoute
   '/coldpro/system-balance': typeof AppColdproSystemBalanceRoute
@@ -467,6 +475,7 @@ export interface FileRoutesById {
   '/_app/coldpro/projects': typeof AppColdproProjectsRoute
   '/_app/coldpro/record': typeof AppColdproRecordRoute
   '/_app/coldpro/registry': typeof AppColdproRegistryRoute
+  '/_app/coldpro/dev': typeof AppColdproDevRoute
   '/_app/coldpro/settings': typeof AppColdproSettingsRoute
   '/_app/coldpro/simulation': typeof AppColdproSimulationRoute
   '/_app/coldpro/system-balance': typeof AppColdproSystemBalanceRoute
@@ -521,6 +530,7 @@ export interface FileRouteTypes {
     | '/coldpro/projects'
     | '/coldpro/record'
     | '/coldpro/registry'
+    | '/coldpro/dev'
     | '/coldpro/settings'
     | '/coldpro/simulation'
     | '/coldpro/system-balance'
@@ -572,6 +582,7 @@ export interface FileRouteTypes {
     | '/coldpro/projects'
     | '/coldpro/record'
     | '/coldpro/registry'
+    | '/coldpro/dev'
     | '/coldpro/settings'
     | '/coldpro/simulation'
     | '/coldpro/system-balance'
@@ -625,6 +636,7 @@ export interface FileRouteTypes {
     | '/_app/coldpro/projects'
     | '/_app/coldpro/record'
     | '/_app/coldpro/registry'
+    | '/_app/coldpro/dev'
     | '/_app/coldpro/settings'
     | '/_app/coldpro/simulation'
     | '/_app/coldpro/system-balance'
@@ -724,6 +736,13 @@ declare module '@tanstack/react-router' {
       path: '/simulation'
       fullPath: '/coldpro/simulation'
       preLoaderRoute: typeof AppColdproSimulationRouteImport
+      parentRoute: typeof AppColdproRoute
+    }
+    '/_app/coldpro/dev': {
+      id: '/_app/coldpro/dev'
+      path: '/dev'
+      fullPath: '/coldpro/dev'
+      preLoaderRoute: typeof AppColdproDevRouteImport
       parentRoute: typeof AppColdproRoute
     }
     '/_app/coldpro/settings': {
@@ -1091,6 +1110,7 @@ interface AppColdproRouteChildren {
   AppColdproProjectsRoute: typeof AppColdproProjectsRoute
   AppColdproRecordRoute: typeof AppColdproRecordRoute
   AppColdproRegistryRoute: typeof AppColdproRegistryRoute
+  AppColdproDevRoute: typeof AppColdproDevRoute
   AppColdproSettingsRoute: typeof AppColdproSettingsRoute
   AppColdproSimulationRoute: typeof AppColdproSimulationRoute
   AppColdproSystemBalanceRoute: typeof AppColdproSystemBalanceRoute
@@ -1130,6 +1150,7 @@ const AppColdproRouteChildren: AppColdproRouteChildren = {
   AppColdproProjectsRoute: AppColdproProjectsRoute,
   AppColdproRecordRoute: AppColdproRecordRoute,
   AppColdproRegistryRoute: AppColdproRegistryRoute,
+  AppColdproDevRoute: AppColdproDevRoute,
   AppColdproSettingsRoute: AppColdproSettingsRoute,
   AppColdproSimulationRoute: AppColdproSimulationRoute,
   AppColdproSystemBalanceRoute: AppColdproSystemBalanceRoute,
