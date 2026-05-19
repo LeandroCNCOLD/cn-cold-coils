@@ -34,7 +34,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(!DEV_AUTH_BYPASS);
 
   const loadRoles = async (userId: string) => {
-    const { data } = await supabase.from("user_roles").select("role").eq("user_id", userId);
+    const { data, error } = await supabase.from("user_roles").select("role").eq("user_id", userId);
+    console.debug("[auth] loadRoles userId=", userId, "data=", data, "error=", error);
     setRoles((data ?? []).map((r) => r.role as AppRole));
   };
 
