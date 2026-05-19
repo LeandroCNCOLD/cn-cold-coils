@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { getAISettings, saveAISettings } from "@/api/aiSettings.functions";
+import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -555,28 +554,42 @@ function AIIntegrationsTab() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
-  const getSettingsFn = useServerFn(getAISettings);
-  const saveSettingsFn = useServerFn(saveAISettings);
-
   useEffect(() => {
     void (async () => {
       try {
-        const settings = await getSettingsFn();
-        if (settings.ai_provider) setProvider(settings.ai_provider as "anthropic" | "openai");
-        if (settings.ai_api_key) setMaskedKey(settings.ai_api_key);
+        const { data } = await supabase
+          .from("app_settings")
+          .select("key, value")
+          .in("key", ["ai_provider", "ai_api_key"]);
+        const map: Record<string, string> = {};
+        for (const row of data ?? []) map[row.key] = row.value;
+        if (map.ai_provider) setProvider(map.ai_provider as "anthropic" | "openai");
+        if (map.ai_api_key) setMaskedKey(map.ai_api_key);
       } catch {
         // sem configuração ainda
       } finally {
         setLoading(false);
       }
     })();
-  }, [getSettingsFn]);
+  }, []);
 
   const handleSave = async () => {
     if (!apiKey) { toast.error("Digite a chave de API"); return; }
+    if (provider === "anthropic" && !apiKey.startsWith("sk-ant-")) {
+      toast.error("Chave Anthropic inválida. Deve começar com sk-ant-");
+      return;
+    }
+    if (provider === "openai" && !apiKey.startsWith("sk-")) {
+      toast.error("Chave OpenAI inválida. Deve começar com sk-");
+      return;
+    }
     setSaving(true);
     try {
-      await saveSettingsFn({ data: { provider, api_key: apiKey } });
+      const { error } = await supabase.from("app_settings").upsert([
+        { key: "ai_provider", value: provider },
+        { key: "ai_api_key", value: apiKey },
+      ]);
+      if (error) throw error;
       setMaskedKey(`${apiKey.slice(0, 8)}****${apiKey.slice(-4)}`);
       setApiKey("");
       toast.success("Chave de IA salva com sucesso");
