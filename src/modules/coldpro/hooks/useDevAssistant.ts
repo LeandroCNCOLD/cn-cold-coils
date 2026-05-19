@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 import { getRecentCommits, createFixPR } from "../services/githubService";
 import type { Commit, PRResult } from "../services/githubService";
+import { devDiagnoseFn } from "@/api/devAssistant.functions";
 
 export type DevMode = "bug" | "design";
 
@@ -164,12 +165,6 @@ export function useDevAssistant() {
   ) => {
     setState((s) => ({ ...s, isLoading: true, result: null, prResult: null, error: null }));
 
-    const apiKey = import.meta.env.VITE_ANTHROPIC_API_KEY;
-    if (!apiKey) {
-      setState((s) => ({ ...s, isLoading: false, error: "VITE_ANTHROPIC_API_KEY não configurado." }));
-      return;
-    }
-
     let commits: Commit[] = [];
     try {
       commits = await getRecentCommits(10);
@@ -185,30 +180,9 @@ export function useDevAssistant() {
     const userContent = buildUserContent(text, imageBase64, logText, commitContext, mode);
 
     try {
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
-        method: "POST",
-        headers: {
-          "x-api-key": apiKey,
-          "anthropic-version": "2023-06-01",
-          "content-type": "application/json",
-          "anthropic-dangerous-direct-browser-access": "true",
-        },
-        body: JSON.stringify({
-          model: "claude-3-5-sonnet-20241022",
-          max_tokens: 4096,
-          system: systemPrompt,
-          messages: [{ role: "user", content: userContent }],
-        }),
+      const rawResponse = await devDiagnoseFn({
+        data: { systemPrompt, userContent },
       });
-
-      if (!res.ok) {
-        const err = await res.text();
-        setState((s) => ({ ...s, isLoading: false, error: `Anthropic API error ${res.status}: ${err}` }));
-        return;
-      }
-
-      const data = await res.json();
-      const rawResponse = data.content?.[0]?.text ?? "";
 
       let parsed: Omit<DiagnosisResult, "rawResponse">;
       try {
