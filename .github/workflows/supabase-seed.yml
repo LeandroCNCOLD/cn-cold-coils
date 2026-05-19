@@ -1,0 +1,52 @@
+name: Supabase · Migrations + Seed catálogo
+
+on:
+  workflow_dispatch:
+    inputs:
+      skip_seed:
+        description: "Pular importação dos 480 modelos (só roda migrations)"
+        required: false
+        default: "false"
+        type: choice
+        options: ["false", "true"]
+
+# Requer dois Secrets no GitHub:
+#   SUPABASE_ACCESS_TOKEN  → supabase.com/dashboard/account/tokens
+#   SUPABASE_DB_PASSWORD   → supabase.com/dashboard/project/sggfxewvxeagsfsqefjy/settings/database
+#   SUPABASE_SERVICE_ROLE_KEY → igual ao do .env.local (para o import script)
+
+jobs:
+  migrate-and-seed:
+    name: Migrate + Seed
+    runs-on: ubuntu-latest
+
+    env:
+      PROJECT_REF: sggfxewvxeagsfsqefjy
+      SUPABASE_URL: https://sggfxewvxeagsfsqefjy.supabase.co
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      # ── 1. Aplica migrations (usa conexão Postgres direta, não REST API) ────
+      - name: Push migrations
+        run: supabase db push --project-ref $PROJECT_REF
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+
+      # ── 2. Importa os 480 modelos via REST API ─────────────────────────────
+      - uses: actions/setup-node@v4
+        if: ${{ inputs.skip_seed != 'true' }}
+        with:
+          node-version: 24
+
+      - name: Import 480 catalog models
+        if: ${{ inputs.skip_seed != 'true' }}
+        run: node scripts/import-catalog-to-supabase.mjs
+        env:
+          SUPABASE_URL: ${{ env.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}

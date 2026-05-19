@@ -2,12 +2,14 @@ import { useState } from "react";
 import { Search, RefreshCw, BarChart2, CheckCircle2, AlertCircle, XCircle } from "lucide-react";
 import { PageContainer } from "../components/layout/PageContainer";
 import { useRegistry } from "../hooks/useRegistry";
+import type { ProductTechnicalRecord } from "@/modules/coldpro_v2";
 
 export function RegistryPage() {
   const { records, search, stats } = useRegistry();
   const [query, setQuery] = useState("");
 
-  const results = query.trim() ? search(query.trim()) : records;
+  const found = query.trim() ? search(query.trim()) : undefined;
+  const results: ProductTechnicalRecord[] = found ? [found] : query.trim() ? [] : records;
   const s = stats();
 
   const familyCount = Object.keys(s.by_family ?? {}).length;
@@ -97,9 +99,11 @@ export function RegistryPage() {
             </thead>
             <tbody>
               {results.map((r, i) => {
-                const status = r.machine_validation?.overall_status ?? r.validation?.status;
-                const cap = r.equilibrium?.nominal_capacity_w;
-                const cop = r.equilibrium?.cop;
+                const status = r.machine_validation?.final_status ?? r.validation?.final_status ?? r.equilibrium?.status;
+                const cap = r.equilibrium?.thermal_balance?.q_evap_w;
+                const cop = r.equilibrium?.thermal_balance
+                  ? r.equilibrium.thermal_balance.q_evap_w / Math.max(r.equilibrium.thermal_balance.compressor_power_w, 1)
+                  : undefined;
                 return (
                   <tr
                     key={r.identity?.id ?? i}
@@ -108,10 +112,10 @@ export function RegistryPage() {
                     <td className="px-4 py-3">
                       {status === "approved" && <CheckCircle2 className="h-4 w-4" style={{ color: "var(--color-success)" }} />}
                       {status === "conditional" && <AlertCircle className="h-4 w-4" style={{ color: "var(--color-warning)" }} />}
-                      {status === "rejected" && <XCircle className="h-4 w-4" style={{ color: "var(--color-danger)" }} />}
+                      {(status === "warning" || status === "rejected") && <XCircle className="h-4 w-4" style={{ color: "var(--color-danger)" }} />}
                       {!status && <span className="text-xs cn-muted">—</span>}
                     </td>
-                    <td className="px-4 py-3 font-semibold text-[--text-primary]">{r.identity?.model ?? "—"}</td>
+                    <td className="px-4 py-3 font-semibold text-[--text-primary]">{r.identity?.id ?? "—"}</td>
                     <td className="px-4 py-3 cn-secondary">{r.identity?.family ?? "—"}</td>
                     <td className="px-4 py-3 cn-secondary">{r.identity?.line ?? "—"}</td>
                     <td className="px-4 py-3 cn-secondary">{r.identity?.refrigerant ?? "—"}</td>
