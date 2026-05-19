@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import { getRecentCommits, createFixPR } from "../services/githubService";
 import type { Commit, PRResult } from "../services/githubService";
-import { devDiagnoseFn } from "@/api/devAssistant.functions";
+import { supabase } from "@/integrations/supabase/client";
 
 export type DevMode = "bug" | "design";
 
@@ -165,6 +165,27 @@ export function useDevAssistant() {
   ) => {
     setState((s) => ({ ...s, isLoading: true, result: null, prResult: null, error: null }));
 
+    // Busca chave de IA do Supabase (RLS: somente admin)
+    const { data: settingsRows } = await supabase
+      .from("app_settings")
+      .select("key, value")
+      .in("key", ["ai_provider", "ai_api_key"]);
+
+    const settings: Record<string, string> = {};
+    for (const row of settingsRows ?? []) settings[row.key] = row.value;
+
+    const apiKey = settings.ai_api_key;
+    const provider = settings.ai_provider ?? "anthropic";
+
+    if (!apiKey) {
+      setState((s) => ({
+        ...s,
+        isLoading: false,
+        error: "Chave de IA não configurada. Acesse Configurações → Integrações de IA.",
+      }));
+      return;
+    }
+
     let commits: Commit[] = [];
     try {
       commits = await getRecentCommits(10);
@@ -180,9 +201,58 @@ export function useDevAssistant() {
     const userContent = buildUserContent(text, imageBase64, logText, commitContext, mode);
 
     try {
-      const rawResponse = await devDiagnoseFn({
-        data: { systemPrompt, userContent },
-      });
+      let rawResponse = "";
+
+      if (provider === "anthropic") {
+        const res = await fetch("https://api.anthropic.com/v1/messages", {
+          method: "POST",
+          headers: {
+            "x-api-key": apiKey,
+            "anthropic-version": "2023-06-01",
+            "content-type": "application/json",
+            "anthropic-dangerous-direct-browser-access": "true",
+          },
+          body: JSON.stringify({
+            model: "claude-3-5-sonnet-20241022",
+            max_tokens: 4096,
+            system: systemPrompt,
+            messages: [{ role: "user", content: userContent }],
+          }),
+        });
+        if (!res.ok) {
+          const err = await res.text();
+          setState((s) => ({ ...s, isLoading: false, error: `Anthropic API error ${res.status}: ${err}` }));
+          return;
+        }
+        const data = await res.json() as { content?: { text?: string }[] };
+        rawResponse = data.content?.[0]?.text ?? "";
+      } else {
+        const textContent = userContent
+          .filter((c) => c.type === "text")
+          .map((c) => c.text ?? "")
+          .join("\n");
+        const res = await fetch("https://api.openai.com/v1/chat/completions", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${apiKey}`,
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({
+            model: "gpt-4o",
+            messages: [
+              { role: "system", content: systemPrompt },
+              { role: "user", content: textContent },
+            ],
+          }),
+        });
+        if (!res.ok) {
+          const err = await res.text();
+          setState((s) => ({ ...s, isLoading: false, error: `OpenAI API error ${res.status}: ${err}` }));
+          return;
+        }
+        const data = await res.json() as { choices?: { message?: { content?: string } }[] };
+        rawResponse = data.choices?.[0]?.message?.content ?? "";
+      }
 
       let parsed: Omit<DiagnosisResult, "rawResponse">;
       try {
