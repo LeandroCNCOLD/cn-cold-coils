@@ -2,12 +2,14 @@ import { useState } from "react";
 import { Search, RefreshCw, BarChart2, CheckCircle2, AlertCircle, XCircle } from "lucide-react";
 import { PageContainer } from "../components/layout/PageContainer";
 import { useRegistry } from "../hooks/useRegistry";
+import type { ProductTechnicalRecord } from "@/modules/coldpro_v2";
 
 export function RegistryPage() {
   const { records, search, stats } = useRegistry();
   const [query, setQuery] = useState("");
 
-  const results = query.trim() ? search(query.trim()) : records;
+  const rawResults = query.trim() ? search(query.trim()) : records;
+  const results: ProductTechnicalRecord[] = Array.isArray(rawResults) ? rawResults : rawResults ? [rawResults] : [];
   const s = stats();
 
   const familyCount = Object.keys(s.by_family ?? {}).length;
@@ -97,9 +99,11 @@ export function RegistryPage() {
             </thead>
             <tbody>
               {results.map((r, i) => {
-                const status = r.machine_validation?.overall_status ?? r.validation?.status;
-                const cap = r.equilibrium?.nominal_capacity_w;
-                const cop = r.equilibrium?.cop;
+                const status = r.machine_validation?.final_status ?? r.validation?.final_status ?? r.equilibrium?.status;
+                const cap = r.equilibrium?.thermal_balance?.q_evap_w;
+                const cop = r.equilibrium?.thermal_balance
+                  ? r.equilibrium.thermal_balance.q_evap_w / Math.max(r.equilibrium.thermal_balance.compressor_power_w, 1)
+                  : undefined;
                 return (
                   <tr
                     key={r.identity?.id ?? i}
