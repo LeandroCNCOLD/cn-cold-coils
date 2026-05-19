@@ -10,6 +10,6 @@
     "binding": "ASSETS"
   },
   "build": {
-    "command": "pnpm run build:pages"
+    "command": "npm install -g pnpm@10.33.0 && pnpm install --frozen-lockfile && pnpm run build:pages"
   }
 }
