@@ -14,6 +14,27 @@ export type Database = {
   }
   public: {
     Tables: {
+      app_settings: {
+        Row: {
+          key: string
+          value: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          key: string
+          value: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          key?: string
+          value?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
       coil_geometry_overrides: {
         Row: {
           base_id: string | null
