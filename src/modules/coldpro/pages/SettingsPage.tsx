@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { getAISettings, saveAISettings } from "@/api/aiSettings.functions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -106,6 +108,7 @@ export default function SettingsPage() {
           <TabsTrigger value="users">Usuários</TabsTrigger>
           <TabsTrigger value="permissions">Permissões</TabsTrigger>
           <TabsTrigger value="preferences">Preferências</TabsTrigger>
+          <TabsTrigger value="integrations">Integrações de IA</TabsTrigger>
         </TabsList>
 
         <TabsContent value="users">
@@ -116,6 +119,9 @@ export default function SettingsPage() {
         </TabsContent>
         <TabsContent value="preferences">
           <PreferencesTab />
+        </TabsContent>
+        <TabsContent value="integrations">
+          <AIIntegrationsTab />
         </TabsContent>
       </Tabs>
     </div>
@@ -541,3 +547,119 @@ function PreferencesTab() {
 
 // Suppress unused import warning for Badge (may be used in future iterations)
 void Badge;
+
+function AIIntegrationsTab() {
+  const [provider, setProvider] = useState<"anthropic" | "openai">("anthropic");
+  const [apiKey, setApiKey] = useState("");
+  const [maskedKey, setMaskedKey] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+
+  const getSettingsFn = useServerFn(getAISettings);
+  const saveSettingsFn = useServerFn(saveAISettings);
+
+  useEffect(() => {
+    void (async () => {
+      try {
+        const settings = await getSettingsFn();
+        if (settings.ai_provider) setProvider(settings.ai_provider as "anthropic" | "openai");
+        if (settings.ai_api_key) setMaskedKey(settings.ai_api_key);
+      } catch {
+        // sem configuração ainda
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, [getSettingsFn]);
+
+  const handleSave = async () => {
+    if (!apiKey) { toast.error("Digite a chave de API"); return; }
+    setSaving(true);
+    try {
+      await saveSettingsFn({ data: { provider, api_key: apiKey } });
+      setMaskedKey(`${apiKey.slice(0, 8)}****${apiKey.slice(-4)}`);
+      setApiKey("");
+      toast.success("Chave de IA salva com sucesso");
+    } catch (err) {
+      toast.error("Erro ao salvar", {
+        description: err instanceof Error ? err.message : String(err),
+      });
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Integrações de IA</CardTitle>
+        <CardDescription>
+          Configure a chave de API para habilitar o Assistente de Engenharia e a Auditoria de
+          Máquina com IA. A chave é armazenada de forma segura no banco de dados.
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-6 max-w-lg">
+        {loading ? (
+          <p className="text-sm text-slate-500">Carregando...</p>
+        ) : (
+          <>
+            {maskedKey ? (
+              <div className="flex items-center gap-2 rounded-md border border-green-800/40 bg-green-950/30 p-3">
+                <span className="text-sm text-green-400">✓ Chave configurada:</span>
+                <code className="font-mono text-xs text-green-300">{maskedKey}</code>
+              </div>
+            ) : (
+              <div className="rounded-md border border-yellow-800/40 bg-yellow-950/30 p-3">
+                <span className="text-sm text-yellow-400">
+                  ⚠ Nenhuma chave configurada — IA desabilitada
+                </span>
+              </div>
+            )}
+
+            <div className="space-y-2">
+              <Label>Provedor de IA</Label>
+              <div className="flex gap-3">
+                <Button
+                  variant={provider === "anthropic" ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setProvider("anthropic")}
+                >
+                  Anthropic (Claude)
+                </Button>
+                <Button
+                  variant={provider === "openai" ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setProvider("openai")}
+                >
+                  OpenAI (GPT)
+                </Button>
+              </div>
+              <p className="text-xs text-slate-500">
+                {provider === "anthropic"
+                  ? "Usa Claude 3.5 Sonnet para auditoria e Haiku para chat. Obtenha em console.anthropic.com"
+                  : "Usa GPT-4o para auditoria e GPT-4o Mini para chat. Obtenha em platform.openai.com"}
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <Label>
+                {provider === "anthropic" ? "Chave Anthropic (sk-ant-...)" : "Chave OpenAI (sk-...)"}
+              </Label>
+              <Input
+                type="password"
+                placeholder={provider === "anthropic" ? "sk-ant-api03-..." : "sk-proj-..."}
+                value={apiKey}
+                onChange={(e) => setApiKey(e.target.value)}
+                className="font-mono text-sm"
+              />
+            </div>
+
+            <Button onClick={handleSave} disabled={saving || !apiKey}>
+              {saving ? "Salvando..." : "Salvar chave"}
+            </Button>
+          </>
+        )}
+      </CardContent>
+    </Card>
+  );
+}

@@ -23,9 +23,6 @@ jobs:
 
       - name: Build
         run: pnpm run build:pages
-        env:
-          VITE_ANTHROPIC_API_KEY: ${{ secrets.VITE_ANTHROPIC_API_KEY }}
-          VITE_GITHUB_TOKEN: ${{ secrets.VITE_GITHUB_TOKEN }}
 
       - name: Deploy to Cloudflare Workers
         run: npx wrangler@latest deploy 2>&1

@@ -394,7 +394,7 @@ export function buildComparativeTable(
   return rows;
 }
 
-// ─── Utilitário p/ chamar Lovable AI Gateway ────────────────────────────────
+// ─── Utilitário de chamada de IA (Anthropic ou OpenAI via app_settings) ──────
 
 interface LovableAICallOptions {
   systemPrompt: string;
@@ -409,58 +409,109 @@ export interface LovableAIResponse<T> {
   tokens_used?: number;
 }
 
-export async function callLovableAIJson<T>(
+export async function callAIJson<T>(
   options: LovableAICallOptions,
 ): Promise<LovableAIResponse<T>> {
-  const apiKey = process.env.LOVABLE_API_KEY;
-  if (!apiKey) {
-    throw new Error("LOVABLE_API_KEY não configurada no servidor.");
+  const { getAIApiKeyServer } = await import("@/api/aiSettings.functions");
+  const credentials = await getAIApiKeyServer();
+
+  if (!credentials) {
+    throw new Error(
+      "Chave de IA não configurada. Acesse Configurações → Integrações de IA para configurar.",
+    );
   }
-  const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      model: options.model ?? "google/gemini-2.5-pro",
-      messages: [
-        { role: "system", content: options.systemPrompt },
-        { role: "user", content: options.userPrompt },
-      ],
-      response_format: {
-        type: "json_schema",
-        json_schema: {
-          name: options.schemaName,
-          strict: true,
-          schema: options.jsonSchema,
-        },
+
+  const { provider, apiKey } = credentials;
+
+  if (provider === "anthropic") {
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {
+        "x-api-key": apiKey,
+        "anthropic-version": "2023-06-01",
+        "Content-Type": "application/json",
       },
-    }),
-  });
-  if (!response.ok) {
-    const errText = await response.text().catch(() => "");
-    if (response.status === 429) {
-      throw new Error("Limite de requisições da IA atingido. Tente novamente em alguns instantes.");
+      body: JSON.stringify({
+        model: "claude-3-5-sonnet-20241022",
+        max_tokens: 4096,
+        system: options.systemPrompt,
+        messages: [{ role: "user", content: options.userPrompt }],
+      }),
+    });
+    if (!response.ok) {
+      const errText = await response.text().catch(() => "");
+      if (response.status === 429) throw new Error("Limite de requisições da IA atingido.");
+      if (response.status === 401)
+        throw new Error(
+          "Chave Anthropic inválida. Reconfigure em Configurações → Integrações de IA.",
+        );
+      throw new Error(`Erro Anthropic (${response.status}): ${errText.slice(0, 200)}`);
     }
-    if (response.status === 402) {
-      throw new Error("Créditos da IA esgotados. Adicione créditos em Lovable AI para continuar.");
+    const json = (await response.json()) as {
+      content?: { text?: string }[];
+      usage?: { input_tokens?: number; output_tokens?: number };
+    };
+    const content = json.content?.[0]?.text;
+    if (!content) throw new Error("Resposta da IA sem conteúdo.");
+    let parsed: T;
+    try {
+      const jsonMatch = content.match(/\{[\s\S]*\}/);
+      parsed = JSON.parse(jsonMatch?.[0] ?? content) as T;
+    } catch {
+      throw new Error("Resposta da IA não é JSON válido.");
     }
-    throw new Error(`Erro do gateway de IA (${response.status}): ${errText.slice(0, 200)}`);
+    return {
+      parsed,
+      tokens_used: (json.usage?.input_tokens ?? 0) + (json.usage?.output_tokens ?? 0),
+    };
+  } else {
+    // OpenAI
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        model: "gpt-4o",
+        messages: [
+          { role: "system", content: options.systemPrompt },
+          { role: "user", content: options.userPrompt },
+        ],
+        response_format: {
+          type: "json_schema",
+          json_schema: {
+            name: options.schemaName,
+            strict: true,
+            schema: options.jsonSchema,
+          },
+        },
+      }),
+    });
+    if (!response.ok) {
+      const errText = await response.text().catch(() => "");
+      if (response.status === 429) throw new Error("Limite de requisições da IA atingido.");
+      if (response.status === 401)
+        throw new Error(
+          "Chave OpenAI inválida. Reconfigure em Configurações → Integrações de IA.",
+        );
+      throw new Error(`Erro OpenAI (${response.status}): ${errText.slice(0, 200)}`);
+    }
+    const json = (await response.json()) as {
+      choices?: { message?: { content?: string } }[];
+      usage?: { total_tokens?: number };
+    };
+    const content = json.choices?.[0]?.message?.content;
+    if (!content) throw new Error("Resposta da IA sem conteúdo.");
+    let parsed: T;
+    try {
+      parsed = JSON.parse(content) as T;
+    } catch {
+      throw new Error("Resposta da IA não é JSON válido.");
+    }
+    return { parsed, tokens_used: json.usage?.total_tokens };
   }
-  const json = (await response.json()) as {
-    choices?: { message?: { content?: string } }[];
-    usage?: { total_tokens?: number };
-  };
-  const content = json.choices?.[0]?.message?.content;
-  if (!content) {
-    throw new Error("Resposta da IA sem conteúdo.");
-  }
-  let parsed: T;
-  try {
-    parsed = JSON.parse(content) as T;
-  } catch {
-    throw new Error("Resposta da IA não é JSON válido.");
-  }
-  return { parsed, tokens_used: json.usage?.total_tokens };
 }
+
+/** @deprecated Use callAIJson */
+export const callLovableAIJson = callAIJson;

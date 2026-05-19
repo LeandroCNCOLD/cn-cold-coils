@@ -18,7 +18,7 @@ import {
   buildMachineContext,
   buildReconstructUserPrompt,
   calculateHealthIndex,
-  callLovableAIJson,
+  callAIJson as callLovableAIJson,
   classifyHealth,
   flagApprovalRequired,
   mergeComponents,
