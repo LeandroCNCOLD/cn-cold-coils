@@ -35,6 +35,91 @@ export type Database = {
         }
         Relationships: []
       }
+      catalog_models: {
+        Row: {
+          id: string
+          modelo: string
+          modelo_base_referencia: string | null
+          modelo_catalogo_original: string | null
+          linha: string | null
+          aplicacao: string | null
+          familia: string | null
+          refrigerante: string | null
+          fabricante: string | null
+          compressor_modelo: string | null
+          tipo_compressor: string | null
+          tensao_v: number | null
+          numero_fases: number | null
+          frequencia_hz: number | null
+          capacidade_kcalh: number | null
+          calor_rejeitado_kcalh: number | null
+          potencia_eletrica_kw: number | null
+          cop_nominal: number | null
+          temp_evaporacao_c: number | null
+          temp_condensacao_c: number | null
+          temp_camara_c: number | null
+          validation_status: "pending" | "approved" | "warning" | "rejected"
+          data: Json
+          validated_at: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id: string
+          modelo: string
+          modelo_base_referencia?: string | null
+          modelo_catalogo_original?: string | null
+          linha?: string | null
+          aplicacao?: string | null
+          familia?: string | null
+          refrigerante?: string | null
+          fabricante?: string | null
+          compressor_modelo?: string | null
+          tipo_compressor?: string | null
+          tensao_v?: number | null
+          numero_fases?: number | null
+          frequencia_hz?: number | null
+          capacidade_kcalh?: number | null
+          calor_rejeitado_kcalh?: number | null
+          potencia_eletrica_kw?: number | null
+          cop_nominal?: number | null
+          temp_evaporacao_c?: number | null
+          temp_condensacao_c?: number | null
+          temp_camara_c?: number | null
+          validation_status?: "pending" | "approved" | "warning" | "rejected"
+          data?: Json
+          validated_at?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          modelo?: string
+          modelo_base_referencia?: string | null
+          modelo_catalogo_original?: string | null
+          linha?: string | null
+          aplicacao?: string | null
+          familia?: string | null
+          refrigerante?: string | null
+          fabricante?: string | null
+          compressor_modelo?: string | null
+          tipo_compressor?: string | null
+          tensao_v?: number | null
+          numero_fases?: number | null
+          frequencia_hz?: number | null
+          capacidade_kcalh?: number | null
+          calor_rejeitado_kcalh?: number | null
+          potencia_eletrica_kw?: number | null
+          cop_nominal?: number | null
+          temp_evaporacao_c?: number | null
+          temp_condensacao_c?: number | null
+          temp_camara_c?: number | null
+          validation_status?: "pending" | "approved" | "warning" | "rejected"
+          data?: Json
+          validated_at?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       coil_geometry_overrides: {
         Row: {
           base_id: string | null
