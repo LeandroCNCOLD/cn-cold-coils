@@ -485,9 +485,16 @@ function PsicrometriaTab({ s }: { s: WorkspaceState }) {
   const { st1, st2, st3 } = states;
 
   const chartPoints = [
-    { x: st1.W_gkg, y: st1.h_kjkg, label: "Estado 1" },
-    { x: st2.W_gkg, y: st2.h_kjkg, label: "Estado 2" },
-    { x: st3.W_gkg, y: st3.h_kjkg, label: "Estado 3" },
+    { x: st1.W_gkg, y: st1.h_kjkg },
+    { x: st2.W_gkg, y: st2.h_kjkg },
+    { x: st3.W_gkg, y: st3.h_kjkg },
+  ];
+
+  // Linha de processo: 1 → 2 (resfriamento + desumidificação) → 3 (reaquecimento)
+  const processPath = [
+    { x: st1.W_gkg, y: st1.h_kjkg },
+    { x: st2.W_gkg, y: st2.h_kjkg },
+    { x: st3.W_gkg, y: st3.h_kjkg },
   ];
 
   return (
@@ -562,9 +569,20 @@ function PsicrometriaTab({ s }: { s: WorkspaceState }) {
               />
               <Legend wrapperStyle={{ fontSize: 11 }} />
               <Scatter name="Curva saturação" data={satCurve} fill="#94a3b8" line={{ stroke: "#94a3b8", strokeWidth: 1.5 }} lineType="joint" r={0} />
-              <Scatter name="Estados do ciclo" data={chartPoints} fill="#7c3aed" r={5} />
-              <ReferenceLine x={st1.W_gkg} stroke="#3b82f6" strokeDasharray="4 2" label={{ value: "1", fontSize: 10 }} />
-              <ReferenceLine x={st3.W_gkg} stroke="#16a34a" strokeDasharray="4 2" label={{ value: "3", fontSize: 10 }} />
+              <Scatter name="Processo (1→2→3)" data={processPath} fill="none" line={{ stroke: "#f59e0b", strokeWidth: 2, strokeDasharray: "5 3" }} lineType="joint" r={0} />
+              <Scatter name="Estados do ciclo" data={chartPoints} fill="#7c3aed" r={5} shape={(props: { cx?: number; cy?: number; index?: number }) => {
+                const labels = ["1", "2", "3"];
+                const colors = ["#3b82f6", "#ef4444", "#16a34a"];
+                const cx = props.cx ?? 0; const cy = props.cy ?? 0; const i = props.index ?? 0;
+                return (
+                  <g key={i}>
+                    <circle cx={cx} cy={cy} r={5} fill={colors[i]} />
+                    <text x={cx + 7} y={cy - 5} fontSize={10} fontWeight="bold" fill={colors[i]}>{labels[i]}</text>
+                  </g>
+                );
+              }} />
+              <ReferenceLine x={st1.W_gkg} stroke="#3b82f6" strokeDasharray="4 2" />
+              <ReferenceLine x={st3.W_gkg} stroke="#16a34a" strokeDasharray="4 2" />
             </ScatterChart>
           </ResponsiveContainer>
           <p className="mt-1 text-[10px] text-slate-400">
