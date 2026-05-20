@@ -3,109 +3,95 @@
  * import-catalog-to-supabase.mjs
  *
  * Importa os 480 modelos de public/data/catalogs/equipment.json
- * para a tabela catalog_models no Supabase.
+ * para a tabela catalog_models via psql direto (sem REST API).
  *
  * Uso:
- *   SUPABASE_URL=https://xxx.supabase.co \
- *   SUPABASE_SERVICE_ROLE_KEY=eyJ... \
+ *   SUPABASE_DB_URL=postgresql://postgres:[senha]@db.sggfxewvxeagsfsqefjy.supabase.co:5432/postgres \
  *   node scripts/import-catalog-to-supabase.mjs
- *
- * Ou carrega .env.local automaticamente se existir.
  */
 
-import { readFileSync, existsSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
+import { execSync } from "node:child_process";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = resolve(__dirname, "..");
 
-// ── Carrega .env.local se existir ────────────────────────────────────────────
-const envPath = resolve(root, ".env.local");
-if (existsSync(envPath)) {
-  const raw = readFileSync(envPath, "utf-8");
-  for (const line of raw.split("\n")) {
-    const trimmed = line.trim();
-    if (!trimmed || trimmed.startsWith("#")) continue;
-    const eq = trimmed.indexOf("=");
-    if (eq < 0) continue;
-    const key = trimmed.slice(0, eq).trim();
-    const val = trimmed.slice(eq + 1).trim().replace(/^["']|["']$/g, "");
-    if (!process.env[key]) process.env[key] = val;
-  }
-}
-
-const SUPABASE_URL = process.env.SUPABASE_URL ?? process.env.VITE_SUPABASE_URL;
-const SERVICE_KEY  = process.env.SUPABASE_SERVICE_ROLE_KEY;
-
-if (!SUPABASE_URL || !SERVICE_KEY) {
-  console.error("❌  Defina SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY no ambiente ou em .env.local");
+const DB_URL = process.env.SUPABASE_DB_URL;
+if (!DB_URL) {
+  console.error("❌  Defina SUPABASE_DB_URL no ambiente");
+  console.error("    Ex: postgresql://postgres:[senha]@db.sggfxewvxeagsfsqefjy.supabase.co:5432/postgres");
   process.exit(1);
 }
 
-// ── Lê o catálogo ────────────────────────────────────────────────────────────
-const catalogPath = resolve(root, "public/data/catalogs/equipment.json");
-const raw = JSON.parse(readFileSync(catalogPath, "utf-8"));
-console.log(`📦  ${raw.length} modelos encontrados em equipment.json`);
+const data = JSON.parse(readFileSync(resolve(root, "public/data/catalogs/equipment.json"), "utf-8"));
+console.log(`📦  ${data.length} modelos encontrados — gerando SQL...`);
 
-// ── Mapeia para o schema da tabela ───────────────────────────────────────────
-function mapRow(item) {
-  return {
-    id:                       item.id,
-    modelo:                   item.modelo ?? item.id,
-    modelo_base_referencia:   item.modeloBaseReferencia ?? null,
-    modelo_catalogo_original: item.modeloCatalogoOriginal ?? null,
-    linha:                    item.linha ?? null,
-    aplicacao:                item.application ?? null,
-    familia:                  item.family ?? null,
-    refrigerante:             item.refrigerante ?? null,
-    fabricante:               item.fabricante ?? null,
-    compressor_modelo:        item.compressorModelo ?? null,
-    tipo_compressor:          item.tipoCompressor ?? null,
-    tensao_v:                 item.tensaoV ?? null,
-    numero_fases:             item.numeroFases ?? null,
-    frequencia_hz:            item.frequenciaHz ?? null,
-    capacidade_kcalh:         item.capacidadeFrigorificaKcalH ?? null,
-    calor_rejeitado_kcalh:    item.calorRejeitadoKcalH ?? null,
-    potencia_eletrica_kw:     item.potenciaEletricaKw ?? null,
-    cop_nominal:              item.cop ?? null,
-    temp_evaporacao_c:        item.tempEvaporacaoC ?? null,
-    temp_condensacao_c:       item.tempCondensacaoC ?? null,
-    temp_camara_c:            item.tempCamaraC ?? null,
-    validation_status:        "pending",
-    data:                     item,
-  };
+function str(v) {
+  if (v == null || v === "") return "NULL";
+  return `'${String(v).replace(/'/g, "''")}'`;
 }
 
-const rows = raw.map(mapRow);
-
-// ── Upsert em lotes de 50 ────────────────────────────────────────────────────
-const BATCH = 50;
-let inserted = 0;
-let errors   = 0;
-
-for (let i = 0; i < rows.length; i += BATCH) {
-  const batch = rows.slice(i, i + BATCH);
-  const res = await fetch(`${SUPABASE_URL}/rest/v1/catalog_models`, {
-    method: "POST",
-    headers: {
-      "apikey":        SERVICE_KEY,
-      "Authorization": `Bearer ${SERVICE_KEY}`,
-      "Content-Type":  "application/json",
-      "Prefer":        "resolution=merge-duplicates,return=minimal",
-    },
-    body: JSON.stringify(batch),
-  });
-
-  if (!res.ok) {
-    const err = await res.text();
-    console.error(`❌  Lote ${i}–${i + batch.length} falhou: ${res.status} ${err.slice(0, 200)}`);
-    errors += batch.length;
-  } else {
-    inserted += batch.length;
-    process.stdout.write(`\r✅  ${inserted}/${rows.length} importados...`);
-  }
+function num(v) {
+  const n = Number(v);
+  return (v != null && !isNaN(n)) ? String(n) : "NULL";
 }
 
-console.log(`\n\n🏁  Concluído: ${inserted} inseridos, ${errors} erros`);
-if (errors > 0) process.exit(1);
+const values = data.map((row) => {
+  // JSON usa dollar-quoting para evitar conflitos com aspas simples no dado
+  const jsonLiteral = `$seed$${JSON.stringify(row)}$seed$`;
+  return `(${[
+    str(row.id),
+    str(row.modelo ?? row.id),
+    str(row.modeloBaseReferencia),
+    str(row.modeloCatalogoOriginal),
+    str(row.linha),
+    str(row.application ?? row.aplicacao),
+    str(row.family ?? row.familia),
+    str(row.refrigerante),
+    str(row.fabricante),
+    str(row.compressorModelo),
+    str(row.tipoCompressor),
+    num(row.tensaoV),
+    num(row.numeroFases),
+    num(row.frequenciaHz),
+    num(row.capacidadeFrigorificaKcalH),
+    num(row.calorRejeitadoKcalH),
+    num(row.potenciaEletricaKw),
+    num(row.cop),
+    num(row.tempEvaporacaoC),
+    num(row.tempCondensacaoC),
+    num(row.tempCamaraC),
+    `${jsonLiteral}::jsonb`,
+  ].join(",")})`;
+}).join(",\n");
+
+const sql = `
+BEGIN;
+
+INSERT INTO public.catalog_models (
+  id, modelo, modelo_base_referencia, modelo_catalogo_original,
+  linha, aplicacao, familia, refrigerante, fabricante,
+  compressor_modelo, tipo_compressor,
+  tensao_v, numero_fases, frequencia_hz,
+  capacidade_kcalh, calor_rejeitado_kcalh, potencia_eletrica_kw,
+  cop_nominal, temp_evaporacao_c, temp_condensacao_c, temp_camara_c,
+  data
+)
+VALUES
+${values}
+ON CONFLICT (id) DO UPDATE SET
+  modelo        = EXCLUDED.modelo,
+  data          = EXCLUDED.data,
+  updated_at    = now();
+
+COMMIT;
+`;
+
+const tmpFile = "/tmp/catalog_seed.sql";
+writeFileSync(tmpFile, sql);
+console.log(`📝  SQL gerado: ${(sql.length / 1024).toFixed(0)} KB — executando via psql...`);
+
+execSync(`psql "${DB_URL}" -f ${tmpFile} -v ON_ERROR_STOP=1`, { stdio: "inherit" });
+console.log(`\n✅  ${data.length} modelos importados com sucesso`);
