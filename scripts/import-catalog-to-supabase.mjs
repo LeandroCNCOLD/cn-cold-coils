@@ -3,7 +3,7 @@
  * import-catalog-to-supabase.mjs
  *
  * Importa os 480 modelos de public/data/catalogs/equipment.json
- * para a tabela catalog_models via psql direto (sem REST API).
+ * para a tabela equipment_catalog via psql direto (sem REST API).
  *
  * Uso:
  *   SUPABASE_DB_URL=postgresql://postgres:[senha]@db.sggfxewvxeagsfsqefjy.supabase.co:5432/postgres \
@@ -70,7 +70,7 @@ const values = data.map((row) => {
 const sql = `
 BEGIN;
 
-INSERT INTO public.catalog_models (
+INSERT INTO public.equipment_catalog (
   id, modelo, modelo_base_referencia, modelo_catalogo_original,
   linha, aplicacao, familia, refrigerante, fabricante,
   compressor_modelo, tipo_compressor,

@@ -35,7 +35,7 @@ export type Database = {
         }
         Relationships: []
       }
-      catalog_models: {
+      equipment_catalog: {
         Row: {
           id: string
           modelo: string

@@ -1,4 +1,4 @@
-INSERT INTO public.catalog_models (
+INSERT INTO public.equipment_catalog (
   id, modelo, modelo_base_referencia, modelo_catalogo_original,
   linha, aplicacao, familia, refrigerante, fabricante,
   compressor_modelo, tipo_compressor,
