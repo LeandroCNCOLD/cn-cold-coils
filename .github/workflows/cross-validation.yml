@@ -17,6 +17,9 @@ on:
 
 # Só roda quando engine ou catálogos mudam — não para mudanças de UI
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   # ─── JOB 1: Testes unitários ─────────────────────────────────────
   unit-tests:
