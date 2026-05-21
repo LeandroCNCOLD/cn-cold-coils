@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { catalogRepository } from "../services/catalogRepository";
 import { filterCatalog } from "../services/catalogFilterService";
 import { validateCatalog } from "../services/catalogValidationService";
+import { useCatalogDataStore } from "../store/useCatalogDataStore";
 import type { CatalogFilter } from "../data/equipmentCatalog.types";
 
 export function useEquipmentCatalog() {
@@ -12,6 +13,9 @@ export function useEquipmentCatalog() {
     voltage: "all",
     phases: "all",
   });
+
+  // Re-render when the store hydrates from Supabase
+  useCatalogDataStore((s) => s.rows.length);
 
   const allRows = useMemo(() => catalogRepository.list(), []);
   const filteredRows = useMemo(() => filterCatalog(allRows, filter), [allRows, filter]);

@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/lib/auth";
 import { ptBR } from "@/i18n/pt-BR";
+import { CatalogProvider } from "@/modules/coldpro_catalog/components/CatalogProvider";
 
 import appCss from "../styles.css?url";
 
@@ -118,10 +119,12 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <TooltipProvider>
-          <Outlet />
-          <Toaster richColors position="top-right" />
-        </TooltipProvider>
+        <CatalogProvider>
+          <TooltipProvider>
+            <Outlet />
+            <Toaster richColors position="top-right" />
+          </TooltipProvider>
+        </CatalogProvider>
       </AuthProvider>
     </QueryClientProvider>
   );
