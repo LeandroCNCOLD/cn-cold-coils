@@ -1,5 +1,5 @@
 -- Tabela dos 480 modelos do catálogo CN COLD
--- Campos indexados para filtros rápidos; coluna data jsonb armazena o registro completo
+-- Armazena dados de identificação + JSONB completo para validação em lote
 
 create table if not exists public.catalog_models (
   id                        text primary key,
@@ -31,21 +31,42 @@ create table if not exists public.catalog_models (
   updated_at                timestamptz not null default now()
 );
 
-create index if not exists catalog_models_linha_idx            on public.catalog_models (linha);
-create index if not exists catalog_models_refrigerante_idx     on public.catalog_models (refrigerante);
-create index if not exists catalog_models_familia_idx          on public.catalog_models (familia);
-create index if not exists catalog_models_aplicacao_idx        on public.catalog_models (aplicacao);
-create index if not exists catalog_models_validation_idx       on public.catalog_models (validation_status);
-create index if not exists catalog_models_data_gin             on public.catalog_models using gin (data);
+-- Índices para buscas comuns
+create index if not exists catalog_models_aplicacao_idx   on public.catalog_models (aplicacao);
+create index if not exists catalog_models_linha_idx       on public.catalog_models (linha);
+create index if not exists catalog_models_refrigerante_idx on public.catalog_models (refrigerante);
+create index if not exists catalog_models_status_idx      on public.catalog_models (validation_status);
+create index if not exists catalog_models_data_gin_idx    on public.catalog_models using gin (data);
 
+-- RLS
 alter table public.catalog_models enable row level security;
 
-drop policy if exists "catalog_models read" on public.catalog_models;
-create policy "catalog_models read" on public.catalog_models
-  for select to authenticated using (true);
+-- Leitura: todos autenticados
+create policy "catalog_models: authenticated read"
+  on public.catalog_models for select
+  to authenticated
+  using (true);
 
-drop policy if exists "catalog_models admin write" on public.catalog_models;
-create policy "catalog_models admin write" on public.catalog_models
-  for all to authenticated
-  using (exists (select 1 from public.user_roles where user_id = auth.uid() and role = 'admin'))
-  with check (exists (select 1 from public.user_roles where user_id = auth.uid() and role = 'admin'));
+-- Escrita: somente admin
+create policy "catalog_models: admin write"
+  on public.catalog_models for all
+  to authenticated
+  using (
+    exists (select 1 from public.user_roles where user_id = auth.uid() and role = 'admin')
+  )
+  with check (
+    exists (select 1 from public.user_roles where user_id = auth.uid() and role = 'admin')
+  );
+
+-- Trigger para updated_at automático
+create or replace function public.set_updated_at()
+returns trigger language plpgsql as $$
+begin
+  new.updated_at = now();
+  return new;
+end;
+$$;
+
+create trigger catalog_models_updated_at
+  before update on public.catalog_models
+  for each row execute function public.set_updated_at();

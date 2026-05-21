@@ -8,8 +8,8 @@ export function RegistryPage() {
   const { records, search, stats } = useRegistry();
   const [query, setQuery] = useState("");
 
-  const found = query.trim() ? search(query.trim()) : undefined;
-  const results: ProductTechnicalRecord[] = found ? [found] : query.trim() ? [] : records;
+  const rawResults = query.trim() ? search(query.trim()) : records;
+  const results: ProductTechnicalRecord[] = Array.isArray(rawResults) ? rawResults : rawResults ? [rawResults] : [];
   const s = stats();
 
   const familyCount = Object.keys(s.by_family ?? {}).length;

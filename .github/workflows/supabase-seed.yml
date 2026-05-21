@@ -10,10 +10,14 @@ on:
         type: choice
         options: ["false", "true"]
 
-# Requer dois Secrets no GitHub:
+# Requer Secrets no GitHub (Settings → Secrets → Actions):
 #   SUPABASE_ACCESS_TOKEN  → supabase.com/dashboard/account/tokens
 #   SUPABASE_DB_PASSWORD   → supabase.com/dashboard/project/sggfxewvxeagsfsqefjy/settings/database
-#   SUPABASE_SERVICE_ROLE_KEY → igual ao do .env.local (para o import script)
+#
+# Ambos os passos usam conexão Postgres direta (porta 5432) — contorna "Host not in allowlist".
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   migrate-and-seed:
@@ -22,7 +26,6 @@ jobs:
 
     env:
       PROJECT_REF: sggfxewvxeagsfsqefjy
-      SUPABASE_URL: https://sggfxewvxeagsfsqefjy.supabase.co
 
     steps:
       - uses: actions/checkout@v4
@@ -31,14 +34,14 @@ jobs:
         with:
           version: latest
 
-      # ── 1. Aplica migrations (usa conexão Postgres direta, não REST API) ────
+      # ── 1. Aplica migrations via Postgres direto ──────────────────────────
       - name: Push migrations
         run: supabase db push --project-ref $PROJECT_REF
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
           SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
 
-      # ── 2. Importa os 480 modelos via REST API ─────────────────────────────
+      # ── 2. Importa os 480 modelos via psql (sem REST API) ─────────────────
       - uses: actions/setup-node@v4
         if: ${{ inputs.skip_seed != 'true' }}
         with:
@@ -48,5 +51,4 @@ jobs:
         if: ${{ inputs.skip_seed != 'true' }}
         run: node scripts/import-catalog-to-supabase.mjs
         env:
-          SUPABASE_URL: ${{ env.SUPABASE_URL }}
-          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          SUPABASE_DB_URL: postgresql://postgres:${{ secrets.SUPABASE_DB_PASSWORD }}@db.${{ env.PROJECT_REF }}.supabase.co:5432/postgres
