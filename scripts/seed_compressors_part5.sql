@@ -1,208 +1,4190 @@
 -- Part 5/8: rows 801–1000
+
 INSERT INTO public.compressors_catalog
   (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
    nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
 VALUES
-  ('TECUMSEH_AJ5518C_R410A_50Hz', 'Tecumseh', 'AJ5518C', 'R410A', 'HT', 'Scroll', 50, 4.05, -15.0, 15.0, 40.0, 65.0, 1),
-  ('TECUMSEH_AJ5519C_R410A_50Hz', 'Tecumseh', 'AJ5519C', 'R410A', 'HT', 'Scroll', 50, 4.25, -15.0, 15.0, 40.0, 65.0, 1),
-  ('TECUMSEH_FH5522C_R410A_50Hz', 'Tecumseh', 'FH5522C', 'R410A', 'HT', 'Scroll', 50, 4.54, -15.0, 15.0, 40.0, 65.0, 1),
-  ('TECUMSEH_FH5524C_R410A_50Hz', 'Tecumseh', 'FH5524C', 'R410A', 'HT', 'Scroll', 50, 5.05, -15.0, 15.0, 40.0, 65.0, 1),
-  ('TECUMSEH_FH5528C_R410A_50Hz', 'Tecumseh', 'FH5528C', 'R410A', 'HT', 'Scroll', 50, 5.859999999999999, -15.0, 15.0, 40.0, 65.0, 1),
-  ('TECUMSEH_FH5532C_R410A_50Hz', 'Tecumseh', 'FH5532C', 'R410A', 'HT', 'Scroll', 50, 6.85, -15.0, 15.0, 40.0, 65.0, 1),
-  ('TECUMSEH_FH5538C_R410A_50Hz', 'Tecumseh', 'FH5538C', 'R410A', 'HT', 'Scroll', 50, 8.19, -15.0, 15.0, 40.0, 65.0, 1),
-  ('TECUMSEH_FH5542C_R410A_50Hz', 'Tecumseh', 'FH5542C', 'R410A', 'HT', 'Scroll', 50, 9.17, -15.0, 15.0, 40.0, 65.0, 1),
-  ('TECUMSEH_HGA5480C_R410A_50Hz', 'Tecumseh', 'HGA5480C', 'R410A', 'HT', 'Scroll', 50, 1.7, -15.0, 15.0, 40.0, 65.0, 1),
-  ('TECUMSEH_HGA5492C_R410A_50Hz', 'Tecumseh', 'HGA5492C', 'R410A', 'HT', 'Scroll', 50, 1.94, -15.0, 15.0, 40.0, 65.0, 1),
-  ('TECUMSEH_HGA5510C_R410A_50Hz', 'Tecumseh', 'HGA5510C', 'R410A', 'HT', 'Scroll', 50, 2.16, -15.0, 15.0, 40.0, 65.0, 1),
-  ('TECUMSEH_HGA5512C_R410A_50Hz', 'Tecumseh', 'HGA5512C', 'R410A', 'HT', 'Scroll', 50, 2.37, -15.0, 15.0, 40.0, 65.0, 1),
-  ('TECUMSEH_RGA5492C_R410A_50Hz', 'Tecumseh', 'RGA5492C', 'R410A', 'HT', 'Scroll', 50, 1.91, -15.0, 15.0, 40.0, 65.0, 1),
-  ('TECUMSEH_RGA5512C_R410A_50Hz', 'Tecumseh', 'RGA5512C', 'R410A', 'HT', 'Scroll', 50, 2.37, -15.0, 15.0, 40.0, 65.0, 1),
-  ('TECUMSEH_RK5480C_R410A_50Hz', 'Tecumseh', 'RK5480C', 'R410A', 'HT', 'Scroll', 50, 1.7, -15.0, 15.0, 40.0, 65.0, 1),
-  ('TECUMSEH_RK5490C_R410A_50Hz', 'Tecumseh', 'RK5490C', 'R410A', 'HT', 'Scroll', 50, 1849.0, -15.0, 15.0, 40.0, 65.0, 1),
-  ('TECUMSEH_RK5510C_R410A_50Hz', 'Tecumseh', 'RK5510C', 'R410A', 'HT', 'Scroll', 50, 2.2, -15.0, 15.0, 40.0, 65.0, 1),
-  ('TECUMSEH_RK5512C_R410A_50Hz', 'Tecumseh', 'RK5512C', 'R410A', 'HT', 'Scroll', 50, 2.43, -15.0, 15.0, 40.0, 65.0, 1),
-  ('TECUMSEH_RK5513C_R410A_50Hz', 'Tecumseh', 'RK5513C', 'R410A', 'HT', 'Scroll', 50, 2.67, -15.0, 15.0, 40.0, 65.0, 1),
-  ('TECUMSEH_RK5515C_R410A_50Hz', 'Tecumseh', 'RK5515C', 'R410A', 'HT', 'Scroll', 50, 3.26, -15.0, 15.0, 40.0, 65.0, 1),
-  ('TECUMSEH_RK5518C_R410A_50Hz', 'Tecumseh', 'RK5518C', 'R410A', 'HT', 'Scroll', 50, 3.73, -15.0, 15.0, 40.0, 65.0, 1),
-  ('TECUMSEH_TAJ5519C_R410A_50Hz', 'Tecumseh', 'TAJ5519C', 'R410A', 'HT', 'Scroll', 50, 4.25, -15.0, 15.0, 40.0, 65.0, 2),
-  ('TECUMSEH_TFH5524C_R410A_50Hz', 'Tecumseh', 'TFH5524C', 'R410A', 'HT', 'Scroll', 50, 5.05, -15.0, 15.0, 40.0, 65.0, 2),
-  ('TECUMSEH_TFH5538C_R410A_50Hz', 'Tecumseh', 'TFH5538C', 'R410A', 'HT', 'Scroll', 50, 8.19, -15.0, 15.0, 40.0, 65.0, 2),
-  ('TECUMSEH_TAG5546C_R410A_50Hz', 'Tecumseh', 'TAG5546C', 'R410A', 'HT', 'Scroll', 50, 8.709999999999999, -15.0, 15.0, 40.0, 65.0, 1),
-  ('TECUMSEH_TAG5553C_R410A_50Hz', 'Tecumseh', 'TAG5553C', 'R410A', 'HT', 'Scroll', 50, 10.63, -15.0, 15.0, 40.0, 65.0, 1),
-  ('TECUMSEH_TAG5561C_R410A_50Hz', 'Tecumseh', 'TAG5561C', 'R410A', 'HT', 'Scroll', 50, 12.15, -15.0, 15.0, 40.0, 65.0, 1),
-  ('TECUMSEH_TAG5568C_R410A_50Hz', 'Tecumseh', 'TAG5568C', 'R410A', 'HT', 'Scroll', 50, 13.53, -15.0, 15.0, 40.0, 65.0, 1),
-  ('TECUMSEH_TAG5573C_R410A_50Hz', 'Tecumseh', 'TAG5573C', 'R410A', 'HT', 'Scroll', 50, 14.85, -15.0, 15.0, 40.0, 65.0, 1),
-  ('TECUMSEH_TAGD5590C_R410A_50Hz', 'Tecumseh', 'TAGD5590C', 'R410A', 'HT', 'Scroll', 50, 17.46, -15.0, 15.0, 40.0, 65.0, 1),
-  ('TECUMSEH_TAGD5610C_R410A_50Hz', 'Tecumseh', 'TAGD5610C', 'R410A', 'HT', 'Scroll', 50, 21.31, -15.0, 15.0, 40.0, 65.0, 1),
-  ('TECUMSEH_TAGD5612C_R410A_50Hz', 'Tecumseh', 'TAGD5612C', 'R410A', 'HT', 'Scroll', 50, 24.3, -15.0, 15.0, 40.0, 65.0, 1),
-  ('TECUMSEH_TAGD5614C_R410A_50Hz', 'Tecumseh', 'TAGD5614C', 'R410A', 'HT', 'Scroll', 50, 27.1, -15.0, 15.0, 40.0, 65.0, 1),
-  ('TECUMSEH_TAGD5615C_R410A_50Hz', 'Tecumseh', 'TAGD5615C', 'R410A', 'HT', 'Scroll', 50, 29.75, -15.0, 15.0, 40.0, 65.0, 1),
-  ('TECUMSEH_TAJ5515C_R410A_50Hz', 'Tecumseh', 'TAJ5515C', 'R410A', 'HT', 'Scroll', 50, 3.17, -15.0, 15.0, 40.0, 65.0, 1),
-  ('TECUMSEH_TFH5522C_R410A_50Hz', 'Tecumseh', 'TFH5522C', 'R410A', 'HT', 'Scroll', 50, 4.54, -15.0, 15.0, 40.0, 65.0, 1),
-  ('TECUMSEH_TFH5528C_R410A_50Hz', 'Tecumseh', 'TFH5528C', 'R410A', 'HT', 'Scroll', 50, 5.859999999999999, -15.0, 15.0, 40.0, 65.0, 1),
-  ('TECUMSEH_TFH5532C_R410A_50Hz', 'Tecumseh', 'TFH5532C', 'R410A', 'HT', 'Scroll', 50, 6.85, -15.0, 15.0, 40.0, 65.0, 1),
-  ('TECUMSEH_TFH5542C_R410A_50Hz', 'Tecumseh', 'TFH5542C', 'R410A', 'HT', 'Scroll', 50, 9.17, -15.0, 15.0, 40.0, 65.0, 1),
-  ('TECUMSEH_THGA5512C_R410A_50Hz', 'Tecumseh', 'THGA5512C', 'R410A', 'HT', 'Scroll', 50, 2.4, -15.0, 15.0, 40.0, 65.0, 1),
-  ('TECUMSEH_RK5450Y_R404A_50Hz', 'Tecumseh', 'RK5450Y', 'R404A', 'HT', 'Scroll', 50, 1.26, -15.0, 15.0, 40.0, 65.0, 1),
-  ('TECUMSEH_RK5480Y_R404A_50Hz', 'Tecumseh', 'RK5480Y', 'R404A', 'HT', 'Scroll', 50, 2.06, -15.0, 15.0, 40.0, 65.0, 1),
-  ('TECUMSEH_RK5512Y_R404A_50Hz', 'Tecumseh', 'RK5512Y', 'R404A', 'HT', 'Scroll', 50, 2.64, -15.0, 15.0, 40.0, 65.0, 1),
-  ('TECUMSEH_TRK5450Y_R404A_50Hz', 'Tecumseh', 'TRK5450Y', 'R404A', 'HT', 'Scroll', 50, 1.26, -15.0, 15.0, 40.0, 65.0, 1),
-  ('TECUMSEH_TRK5480Y_R404A_50Hz', 'Tecumseh', 'TRK5480Y', 'R404A', 'HT', 'Scroll', 50, 2.06, -15.0, 15.0, 40.0, 65.0, 1),
-  ('TECUMSEH_TRK5512Y_R404A_50Hz', 'Tecumseh', 'TRK5512Y', 'R404A', 'HT', 'Scroll', 50, 2.64, -15.0, 15.0, 40.0, 65.0, 1),
-  ('MANEUROP_MT040_4_R134a_50Hz', 'Maneurop', 'MT040-4', 'R134a', 'HT', 'Scroll', 50, 0.0, -20.0, 10.0, 35.0, 60.0, 3),
-  ('MANEUROP_MT080_4_R134a_50Hz', 'Maneurop', 'MT080-4', 'R134a', 'HT', 'Scroll', 50, 0.0, -20.0, 10.0, 35.0, 65.0, 3),
-  ('DANFOSS_MT018_4_R134a_50Hz', 'Danfoss', 'MT018-4', 'R134a', 'HT', 'Scroll', 50, 0.0, -25.0, 15.0, 35.0, 65.0, 1),
-  ('DANFOSS_MT028_4_R134a_50Hz', 'Danfoss', 'MT028-4', 'R134a', 'HT', 'Scroll', 50, 0.0, -25.0, 15.0, 35.0, 65.0, 1),
-  ('DANFOSS_MT050_4_R134a_50Hz', 'Danfoss', 'MT050-4', 'R134a', 'HT', 'Scroll', 50, 0.0, -25.0, 15.0, 35.0, 65.0, 1),
-  ('DANFOSS_MT064_4_R134a_50Hz', 'Danfoss', 'MT064-4', 'R134a', 'HT', 'Scroll', 50, 0.0, -25.0, 15.0, 35.0, 65.0, 1),
-  ('DANFOSS_MT100_4_R134a_50Hz', 'Danfoss', 'MT100-4', 'R134a', 'HT', 'Scroll', 50, 0.0, -25.0, 15.0, 35.0, 65.0, 1),
-  ('DANFOSS_MT125_4_R134a_50Hz', 'Danfoss', 'MT125-4', 'R134a', 'HT', 'Scroll', 50, 0.0, -25.0, 15.0, 35.0, 65.0, 1),
-  ('DANFOSS_MT160_4_R134a_50Hz', 'Danfoss', 'MT160-4', 'R134a', 'HT', 'Scroll', 50, 0.0, -25.0, 15.0, 35.0, 65.0, 1),
-  ('DANFOSS_GS26CLX_R507A_50Hz', 'Danfoss', 'GS26CLX', 'R507A', 'HT', 'Scroll', 50, 0.0, -45.0, -10.0, 35.0, 50.0, 1),
-  ('DANFOSS_MTZ018_4_R507A_50Hz', 'Danfoss', 'MTZ018-4', 'R507A', 'HT', 'Scroll', 50, 0.0, -30.0, 10.0, 35.0, 60.0, 1),
-  ('DANFOSS_MTZ028_4_R507A_50Hz', 'Danfoss', 'MTZ028-4', 'R507A', 'HT', 'Scroll', 50, 0.0, -30.0, 10.0, 35.0, 60.0, 1),
-  ('DANFOSS_MTZ040_4_R507A_50Hz', 'Danfoss', 'MTZ040-4', 'R507A', 'HT', 'Scroll', 50, 0.0, -30.0, 10.0, 35.0, 60.0, 1),
-  ('DANFOSS_MTZ050_4_R507A_50Hz', 'Danfoss', 'MTZ050-4', 'R507A', 'HT', 'Scroll', 50, 0.0, -30.0, 10.0, 35.0, 60.0, 1),
-  ('DANFOSS_MTZ064_4_R507A_50Hz', 'Danfoss', 'MTZ064-4', 'R507A', 'HT', 'Scroll', 50, 0.0, -30.0, 10.0, 35.0, 60.0, 1),
-  ('DANFOSS_MTZ080_4_R507A_50Hz', 'Danfoss', 'MTZ080-4', 'R507A', 'HT', 'Scroll', 50, 0.0, -30.0, 10.0, 35.0, 60.0, 1),
-  ('DANFOSS_MTZ100_4_R507A_50Hz', 'Danfoss', 'MTZ100-4', 'R507A', 'HT', 'Scroll', 50, 0.0, -30.0, 10.0, 35.0, 60.0, 1),
-  ('DANFOSS_MTZ125_4_R507A_50Hz', 'Danfoss', 'MTZ125-4', 'R507A', 'HT', 'Scroll', 50, 0.0, -30.0, 10.0, 35.0, 60.0, 1),
-  ('DANFOSS_MTZ160_4_R507A_50Hz', 'Danfoss', 'MTZ160-4', 'R507A', 'HT', 'Scroll', 50, 0.0, -30.0, 10.0, 35.0, 60.0, 1),
-  ('DANFOSS_SC12CLX_R507A_50Hz', 'Danfoss', 'SC12CLX', 'R507A', 'HT', 'Scroll', 50, 0.0, -45.0, -10.0, 35.0, 50.0, 1),
-  ('DANFOSS_SC12MLX_R507A_50Hz', 'Danfoss', 'SC12MLX', 'R507A', 'HT', 'Scroll', 50, 0.0, -20.0, 5.0, 35.0, 50.0, 1),
-  ('DANFOSS_SC15CLX_R507A_50Hz', 'Danfoss', 'SC15CLX', 'R507A', 'HT', 'Scroll', 50, 0.0, -45.0, -10.0, 35.0, 50.0, 1),
-  ('DANFOSS_SC15MLX_R507A_50Hz', 'Danfoss', 'SC15MLX', 'R507A', 'HT', 'Scroll', 50, 0.0, -20.0, 5.0, 35.0, 50.0, 1),
-  ('DANFOSS_SC18MLX_R507A_50Hz', 'Danfoss', 'SC18MLX', 'R507A', 'HT', 'Scroll', 50, 0.0, -20.0, 5.0, 35.0, 50.0, 1),
-  ('COPELAND_ZP235KCE_TWC_R407C_60Hz', 'Copeland', 'ZP235KCE-TWC', 'R407C', 'HT', 'Scroll', 60, 50.6, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZP180KCE_TWC_R407C_60Hz', 'Copeland', 'ZP180KCE-TWC', 'R407C', 'HT', 'Scroll', 60, 38.9, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZP16KSE_PFZ_R407C_60Hz', 'Copeland', 'ZP16KSE-PFZ', 'R407C', 'HT', 'Scroll', 60, 3.2, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZP32K3E_PFJ_R407C_60Hz', 'Copeland', 'ZP32K3E-PFJ', 'R407C', 'HT', 'Scroll', 60, 6.7, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZP41K3E_PFJ_R407C_60Hz', 'Copeland', 'ZP41K3E-PFJ', 'R407C', 'HT', 'Scroll', 60, 8.8, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZP24KSE_PFZ_R407C_60Hz', 'Copeland', 'ZP24KSE-PFZ', 'R407C', 'HT', 'Scroll', 60, 5.1, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZP29KSE_PFZ_R407C_60Hz', 'Copeland', 'ZP29KSE-PFZ', 'R407C', 'HT', 'Scroll', 60, 6.0, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZP31KSE_PFZ_R407C_60Hz', 'Copeland', 'ZP31KSE-PFZ', 'R407C', 'HT', 'Scroll', 60, 6.7, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZP36KSE_PFZ_R407C_60Hz', 'Copeland', 'ZP36KSE-PFZ', 'R407C', 'HT', 'Scroll', 60, 7.8, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZP42KSE_PFZ_R407C_60Hz', 'Copeland', 'ZP42KSE-PFZ', 'R407C', 'HT', 'Scroll', 60, 9.1, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZP54KSE_PFZ_R407C_60Hz', 'Copeland', 'ZP54KSE-PFZ', 'R407C', 'HT', 'Scroll', 60, 11.7, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZP26K3E_PFJ_R407C_60Hz', 'Copeland', 'ZP26K3E-PFJ', 'R407C', 'HT', 'Scroll', 60, 5.4, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZP24KSE_TFM_R407C_60Hz', 'Copeland', 'ZP24KSE-TFM', 'R407C', 'HT', 'Scroll', 60, 5.8, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZP90KCE_TFD_R407C_60Hz', 'Copeland', 'ZP90KCE-TFD', 'R407C', 'HT', 'Scroll', 60, 22.2, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZP103KCE_TFD_R407C_60Hz', 'Copeland', 'ZP103KCE-TFD', 'R407C', 'HT', 'Scroll', 60, 25.8, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZP120KCE_TFD_R407C_60Hz', 'Copeland', 'ZP120KCE-TFD', 'R407C', 'HT', 'Scroll', 60, 30.6, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZP137KCE_TFD_R407C_60Hz', 'Copeland', 'ZP137KCE-TFD', 'R407C', 'HT', 'Scroll', 60, 34.6, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZP154KCE_TFD_R407C_60Hz', 'Copeland', 'ZP154KCE-TFD', 'R407C', 'HT', 'Scroll', 60, 38.7, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZP235KCE_TWD_R407C_60Hz', 'Copeland', 'ZP235KCE-TWD', 'R407C', 'HT', 'Scroll', 60, 58.2, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZP295KCE_TWD_R407C_60Hz', 'Copeland', 'ZP295KCE-TWD', 'R407C', 'HT', 'Scroll', 60, 72.8, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZP385KCE_TWD_R407C_60Hz', 'Copeland', 'ZP385KCE-TWD', 'R407C', 'HT', 'Scroll', 60, 94.5, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZP23K3E_TFD_R407C_60Hz', 'Copeland', 'ZP23K3E-TFD', 'R407C', 'HT', 'Scroll', 60, 5.0, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZP29KSE_TFM_R407C_60Hz', 'Copeland', 'ZP29KSE-TFM', 'R407C', 'HT', 'Scroll', 60, 7.0, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZP26K3E_TFD_R407C_60Hz', 'Copeland', 'ZP26K3E-TFD', 'R407C', 'HT', 'Scroll', 60, 5.4, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZP32K3E_TFD_R407C_60Hz', 'Copeland', 'ZP32K3E-TFD', 'R407C', 'HT', 'Scroll', 60, 6.7, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZP41K3E_TFD_R407C_60Hz', 'Copeland', 'ZP41K3E-TFD', 'R407C', 'HT', 'Scroll', 60, 8.8, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZP54K3E_TFD_R407C_60Hz', 'Copeland', 'ZP54K3E-TFD', 'R407C', 'HT', 'Scroll', 60, 11.8, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZP180KCE_TWD_R407C_60Hz', 'Copeland', 'ZP180KCE-TWD', 'R407C', 'HT', 'Scroll', 60, 38.9, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZP31KSE_TFM_R407C_60Hz', 'Copeland', 'ZP31KSE-TFM', 'R407C', 'HT', 'Scroll', 60, 7.6, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZP36KSE_TFM_R407C_60Hz', 'Copeland', 'ZP36KSE-TFM', 'R407C', 'HT', 'Scroll', 60, 8.8, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZP42KSE_TFM_R407C_60Hz', 'Copeland', 'ZP42KSE-TFM', 'R407C', 'HT', 'Scroll', 60, 10.4, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZP54KSE_TFM_R407C_60Hz', 'Copeland', 'ZP54KSE-TFM', 'R407C', 'HT', 'Scroll', 60, 13.4, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZP61KCE_TFD_R407C_60Hz', 'Copeland', 'ZP61KCE-TFD', 'R407C', 'HT', 'Scroll', 60, 15.1, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZP72KCE_TFD_R407C_60Hz', 'Copeland', 'ZP72KCE-TFD', 'R407C', 'HT', 'Scroll', 60, 17.6, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZP83KCE_TFD_R407C_60Hz', 'Copeland', 'ZP83KCE-TFD', 'R407C', 'HT', 'Scroll', 60, 20.3, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZP235KCE_TW7_R407C_60Hz', 'Copeland', 'ZP235KCE-TW7', 'R407C', 'MT', 'Scroll', 60, 60.9, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZP180KCE_TW7_R407C_60Hz', 'Copeland', 'ZP180KCE-TW7', 'R407C', 'MT', 'Scroll', 60, 46.7, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZP182KCE_TFD_R407C_60Hz', 'Copeland', 'ZP182KCE-TFD', 'R407C', 'HT', 'Scroll', 60, 45.4, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZP480KCE_TWD_R407C_60Hz', 'Copeland', 'ZP480KCE-TWD', 'R407C', 'HT', 'Scroll', 60, 119.5, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZB45KCE_TWC_R404A_60Hz', 'Copeland', 'ZB45KCE-TWC', 'R404A', 'HT', 'Scroll', 60, 0.0, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZR108KCE_TFD_R404A_60Hz', 'Copeland', 'ZR108KCE-TFD', 'R404A', 'HT', 'Scroll', 60, 15.7, -20.0, 15.0, 35.0, 65.0, 3),
-  ('COPELAND_ZR125KCE_TFD_R404A_60Hz', 'Copeland', 'ZR125KCE-TFD', 'R404A', 'HT', 'Scroll', 60, 18.0, -20.0, 15.0, 35.0, 65.0, 3),
-  ('COPELAND_ZR144KCE_TFD_R404A_60Hz', 'Copeland', 'ZR144KCE-TFD', 'R404A', 'HT', 'Scroll', 60, 23.3, -20.0, 15.0, 35.0, 65.0, 3),
-  ('COPELAND_ZR160KCE_TFD_R404A_60Hz', 'Copeland', 'ZR160KCE-TFD', 'R404A', 'HT', 'Scroll', 60, 25.1, -20.0, 15.0, 35.0, 65.0, 3),
-  ('COPELAND_ZR190KCE_TFD_R404A_60Hz', 'Copeland', 'ZR190KCE-TFD', 'R404A', 'HT', 'Scroll', 60, 29.9, -20.0, 15.0, 35.0, 65.0, 3),
-  ('COPELAND_ZR620KCE_FWM_R404A_60Hz', 'Copeland', 'ZR620KCE-FWM', 'R404A', 'HT', 'Scroll', 60, 96.2, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZR760KCE_FWM_R404A_60Hz', 'Copeland', 'ZR760KCE-FWM', 'R404A', 'HT', 'Scroll', 60, 115.0, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZBH30KJE_TFD_R404A_60Hz', 'Copeland', 'ZBH30KJE-TFD', 'R404A', 'HT', 'Scroll', 60, 0.0, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZRH49KJE_TFD_R404A_60Hz', 'Copeland', 'ZRH49KJE-TFD', 'R404A', 'HT', 'Scroll', 60, 7.5, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZBH38KJE_TFD_R404A_60Hz', 'Copeland', 'ZBH38KJE-TFD', 'R404A', 'HT', 'Scroll', 60, 9.4, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZRH61KJE_TFD_R404A_60Hz', 'Copeland', 'ZRH61KJE-TFD', 'R404A', 'HT', 'Scroll', 60, 9.4, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZBH45KJE_TFD_R404A_60Hz', 'Copeland', 'ZBH45KJE-TFD', 'R404A', 'HT', 'Scroll', 60, 11.2, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZBHV45KJE_TFD_R404A_60Hz', 'Copeland', 'ZBHV45KJE-TFD', 'R404A', 'HT', 'Scroll', 60, 11.2, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZRH72KJE_TFD_R404A_60Hz', 'Copeland', 'ZRH72KJE-TFD', 'R404A', 'HT', 'Scroll', 60, 11.2, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZRHV72KJE_TFD_R404A_60Hz', 'Copeland', 'ZRHV72KJE-TFD', 'R404A', 'HT', 'Scroll', 60, 11.2, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZRT96K3E_TFD_R404A_60Hz', 'Copeland', 'ZRT96K3E-TFD', 'R404A', 'HT', 'Scroll', 60, 14.9, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZR94KCE_TFD_R404A_60Hz', 'Copeland', 'ZR94KCE-TFD', 'R404A', 'HT', 'Scroll', 60, 13.7, -20.0, 15.0, 35.0, 65.0, 3),
-  ('COPELAND_ZR94KCE_TF5_R404A_60Hz', 'Copeland', 'ZR94KCE-TF5', 'R404A', 'LT', 'Scroll', 60, 16.7, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZR108KCE_TF5_R404A_60Hz', 'Copeland', 'ZR108KCE-TF5', 'R404A', 'LT', 'Scroll', 60, 18.9, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZR125KCE_TF5_R404A_60Hz', 'Copeland', 'ZR125KCE-TF5', 'R404A', 'LT', 'Scroll', 60, 21.7, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZR144KCE_TF5_R404A_60Hz', 'Copeland', 'ZR144KCE-TF5', 'R404A', 'LT', 'Scroll', 60, 28.1, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZR160KCE_TW5_R404A_60Hz', 'Copeland', 'ZR160KCE-TW5', 'R404A', 'LT', 'Scroll', 60, 30.0, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZR190KCE_TW5_R404A_60Hz', 'Copeland', 'ZR190KCE-TW5', 'R404A', 'LT', 'Scroll', 60, 36.2, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZR94KCE_TF7_R404A_60Hz', 'Copeland', 'ZR94KCE-TF7', 'R404A', 'MT', 'Scroll', 60, 16.7, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZR108KCE_TF7_R404A_60Hz', 'Copeland', 'ZR108KCE-TF7', 'R404A', 'MT', 'Scroll', 60, 18.9, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZR125KCE_TF7_R404A_60Hz', 'Copeland', 'ZR125KCE-TF7', 'R404A', 'MT', 'Scroll', 60, 21.7, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZR144KCE_TF7_R404A_60Hz', 'Copeland', 'ZR144KCE-TF7', 'R404A', 'MT', 'Scroll', 60, 28.5, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZR160KCE_TW7_R404A_60Hz', 'Copeland', 'ZR160KCE-TW7', 'R404A', 'MT', 'Scroll', 60, 30.0, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZR190KCE_TW7_R404A_60Hz', 'Copeland', 'ZR190KCE-TW7', 'R404A', 'MT', 'Scroll', 60, 36.2, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZR61KC_PFZ_R134a_60Hz', 'Copeland', 'ZR61KC-PFZ', 'R134a', 'HT', 'Scroll', 60, 14.9, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZR94KC_TFD_R134a_60Hz', 'Copeland', 'ZR94KC-TFD', 'R134a', 'HT', 'Scroll', 60, 23.2, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZR108KC_TFD_R134a_60Hz', 'Copeland', 'ZR108KC-TFD', 'R134a', 'HT', 'Scroll', 60, 26.1, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZR125KC_TFD_R134a_60Hz', 'Copeland', 'ZR125KC-TFD', 'R134a', 'HT', 'Scroll', 60, 30.7, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZR144KC_TFD_R134a_60Hz', 'Copeland', 'ZR144KC-TFD', 'R134a', 'HT', 'Scroll', 60, 35.3, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZR160KC_TFD_R134a_60Hz', 'Copeland', 'ZR160KC-TFD', 'R134a', 'HT', 'Scroll', 60, 38.2, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZR190KC_TFD_R134a_60Hz', 'Copeland', 'ZR190KC-TFD', 'R134a', 'HT', 'Scroll', 60, 45.4, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZR620KCE_FWM_R134a_60Hz', 'Copeland', 'ZR620KCE-FWM', 'R134a', 'HT', 'Scroll', 60, 153.5, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZR620KC_FWM_R134a_60Hz', 'Copeland', 'ZR620KC-FWM', 'R134a', 'HT', 'Scroll', 60, 153.5, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZR760KCE_FWM_R134a_60Hz', 'Copeland', 'ZR760KCE-FWM', 'R134a', 'HT', 'Scroll', 60, 184.5, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZB15KCE_TFD_B_R134a_60Hz', 'Copeland', 'ZB15KCE-TFD-B', 'R134a', 'HT', 'Scroll', 60, 1.8, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZB19KCE_TFD_B_R134a_60Hz', 'Copeland', 'ZB19KCE-TFD-B', 'R134a', 'HT', 'Scroll', 60, 2.0, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZF09K4E_TFD_B_R134a_60Hz', 'Copeland', 'ZF09K4E-TFD-B', 'R134a', 'HT', 'Scroll', 60, 2.5, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZB21KCE_TFD_B_R134a_60Hz', 'Copeland', 'ZB21KCE-TFD-B', 'R134a', 'HT', 'Scroll', 60, 0.7, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZB26KCE_TFD_B_R134a_60Hz', 'Copeland', 'ZB26KCE-TFD-B', 'R134a', 'HT', 'Scroll', 60, 2.5, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZF11K4E_TFD_B_R134a_60Hz', 'Copeland', 'ZF11K4E-TFD-B', 'R134a', 'HT', 'Scroll', 60, 2.9, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZF13K4E_TFD_B_R134a_60Hz', 'Copeland', 'ZF13K4E-TFD-B', 'R134a', 'HT', 'Scroll', 60, 3.7, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZB30KCE_TFD_B_R134a_60Hz', 'Copeland', 'ZB30KCE-TFD-B', 'R134a', 'HT', 'Scroll', 60, 2.3, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZF15K4E_TFD_B_R134a_60Hz', 'Copeland', 'ZF15K4E-TFD-B', 'R134a', 'HT', 'Scroll', 60, 4.5, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZF18K4E_TFD_B_R134a_60Hz', 'Copeland', 'ZF18K4E-TFD-B', 'R134a', 'HT', 'Scroll', 60, 5.3, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZB45KCE_TFD_B_R134a_60Hz', 'Copeland', 'ZB45KCE-TFD-B', 'R134a', 'HT', 'Scroll', 60, 4.2, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZB56KCE_TWD_B_R134a_60Hz', 'Copeland', 'ZB56KCE-TWD-B', 'R134a', 'HT', 'Scroll', 60, 6.4, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZF24K4E_TWD_B_R134a_60Hz', 'Copeland', 'ZF24K4E-TWD-B', 'R134a', 'HT', 'Scroll', 60, 6.2, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZB75KCE_TWD_B_R134a_60Hz', 'Copeland', 'ZB75KCE-TWD-B', 'R134a', 'HT', 'Scroll', 60, 8.7, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZF33K4E_TWD_B_R134a_60Hz', 'Copeland', 'ZF33K4E-TWD-B', 'R134a', 'HT', 'Scroll', 60, 8.4, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZB92KCE_TWD_B_R134a_60Hz', 'Copeland', 'ZB92KCE-TWD-B', 'R134a', 'HT', 'Scroll', 60, 11.1, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZF40K4E_TWD_B_R134a_60Hz', 'Copeland', 'ZF40K4E-TWD-B', 'R134a', 'HT', 'Scroll', 60, 10.5, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZB11MCE_TWD_B_R134a_60Hz', 'Copeland', 'ZB11MCE-TWD-B', 'R134a', 'HT', 'Scroll', 60, 13.5, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZF48K4E_TWD_B_R134a_60Hz', 'Copeland', 'ZF48K4E-TWD-B', 'R134a', 'HT', 'Scroll', 60, 12.7, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZBD30KC_TFD_R134a_60Hz', 'Copeland', 'ZBD30KC-TFD', 'R134a', 'HT', 'Scroll', 60, 11.9, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZBD45KC_TFD_R134a_60Hz', 'Copeland', 'ZBD45KC-TFD', 'R134a', 'HT', 'Scroll', 60, 17.5, -20.0, 15.0, 35.0, 65.0, 2),
-  ('COPELAND_ZRT96K3_TFD_R134a_60Hz', 'Copeland', 'ZRT96K3-TFD', 'R134a', 'HT', 'Scroll', 60, 23.2, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZRT96K3E_TFD_R134a_60Hz', 'Copeland', 'ZRT96K3E-TFD', 'R134a', 'HT', 'Scroll', 60, 23.2, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZR94KC_TF5_R134a_60Hz', 'Copeland', 'ZR94KC-TF5', 'R134a', 'LT', 'Scroll', 60, 28.0, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZB38KCE_TF5_R134a_60Hz', 'Copeland', 'ZB38KCE-TF5', 'R134a', 'LT', 'Scroll', 60, 17.4, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZF15K4E_TF5_R134a_60Hz', 'Copeland', 'ZF15K4E-TF5', 'R134a', 'LT', 'Scroll', 60, 17.5, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZB45KCE_TF5_R134a_60Hz', 'Copeland', 'ZB45KCE-TF5', 'R134a', 'LT', 'Scroll', 60, 21.1, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZF18K4E_TF5_R134a_60Hz', 'Copeland', 'ZF18K4E-TF5', 'R134a', 'LT', 'Scroll', 60, 21.1, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZS45K4E_TF5_R134a_60Hz', 'Copeland', 'ZS45K4E-TF5', 'R134a', 'LT', 'Scroll', 60, 20.8, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZB56KCE_TWC_R134a_60Hz', 'Copeland', 'ZB56KCE-TWC', 'R134a', 'LT', 'Scroll', 60, 25.5, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZF24K4E_TWC_R134a_60Hz', 'Copeland', 'ZF24K4E-TWC', 'R134a', 'LT', 'Scroll', 60, 26.0, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZS56K4E_TWC_R134a_60Hz', 'Copeland', 'ZS56K4E-TWC', 'R134a', 'LT', 'Scroll', 60, 25.6, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZB75KCE_TWC_R134a_60Hz', 'Copeland', 'ZB75KCE-TWC', 'R134a', 'LT', 'Scroll', 60, 34.3, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZF33K4E_TWC_R134a_60Hz', 'Copeland', 'ZF33K4E-TWC', 'R134a', 'LT', 'Scroll', 60, 34.6, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZR108KC_TF5_R134a_60Hz', 'Copeland', 'ZR108KC-TF5', 'R134a', 'LT', 'Scroll', 60, 26.0, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZS75K4E_TWC_R134a_60Hz', 'Copeland', 'ZS75K4E-TWC', 'R134a', 'LT', 'Scroll', 60, 34.0, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZB92KCE_TWC_R134a_60Hz', 'Copeland', 'ZB92KCE-TWC', 'R134a', 'LT', 'Scroll', 60, 43.7, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZS92K4E_TWC_R134a_60Hz', 'Copeland', 'ZS92K4E-TWC', 'R134a', 'LT', 'Scroll', 60, 45.0, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZF40K4E_TWC_R134a_60Hz', 'Copeland', 'ZF40K4E-TWC', 'R134a', 'LT', 'Scroll', 60, 34.6, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZS11M4E_TWC_R134a_60Hz', 'Copeland', 'ZS11M4E-TWC', 'R134a', 'LT', 'Scroll', 60, 50.4, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZB11MCE_TWC_R134a_60Hz', 'Copeland', 'ZB11MCE-TWC', 'R134a', 'LT', 'Scroll', 60, 53.2, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZF48K4E_TWC_R134a_60Hz', 'Copeland', 'ZF48K4E-TWC', 'R134a', 'LT', 'Scroll', 60, 51.1, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZB15KCE_TF5_B_R134a_60Hz', 'Copeland', 'ZB15KCE-TF5-B', 'R134a', 'LT', 'Scroll', 60, 2.1, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZB19KCE_TF5_B_R134a_60Hz', 'Copeland', 'ZB19KCE-TF5-B', 'R134a', 'LT', 'Scroll', 60, 2.3, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZF09K4E_TF5_B_R134a_60Hz', 'Copeland', 'ZF09K4E-TF5-B', 'R134a', 'LT', 'Scroll', 60, 3.0, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZB21KCE_TF5_B_R134a_60Hz', 'Copeland', 'ZB21KCE-TF5-B', 'R134a', 'LT', 'Scroll', 60, 0.9, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZB26KCE_TF5_B_R134a_60Hz', 'Copeland', 'ZB26KCE-TF5-B', 'R134a', 'LT', 'Scroll', 60, 3.0, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZF11K4E_TF5_B_R134a_60Hz', 'Copeland', 'ZF11K4E-TF5-B', 'R134a', 'LT', 'Scroll', 60, 3.5, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZF13K4E_TF5_B_R134a_60Hz', 'Copeland', 'ZF13K4E-TF5-B', 'R134a', 'LT', 'Scroll', 60, 4.4, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZB30KCE_TF5_B_R134a_60Hz', 'Copeland', 'ZB30KCE-TF5-B', 'R134a', 'LT', 'Scroll', 60, 2.7, -20.0, 15.0, 35.0, 65.0, 1),
-  ('COPELAND_ZF15K4E_TF5_B_R134a_60Hz', 'Copeland', 'ZF15K4E-TF5-B', 'R134a', 'LT', 'Scroll', 60, 5.4, -20.0, 15.0, 35.0, 65.0, 1)
+  ('TECUMSEH_AJ5518C_R410A_50Hz', 'Tecumseh', 'AJ5518C', 'R410A', 'HT', 'Scroll',
+   50, 4.05, -15.0, 15.0, 40.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_AJ5519C_R410A_50Hz', 'Tecumseh', 'AJ5519C', 'R410A', 'HT', 'Scroll',
+   50, 4.25, -15.0, 15.0, 40.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_FH5522C_R410A_50Hz', 'Tecumseh', 'FH5522C', 'R410A', 'HT', 'Scroll',
+   50, 4.54, -15.0, 15.0, 40.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_FH5524C_R410A_50Hz', 'Tecumseh', 'FH5524C', 'R410A', 'HT', 'Scroll',
+   50, 5.05, -15.0, 15.0, 40.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_FH5528C_R410A_50Hz', 'Tecumseh', 'FH5528C', 'R410A', 'HT', 'Scroll',
+   50, 5.859999999999999, -15.0, 15.0, 40.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_FH5532C_R410A_50Hz', 'Tecumseh', 'FH5532C', 'R410A', 'HT', 'Scroll',
+   50, 6.85, -15.0, 15.0, 40.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_FH5538C_R410A_50Hz', 'Tecumseh', 'FH5538C', 'R410A', 'HT', 'Scroll',
+   50, 8.19, -15.0, 15.0, 40.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_FH5542C_R410A_50Hz', 'Tecumseh', 'FH5542C', 'R410A', 'HT', 'Scroll',
+   50, 9.17, -15.0, 15.0, 40.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_HGA5480C_R410A_50Hz', 'Tecumseh', 'HGA5480C', 'R410A', 'HT', 'Scroll',
+   50, 1.7, -15.0, 15.0, 40.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_HGA5492C_R410A_50Hz', 'Tecumseh', 'HGA5492C', 'R410A', 'HT', 'Scroll',
+   50, 1.94, -15.0, 15.0, 40.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_HGA5510C_R410A_50Hz', 'Tecumseh', 'HGA5510C', 'R410A', 'HT', 'Scroll',
+   50, 2.16, -15.0, 15.0, 40.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_HGA5512C_R410A_50Hz', 'Tecumseh', 'HGA5512C', 'R410A', 'HT', 'Scroll',
+   50, 2.37, -15.0, 15.0, 40.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_RGA5492C_R410A_50Hz', 'Tecumseh', 'RGA5492C', 'R410A', 'HT', 'Scroll',
+   50, 1.91, -15.0, 15.0, 40.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_RGA5512C_R410A_50Hz', 'Tecumseh', 'RGA5512C', 'R410A', 'HT', 'Scroll',
+   50, 2.37, -15.0, 15.0, 40.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_RK5480C_R410A_50Hz', 'Tecumseh', 'RK5480C', 'R410A', 'HT', 'Scroll',
+   50, 1.7, -15.0, 15.0, 40.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_RK5490C_R410A_50Hz', 'Tecumseh', 'RK5490C', 'R410A', 'HT', 'Scroll',
+   50, 1849.0, -15.0, 15.0, 40.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_RK5510C_R410A_50Hz', 'Tecumseh', 'RK5510C', 'R410A', 'HT', 'Scroll',
+   50, 2.2, -15.0, 15.0, 40.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_RK5512C_R410A_50Hz', 'Tecumseh', 'RK5512C', 'R410A', 'HT', 'Scroll',
+   50, 2.43, -15.0, 15.0, 40.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_RK5513C_R410A_50Hz', 'Tecumseh', 'RK5513C', 'R410A', 'HT', 'Scroll',
+   50, 2.67, -15.0, 15.0, 40.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_RK5515C_R410A_50Hz', 'Tecumseh', 'RK5515C', 'R410A', 'HT', 'Scroll',
+   50, 3.26, -15.0, 15.0, 40.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_RK5518C_R410A_50Hz', 'Tecumseh', 'RK5518C', 'R410A', 'HT', 'Scroll',
+   50, 3.73, -15.0, 15.0, 40.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_TAJ5519C_R410A_50Hz', 'Tecumseh', 'TAJ5519C', 'R410A', 'HT', 'Scroll',
+   50, 4.25, -15.0, 15.0, 40.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_TFH5524C_R410A_50Hz', 'Tecumseh', 'TFH5524C', 'R410A', 'HT', 'Scroll',
+   50, 5.05, -15.0, 15.0, 40.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_TFH5538C_R410A_50Hz', 'Tecumseh', 'TFH5538C', 'R410A', 'HT', 'Scroll',
+   50, 8.19, -15.0, 15.0, 40.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_TAG5546C_R410A_50Hz', 'Tecumseh', 'TAG5546C', 'R410A', 'HT', 'Scroll',
+   50, 8.709999999999999, -15.0, 15.0, 40.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_TAG5553C_R410A_50Hz', 'Tecumseh', 'TAG5553C', 'R410A', 'HT', 'Scroll',
+   50, 10.63, -15.0, 15.0, 40.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_TAG5561C_R410A_50Hz', 'Tecumseh', 'TAG5561C', 'R410A', 'HT', 'Scroll',
+   50, 12.15, -15.0, 15.0, 40.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_TAG5568C_R410A_50Hz', 'Tecumseh', 'TAG5568C', 'R410A', 'HT', 'Scroll',
+   50, 13.53, -15.0, 15.0, 40.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_TAG5573C_R410A_50Hz', 'Tecumseh', 'TAG5573C', 'R410A', 'HT', 'Scroll',
+   50, 14.85, -15.0, 15.0, 40.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_TAGD5590C_R410A_50Hz', 'Tecumseh', 'TAGD5590C', 'R410A', 'HT', 'Scroll',
+   50, 17.46, -15.0, 15.0, 40.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_TAGD5610C_R410A_50Hz', 'Tecumseh', 'TAGD5610C', 'R410A', 'HT', 'Scroll',
+   50, 21.31, -15.0, 15.0, 40.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_TAGD5612C_R410A_50Hz', 'Tecumseh', 'TAGD5612C', 'R410A', 'HT', 'Scroll',
+   50, 24.3, -15.0, 15.0, 40.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_TAGD5614C_R410A_50Hz', 'Tecumseh', 'TAGD5614C', 'R410A', 'HT', 'Scroll',
+   50, 27.1, -15.0, 15.0, 40.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_TAGD5615C_R410A_50Hz', 'Tecumseh', 'TAGD5615C', 'R410A', 'HT', 'Scroll',
+   50, 29.75, -15.0, 15.0, 40.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_TAJ5515C_R410A_50Hz', 'Tecumseh', 'TAJ5515C', 'R410A', 'HT', 'Scroll',
+   50, 3.17, -15.0, 15.0, 40.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_TFH5522C_R410A_50Hz', 'Tecumseh', 'TFH5522C', 'R410A', 'HT', 'Scroll',
+   50, 4.54, -15.0, 15.0, 40.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_TFH5528C_R410A_50Hz', 'Tecumseh', 'TFH5528C', 'R410A', 'HT', 'Scroll',
+   50, 5.859999999999999, -15.0, 15.0, 40.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_TFH5532C_R410A_50Hz', 'Tecumseh', 'TFH5532C', 'R410A', 'HT', 'Scroll',
+   50, 6.85, -15.0, 15.0, 40.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_TFH5542C_R410A_50Hz', 'Tecumseh', 'TFH5542C', 'R410A', 'HT', 'Scroll',
+   50, 9.17, -15.0, 15.0, 40.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_THGA5512C_R410A_50Hz', 'Tecumseh', 'THGA5512C', 'R410A', 'HT', 'Scroll',
+   50, 2.4, -15.0, 15.0, 40.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_RK5450Y_R404A_50Hz', 'Tecumseh', 'RK5450Y', 'R404A', 'HT', 'Scroll',
+   50, 1.26, -15.0, 15.0, 40.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_RK5480Y_R404A_50Hz', 'Tecumseh', 'RK5480Y', 'R404A', 'HT', 'Scroll',
+   50, 2.06, -15.0, 15.0, 40.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_RK5512Y_R404A_50Hz', 'Tecumseh', 'RK5512Y', 'R404A', 'HT', 'Scroll',
+   50, 2.64, -15.0, 15.0, 40.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_TRK5450Y_R404A_50Hz', 'Tecumseh', 'TRK5450Y', 'R404A', 'HT', 'Scroll',
+   50, 1.26, -15.0, 15.0, 40.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_TRK5480Y_R404A_50Hz', 'Tecumseh', 'TRK5480Y', 'R404A', 'HT', 'Scroll',
+   50, 2.06, -15.0, 15.0, 40.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('TECUMSEH_TRK5512Y_R404A_50Hz', 'Tecumseh', 'TRK5512Y', 'R404A', 'HT', 'Scroll',
+   50, 2.64, -15.0, 15.0, 40.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_MT040_4_R134a_50Hz', 'Maneurop', 'MT040-4', 'R134a', 'HT', 'Scroll',
+   50, 0.0, -20.0, 10.0, 35.0, 60.0, 3)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_MT080_4_R134a_50Hz', 'Maneurop', 'MT080-4', 'R134a', 'HT', 'Scroll',
+   50, 0.0, -20.0, 10.0, 35.0, 65.0, 3)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('DANFOSS_MT018_4_R134a_50Hz', 'Danfoss', 'MT018-4', 'R134a', 'HT', 'Scroll',
+   50, 0.0, -25.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('DANFOSS_MT028_4_R134a_50Hz', 'Danfoss', 'MT028-4', 'R134a', 'HT', 'Scroll',
+   50, 0.0, -25.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('DANFOSS_MT050_4_R134a_50Hz', 'Danfoss', 'MT050-4', 'R134a', 'HT', 'Scroll',
+   50, 0.0, -25.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('DANFOSS_MT064_4_R134a_50Hz', 'Danfoss', 'MT064-4', 'R134a', 'HT', 'Scroll',
+   50, 0.0, -25.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('DANFOSS_MT100_4_R134a_50Hz', 'Danfoss', 'MT100-4', 'R134a', 'HT', 'Scroll',
+   50, 0.0, -25.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('DANFOSS_MT125_4_R134a_50Hz', 'Danfoss', 'MT125-4', 'R134a', 'HT', 'Scroll',
+   50, 0.0, -25.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('DANFOSS_MT160_4_R134a_50Hz', 'Danfoss', 'MT160-4', 'R134a', 'HT', 'Scroll',
+   50, 0.0, -25.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('DANFOSS_GS26CLX_R507A_50Hz', 'Danfoss', 'GS26CLX', 'R507A', 'HT', 'Scroll',
+   50, 0.0, -45.0, -10.0, 35.0, 50.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('DANFOSS_MTZ018_4_R507A_50Hz', 'Danfoss', 'MTZ018-4', 'R507A', 'HT', 'Scroll',
+   50, 0.0, -30.0, 10.0, 35.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('DANFOSS_MTZ028_4_R507A_50Hz', 'Danfoss', 'MTZ028-4', 'R507A', 'HT', 'Scroll',
+   50, 0.0, -30.0, 10.0, 35.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('DANFOSS_MTZ040_4_R507A_50Hz', 'Danfoss', 'MTZ040-4', 'R507A', 'HT', 'Scroll',
+   50, 0.0, -30.0, 10.0, 35.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('DANFOSS_MTZ050_4_R507A_50Hz', 'Danfoss', 'MTZ050-4', 'R507A', 'HT', 'Scroll',
+   50, 0.0, -30.0, 10.0, 35.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('DANFOSS_MTZ064_4_R507A_50Hz', 'Danfoss', 'MTZ064-4', 'R507A', 'HT', 'Scroll',
+   50, 0.0, -30.0, 10.0, 35.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('DANFOSS_MTZ080_4_R507A_50Hz', 'Danfoss', 'MTZ080-4', 'R507A', 'HT', 'Scroll',
+   50, 0.0, -30.0, 10.0, 35.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('DANFOSS_MTZ100_4_R507A_50Hz', 'Danfoss', 'MTZ100-4', 'R507A', 'HT', 'Scroll',
+   50, 0.0, -30.0, 10.0, 35.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('DANFOSS_MTZ125_4_R507A_50Hz', 'Danfoss', 'MTZ125-4', 'R507A', 'HT', 'Scroll',
+   50, 0.0, -30.0, 10.0, 35.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('DANFOSS_MTZ160_4_R507A_50Hz', 'Danfoss', 'MTZ160-4', 'R507A', 'HT', 'Scroll',
+   50, 0.0, -30.0, 10.0, 35.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('DANFOSS_SC12CLX_R507A_50Hz', 'Danfoss', 'SC12CLX', 'R507A', 'HT', 'Scroll',
+   50, 0.0, -45.0, -10.0, 35.0, 50.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('DANFOSS_SC12MLX_R507A_50Hz', 'Danfoss', 'SC12MLX', 'R507A', 'HT', 'Scroll',
+   50, 0.0, -20.0, 5.0, 35.0, 50.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('DANFOSS_SC15CLX_R507A_50Hz', 'Danfoss', 'SC15CLX', 'R507A', 'HT', 'Scroll',
+   50, 0.0, -45.0, -10.0, 35.0, 50.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('DANFOSS_SC15MLX_R507A_50Hz', 'Danfoss', 'SC15MLX', 'R507A', 'HT', 'Scroll',
+   50, 0.0, -20.0, 5.0, 35.0, 50.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('DANFOSS_SC18MLX_R507A_50Hz', 'Danfoss', 'SC18MLX', 'R507A', 'HT', 'Scroll',
+   50, 0.0, -20.0, 5.0, 35.0, 50.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZP235KCE_TWC_R407C_60Hz', 'Copeland', 'ZP235KCE-TWC', 'R407C', 'HT', 'Scroll',
+   60, 50.6, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZP180KCE_TWC_R407C_60Hz', 'Copeland', 'ZP180KCE-TWC', 'R407C', 'HT', 'Scroll',
+   60, 38.9, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZP16KSE_PFZ_R407C_60Hz', 'Copeland', 'ZP16KSE-PFZ', 'R407C', 'HT', 'Scroll',
+   60, 3.2, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZP32K3E_PFJ_R407C_60Hz', 'Copeland', 'ZP32K3E-PFJ', 'R407C', 'HT', 'Scroll',
+   60, 6.7, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZP41K3E_PFJ_R407C_60Hz', 'Copeland', 'ZP41K3E-PFJ', 'R407C', 'HT', 'Scroll',
+   60, 8.8, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZP24KSE_PFZ_R407C_60Hz', 'Copeland', 'ZP24KSE-PFZ', 'R407C', 'HT', 'Scroll',
+   60, 5.1, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZP29KSE_PFZ_R407C_60Hz', 'Copeland', 'ZP29KSE-PFZ', 'R407C', 'HT', 'Scroll',
+   60, 6.0, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZP31KSE_PFZ_R407C_60Hz', 'Copeland', 'ZP31KSE-PFZ', 'R407C', 'HT', 'Scroll',
+   60, 6.7, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZP36KSE_PFZ_R407C_60Hz', 'Copeland', 'ZP36KSE-PFZ', 'R407C', 'HT', 'Scroll',
+   60, 7.8, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZP42KSE_PFZ_R407C_60Hz', 'Copeland', 'ZP42KSE-PFZ', 'R407C', 'HT', 'Scroll',
+   60, 9.1, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZP54KSE_PFZ_R407C_60Hz', 'Copeland', 'ZP54KSE-PFZ', 'R407C', 'HT', 'Scroll',
+   60, 11.7, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZP26K3E_PFJ_R407C_60Hz', 'Copeland', 'ZP26K3E-PFJ', 'R407C', 'HT', 'Scroll',
+   60, 5.4, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZP24KSE_TFM_R407C_60Hz', 'Copeland', 'ZP24KSE-TFM', 'R407C', 'HT', 'Scroll',
+   60, 5.8, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZP90KCE_TFD_R407C_60Hz', 'Copeland', 'ZP90KCE-TFD', 'R407C', 'HT', 'Scroll',
+   60, 22.2, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZP103KCE_TFD_R407C_60Hz', 'Copeland', 'ZP103KCE-TFD', 'R407C', 'HT', 'Scroll',
+   60, 25.8, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZP120KCE_TFD_R407C_60Hz', 'Copeland', 'ZP120KCE-TFD', 'R407C', 'HT', 'Scroll',
+   60, 30.6, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZP137KCE_TFD_R407C_60Hz', 'Copeland', 'ZP137KCE-TFD', 'R407C', 'HT', 'Scroll',
+   60, 34.6, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZP154KCE_TFD_R407C_60Hz', 'Copeland', 'ZP154KCE-TFD', 'R407C', 'HT', 'Scroll',
+   60, 38.7, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZP235KCE_TWD_R407C_60Hz', 'Copeland', 'ZP235KCE-TWD', 'R407C', 'HT', 'Scroll',
+   60, 58.2, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZP295KCE_TWD_R407C_60Hz', 'Copeland', 'ZP295KCE-TWD', 'R407C', 'HT', 'Scroll',
+   60, 72.8, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZP385KCE_TWD_R407C_60Hz', 'Copeland', 'ZP385KCE-TWD', 'R407C', 'HT', 'Scroll',
+   60, 94.5, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZP23K3E_TFD_R407C_60Hz', 'Copeland', 'ZP23K3E-TFD', 'R407C', 'HT', 'Scroll',
+   60, 5.0, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZP29KSE_TFM_R407C_60Hz', 'Copeland', 'ZP29KSE-TFM', 'R407C', 'HT', 'Scroll',
+   60, 7.0, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZP26K3E_TFD_R407C_60Hz', 'Copeland', 'ZP26K3E-TFD', 'R407C', 'HT', 'Scroll',
+   60, 5.4, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZP32K3E_TFD_R407C_60Hz', 'Copeland', 'ZP32K3E-TFD', 'R407C', 'HT', 'Scroll',
+   60, 6.7, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZP41K3E_TFD_R407C_60Hz', 'Copeland', 'ZP41K3E-TFD', 'R407C', 'HT', 'Scroll',
+   60, 8.8, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZP54K3E_TFD_R407C_60Hz', 'Copeland', 'ZP54K3E-TFD', 'R407C', 'HT', 'Scroll',
+   60, 11.8, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZP180KCE_TWD_R407C_60Hz', 'Copeland', 'ZP180KCE-TWD', 'R407C', 'HT', 'Scroll',
+   60, 38.9, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZP31KSE_TFM_R407C_60Hz', 'Copeland', 'ZP31KSE-TFM', 'R407C', 'HT', 'Scroll',
+   60, 7.6, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZP36KSE_TFM_R407C_60Hz', 'Copeland', 'ZP36KSE-TFM', 'R407C', 'HT', 'Scroll',
+   60, 8.8, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZP42KSE_TFM_R407C_60Hz', 'Copeland', 'ZP42KSE-TFM', 'R407C', 'HT', 'Scroll',
+   60, 10.4, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZP54KSE_TFM_R407C_60Hz', 'Copeland', 'ZP54KSE-TFM', 'R407C', 'HT', 'Scroll',
+   60, 13.4, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZP61KCE_TFD_R407C_60Hz', 'Copeland', 'ZP61KCE-TFD', 'R407C', 'HT', 'Scroll',
+   60, 15.1, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZP72KCE_TFD_R407C_60Hz', 'Copeland', 'ZP72KCE-TFD', 'R407C', 'HT', 'Scroll',
+   60, 17.6, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZP83KCE_TFD_R407C_60Hz', 'Copeland', 'ZP83KCE-TFD', 'R407C', 'HT', 'Scroll',
+   60, 20.3, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZP235KCE_TW7_R407C_60Hz', 'Copeland', 'ZP235KCE-TW7', 'R407C', 'MT', 'Scroll',
+   60, 60.9, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZP180KCE_TW7_R407C_60Hz', 'Copeland', 'ZP180KCE-TW7', 'R407C', 'MT', 'Scroll',
+   60, 46.7, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZP182KCE_TFD_R407C_60Hz', 'Copeland', 'ZP182KCE-TFD', 'R407C', 'HT', 'Scroll',
+   60, 45.4, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZP480KCE_TWD_R407C_60Hz', 'Copeland', 'ZP480KCE-TWD', 'R407C', 'HT', 'Scroll',
+   60, 119.5, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZB45KCE_TWC_R404A_60Hz', 'Copeland', 'ZB45KCE-TWC', 'R404A', 'HT', 'Scroll',
+   60, 0.0, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZR108KCE_TFD_R404A_60Hz', 'Copeland', 'ZR108KCE-TFD', 'R404A', 'HT', 'Scroll',
+   60, 15.7, -20.0, 15.0, 35.0, 65.0, 3)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZR125KCE_TFD_R404A_60Hz', 'Copeland', 'ZR125KCE-TFD', 'R404A', 'HT', 'Scroll',
+   60, 18.0, -20.0, 15.0, 35.0, 65.0, 3)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZR144KCE_TFD_R404A_60Hz', 'Copeland', 'ZR144KCE-TFD', 'R404A', 'HT', 'Scroll',
+   60, 23.3, -20.0, 15.0, 35.0, 65.0, 3)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZR160KCE_TFD_R404A_60Hz', 'Copeland', 'ZR160KCE-TFD', 'R404A', 'HT', 'Scroll',
+   60, 25.1, -20.0, 15.0, 35.0, 65.0, 3)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZR190KCE_TFD_R404A_60Hz', 'Copeland', 'ZR190KCE-TFD', 'R404A', 'HT', 'Scroll',
+   60, 29.9, -20.0, 15.0, 35.0, 65.0, 3)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZR620KCE_FWM_R404A_60Hz', 'Copeland', 'ZR620KCE-FWM', 'R404A', 'HT', 'Scroll',
+   60, 96.2, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZR760KCE_FWM_R404A_60Hz', 'Copeland', 'ZR760KCE-FWM', 'R404A', 'HT', 'Scroll',
+   60, 115.0, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZBH30KJE_TFD_R404A_60Hz', 'Copeland', 'ZBH30KJE-TFD', 'R404A', 'HT', 'Scroll',
+   60, 0.0, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZRH49KJE_TFD_R404A_60Hz', 'Copeland', 'ZRH49KJE-TFD', 'R404A', 'HT', 'Scroll',
+   60, 7.5, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZBH38KJE_TFD_R404A_60Hz', 'Copeland', 'ZBH38KJE-TFD', 'R404A', 'HT', 'Scroll',
+   60, 9.4, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZRH61KJE_TFD_R404A_60Hz', 'Copeland', 'ZRH61KJE-TFD', 'R404A', 'HT', 'Scroll',
+   60, 9.4, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZBH45KJE_TFD_R404A_60Hz', 'Copeland', 'ZBH45KJE-TFD', 'R404A', 'HT', 'Scroll',
+   60, 11.2, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZBHV45KJE_TFD_R404A_60Hz', 'Copeland', 'ZBHV45KJE-TFD', 'R404A', 'HT', 'Scroll',
+   60, 11.2, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZRH72KJE_TFD_R404A_60Hz', 'Copeland', 'ZRH72KJE-TFD', 'R404A', 'HT', 'Scroll',
+   60, 11.2, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZRHV72KJE_TFD_R404A_60Hz', 'Copeland', 'ZRHV72KJE-TFD', 'R404A', 'HT', 'Scroll',
+   60, 11.2, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZRT96K3E_TFD_R404A_60Hz', 'Copeland', 'ZRT96K3E-TFD', 'R404A', 'HT', 'Scroll',
+   60, 14.9, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZR94KCE_TFD_R404A_60Hz', 'Copeland', 'ZR94KCE-TFD', 'R404A', 'HT', 'Scroll',
+   60, 13.7, -20.0, 15.0, 35.0, 65.0, 3)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZR94KCE_TF5_R404A_60Hz', 'Copeland', 'ZR94KCE-TF5', 'R404A', 'LT', 'Scroll',
+   60, 16.7, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZR108KCE_TF5_R404A_60Hz', 'Copeland', 'ZR108KCE-TF5', 'R404A', 'LT', 'Scroll',
+   60, 18.9, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZR125KCE_TF5_R404A_60Hz', 'Copeland', 'ZR125KCE-TF5', 'R404A', 'LT', 'Scroll',
+   60, 21.7, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZR144KCE_TF5_R404A_60Hz', 'Copeland', 'ZR144KCE-TF5', 'R404A', 'LT', 'Scroll',
+   60, 28.1, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZR160KCE_TW5_R404A_60Hz', 'Copeland', 'ZR160KCE-TW5', 'R404A', 'LT', 'Scroll',
+   60, 30.0, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZR190KCE_TW5_R404A_60Hz', 'Copeland', 'ZR190KCE-TW5', 'R404A', 'LT', 'Scroll',
+   60, 36.2, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZR94KCE_TF7_R404A_60Hz', 'Copeland', 'ZR94KCE-TF7', 'R404A', 'MT', 'Scroll',
+   60, 16.7, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZR108KCE_TF7_R404A_60Hz', 'Copeland', 'ZR108KCE-TF7', 'R404A', 'MT', 'Scroll',
+   60, 18.9, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZR125KCE_TF7_R404A_60Hz', 'Copeland', 'ZR125KCE-TF7', 'R404A', 'MT', 'Scroll',
+   60, 21.7, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZR144KCE_TF7_R404A_60Hz', 'Copeland', 'ZR144KCE-TF7', 'R404A', 'MT', 'Scroll',
+   60, 28.5, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZR160KCE_TW7_R404A_60Hz', 'Copeland', 'ZR160KCE-TW7', 'R404A', 'MT', 'Scroll',
+   60, 30.0, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZR190KCE_TW7_R404A_60Hz', 'Copeland', 'ZR190KCE-TW7', 'R404A', 'MT', 'Scroll',
+   60, 36.2, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZR61KC_PFZ_R134a_60Hz', 'Copeland', 'ZR61KC-PFZ', 'R134a', 'HT', 'Scroll',
+   60, 14.9, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZR94KC_TFD_R134a_60Hz', 'Copeland', 'ZR94KC-TFD', 'R134a', 'HT', 'Scroll',
+   60, 23.2, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZR108KC_TFD_R134a_60Hz', 'Copeland', 'ZR108KC-TFD', 'R134a', 'HT', 'Scroll',
+   60, 26.1, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZR125KC_TFD_R134a_60Hz', 'Copeland', 'ZR125KC-TFD', 'R134a', 'HT', 'Scroll',
+   60, 30.7, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZR144KC_TFD_R134a_60Hz', 'Copeland', 'ZR144KC-TFD', 'R134a', 'HT', 'Scroll',
+   60, 35.3, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZR160KC_TFD_R134a_60Hz', 'Copeland', 'ZR160KC-TFD', 'R134a', 'HT', 'Scroll',
+   60, 38.2, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZR190KC_TFD_R134a_60Hz', 'Copeland', 'ZR190KC-TFD', 'R134a', 'HT', 'Scroll',
+   60, 45.4, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZR620KCE_FWM_R134a_60Hz', 'Copeland', 'ZR620KCE-FWM', 'R134a', 'HT', 'Scroll',
+   60, 153.5, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZR620KC_FWM_R134a_60Hz', 'Copeland', 'ZR620KC-FWM', 'R134a', 'HT', 'Scroll',
+   60, 153.5, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZR760KCE_FWM_R134a_60Hz', 'Copeland', 'ZR760KCE-FWM', 'R134a', 'HT', 'Scroll',
+   60, 184.5, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZB15KCE_TFD_B_R134a_60Hz', 'Copeland', 'ZB15KCE-TFD-B', 'R134a', 'HT', 'Scroll',
+   60, 1.8, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZB19KCE_TFD_B_R134a_60Hz', 'Copeland', 'ZB19KCE-TFD-B', 'R134a', 'HT', 'Scroll',
+   60, 2.0, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZF09K4E_TFD_B_R134a_60Hz', 'Copeland', 'ZF09K4E-TFD-B', 'R134a', 'HT', 'Scroll',
+   60, 2.5, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZB21KCE_TFD_B_R134a_60Hz', 'Copeland', 'ZB21KCE-TFD-B', 'R134a', 'HT', 'Scroll',
+   60, 0.7, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZB26KCE_TFD_B_R134a_60Hz', 'Copeland', 'ZB26KCE-TFD-B', 'R134a', 'HT', 'Scroll',
+   60, 2.5, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZF11K4E_TFD_B_R134a_60Hz', 'Copeland', 'ZF11K4E-TFD-B', 'R134a', 'HT', 'Scroll',
+   60, 2.9, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZF13K4E_TFD_B_R134a_60Hz', 'Copeland', 'ZF13K4E-TFD-B', 'R134a', 'HT', 'Scroll',
+   60, 3.7, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZB30KCE_TFD_B_R134a_60Hz', 'Copeland', 'ZB30KCE-TFD-B', 'R134a', 'HT', 'Scroll',
+   60, 2.3, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZF15K4E_TFD_B_R134a_60Hz', 'Copeland', 'ZF15K4E-TFD-B', 'R134a', 'HT', 'Scroll',
+   60, 4.5, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZF18K4E_TFD_B_R134a_60Hz', 'Copeland', 'ZF18K4E-TFD-B', 'R134a', 'HT', 'Scroll',
+   60, 5.3, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZB45KCE_TFD_B_R134a_60Hz', 'Copeland', 'ZB45KCE-TFD-B', 'R134a', 'HT', 'Scroll',
+   60, 4.2, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZB56KCE_TWD_B_R134a_60Hz', 'Copeland', 'ZB56KCE-TWD-B', 'R134a', 'HT', 'Scroll',
+   60, 6.4, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZF24K4E_TWD_B_R134a_60Hz', 'Copeland', 'ZF24K4E-TWD-B', 'R134a', 'HT', 'Scroll',
+   60, 6.2, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZB75KCE_TWD_B_R134a_60Hz', 'Copeland', 'ZB75KCE-TWD-B', 'R134a', 'HT', 'Scroll',
+   60, 8.7, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZF33K4E_TWD_B_R134a_60Hz', 'Copeland', 'ZF33K4E-TWD-B', 'R134a', 'HT', 'Scroll',
+   60, 8.4, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZB92KCE_TWD_B_R134a_60Hz', 'Copeland', 'ZB92KCE-TWD-B', 'R134a', 'HT', 'Scroll',
+   60, 11.1, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZF40K4E_TWD_B_R134a_60Hz', 'Copeland', 'ZF40K4E-TWD-B', 'R134a', 'HT', 'Scroll',
+   60, 10.5, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZB11MCE_TWD_B_R134a_60Hz', 'Copeland', 'ZB11MCE-TWD-B', 'R134a', 'HT', 'Scroll',
+   60, 13.5, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZF48K4E_TWD_B_R134a_60Hz', 'Copeland', 'ZF48K4E-TWD-B', 'R134a', 'HT', 'Scroll',
+   60, 12.7, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZBD30KC_TFD_R134a_60Hz', 'Copeland', 'ZBD30KC-TFD', 'R134a', 'HT', 'Scroll',
+   60, 11.9, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZBD45KC_TFD_R134a_60Hz', 'Copeland', 'ZBD45KC-TFD', 'R134a', 'HT', 'Scroll',
+   60, 17.5, -20.0, 15.0, 35.0, 65.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZRT96K3_TFD_R134a_60Hz', 'Copeland', 'ZRT96K3-TFD', 'R134a', 'HT', 'Scroll',
+   60, 23.2, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZRT96K3E_TFD_R134a_60Hz', 'Copeland', 'ZRT96K3E-TFD', 'R134a', 'HT', 'Scroll',
+   60, 23.2, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZR94KC_TF5_R134a_60Hz', 'Copeland', 'ZR94KC-TF5', 'R134a', 'LT', 'Scroll',
+   60, 28.0, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZB38KCE_TF5_R134a_60Hz', 'Copeland', 'ZB38KCE-TF5', 'R134a', 'LT', 'Scroll',
+   60, 17.4, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZF15K4E_TF5_R134a_60Hz', 'Copeland', 'ZF15K4E-TF5', 'R134a', 'LT', 'Scroll',
+   60, 17.5, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZB45KCE_TF5_R134a_60Hz', 'Copeland', 'ZB45KCE-TF5', 'R134a', 'LT', 'Scroll',
+   60, 21.1, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZF18K4E_TF5_R134a_60Hz', 'Copeland', 'ZF18K4E-TF5', 'R134a', 'LT', 'Scroll',
+   60, 21.1, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZS45K4E_TF5_R134a_60Hz', 'Copeland', 'ZS45K4E-TF5', 'R134a', 'LT', 'Scroll',
+   60, 20.8, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZB56KCE_TWC_R134a_60Hz', 'Copeland', 'ZB56KCE-TWC', 'R134a', 'LT', 'Scroll',
+   60, 25.5, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZF24K4E_TWC_R134a_60Hz', 'Copeland', 'ZF24K4E-TWC', 'R134a', 'LT', 'Scroll',
+   60, 26.0, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZS56K4E_TWC_R134a_60Hz', 'Copeland', 'ZS56K4E-TWC', 'R134a', 'LT', 'Scroll',
+   60, 25.6, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZB75KCE_TWC_R134a_60Hz', 'Copeland', 'ZB75KCE-TWC', 'R134a', 'LT', 'Scroll',
+   60, 34.3, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZF33K4E_TWC_R134a_60Hz', 'Copeland', 'ZF33K4E-TWC', 'R134a', 'LT', 'Scroll',
+   60, 34.6, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZR108KC_TF5_R134a_60Hz', 'Copeland', 'ZR108KC-TF5', 'R134a', 'LT', 'Scroll',
+   60, 26.0, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZS75K4E_TWC_R134a_60Hz', 'Copeland', 'ZS75K4E-TWC', 'R134a', 'LT', 'Scroll',
+   60, 34.0, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZB92KCE_TWC_R134a_60Hz', 'Copeland', 'ZB92KCE-TWC', 'R134a', 'LT', 'Scroll',
+   60, 43.7, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZS92K4E_TWC_R134a_60Hz', 'Copeland', 'ZS92K4E-TWC', 'R134a', 'LT', 'Scroll',
+   60, 45.0, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZF40K4E_TWC_R134a_60Hz', 'Copeland', 'ZF40K4E-TWC', 'R134a', 'LT', 'Scroll',
+   60, 34.6, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZS11M4E_TWC_R134a_60Hz', 'Copeland', 'ZS11M4E-TWC', 'R134a', 'LT', 'Scroll',
+   60, 50.4, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZB11MCE_TWC_R134a_60Hz', 'Copeland', 'ZB11MCE-TWC', 'R134a', 'LT', 'Scroll',
+   60, 53.2, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZF48K4E_TWC_R134a_60Hz', 'Copeland', 'ZF48K4E-TWC', 'R134a', 'LT', 'Scroll',
+   60, 51.1, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZB15KCE_TF5_B_R134a_60Hz', 'Copeland', 'ZB15KCE-TF5-B', 'R134a', 'LT', 'Scroll',
+   60, 2.1, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZB19KCE_TF5_B_R134a_60Hz', 'Copeland', 'ZB19KCE-TF5-B', 'R134a', 'LT', 'Scroll',
+   60, 2.3, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZF09K4E_TF5_B_R134a_60Hz', 'Copeland', 'ZF09K4E-TF5-B', 'R134a', 'LT', 'Scroll',
+   60, 3.0, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZB21KCE_TF5_B_R134a_60Hz', 'Copeland', 'ZB21KCE-TF5-B', 'R134a', 'LT', 'Scroll',
+   60, 0.9, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZB26KCE_TF5_B_R134a_60Hz', 'Copeland', 'ZB26KCE-TF5-B', 'R134a', 'LT', 'Scroll',
+   60, 3.0, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZF11K4E_TF5_B_R134a_60Hz', 'Copeland', 'ZF11K4E-TF5-B', 'R134a', 'LT', 'Scroll',
+   60, 3.5, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZF13K4E_TF5_B_R134a_60Hz', 'Copeland', 'ZF13K4E-TF5-B', 'R134a', 'LT', 'Scroll',
+   60, 4.4, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZB30KCE_TF5_B_R134a_60Hz', 'Copeland', 'ZB30KCE-TF5-B', 'R134a', 'LT', 'Scroll',
+   60, 2.7, -20.0, 15.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZF15K4E_TF5_B_R134a_60Hz', 'Copeland', 'ZF15K4E-TF5-B', 'R134a', 'LT', 'Scroll',
+   60, 5.4, -20.0, 15.0, 35.0, 65.0, 1)
 ON CONFLICT (id) DO UPDATE SET
   manufacturer = EXCLUDED.manufacturer,
   model = EXCLUDED.model,
