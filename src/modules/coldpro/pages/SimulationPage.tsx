@@ -54,6 +54,7 @@ export function SimulationPage() {
     selectedCondenser,
     selectedEvaporator,
     selectedReheatCoil,
+    customEvaporatorInput,
     clearSelection,
   } = useCatalogSessionStore();
   const lastAppliedCompressorId = useRef<string | undefined>(undefined);
@@ -234,11 +235,14 @@ export function SimulationPage() {
 
   const handleCalculate = () => {
     if (!canCalculate) return;
-    // Catálogo tem prioridade SOMENTE se conseguiu gerar ProgressiveCoilInput
-    // completo. Caso contrário, usa o que estiver no form de Evaporador,
-    // recorrendo a defaults para campos não preenchidos.
+    // Prioridade: (1) catálogo completo, (2) CN Coils workspace, (3) form manual.
+    // customEvaporatorInput vem de um dimensionamento real do workspace CN Coils
+    // e tem geometria completa — é mais confiável que o form com defaults.
     const evaporatorInput =
-      catalogEvaporatorInput ?? {
+      catalogEvaporatorInput ??
+      (customEvaporatorInput
+        ? { progressive_input: customEvaporatorInput.progressive_input }
+        : undefined) ?? {
         progressive_input: buildEvaporatorInputFromForm(evaporator, compressor, conditions),
       };
     calculate({
@@ -300,6 +304,27 @@ export function SimulationPage() {
     >
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <div className="space-y-4">
+          {customEvaporatorInput && (
+            <div className="rounded-lg border border-emerald-500/30 bg-emerald-500/5 p-3 text-xs">
+              <div className="mb-1 flex items-center justify-between">
+                <span className="inline-flex items-center gap-1.5 font-medium text-emerald-600">
+                  <Database className="h-3.5 w-3.5" />
+                  Evaporador dimensionado via CN Coils
+                </span>
+                <button
+                  type="button"
+                  onClick={() => useCatalogSessionStore.getState().setCustomEvaporatorInput(undefined)}
+                  className="inline-flex items-center gap-1"
+                  style={{ color: "var(--text-muted)" }}
+                >
+                  <X className="h-3 w-3" /> Remover
+                </button>
+              </div>
+              <p style={{ color: "var(--text-secondary)" }}>
+                {customEvaporatorInput.label} — geometria completa, usada diretamente no motor.
+              </p>
+            </div>
+          )}
           {hasCatalogSelection ? (
             <div className="rounded-lg border border-[#1E6FD9]/30 bg-[#1E6FD9]/5 p-3 text-xs">
               <div className="mb-1 flex items-center justify-between">
@@ -323,7 +348,7 @@ export function SimulationPage() {
                 {selectedCondenser && selectedCondenser.id !== selectedCompressor?.id && (
                   <>Condensador: <strong>{selectedCondenser.modeloBaseReferencia ?? selectedCondenser.modelo}</strong>. </>
                 )}
-                {selectedEvaporator && (
+                {selectedEvaporator && !customEvaporatorInput && (
                   <>Evaporador: <strong>{selectedEvaporator.modeloBaseReferencia ?? selectedEvaporator.modelo}</strong>. </>
                 )}
                 {selectedReheatCoil && (
@@ -352,7 +377,11 @@ export function SimulationPage() {
               <Link to="/coldpro/catalog" className="font-medium text-[#1E6FD9] hover:underline">
                 Catálogo CN COLD
               </Link>{" "}
-              ou preencher manualmente.
+              ou do{" "}
+              <Link to="/coldpro/cncoils/workspace" className="font-medium text-[#1E6FD9] hover:underline">
+                workspace CN Coils
+              </Link>{" "}
+              usando o botão "Enviar para Simulação", ou preencher manualmente.
             </div>
           )}
           {!canCalculate && (

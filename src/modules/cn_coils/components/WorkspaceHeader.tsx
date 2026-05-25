@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowLeft, FileText, Loader2, Save, Share2 } from "lucide-react";
+import { ArrowLeft, FileText, Loader2, Save, Share2, SendToBack } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
@@ -11,6 +11,7 @@ interface WorkspaceHeaderProps {
   onSave?: () => void;
   onShare?: () => void;
   onExportPdf?: () => void;
+  onSendToSimulation?: () => void;
   isSaving?: boolean;
   isExportingPdf?: boolean;
   backTo?: string;
@@ -24,6 +25,7 @@ export function WorkspaceHeader({
   onSave,
   onShare,
   onExportPdf,
+  onSendToSimulation,
   isSaving,
   isExportingPdf,
   backTo = "/coldpro/cncoils",
@@ -54,6 +56,18 @@ export function WorkspaceHeader({
       )}
 
       <div className="ml-auto flex items-center gap-1.5">
+        {onSendToSimulation && (
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={onSendToSimulation}
+            className="gap-1.5 border-emerald-500/50 text-emerald-600 hover:bg-emerald-500/10"
+            title="Enviar evaporador dimensionado para a Simulação de Equilíbrio de Sistema"
+          >
+            <SendToBack className="h-3.5 w-3.5" />
+            <span className="hidden sm:inline">Enviar para Simulação</span>
+          </Button>
+        )}
         {onSave && (
           <Button size="sm" onClick={onSave} disabled={isSaving} className="gap-1.5">
             {isSaving ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Save className="h-3.5 w-3.5" />}
