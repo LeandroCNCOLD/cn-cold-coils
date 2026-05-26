@@ -1,4 +1,4 @@
-import { getEquipmentCatalog } from "../data/equipmentCatalog.index";
+import { useCatalogDataStore } from "../store/useCatalogDataStore";
 import { catalogToEvaporatorInput } from "../adapters/evaporatorAdapter";
 import { calculateProgressiveCoil } from "@/modules/coldpro_v2/engines/progressive/progressiveCoilSolver";
 import { supabase } from "@/integrations/supabase/client";
@@ -32,7 +32,7 @@ export interface BatchValidationReport {
 export async function runBatchValidation(
   onProgress?: (done: number, total: number) => void,
 ): Promise<BatchValidationReport> {
-  const models = getEquipmentCatalog().filter(
+  const models = useCatalogDataStore.getState().rows.filter(
     (m) => m.family !== "plugin" || !!m.compressorModelo,
   );
 

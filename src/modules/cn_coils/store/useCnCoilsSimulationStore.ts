@@ -252,9 +252,16 @@ export const useCnCoilsSimulationStore = create<CnCoilsSimulationStore>((set, ge
               const state = useCnCoilsSimulationStore.getState();
               const spec = toCompressorSpec(row, {
                 evap_temp_c: state.fluidOperatingTemp_C,
-                cond_temp_c: state.fluidOperatingTemp_C,
+                cond_temp_c: state.pairedTempC ?? state.fluidOperatingTemp_C + 50,
               });
-              set({ compressorSpec: spec });
+              // Propagate compressor operating data so useCnCoilsInputBridge maps
+              // them to thermoInputs.refrigerantId / evaporatingTempC / condensingTempC.
+              set({
+                compressorSpec: spec,
+                fluid: spec.refrigerant,
+                fluidOperatingTemp_C: spec.evap_temp_c,
+                pairedTempC: spec.cond_temp_c,
+              });
             }
           }),
       );

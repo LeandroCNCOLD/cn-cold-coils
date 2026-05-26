@@ -122,14 +122,16 @@ function enrichSizedCoil(
   }
 }
 
-const EQUIPMENT_CATALOG: CatalogEquipmentRow[] = (equipmentJson as CatalogEquipmentRow[]).map((item) => {
+export function enrichCatalogRow(item: CatalogEquipmentRow): CatalogEquipmentRow {
   const row: CatalogEquipmentRow = { ...item };
   enrichCoilMetrics(row);
   enrichSizedCoil(row, "condensador");
   enrichSizedCoil(row, "evaporador");
   enrichSizedCoil(row, "reheat");
   return row;
-});
+}
+
+const EQUIPMENT_CATALOG: CatalogEquipmentRow[] = (equipmentJson as CatalogEquipmentRow[]).map(enrichCatalogRow);
 
 export function getEquipmentCatalog(): CatalogEquipmentRow[] {
   return EQUIPMENT_CATALOG;

@@ -57,7 +57,7 @@ async function loadBitzer(): Promise<BitzerLibraryPayload> {
           manufacturers: json.manufacturers ?? ["BITZER"],
           refrigerants: json.refrigerants ?? [],
           rpms: json.rpms ?? [],
-          models_count: json.models_count ?? 0,
+          models_count: json.models_count ?? new Set((json.compressors ?? []).map((c) => c.model)).size,
           compressors: json.compressors ?? [],
         };
         cache = normalized;

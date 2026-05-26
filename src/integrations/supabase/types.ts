@@ -37,27 +37,124 @@ export type Database = {
       }
       equipment_catalog: {
         Row: {
-          id: string
           modelo: string
-          modelo_base_referencia: string | null
+          modelo_unico: string | null
+          status_compressor: string | null
           modelo_catalogo_original: string | null
-          linha: string | null
-          aplicacao: string | null
-          familia: string | null
-          refrigerante: string | null
+          modelo_base_referencia: string | null
           fabricante: string | null
-          compressor_modelo: string | null
+          fabricante_origem: string | null
+          compressor: string | null
+          compressor_codigo: string | null
           tipo_compressor: string | null
+          configuracao_eletrica: string | null
+          tensao_eletrica_v: string | null
           tensao_v: number | null
           numero_fases: number | null
           frequencia_hz: number | null
-          capacidade_kcalh: number | null
-          calor_rejeitado_kcalh: number | null
-          potencia_eletrica_kw: number | null
-          cop_nominal: number | null
-          temp_evaporacao_c: number | null
-          temp_condensacao_c: number | null
-          temp_camara_c: number | null
+          linha: string | null
+          designacao_comercial_em_hp: string | null
+          gabinete: string | null
+          tipo_de_gabinete: string | null
+          refrigerante: string | null
+          capacidade_frigorifica_kcal_h_capacidade_do_reaquecimento: number | null
+          capacidade_frigorifica_kcal_h_capacidade_do_compressor: number | null
+          calor_rejeitado_kcal_h_capacidade_do_condensador: number | null
+          potencia_eletrica_requerida_total_circuito_completo_kw: number | null
+          corrente_eletrica_estimada_circuito_completo_a: number | null
+          corrente_eletrica_de_partida_circuito_completo_a: number | null
+          cop_global_kw_kw: number | null
+          gwp_ar6: number | null
+          odp_ar6: number | null
+          tipo_de_degelo: string | null
+          condensador_rows: number | null
+          condensador_tubes_per_row: number | null
+          condensador_circuits: number | null
+          condensador_fin_spacing_mm: string | null
+          condensador_length_mm: string | null
+          o_tubo_cond_in: string | null
+          o_tubo_cond_mm: number | null
+          esp_tubo_cond_mm: number | null
+          geometria_condensador: string | null
+          volume_interno_condensador_dm_l: number | null
+          ventilador_condensador: string | null
+          vazao_ventilador_condensador_m_h: number | null
+          eaporadorrows: number | null
+          eaporadortubes_per_row: number | null
+          eaporadorcircuits: number | null
+          eaporador_fin_spacing_mm: string | null
+          eaporador_length_mm: string | null
+          eaporadorrows_1: number | null
+          geometria_evaporador: string | null
+          reaquecimento_tubes_per_row: number | null
+          reaquecimento_circuits: number | null
+          reaquecimento_fin_spacing_mm: string | null
+          reaquecimento_length_mm: string | null
+          o_tubo_evap_in: string | null
+          o_tubo_evap_mm: number | null
+          esp_tubo_evap_mm: number | null
+          geometria_reaquecimento: string | null
+          volume_interno_eaporador_dm_l: number | null
+          area_da_superficie_de_troca_eaporador_m: number | null
+          quantidade_de_reaquecimentoes: number | null
+          ventilador_reaquecimento: string | null
+          vazao_ventilador_eaporador_m_h: number | null
+          temperatura_da_camara_c: number | null
+          umidade_da_camara: number | null
+          temperatura_de_evaporacao_c: number | null
+          temperatura_de_condensacao_c: number | null
+          temperatura_externa_c: number | null
+          umidade_externa: number | null
+          vazao_em_massa_kg_h: number | null
+          vazao_em_massa_kg_s: number | null
+          diferenca_de_entalpia_kj_kg: number | null
+          superaquecimento_total_k: number | null
+          superaquecimento_util_k: number | null
+          subresfriamento_k: number | null
+          subresfriamento_adicional_k: number | null
+          altitude_m: number | null
+          linha_de_descarga: string | null
+          velocidade_linha_de_descarga_m_s_ate_15m: string | null
+          linha_de_liquido: string | null
+          velocidade_linha_de_liquido_m_s_ate_15m: string | null
+          linha_de_succao: string | null
+          velocidade_linha_de_succao_m_s_ate_15m: string | null
+          carga_de_fluido_kg: string | null
+          quantidade_de_agua_produzida_l_h: string | null
+          diametro_dreno: string | null
+          quantidade_de_drenos: number | null
+          potencia_eletrica_requerida_compressor_kw: number | null
+          potencia_eletrica_requerida_ventilador_kw: number | null
+          potencia_eletrica_requerida_total_kw: number | null
+          cop_kw_kw: number | null
+          cop_carnot_k_k: number | null
+          corrente_eletrica_compressor_a: number | null
+          corrente_eletrica_ventiladores_a: number | null
+          corrente_eletrica_estimada_a: number | null
+          corrente_eletrica_de_partida_a: number | null
+          modelo_condensador_secundario: string | null
+          ventilador_condensador_secundario: string | null
+          vazao_ventilador_condensador_secundario_m_h: number | null
+          modelo_tocador_de_calor: string | null
+          capacidade_frigorifica_requisitada_kcal_h: number | null
+          capacidade_frigorifica_do_compressor_kcal_h: number | null
+          calor_rejeitado_secundario_kcal_h: number | null
+          temperatura_de_entrada_c: number | null
+          temperatura_de_saida_c: number | null
+          temperatura_de_evaporacao_secundario_c: number | null
+          temperatura_de_condensacao_secundario_c: number | null
+          superaquecimento_total_secundario_k: number | null
+          superaquecimento_util_secundario_k: number | null
+          subresfriamento_secundario_k: number | null
+          potencia_eletrica_requerida_compressor_secundario_kw: number | null
+          potencia_eletrica_requerida_ventilador_secundario_kw: number | null
+          potencia_eletrica_requerida_total_secundario_kw: number | null
+          cop_secundario_kw_kw: number | null
+          cop_carnot_secundario_k_k: number | null
+          corrente_eletrica_compressor_secundario_a: number | null
+          corrente_eletrica_ventiladores_secundario_a: number | null
+          corrente_eletrica_estimada_secundario_a: number | null
+          corrente_eletrica_de_partida_secundario_a: number | null
           validation_status: "pending" | "approved" | "warning" | "rejected"
           data: Json
           validated_at: string | null
@@ -65,27 +162,124 @@ export type Database = {
           updated_at: string
         }
         Insert: {
-          id: string
           modelo: string
-          modelo_base_referencia?: string | null
+          modelo_unico?: string | null
+          status_compressor?: string | null
           modelo_catalogo_original?: string | null
-          linha?: string | null
-          aplicacao?: string | null
-          familia?: string | null
-          refrigerante?: string | null
+          modelo_base_referencia?: string | null
           fabricante?: string | null
-          compressor_modelo?: string | null
+          fabricante_origem?: string | null
+          compressor?: string | null
+          compressor_codigo?: string | null
           tipo_compressor?: string | null
+          configuracao_eletrica?: string | null
+          tensao_eletrica_v?: string | null
           tensao_v?: number | null
           numero_fases?: number | null
           frequencia_hz?: number | null
-          capacidade_kcalh?: number | null
-          calor_rejeitado_kcalh?: number | null
-          potencia_eletrica_kw?: number | null
-          cop_nominal?: number | null
-          temp_evaporacao_c?: number | null
-          temp_condensacao_c?: number | null
-          temp_camara_c?: number | null
+          linha?: string | null
+          designacao_comercial_em_hp?: string | null
+          gabinete?: string | null
+          tipo_de_gabinete?: string | null
+          refrigerante?: string | null
+          capacidade_frigorifica_kcal_h_capacidade_do_reaquecimento?: number | null
+          capacidade_frigorifica_kcal_h_capacidade_do_compressor?: number | null
+          calor_rejeitado_kcal_h_capacidade_do_condensador?: number | null
+          potencia_eletrica_requerida_total_circuito_completo_kw?: number | null
+          corrente_eletrica_estimada_circuito_completo_a?: number | null
+          corrente_eletrica_de_partida_circuito_completo_a?: number | null
+          cop_global_kw_kw?: number | null
+          gwp_ar6?: number | null
+          odp_ar6?: number | null
+          tipo_de_degelo?: string | null
+          condensador_rows?: number | null
+          condensador_tubes_per_row?: number | null
+          condensador_circuits?: number | null
+          condensador_fin_spacing_mm?: string | null
+          condensador_length_mm?: string | null
+          o_tubo_cond_in?: string | null
+          o_tubo_cond_mm?: number | null
+          esp_tubo_cond_mm?: number | null
+          geometria_condensador?: string | null
+          volume_interno_condensador_dm_l?: number | null
+          ventilador_condensador?: string | null
+          vazao_ventilador_condensador_m_h?: number | null
+          eaporadorrows?: number | null
+          eaporadortubes_per_row?: number | null
+          eaporadorcircuits?: number | null
+          eaporador_fin_spacing_mm?: string | null
+          eaporador_length_mm?: string | null
+          eaporadorrows_1?: number | null
+          geometria_evaporador?: string | null
+          reaquecimento_tubes_per_row?: number | null
+          reaquecimento_circuits?: number | null
+          reaquecimento_fin_spacing_mm?: string | null
+          reaquecimento_length_mm?: string | null
+          o_tubo_evap_in?: string | null
+          o_tubo_evap_mm?: number | null
+          esp_tubo_evap_mm?: number | null
+          geometria_reaquecimento?: string | null
+          volume_interno_eaporador_dm_l?: number | null
+          area_da_superficie_de_troca_eaporador_m?: number | null
+          quantidade_de_reaquecimentoes?: number | null
+          ventilador_reaquecimento?: string | null
+          vazao_ventilador_eaporador_m_h?: number | null
+          temperatura_da_camara_c?: number | null
+          umidade_da_camara?: number | null
+          temperatura_de_evaporacao_c?: number | null
+          temperatura_de_condensacao_c?: number | null
+          temperatura_externa_c?: number | null
+          umidade_externa?: number | null
+          vazao_em_massa_kg_h?: number | null
+          vazao_em_massa_kg_s?: number | null
+          diferenca_de_entalpia_kj_kg?: number | null
+          superaquecimento_total_k?: number | null
+          superaquecimento_util_k?: number | null
+          subresfriamento_k?: number | null
+          subresfriamento_adicional_k?: number | null
+          altitude_m?: number | null
+          linha_de_descarga?: string | null
+          velocidade_linha_de_descarga_m_s_ate_15m?: string | null
+          linha_de_liquido?: string | null
+          velocidade_linha_de_liquido_m_s_ate_15m?: string | null
+          linha_de_succao?: string | null
+          velocidade_linha_de_succao_m_s_ate_15m?: string | null
+          carga_de_fluido_kg?: string | null
+          quantidade_de_agua_produzida_l_h?: string | null
+          diametro_dreno?: string | null
+          quantidade_de_drenos?: number | null
+          potencia_eletrica_requerida_compressor_kw?: number | null
+          potencia_eletrica_requerida_ventilador_kw?: number | null
+          potencia_eletrica_requerida_total_kw?: number | null
+          cop_kw_kw?: number | null
+          cop_carnot_k_k?: number | null
+          corrente_eletrica_compressor_a?: number | null
+          corrente_eletrica_ventiladores_a?: number | null
+          corrente_eletrica_estimada_a?: number | null
+          corrente_eletrica_de_partida_a?: number | null
+          modelo_condensador_secundario?: string | null
+          ventilador_condensador_secundario?: string | null
+          vazao_ventilador_condensador_secundario_m_h?: number | null
+          modelo_tocador_de_calor?: string | null
+          capacidade_frigorifica_requisitada_kcal_h?: number | null
+          capacidade_frigorifica_do_compressor_kcal_h?: number | null
+          calor_rejeitado_secundario_kcal_h?: number | null
+          temperatura_de_entrada_c?: number | null
+          temperatura_de_saida_c?: number | null
+          temperatura_de_evaporacao_secundario_c?: number | null
+          temperatura_de_condensacao_secundario_c?: number | null
+          superaquecimento_total_secundario_k?: number | null
+          superaquecimento_util_secundario_k?: number | null
+          subresfriamento_secundario_k?: number | null
+          potencia_eletrica_requerida_compressor_secundario_kw?: number | null
+          potencia_eletrica_requerida_ventilador_secundario_kw?: number | null
+          potencia_eletrica_requerida_total_secundario_kw?: number | null
+          cop_secundario_kw_kw?: number | null
+          cop_carnot_secundario_k_k?: number | null
+          corrente_eletrica_compressor_secundario_a?: number | null
+          corrente_eletrica_ventiladores_secundario_a?: number | null
+          corrente_eletrica_estimada_secundario_a?: number | null
+          corrente_eletrica_de_partida_secundario_a?: number | null
           validation_status?: "pending" | "approved" | "warning" | "rejected"
           data?: Json
           validated_at?: string | null
@@ -93,26 +287,123 @@ export type Database = {
           updated_at?: string
         }
         Update: {
-          modelo?: string
-          modelo_base_referencia?: string | null
+          modelo_unico?: string | null
+          status_compressor?: string | null
           modelo_catalogo_original?: string | null
-          linha?: string | null
-          aplicacao?: string | null
-          familia?: string | null
-          refrigerante?: string | null
+          modelo_base_referencia?: string | null
           fabricante?: string | null
-          compressor_modelo?: string | null
+          fabricante_origem?: string | null
+          compressor?: string | null
+          compressor_codigo?: string | null
           tipo_compressor?: string | null
+          configuracao_eletrica?: string | null
+          tensao_eletrica_v?: string | null
           tensao_v?: number | null
           numero_fases?: number | null
           frequencia_hz?: number | null
-          capacidade_kcalh?: number | null
-          calor_rejeitado_kcalh?: number | null
-          potencia_eletrica_kw?: number | null
-          cop_nominal?: number | null
-          temp_evaporacao_c?: number | null
-          temp_condensacao_c?: number | null
-          temp_camara_c?: number | null
+          linha?: string | null
+          designacao_comercial_em_hp?: string | null
+          gabinete?: string | null
+          tipo_de_gabinete?: string | null
+          refrigerante?: string | null
+          capacidade_frigorifica_kcal_h_capacidade_do_reaquecimento?: number | null
+          capacidade_frigorifica_kcal_h_capacidade_do_compressor?: number | null
+          calor_rejeitado_kcal_h_capacidade_do_condensador?: number | null
+          potencia_eletrica_requerida_total_circuito_completo_kw?: number | null
+          corrente_eletrica_estimada_circuito_completo_a?: number | null
+          corrente_eletrica_de_partida_circuito_completo_a?: number | null
+          cop_global_kw_kw?: number | null
+          gwp_ar6?: number | null
+          odp_ar6?: number | null
+          tipo_de_degelo?: string | null
+          condensador_rows?: number | null
+          condensador_tubes_per_row?: number | null
+          condensador_circuits?: number | null
+          condensador_fin_spacing_mm?: string | null
+          condensador_length_mm?: string | null
+          o_tubo_cond_in?: string | null
+          o_tubo_cond_mm?: number | null
+          esp_tubo_cond_mm?: number | null
+          geometria_condensador?: string | null
+          volume_interno_condensador_dm_l?: number | null
+          ventilador_condensador?: string | null
+          vazao_ventilador_condensador_m_h?: number | null
+          eaporadorrows?: number | null
+          eaporadortubes_per_row?: number | null
+          eaporadorcircuits?: number | null
+          eaporador_fin_spacing_mm?: string | null
+          eaporador_length_mm?: string | null
+          eaporadorrows_1?: number | null
+          geometria_evaporador?: string | null
+          reaquecimento_tubes_per_row?: number | null
+          reaquecimento_circuits?: number | null
+          reaquecimento_fin_spacing_mm?: string | null
+          reaquecimento_length_mm?: string | null
+          o_tubo_evap_in?: string | null
+          o_tubo_evap_mm?: number | null
+          esp_tubo_evap_mm?: number | null
+          geometria_reaquecimento?: string | null
+          volume_interno_eaporador_dm_l?: number | null
+          area_da_superficie_de_troca_eaporador_m?: number | null
+          quantidade_de_reaquecimentoes?: number | null
+          ventilador_reaquecimento?: string | null
+          vazao_ventilador_eaporador_m_h?: number | null
+          temperatura_da_camara_c?: number | null
+          umidade_da_camara?: number | null
+          temperatura_de_evaporacao_c?: number | null
+          temperatura_de_condensacao_c?: number | null
+          temperatura_externa_c?: number | null
+          umidade_externa?: number | null
+          vazao_em_massa_kg_h?: number | null
+          vazao_em_massa_kg_s?: number | null
+          diferenca_de_entalpia_kj_kg?: number | null
+          superaquecimento_total_k?: number | null
+          superaquecimento_util_k?: number | null
+          subresfriamento_k?: number | null
+          subresfriamento_adicional_k?: number | null
+          altitude_m?: number | null
+          linha_de_descarga?: string | null
+          velocidade_linha_de_descarga_m_s_ate_15m?: string | null
+          linha_de_liquido?: string | null
+          velocidade_linha_de_liquido_m_s_ate_15m?: string | null
+          linha_de_succao?: string | null
+          velocidade_linha_de_succao_m_s_ate_15m?: string | null
+          carga_de_fluido_kg?: string | null
+          quantidade_de_agua_produzida_l_h?: string | null
+          diametro_dreno?: string | null
+          quantidade_de_drenos?: number | null
+          potencia_eletrica_requerida_compressor_kw?: number | null
+          potencia_eletrica_requerida_ventilador_kw?: number | null
+          potencia_eletrica_requerida_total_kw?: number | null
+          cop_kw_kw?: number | null
+          cop_carnot_k_k?: number | null
+          corrente_eletrica_compressor_a?: number | null
+          corrente_eletrica_ventiladores_a?: number | null
+          corrente_eletrica_estimada_a?: number | null
+          corrente_eletrica_de_partida_a?: number | null
+          modelo_condensador_secundario?: string | null
+          ventilador_condensador_secundario?: string | null
+          vazao_ventilador_condensador_secundario_m_h?: number | null
+          modelo_tocador_de_calor?: string | null
+          capacidade_frigorifica_requisitada_kcal_h?: number | null
+          capacidade_frigorifica_do_compressor_kcal_h?: number | null
+          calor_rejeitado_secundario_kcal_h?: number | null
+          temperatura_de_entrada_c?: number | null
+          temperatura_de_saida_c?: number | null
+          temperatura_de_evaporacao_secundario_c?: number | null
+          temperatura_de_condensacao_secundario_c?: number | null
+          superaquecimento_total_secundario_k?: number | null
+          superaquecimento_util_secundario_k?: number | null
+          subresfriamento_secundario_k?: number | null
+          potencia_eletrica_requerida_compressor_secundario_kw?: number | null
+          potencia_eletrica_requerida_ventilador_secundario_kw?: number | null
+          potencia_eletrica_requerida_total_secundario_kw?: number | null
+          cop_secundario_kw_kw?: number | null
+          cop_carnot_secundario_k_k?: number | null
+          corrente_eletrica_compressor_secundario_a?: number | null
+          corrente_eletrica_ventiladores_secundario_a?: number | null
+          corrente_eletrica_estimada_secundario_a?: number | null
+          corrente_eletrica_de_partida_secundario_a?: number | null
           validation_status?: "pending" | "approved" | "warning" | "rejected"
           data?: Json
           validated_at?: string | null

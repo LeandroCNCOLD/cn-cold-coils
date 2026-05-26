@@ -112,10 +112,10 @@ export function RegistryPage() {
                     <td className="px-4 py-3">
                       {status === "approved" && <CheckCircle2 className="h-4 w-4" style={{ color: "var(--color-success)" }} />}
                       {status === "conditional" && <AlertCircle className="h-4 w-4" style={{ color: "var(--color-warning)" }} />}
-                      {status === "rejected" && <XCircle className="h-4 w-4" style={{ color: "var(--color-danger)" }} />}
+                      {(status === "warning" || status === "rejected") && <XCircle className="h-4 w-4" style={{ color: "var(--color-danger)" }} />}
                       {!status && <span className="text-xs cn-muted">—</span>}
                     </td>
-                    <td className="px-4 py-3 font-semibold text-[--text-primary]">{r.identity?.model ?? "—"}</td>
+                    <td className="px-4 py-3 font-semibold text-[--text-primary]">{r.identity?.id ?? "—"}</td>
                     <td className="px-4 py-3 cn-secondary">{r.identity?.family ?? "—"}</td>
                     <td className="px-4 py-3 cn-secondary">{r.identity?.line ?? "—"}</td>
                     <td className="px-4 py-3 cn-secondary">{r.identity?.refrigerant ?? "—"}</td>

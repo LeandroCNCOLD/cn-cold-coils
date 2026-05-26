@@ -76,6 +76,8 @@ import {
 import { CAPACITY_UNITS, capacityConv } from "../utils/unitConversions";
 import { enrichWarnings } from "../utils/warningEnricher";
 import { useCatalogPreloadStore } from "@/modules/coldpro_catalog/store/useCatalogPreloadStore";
+import { useCatalogSessionStore } from "@/modules/coldpro_catalog/store/useCatalogSessionStore";
+import { useNavigate } from "@tanstack/react-router";
 import { catalogRowToEvaporatorInputs } from "@/modules/coldpro_catalog/utils/catalogRowToWorkspaceInputs";
 import { loadCompressorIndex, getCompressorById } from "@/modules/coldpro_catalog/data/compressorCatalog.service";
 import type { CompressorCatalogRow } from "@/modules/coldpro_catalog/data/compressorCatalog.types";
@@ -287,6 +289,8 @@ function NavCard({
 }
 
 export function EvaporatorUnifiedWorkspacePage() {
+  const navigate = useNavigate();
+
   // ── Modo ──
   const [calcMode, setCalcMode] = useState<CalcMode>("verify");
   const [engineMode, setEngineMode] = useState<EngineMode>("v1");
@@ -717,6 +721,45 @@ export function EvaporatorUnifiedWorkspacePage() {
     toast.success("Projeto salvo (em memória).");
     setNextStepOpen(true);
   };
+
+  /** Converte os inputs atuais do workspace em ProgressiveCoilInput e envia para
+   *  a página de Equilíbrio de Sistema, eliminando a necessidade de redigitar dados. */
+  const handleSendToSimulation = () => {
+    const store = useCnCoilsSimulationStore.getState();
+    const p = store.physicalInputs;
+    const t = store.thermoInputs;
+
+    const AIR_DENSITY = 1.2;
+    const airMassFlowKgS = ((t.airFlowM3H ?? store.airFlow_m3h ?? 5000) * AIR_DENSITY) / 3600;
+
+    const progressiveInput = {
+      tube_outer_diameter_mm: p.tubeOuterDiameterMm ?? 9.52,
+      tube_inner_diameter_mm: p.tubeInnerDiameterMm ?? 8.52,
+      tube_pitch_transverse_mm: p.tubePitchTransverseMm ?? 25,
+      tube_pitch_longitudinal_mm: p.tubePitchLongitudinalMm ?? 21.65,
+      fin_height_mm: p.finnedHeightMm ?? geomHeight,
+      fin_thickness_mm: p.finThicknessMm ?? 0.12,
+      coil_width_m: (p.finnedLengthMm ?? geomWidth) / 1000,
+      coil_height_m: (p.finnedHeightMm ?? geomHeight) / 1000,
+      tube_material: "copper" as const,
+      fin_material: "aluminum" as const,
+      rolls: [{ fin_spacing_mm: p.finPitchMm ?? finPitch, rows_in_roll: p.rows ?? rows }],
+      air_temperature_in_c: t.airInletTempC ?? airTempIn,
+      air_relative_humidity_in: (t.airInletRhPercent ?? airRH) / 100,
+      air_mass_flow_kg_s: airMassFlowKgS,
+      T_evaporating_c: t.evaporatingTempC ?? te,
+      refrigerant: t.refrigerantId ?? refrigerantId,
+      tube_type: "smooth" as const,
+    };
+
+    useCatalogSessionStore.getState().setCustomEvaporatorInput({
+      progressive_input: progressiveInput,
+      label: `Evaporador DX — ${refrigerantId}, Te ${te}°C, ${geomHeight}×${geomWidth}mm, ${rows}R`,
+    });
+    toast.success("Evaporador enviado para Simulação de Equilíbrio.");
+    void navigate({ to: "/coldpro/simulation" });
+  };
+
   const handleShare = async () => {
     try {
       await navigator.clipboard.writeText(window.location.href);
@@ -903,6 +946,7 @@ export function EvaporatorUnifiedWorkspacePage() {
       onShare={handleShare}
       onExportPdf={handleExportPdf}
       isExportingPdf={isExportingPdf}
+      onSendToSimulation={handleSendToSimulation}
     />
   );
 

@@ -1,0 +1,4201 @@
+-- Part 7/8: rows 1201–1400
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HCJ105_R407C_50Hz', 'Maneurop', 'HCJ105', 'R407C', 'HT', 'Scroll',
+   50, 22.37, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HCJ120_R407C_50Hz', 'Maneurop', 'HCJ120', 'R407C', 'HT', 'Scroll',
+   50, 25.28, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH029U4_R407C_50Hz', 'Maneurop', 'HRH029U4', 'R407C', 'HT', 'Scroll',
+   50, 5.98, -15.0, 12.0, 30.0, 60.0, 3)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('COPELAND_ZP485KCE_TWD_R407C_60Hz', 'Copeland', 'ZP485KCE-TWD', 'R407C', 'HT', 'Scroll',
+   60, 0.0, -10.0, 12.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('DANFOSS_HCP094T4LC6_R410A_50Hz', 'Danfoss', 'HCP094T4LC6', 'R410A', 'HT', 'Scroll',
+   50, 0.0, -25.0, 10.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('DANFOSS_HCP109T4LC6_R410A_50Hz', 'Danfoss', 'HCP109T4LC6', 'R410A', 'HT', 'Scroll',
+   50, 0.0, -25.0, 10.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('DANFOSS_HLP075T4LC6_R410A_50Hz', 'Danfoss', 'HLP075T4LC6', 'R410A', 'HT', 'Scroll',
+   50, 0.0, -25.0, 10.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('DANFOSS_HLP081T4LC6_R410A_50Hz', 'Danfoss', 'HLP081T4LC6', 'R410A', 'HT', 'Scroll',
+   50, 0.0, -25.0, 10.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('DANFOSS_HRP034T5LP6_R410A_50Hz', 'Danfoss', 'HRP034T5LP6', 'R410A', 'HT', 'Scroll',
+   50, 0.0, -25.0, 10.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('DANFOSS_HRP040T4LP6_R410A_50Hz', 'Danfoss', 'HRP040T4LP6', 'R410A', 'HT', 'Scroll',
+   50, 0.0, -25.0, 10.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('DANFOSS_HRP040T5LP6_R410A_50Hz', 'Danfoss', 'HRP040T5LP6', 'R410A', 'HT', 'Scroll',
+   50, 0.0, -25.0, 10.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('DANFOSS_HRP048T4LP6_R410A_50Hz', 'Danfoss', 'HRP048T4LP6', 'R410A', 'HT', 'Scroll',
+   50, 0.0, -25.0, 10.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('DANFOSS_HRP060T4LP6_R410A_50Hz', 'Danfoss', 'HRP060T4LP6', 'R410A', 'HT', 'Scroll',
+   50, 0.0, -25.0, 10.0, 35.0, 65.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH090_3_R407C_50Hz', 'Maneurop', 'SH090-3', 'R407C', 'MT', 'Scroll',
+   50, 27.10037893959045, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH090_7_R407C_50Hz', 'Maneurop', 'SH090-7', 'R407C', 'HT', 'Scroll',
+   50, 22.29030045375692, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH090_9_R407C_50Hz', 'Maneurop', 'SH090-9', 'R407C', 'MT', 'Scroll',
+   50, 27.10037893959045, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH105_3_R407C_50Hz', 'Maneurop', 'SH105-3', 'R407C', 'MT', 'Scroll',
+   50, 32.10003539317321, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH105_4_R407C_50Hz', 'Maneurop', 'SH105-4', 'R407C', 'HT', 'Scroll',
+   50, 26.78309988212585, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH105_7_R407C_50Hz', 'Maneurop', 'SH105-7', 'R407C', 'HT', 'Scroll',
+   50, 26.78309988212585, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH105_9_R407C_50Hz', 'Maneurop', 'SH105-9', 'R407C', 'MT', 'Scroll',
+   50, 32.10003539317321, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH120_3_R407C_50Hz', 'Maneurop', 'SH120-3', 'R407C', 'MT', 'Scroll',
+   50, 36.74966574250031, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH120_7_R407C_50Hz', 'Maneurop', 'SH120-7', 'R407C', 'HT', 'Scroll',
+   50, 29.93404232857132, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH120_9_R407C_50Hz', 'Maneurop', 'SH120-9', 'R407C', 'MT', 'Scroll',
+   50, 36.74966574250031, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH140_3_R407C_50Hz', 'Maneurop', 'SH140-3', 'R407C', 'MT', 'Scroll',
+   50, 42.29947102193452, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH140_4_R407C_50Hz', 'Maneurop', 'SH140-4', 'R407C', 'HT', 'Scroll',
+   50, 34.6814617673378, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH140_7_R407C_50Hz', 'Maneurop', 'SH140-7', 'R407C', 'HT', 'Scroll',
+   50, 34.6814617673378, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH140_9_R407C_50Hz', 'Maneurop', 'SH140-9', 'R407C', 'MT', 'Scroll',
+   50, 42.29947102193452, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH161_3_R407C_50Hz', 'Maneurop', 'SH161-3', 'R407C', 'MT', 'Scroll',
+   50, 47.14961520008852, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH161_7_R407C_50Hz', 'Maneurop', 'SH161-7', 'R407C', 'HT', 'Scroll',
+   50, 38.78127808598327, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH161_9_R407C_50Hz', 'Maneurop', 'SH161-9', 'R407C', 'MT', 'Scroll',
+   50, 47.14961520008852, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH180_3_R407C_50Hz', 'Maneurop', 'SH180-3', 'R407C', 'MT', 'Scroll',
+   50, 53.73892345371245, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH180_7_R407C_50Hz', 'Maneurop', 'SH180-7', 'R407C', 'MT', 'Scroll',
+   50, 53.73892345371245, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH180_9_R407C_50Hz', 'Maneurop', 'SH180-9', 'R407C', 'MT', 'Scroll',
+   50, 53.73892345371245, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH184_3_R407C_50Hz', 'Maneurop', 'SH184-3', 'R407C', 'MT', 'Scroll',
+   50, 53.98819637707031, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH184_4_R407C_50Hz', 'Maneurop', 'SH184-4', 'R407C', 'MT', 'Scroll',
+   50, 53.98819637707031, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH184_7_R407C_50Hz', 'Maneurop', 'SH184-7', 'R407C', 'MT', 'Scroll',
+   50, 53.98819637707031, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH184_9_R407C_50Hz', 'Maneurop', 'SH184-9', 'R407C', 'MT', 'Scroll',
+   50, 53.98819637707031, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH240_3_R407C_50Hz', 'Maneurop', 'SH240-3', 'R407C', 'MT', 'Scroll',
+   50, 73.73620459407044, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH240_7_R407C_50Hz', 'Maneurop', 'SH240-7', 'R407C', 'MT', 'Scroll',
+   50, 73.49467318470573, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH240_9_R407C_50Hz', 'Maneurop', 'SH240-9', 'R407C', 'MT', 'Scroll',
+   50, 73.41296779536438, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH300_3_R407C_50Hz', 'Maneurop', 'SH300-3', 'R407C', 'MT', 'Scroll',
+   50, 93.07087468855283, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH300_7_R407C_50Hz', 'Maneurop', 'SH300-7', 'R407C', 'MT', 'Scroll',
+   50, 92.75011729658512, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH300_9_R407C_50Hz', 'Maneurop', 'SH300-9', 'R407C', 'MT', 'Scroll',
+   50, 93.0696639061966, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH380_7_R407C_50Hz', 'Maneurop', 'SH380-7', 'R407C', 'MT', 'Scroll',
+   50, 107.5640838598854, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH380_9_R407C_50Hz', 'Maneurop', 'SH380-9', 'R407C', 'MT', 'Scroll',
+   50, 110.7371034815826, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH182_3_R407C_50Hz', 'Maneurop', 'SH182-3', 'R407C', 'MT', 'Scroll',
+   50, 54.20075787918091, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH182_7_R407C_50Hz', 'Maneurop', 'SH182-7', 'R407C', 'HT', 'Scroll',
+   50, 44.58060090751384, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH182_9_R407C_50Hz', 'Maneurop', 'SH182-9', 'R407C', 'MT', 'Scroll',
+   50, 54.20075787918091, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH195_3_R407C_50Hz', 'Maneurop', 'SH195-3', 'R407C', 'MT', 'Scroll',
+   50, 59.2004143327637, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH195_4_R407C_50Hz', 'Maneurop', 'SH195-4', 'R407C', 'HT', 'Scroll',
+   50, 49.07340033588277, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH195_7_R407C_50Hz', 'Maneurop', 'SH195-7', 'R407C', 'HT', 'Scroll',
+   50, 49.07340033588277, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH195_9_R407C_50Hz', 'Maneurop', 'SH195-9', 'R407C', 'MT', 'Scroll',
+   50, 59.2004143327637, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH210_3_R407C_50Hz', 'Maneurop', 'SH210-3', 'R407C', 'MT', 'Scroll',
+   50, 63.85004468209077, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH210_7_R407C_50Hz', 'Maneurop', 'SH210-7', 'R407C', 'HT', 'Scroll',
+   50, 52.22434278232826, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH210_9_R407C_50Hz', 'Maneurop', 'SH210-9', 'R407C', 'MT', 'Scroll',
+   50, 63.85004468209077, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH212_3_R407C_50Hz', 'Maneurop', 'SH212-3', 'R407C', 'MT', 'Scroll',
+   50, 64.20007078634643, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH212_4_R407C_50Hz', 'Maneurop', 'SH212-4', 'R407C', 'HT', 'Scroll',
+   50, 53.56619976425171, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH212_7_R407C_50Hz', 'Maneurop', 'SH212-7', 'R407C', 'HT', 'Scroll',
+   50, 53.56619976425171, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH212_9_R407C_50Hz', 'Maneurop', 'SH212-9', 'R407C', 'MT', 'Scroll',
+   50, 64.20007078634643, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH230_3_R407C_50Hz', 'Maneurop', 'SH230-3', 'R407C', 'MT', 'Scroll',
+   50, 69.39984996152494, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH230_4_R407C_50Hz', 'Maneurop', 'SH230-4', 'R407C', 'HT', 'Scroll',
+   50, 56.97176222109473, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH230_7_R407C_50Hz', 'Maneurop', 'SH230-7', 'R407C', 'HT', 'Scroll',
+   50, 56.97176222109473, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH230_9_R407C_50Hz', 'Maneurop', 'SH230-9', 'R407C', 'MT', 'Scroll',
+   50, 69.39984996152494, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH242_3_R407C_50Hz', 'Maneurop', 'SH242-3', 'R407C', 'MT', 'Scroll',
+   50, 73.49933148500061, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH242_7_R407C_50Hz', 'Maneurop', 'SH242-7', 'R407C', 'HT', 'Scroll',
+   50, 59.86808465714264, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH242_9_R407C_50Hz', 'Maneurop', 'SH242-9', 'R407C', 'MT', 'Scroll',
+   50, 73.49933148500061, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH260_3_R407C_50Hz', 'Maneurop', 'SH260-3', 'R407C', 'MT', 'Scroll',
+   50, 79.04913676443482, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH260_4_R407C_50Hz', 'Maneurop', 'SH260-4', 'R407C', 'HT', 'Scroll',
+   50, 64.61550409590912, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH260_7_R407C_50Hz', 'Maneurop', 'SH260-7', 'R407C', 'HT', 'Scroll',
+   50, 64.61550409590912, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH260_9_R407C_50Hz', 'Maneurop', 'SH260-9', 'R407C', 'MT', 'Scroll',
+   50, 79.04913676443482, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH281_3_R407C_50Hz', 'Maneurop', 'SH281-3', 'R407C', 'MT', 'Scroll',
+   50, 83.89928094258882, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH281_7_R407C_50Hz', 'Maneurop', 'SH281-7', 'R407C', 'HT', 'Scroll',
+   50, 68.71532041455461, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH281_9_R407C_50Hz', 'Maneurop', 'SH281-9', 'R407C', 'MT', 'Scroll',
+   50, 83.89928094258882, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH282_3_R407C_50Hz', 'Maneurop', 'SH282-3', 'R407C', 'MT', 'Scroll',
+   50, 84.59894204386903, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH282_4_R407C_50Hz', 'Maneurop', 'SH282-4', 'R407C', 'HT', 'Scroll',
+   50, 69.3629235346756, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH282_7_R407C_50Hz', 'Maneurop', 'SH282-7', 'R407C', 'HT', 'Scroll',
+   50, 69.3629235346756, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH282_9_R407C_50Hz', 'Maneurop', 'SH282-9', 'R407C', 'MT', 'Scroll',
+   50, 84.59894204386903, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH301_3_R407C_50Hz', 'Maneurop', 'SH301-3', 'R407C', 'MT', 'Scroll',
+   50, 89.44908622202301, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH301_4_R407C_50Hz', 'Maneurop', 'SH301-4', 'R407C', 'HT', 'Scroll',
+   50, 73.4627398533211, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH301_7_R407C_50Hz', 'Maneurop', 'SH301-7', 'R407C', 'HT', 'Scroll',
+   50, 73.4627398533211, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH301_9_R407C_50Hz', 'Maneurop', 'SH301-9', 'R407C', 'MT', 'Scroll',
+   50, 89.44908622202301, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH304_4_R407C_50Hz', 'Maneurop', 'SH304-4', 'R407C', 'MT', 'Scroll',
+   50, 90.7378621195706, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH322_3_R407C_50Hz', 'Maneurop', 'SH322-3', 'R407C', 'MT', 'Scroll',
+   50, 94.29923040017704, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH322_7_R407C_50Hz', 'Maneurop', 'SH322-7', 'R407C', 'HT', 'Scroll',
+   50, 77.56255617196653, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH322_9_R407C_50Hz', 'Maneurop', 'SH322-9', 'R407C', 'MT', 'Scroll',
+   50, 94.29923040017704, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH324_4_R407C_50Hz', 'Maneurop', 'SH324-4', 'R407C', 'MT', 'Scroll',
+   50, 96.28766739900485, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH345_4_R407C_50Hz', 'Maneurop', 'SH345-4', 'R407C', 'MT', 'Scroll',
+   50, 101.1378115771588, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH360_3_R407C_50Hz', 'Maneurop', 'SH360-3', 'R407C', 'MT', 'Scroll',
+   50, 107.4778469074249, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH360_7_R407C_50Hz', 'Maneurop', 'SH360-7', 'R407C', 'MT', 'Scroll',
+   50, 107.4778469074249, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH360_9_R407C_50Hz', 'Maneurop', 'SH360-9', 'R407C', 'MT', 'Scroll',
+   50, 107.4778469074249, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH368_4_R407C_50Hz', 'Maneurop', 'SH368-4', 'R407C', 'MT', 'Scroll',
+   50, 107.9763927541406, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH420_3_R407C_50Hz', 'Maneurop', 'SH420-3', 'R407C', 'MT', 'Scroll',
+   50, 127.4751280477829, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH420_7_R407C_50Hz', 'Maneurop', 'SH420-7', 'R407C', 'MT', 'Scroll',
+   50, 127.2335966384182, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH420_9_R407C_50Hz', 'Maneurop', 'SH420-9', 'R407C', 'MT', 'Scroll',
+   50, 127.1518912490769, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH480_3_R407C_50Hz', 'Maneurop', 'SH480-3', 'R407C', 'MT', 'Scroll',
+   50, 146.8097981422653, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH480_4_R407C_50Hz', 'Maneurop', 'SH480-4', 'R407C', 'HT', 'Scroll',
+   50, 121.2107788151932, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH480_7_R407C_50Hz', 'Maneurop', 'SH480-7', 'R407C', 'MT', 'Scroll',
+   50, 146.4890407502976, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH480_9_R407C_50Hz', 'Maneurop', 'SH480-9', 'R407C', 'MT', 'Scroll',
+   50, 146.8085873599091, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH482_3_R407C_50Hz', 'Maneurop', 'SH482-3', 'R407C', 'MT', 'Scroll',
+   50, 147.4724091881409, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH482_7_R407C_50Hz', 'Maneurop', 'SH482-7', 'R407C', 'MT', 'Scroll',
+   50, 146.9893463694115, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH482_9_R407C_50Hz', 'Maneurop', 'SH482-9', 'R407C', 'MT', 'Scroll',
+   50, 146.8259355907288, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH540_3_R407C_50Hz', 'Maneurop', 'SH540-3', 'R407C', 'MT', 'Scroll',
+   50, 166.8070792826233, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH540_7_R407C_50Hz', 'Maneurop', 'SH540-7', 'R407C', 'MT', 'Scroll',
+   50, 166.2447904812908, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH540_9_R407C_50Hz', 'Maneurop', 'SH540-9', 'R407C', 'MT', 'Scroll',
+   50, 166.482631701561, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH600_3_R407C_50Hz', 'Maneurop', 'SH600-3', 'R407C', 'MT', 'Scroll',
+   50, 186.1417493771057, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH600_7_R407C_50Hz', 'Maneurop', 'SH600-7', 'R407C', 'MT', 'Scroll',
+   50, 185.5002345931702, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH600_9_R407C_50Hz', 'Maneurop', 'SH600-9', 'R407C', 'MT', 'Scroll',
+   50, 186.1393278123932, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH620_4_R407C_50Hz', 'Maneurop', 'SH620-4', 'R407C', 'HT', 'Scroll',
+   50, 150.7539069590988, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH680_4_R407C_50Hz', 'Maneurop', 'SH680-4', 'R407C', 'HT', 'Scroll',
+   50, 167.6497774925232, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH550_3_R407C_50Hz', 'Maneurop', 'SH550-3', 'R407C', 'MT', 'Scroll',
+   50, 161.2167703611374, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH550_7_R407C_50Hz', 'Maneurop', 'SH550-7', 'R407C', 'MT', 'Scroll',
+   50, 161.2167703611374, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH550_9_R407C_50Hz', 'Maneurop', 'SH550-9', 'R407C', 'MT', 'Scroll',
+   50, 161.2167703611374, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH720_3_R407C_50Hz', 'Maneurop', 'SH720-3', 'R407C', 'MT', 'Scroll',
+   50, 221.2086137822113, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH720_7_R407C_50Hz', 'Maneurop', 'SH720-7', 'R407C', 'MT', 'Scroll',
+   50, 220.4840195541172, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH720_9_R407C_50Hz', 'Maneurop', 'SH720-9', 'R407C', 'MT', 'Scroll',
+   50, 220.2389033860931, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH900_3_R407C_50Hz', 'Maneurop', 'SH900-3', 'R407C', 'MT', 'Scroll',
+   50, 279.2126240656586, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH900_7_R407C_50Hz', 'Maneurop', 'SH900-7', 'R407C', 'MT', 'Scroll',
+   50, 278.2503518897553, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH900_9_R407C_50Hz', 'Maneurop', 'SH900-9', 'R407C', 'MT', 'Scroll',
+   50, 279.2089917185897, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH1140_7_R407C_50Hz', 'Maneurop', 'SH1140-7', 'R407C', 'MT', 'Scroll',
+   50, 322.692251579656, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_SH1140_9_R407C_50Hz', 'Maneurop', 'SH1140-9', 'R407C', 'MT', 'Scroll',
+   50, 332.2113104447481, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH029U1_R407C_50Hz', 'Maneurop', 'HRH029U1', 'R407C', 'MT', 'Scroll',
+   50, 8.496159194382907, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH031U1_R407C_50Hz', 'Maneurop', 'HRH031U1', 'R407C', 'MT', 'Scroll',
+   50, 9.082076496251975, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH032U1_R407C_50Hz', 'Maneurop', 'HRH032U1', 'R407C', 'MT', 'Scroll',
+   50, 9.37547647711181, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH034U1_R407C_50Hz', 'Maneurop', 'HRH034U1', 'R407C', 'MT', 'Scroll',
+   50, 10.10772275303288, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH036U1_R407C_50Hz', 'Maneurop', 'HRH036U1', 'R407C', 'MT', 'Scroll',
+   50, 10.37165664916679, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH038U1_R407C_50Hz', 'Maneurop', 'HRH038U1', 'R407C', 'MT', 'Scroll',
+   50, 11.1038619393471, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH039U1_R407C_50Hz', 'Maneurop', 'HRH039U1', 'R407C', 'MT', 'Scroll',
+   50, 11.57396429812214, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH040U1_R407C_50Hz', 'Maneurop', 'HRH040U1', 'R407C', 'MT', 'Scroll',
+   50, 12.15885614518234, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH041U1_R407C_50Hz', 'Maneurop', 'HRH041U1', 'R407C', 'MT', 'Scroll',
+   50, 12.10018103667488, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH044U1_R407C_50Hz', 'Maneurop', 'HRH044U1', 'R407C', 'MT', 'Scroll',
+   50, 13.00758666609071, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH047U1_R407C_50Hz', 'Maneurop', 'HRH047U1', 'R407C', 'MT', 'Scroll',
+   50, 13.80101133671905, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH048U1_R407C_50Hz', 'Maneurop', 'HRH048U1', 'R407C', 'MT', 'Scroll',
+   50, 14.35718249205242, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH049U1_R407C_50Hz', 'Maneurop', 'HRH049U1', 'R407C', 'MT', 'Scroll',
+   50, 14.35598116260374, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH050U1_R407C_50Hz', 'Maneurop', 'HRH050U1', 'R407C', 'MT', 'Scroll',
+   50, 14.94207307632688, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH051U1_R407C_50Hz', 'Maneurop', 'HRH051U1', 'R407C', 'MT', 'Scroll',
+   50, 15.17554633023911, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH054U1_R407C_50Hz', 'Maneurop', 'HRH054U1', 'R407C', 'MT', 'Scroll',
+   50, 15.96649102930545, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH056U1_R407C_50Hz', 'Maneurop', 'HRH056U1', 'R407C', 'MT', 'Scroll',
+   50, 16.66976203465949, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HLH061T1_R407C_50Hz', 'Maneurop', 'HLH061T1', 'R407C', 'MT', 'Scroll',
+   50, 17.81036622832565, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HLH068T1_R407C_50Hz', 'Maneurop', 'HLH068T1', 'R407C', 'MT', 'Scroll',
+   50, 19.74619831791637, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HLJ072T1_R407C_50Hz', 'Maneurop', 'HLJ072T1', 'R407C', 'MT', 'Scroll',
+   50, 21.00229104158868, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HLJ083T1_R407C_50Hz', 'Maneurop', 'HLJ083T1', 'R407C', 'MT', 'Scroll',
+   50, 23.96048130342932, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH029U2_R407C_50Hz', 'Maneurop', 'HRH029U2', 'R407C', 'HT', 'Scroll',
+   50, 7.1201008175765, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH031U2_R407C_50Hz', 'Maneurop', 'HRH031U2', 'R407C', 'HT', 'Scroll',
+   50, 7.529525267080266, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH032U2_R407C_50Hz', 'Maneurop', 'HRH032U2', 'R407C', 'HT', 'Scroll',
+   50, 7.676489206015161, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH034U2_R407C_50Hz', 'Maneurop', 'HRH034U2', 'R407C', 'MT', 'Scroll',
+   50, 10.1085635427457, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH036U2_R407C_50Hz', 'Maneurop', 'HRH036U2', 'R407C', 'HT', 'Scroll',
+   50, 8.818826381308172, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH038U2_R407C_50Hz', 'Maneurop', 'HRH038U2', 'R407C', 'HT', 'Scroll',
+   50, 9.242828206707484, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH040U2_R407C_50Hz', 'Maneurop', 'HRH040U2', 'R407C', 'HT', 'Scroll',
+   50, 10.19619292768696, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH041U2_R407C_50Hz', 'Maneurop', 'HRH041U2', 'R407C', 'HT', 'Scroll',
+   50, 10.04833660551262, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH044U2_R407C_50Hz', 'Maneurop', 'HRH044U2', 'R407C', 'HT', 'Scroll',
+   50, 12.09886002732856, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH047U2_R407C_50Hz', 'Maneurop', 'HRH047U2', 'R407C', 'HT', 'Scroll',
+   50, 11.33767750245324, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH048U2_R407C_50Hz', 'Maneurop', 'HRH048U2', 'R407C', 'HT', 'Scroll',
+   50, 11.89533727230272, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH049U2_R407C_50Hz', 'Maneurop', 'HRH049U2', 'R407C', 'HT', 'Scroll',
+   50, 12.0988568528293, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH050U2_R407C_50Hz', 'Maneurop', 'HRH050U2', 'R407C', 'HT', 'Scroll',
+   50, 12.45172553852413, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH051U2_R407C_50Hz', 'Maneurop', 'HRH051U2', 'R407C', 'HT', 'Scroll',
+   50, 12.86032197881384, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH054U2_R407C_50Hz', 'Maneurop', 'HRH054U2', 'R407C', 'HT', 'Scroll',
+   50, 13.32802384181484, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH056U2_R407C_50Hz', 'Maneurop', 'HRH056U2', 'R407C', 'HT', 'Scroll',
+   50, 13.8262709933618, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HLH061T2_R407C_50Hz', 'Maneurop', 'HLH061T2', 'R407C', 'HT', 'Scroll',
+   50, 14.84610696063418, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HLH068T2_R407C_50Hz', 'Maneurop', 'HLH068T2', 'R407C', 'HT', 'Scroll',
+   50, 16.87401027574123, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HLJ072T2_R407C_50Hz', 'Maneurop', 'HLJ072T2', 'R407C', 'HT', 'Scroll',
+   50, 17.84116517057356, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HLJ075T2_R407C_50Hz', 'Maneurop', 'HLJ075T2', 'R407C', 'MT', 'Scroll',
+   50, 22.32021302847458, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HLJ083T2_R407C_50Hz', 'Maneurop', 'HLJ083T2', 'R407C', 'HT', 'Scroll',
+   50, 20.41691327383392, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HCJ090T2_R407C_50Hz', 'Maneurop', 'HCJ090T2', 'R407C', 'HT', 'Scroll',
+   50, 22.26385793153412, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HCJ105T2_R407C_50Hz', 'Maneurop', 'HCJ105T2', 'R407C', 'HT', 'Scroll',
+   50, 26.0032025339767, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HCJ120T2_R407C_50Hz', 'Maneurop', 'HCJ120T2', 'R407C', 'HT', 'Scroll',
+   50, 29.89773408619108, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH031U4_R407C_50Hz', 'Maneurop', 'HRH031U4', 'R407C', 'HT', 'Scroll',
+   50, 7.529526164056948, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH032U4_R407C_50Hz', 'Maneurop', 'HRH032U4', 'R407C', 'HT', 'Scroll',
+   50, 7.67628091459466, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH034U4_R407C_50Hz', 'Maneurop', 'HRH034U4', 'R407C', 'HT', 'Scroll',
+   50, 8.496611136454659, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH036U4_R407C_50Hz', 'Maneurop', 'HRH036U4', 'R407C', 'HT', 'Scroll',
+   50, 8.818834173596095, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH038U4_R407C_50Hz', 'Maneurop', 'HRH038U4', 'R407C', 'HT', 'Scroll',
+   50, 9.257606190824951, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH040U4_R407C_50Hz', 'Maneurop', 'HRH040U4', 'R407C', 'HT', 'Scroll',
+   50, 10.19618374988659, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH041U4_R407C_50Hz', 'Maneurop', 'HRH041U4', 'R407C', 'HT', 'Scroll',
+   50, 10.04833660551262, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH044U4_R407C_50Hz', 'Maneurop', 'HRH044U4', 'R407C', 'HT', 'Scroll',
+   50, 10.80884379958269, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH047U4_R407C_50Hz', 'Maneurop', 'HRH047U4', 'R407C', 'HT', 'Scroll',
+   50, 11.33767750245324, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH048U4_R407C_50Hz', 'Maneurop', 'HRH048U4', 'R407C', 'HT', 'Scroll',
+   50, 11.89533727230272, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH049U4_R407C_50Hz', 'Maneurop', 'HRH049U4', 'R407C', 'HT', 'Scroll',
+   50, 12.09886002732856, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH050U4_R407C_50Hz', 'Maneurop', 'HRH050U4', 'R407C', 'HT', 'Scroll',
+   50, 12.4517255644096, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH051U4_R407C_50Hz', 'Maneurop', 'HRH051U4', 'R407C', 'HT', 'Scroll',
+   50, 12.86032197933661, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH054U4_R407C_50Hz', 'Maneurop', 'HRH054U4', 'R407C', 'HT', 'Scroll',
+   50, 13.32802162828762, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH056U4_R407C_50Hz', 'Maneurop', 'HRH056U4', 'R407C', 'HT', 'Scroll',
+   50, 13.82627272296668, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HLH061T4_R407C_50Hz', 'Maneurop', 'HLH061T4', 'R407C', 'HT', 'Scroll',
+   50, 14.85284316777918, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HLH068T4_R407C_50Hz', 'Maneurop', 'HLH068T4', 'R407C', 'HT', 'Scroll',
+   50, 16.8830057379175, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HLJ072T4_R407C_50Hz', 'Maneurop', 'HLJ072T4', 'R407C', 'HT', 'Scroll',
+   50, 17.84116588504548, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HLJ075T4_R407C_50Hz', 'Maneurop', 'HLJ075T4', 'R407C', 'HT', 'Scroll',
+   50, 18.60025527422305, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HLJ083T4_R407C_50Hz', 'Maneurop', 'HLJ083T4', 'R407C', 'HT', 'Scroll',
+   50, 20.41692318805112, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HCJ090T4_R407C_50Hz', 'Maneurop', 'HCJ090T4', 'R407C', 'HT', 'Scroll',
+   50, 22.32143698163389, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HCJ105T4_R407C_50Hz', 'Maneurop', 'HCJ105T4', 'R407C', 'HT', 'Scroll',
+   50, 26.09998741788491, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HCJ120T4_R407C_50Hz', 'Maneurop', 'HCJ120T4', 'R407C', 'HT', 'Scroll',
+   50, 29.61317222317275, -15.0, 12.0, 30.0, 60.0, 2)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH031U5_R407C_50Hz', 'Maneurop', 'HRH031U5', 'R407C', 'HT', 'Scroll',
+   50, 7.682366756391624, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH032U5_R407C_50Hz', 'Maneurop', 'HRH032U5', 'R407C', 'HT', 'Scroll',
+   50, 7.704686346409402, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH034U5_R407C_50Hz', 'Maneurop', 'HRH034U5', 'R407C', 'HT', 'Scroll',
+   50, 8.573046665021812, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH036U5_R407C_50Hz', 'Maneurop', 'HRH036U5', 'R407C', 'HT', 'Scroll',
+   50, 8.93554540269005, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH038U5_R407C_50Hz', 'Maneurop', 'HRH038U5', 'R407C', 'HT', 'Scroll',
+   50, 9.389788779650736, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH040U5_R407C_50Hz', 'Maneurop', 'HRH040U5', 'R407C', 'HT', 'Scroll',
+   50, 10.10701374761307, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH051U5_R407C_50Hz', 'Maneurop', 'HRH051U5', 'R407C', 'HT', 'Scroll',
+   50, 12.77303987750154, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH054U5_R407C_50Hz', 'Maneurop', 'HRH054U5', 'R407C', 'HT', 'Scroll',
+   50, 13.38758008163154, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HRH056U5_R407C_50Hz', 'Maneurop', 'HRH056U5', 'R407C', 'HT', 'Scroll',
+   50, 13.50281061040322, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HLH061T5_R407C_50Hz', 'Maneurop', 'HLH061T5', 'R407C', 'HT', 'Scroll',
+   50, 14.93939970699422, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HLH068T5_R407C_50Hz', 'Maneurop', 'HLH068T5', 'R407C', 'HT', 'Scroll',
+   50, 16.48625190840747, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
+
+INSERT INTO public.compressors_catalog
+  (id, manufacturer, model, refrigerant, application, compressor_type, frequency_hz,
+   nominal_power_kw, te_min_c, te_max_c, tc_min_c, tc_max_c, num_calibration_points)
+VALUES
+  ('MANEUROP_HLJ072T5_R407C_50Hz', 'Maneurop', 'HLJ072T5', 'R407C', 'HT', 'Scroll',
+   50, 17.13367111035485, -15.0, 12.0, 30.0, 60.0, 1)
+ON CONFLICT (id) DO UPDATE SET
+  manufacturer = EXCLUDED.manufacturer,
+  model = EXCLUDED.model,
+  refrigerant = EXCLUDED.refrigerant,
+  application = EXCLUDED.application,
+  compressor_type = EXCLUDED.compressor_type,
+  frequency_hz = EXCLUDED.frequency_hz,
+  nominal_power_kw = EXCLUDED.nominal_power_kw,
+  te_min_c = EXCLUDED.te_min_c,
+  te_max_c = EXCLUDED.te_max_c,
+  tc_min_c = EXCLUDED.tc_min_c,
+  tc_max_c = EXCLUDED.tc_max_c,
+  num_calibration_points = EXCLUDED.num_calibration_points,
+  updated_at = now();
