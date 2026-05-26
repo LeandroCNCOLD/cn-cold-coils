@@ -80,7 +80,10 @@ function EntitySection({ config }: { config: EntityConfig }) {
   const load = async () => {
     setLoading(true);
     try {
-      const data = await listItems(config.key);
+      const timeout = new Promise<never>((_, reject) =>
+        setTimeout(() => reject(new Error("Tempo esgotado ao conectar")), 8000),
+      );
+      const data = await Promise.race([listItems(config.key), timeout]);
       setItems(data as Item[]);
     } catch (e: any) {
       toast.error("Falha ao carregar", { description: e.message ?? String(e) });

@@ -14,7 +14,6 @@ import {
   Cpu,
   Wrench,
   ClipboardList,
-  Package,
   ChevronDown,
   ChevronRight,
   Sprout,
@@ -66,8 +65,7 @@ const NAV_CADASTROS: NavItem[] = [
 ];
 
 const NAV_DOCUMENTACAO: NavItem[] = [
-  { to: "/coldpro/ficha-tecnica", label: "navigation.technicalSheet", Icon: FileText },
-  { to: "/coldpro/export", label: "navigation.export", Icon: Package },
+  { to: "/coldpro/export", label: "navigation.technicalSheet", Icon: FileText },
 ];
 
 const NAV_ADMIN: NavItem[] = [
