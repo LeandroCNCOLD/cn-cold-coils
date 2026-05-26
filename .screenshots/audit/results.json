@@ -1,0 +1,999 @@
+[
+  {
+    "id": "01_dashboard",
+    "url": "/coldpro/",
+    "httpStatus": 200,
+    "redirected": false,
+    "redirectTo": null,
+    "h1": [
+      "Painel ColdPro V2"
+    ],
+    "h2": [
+      "Sessões recentes",
+      "Status do motor",
+      "Módulos disponíveis",
+      "Equilíbrio do Sistema",
+      "Curva de Desempenho",
+      "Mapa Operacional",
+      "Ficha Técnica",
+      "Registro de Produtos"
+    ],
+    "buttons": [
+      "Projetos",
+      "Engenharia",
+      "Cadastros & Biblioteca",
+      "Documentação",
+      "Administração",
+      "Sair",
+      "IA Assistente",
+      "Nova sessão"
+    ],
+    "inputs": [],
+    "alerts": [],
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID",
+      "Failed to load resource: the server responded with a status of 404 ()"
+    ],
+    "netFails": [],
+    "bodyText": "CN\n\nCN COLD\n\nENGENHARIA\n\nPROJETOS\nPainel\nProjetos\nENGENHARIA\nCatálogo & Seleção\nCatálogo Comercial\nCN COILS — Simulador\nHub de Testes\nSimulação\nPipeline ΔP\nValidação\nComparação\nEngenharia de Aplicação\nAGRO\nCADASTROS & BIBLIOTECA\nComponentes\nBiblioteca\nFicha Técnica\nRegistro de Produtos\nMontagem\nDOCUMENTAÇÃO\nADMINISTRAÇÃO\n\ndev@local\n\nAdministrador\n\nSair\nCN COLD\nDashboard\nBásico\nIA Assistente\nPainel ColdPro V2\n\nCentro de operações técnicas — motor de cálculo CN COLD.\n\nNova sessão\nSessões recentes\n0 no total\nNenhuma sessão ainda. Crie uma nova sessão para começar.\nStatus do motor\nVersão\nColdPro V2\nModo atual\nBasic\nSessões em memória\n0\nMódulos disponíveis\nEquilíbrio do Sistema\n\nResolve o equilíbrio termodinâmico completo do sistema.\n\nCurva de Desempenho\n\nGera a curva capacidade × temperatura d"
+  },
+  {
+    "id": "02_catalog",
+    "url": "/coldpro/catalog",
+    "httpStatus": 200,
+    "redirected": false,
+    "redirectTo": null,
+    "h1": [
+      "Validação de Catálogo CN Cold"
+    ],
+    "h2": [],
+    "buttons": [
+      "Projetos",
+      "Engenharia",
+      "Cadastros & Biblioteca",
+      "Documentação",
+      "Administração",
+      "Sair",
+      "IA Assistente",
+      "CN_100_HTZS13KAE",
+      "Selecionar",
+      "CN_200_AGROZS13KAE",
+      "CN_300_AGROZS21KAE",
+      "CN_400_AGROZB30KCE",
+      "CN_500_AGROZB38KCE",
+      "CN_650_AGROZB48KCE",
+      "CN_750_AGROZB76KCE",
+      "CN_1000_AGROZB95KCE",
+      "CN_1500_AGROZB114KCE",
+      "CN_2000_AGROZB150KQE",
+      "CN_3000_AGROZB220KQE",
+      "CN_200_AGRO2HES-2Y",
+      "CN_300_AGRO2EES-3Y",
+      "CN_400_AGRO2DES-3Y",
+      "CN_500_AGRO4FES-5Y",
+      "CN_500_AGRO4DES-5Y",
+      "CN_750_AGRO4VES-10Y",
+      "CN_1000_AGRO4PES-15Y",
+      "CN_1500_AGRO4NES-20Y",
+      "CN_2000_AGRO4HE-25Y",
+      "CN_3000_AGRO4GE-30Y",
+      "CN_200_AGROMTZ022"
+    ],
+    "inputs": [
+      "Buscar modelo, compressor, fabricante…"
+    ],
+    "alerts": [],
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID"
+    ],
+    "netFails": [],
+    "bodyText": "CN\n\nCN COLD\n\nENGENHARIA\n\nPROJETOS\nPainel\nProjetos\nENGENHARIA\nCatálogo & Seleção\nCatálogo Comercial\nCN COILS — Simulador\nHub de Testes\nSimulação\nPipeline ΔP\nValidação\nComparação\nEngenharia de Aplicação\nAGRO\nCADASTROS & BIBLIOTECA\nComponentes\nBiblioteca\nFicha Técnica\nRegistro de Produtos\nMontagem\nDOCUMENTAÇÃO\nADMINISTRAÇÃO\n\ndev@local\n\nAdministrador\n\nSair\nCN COLD\nCatálogo CN COLD\nBásico\nIA Assistente\nValidação de Catálogo CN Cold\n\nSelecione um equipamento, ajuste as condições e compare os resultados do motor CycleEngine V2 com os dados oficiais do catálogo.\n\nExportar em lote\nAplicação (todas)\nLT — Congelados\nMT — Resfriados\nHT — Climatizados\nFluido (todos)\nR404A\nR507A\nR134a\nR448A\nR449A\nR452A\nR290\nR22\nTensão (todas)\n220 V\n380 V\n440 V\nFases (todas)\n1F\n3F\n\nExibindo 480 de 480 equipamentos\n\nMODEL"
+  },
+  {
+    "id": "03_catalog_comercial",
+    "url": "/coldpro/catalog-comercial",
+    "httpStatus": 200,
+    "redirected": false,
+    "redirectTo": null,
+    "h1": [
+      "Catálogo Comercial"
+    ],
+    "h2": [],
+    "buttons": [
+      "Projetos",
+      "Engenharia",
+      "Cadastros & Biblioteca",
+      "Documentação",
+      "Administração",
+      "Sair",
+      "IA Assistente",
+      "Todas",
+      "Todos",
+      "Excel (480)",
+      "Hub"
+    ],
+    "inputs": [
+      "Modelo, linha, compressor..."
+    ],
+    "alerts": [],
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID"
+    ],
+    "netFails": [],
+    "bodyText": "CN\n\nCN COLD\n\nENGENHARIA\n\nPROJETOS\nPainel\nProjetos\nENGENHARIA\nCatálogo & Seleção\nCatálogo Comercial\nCN COILS — Simulador\nHub de Testes\nSimulação\nPipeline ΔP\nValidação\nComparação\nEngenharia de Aplicação\nAGRO\nCADASTROS & BIBLIOTECA\nComponentes\nBiblioteca\nFicha Técnica\nRegistro de Produtos\nMontagem\nDOCUMENTAÇÃO\nADMINISTRAÇÃO\n\ndev@local\n\nAdministrador\n\nSair\nCN COLD\nCatálogo CN COLD\nBásico\nIA Assistente\nCatálogo Comercial\n\n480 de 480 equipamentos · Exportação Excel disponível\n\nFiltros\n\nFamília\nTodas\nRefrigerante\nTodos\nAplicação\nTodas\nExcel (480)\n480 modelos\nMODELO\tLINHA\tAPLIC.\tFLUIDO\tCAP. FRIG.\tPOT. ELÉT.\tCOP\tTE / TC (°C)\tTENSÃO\tSTATUS\t\n\n\nCN_100_HT\n\nZS13KAE\n\n\tHT - HIGH TEMPERATURE\tHT\tR134a\t4.55 kW\t1.87 kW\t3.48\t11 / 54\t380 V / 3φ\tpending\t\nHub\n\n\n\nCN_200_AGRO\n\nZS13KAE\n\n\tAGRO - AGRO\tAGRO\tR404A\t4.90 "
+  },
+  {
+    "id": "04_simulation",
+    "url": "/coldpro/simulation",
+    "httpStatus": 200,
+    "redirected": false,
+    "redirectTo": null,
+    "h1": [
+      "Equilíbrio do Sistema"
+    ],
+    "h2": [
+      "Compressor",
+      "Condensador",
+      "Evaporador",
+      "Condições do Sistema"
+    ],
+    "buttons": [
+      "Projetos",
+      "Engenharia",
+      "Cadastros & Biblioteca",
+      "Documentação",
+      "Administração",
+      "Sair",
+      "IA Assistente",
+      "Calcular Equilíbrio"
+    ],
+    "inputs": [
+      "Ex: R404A, R134a, R290"
+    ],
+    "alerts": [],
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID"
+    ],
+    "netFails": [],
+    "bodyText": "CN\n\nCN COLD\n\nENGENHARIA\n\nPROJETOS\nPainel\nProjetos\nENGENHARIA\nCatálogo & Seleção\nCatálogo Comercial\nCN COILS — Simulador\nHub de Testes\nSimulação\nPipeline ΔP\nValidação\nComparação\nEngenharia de Aplicação\nAGRO\nCADASTROS & BIBLIOTECA\nComponentes\nBiblioteca\nFicha Técnica\nRegistro de Produtos\nMontagem\nDOCUMENTAÇÃO\nADMINISTRAÇÃO\n\ndev@local\n\nAdministrador\n\nSair\nCN COLD\nEquilíbrio do Sistema\nBásico\nIA Assistente\nEquilíbrio do Sistema\n\nCalcula o ponto de equilíbrio térmico do sistema completo\n\nCalcular Equilíbrio\nDica: você pode pré-carregar os componentes a partir do Catálogo CN COLD ou do workspace CN Coils usando o botão \"Enviar para Simulação\", ou preencher manualmente.\nPara calcular o equilíbrio, ainda falta preencher:\nCompressor: capacidade de refrigeração\nCompressor: potência\nCompressor: T eva"
+  },
+  {
+    "id": "05_curve",
+    "url": "/coldpro/curve",
+    "httpStatus": 200,
+    "redirected": false,
+    "redirectTo": null,
+    "h1": [
+      "Curva de Desempenho"
+    ],
+    "h2": [
+      "Compressor",
+      "Condensador",
+      "Evaporador",
+      "Condições do Sistema",
+      "Grade de Pontos Operacionais"
+    ],
+    "buttons": [
+      "Projetos",
+      "Engenharia",
+      "Cadastros & Biblioteca",
+      "Documentação",
+      "Administração",
+      "Sair",
+      "IA Assistente",
+      "Gerar Curva"
+    ],
+    "inputs": [
+      "Ex: R404A, R134a, R290",
+      "-15, -10, -5, 0",
+      "30, 35, 40, 45"
+    ],
+    "alerts": [],
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID"
+    ],
+    "netFails": [],
+    "bodyText": "CN\n\nCN COLD\n\nENGENHARIA\n\nPROJETOS\nPainel\nProjetos\nENGENHARIA\nCatálogo & Seleção\nCatálogo Comercial\nCN COILS — Simulador\nHub de Testes\nSimulação\nPipeline ΔP\nValidação\nComparação\nEngenharia de Aplicação\nAGRO\nCADASTROS & BIBLIOTECA\nComponentes\nBiblioteca\nFicha Técnica\nRegistro de Produtos\nMontagem\nDOCUMENTAÇÃO\nADMINISTRAÇÃO\n\ndev@local\n\nAdministrador\n\nSair\nCN COLD\nCurva de Desempenho\nBásico\nIA Assistente\nCurva de Desempenho\n\nGera a curva de desempenho do produto em uma grade de pontos\n\nGerar Curva\nDica: você pode pré-carregar os componentes a partir do Catálogo CN COLD ou preencher manualmente.\nPara gerar a curva, ainda falta preencher:\nCompressor: capacidade de refrigeração\nCompressor: potência\nCompressor: T evap nominal\nCompressor: T cond nominal\nCondensador: capacidade de rejeição\nCondensad"
+  },
+  {
+    "id": "06_map",
+    "url": "/coldpro/map",
+    "httpStatus": 200,
+    "redirected": false,
+    "redirectTo": null,
+    "h1": [
+      "Mapa Operacional"
+    ],
+    "h2": [
+      "Compressor",
+      "Condensador",
+      "Condições do Sistema",
+      "Grade de Pontos Operacionais"
+    ],
+    "buttons": [
+      "Projetos",
+      "Engenharia",
+      "Cadastros & Biblioteca",
+      "Documentação",
+      "Administração",
+      "Sair",
+      "IA Assistente",
+      "Gerar Mapa"
+    ],
+    "inputs": [
+      "Ex: R404A, R134a, R290",
+      "-15, -10, -5, 0",
+      "30, 35, 40, 45"
+    ],
+    "alerts": [],
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID"
+    ],
+    "netFails": [],
+    "bodyText": "CN\n\nCN COLD\n\nENGENHARIA\n\nPROJETOS\nPainel\nProjetos\nENGENHARIA\nCatálogo & Seleção\nCatálogo Comercial\nCN COILS — Simulador\nHub de Testes\nSimulação\nPipeline ΔP\nValidação\nComparação\nEngenharia de Aplicação\nAGRO\nCADASTROS & BIBLIOTECA\nComponentes\nBiblioteca\nFicha Técnica\nRegistro de Produtos\nMontagem\nDOCUMENTAÇÃO\nADMINISTRAÇÃO\n\ndev@local\n\nAdministrador\n\nSair\nCN COLD\nMapa Operacional\nBásico\nIA Assistente\nMapa Operacional\n\nMapeia o envelope operacional do sistema\n\nGerar Mapa\nCompressor\nCapacidade nominal*(W)\nW\nCapacidade deve ser maior que zero\nPotência elétrica*(W)\nW\nCapacidade deve ser maior que zero\nT evap nominal*(°C)\n°C\nCampo obrigatório\nT cond nominal*(°C)\n°C\nCampo obrigatório\nRefrigerante*\nCondensador\nCapacidade de rejeição*(W)\nW\nCapacidade deve ser maior que zero\nT cond máxima*(°C)\n°C\nCamp"
+  },
+  {
+    "id": "07_cycle",
+    "url": "/coldpro/cycle",
+    "httpStatus": 200,
+    "redirected": false,
+    "redirectTo": null,
+    "h1": [
+      "Evaporador DX — Ciclo de Refrigeração"
+    ],
+    "h2": [],
+    "buttons": [
+      "Projetos",
+      "Engenharia",
+      "Cadastros & Biblioteca",
+      "Documentação",
+      "Administração",
+      "Sair",
+      "IA Assistente",
+      "Salvar",
+      "PDF",
+      "RefrigeranteOK▼",
+      "CompressorOK▼",
+      "Dispositivo de ExpansãoOK▼",
+      "Condições de OperaçãoOK▼",
+      "⚡ Calcular",
+      "Restaurar Padrões",
+      "Catálogo",
+      "Novo Projeto",
+      "🔄 Ciclo P-H",
+      "📋 Resultados",
+      "📊 Envelope Q×Te",
+      "❄️ Geada",
+      "📈 Mapa Operacional",
+      "📐 Incerteza",
+      "⚙️ Otimização",
+      "🔗 Coils em Série",
+      "🧊 Geada Avançada",
+      "🏗️ Desenho",
+      "📄 Relatório",
+      "CSV",
+      "Excel"
+    ],
+    "inputs": [],
+    "alerts": [],
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID"
+    ],
+    "netFails": [],
+    "bodyText": "CN\n\nCN COLD\n\nENGENHARIA\n\nPROJETOS\nPainel\nProjetos\nENGENHARIA\nCatálogo & Seleção\nCatálogo Comercial\nCN COILS — Simulador\nHub de Testes\nSimulação\nPipeline ΔP\nValidação\nComparação\nEngenharia de Aplicação\nAGRO\nCADASTROS & BIBLIOTECA\nComponentes\nBiblioteca\nFicha Técnica\nRegistro de Produtos\nMontagem\nDOCUMENTAÇÃO\nADMINISTRAÇÃO\n\ndev@local\n\nAdministrador\n\nSair\nCN COLD\nColdPro V2\nBásico\nIA Assistente\nCN Coils\nEvaporador DX — Ciclo de Refrigeração\nR404A\nTe: -10°C\nTc: 40°C\nSalvar\nPDF\nRefrigerante\nOK\n▼\n\nR404A\n\nCompressor\nOK\n▼\n\nBITZER 2KES-05 (padrão)\n\nDispositivo de Expansão\nOK\n▼\n\nTXV · SH alvo: 5 K\n\nCondições de Operação\nOK\n▼\n\nTe: -10°C · Tc: 40°C\n\nSH: 5 K · SC: 5 K\n\n⚡ CalcularRestaurar Padrões\nNenhum projeto ativo\nCatálogo\nNovo Projeto\n🟡 Estimativa\nResíduo 614,19%\nIter. 30\nCAPACIDADE REAL\n23,91\nkW\n"
+  },
+  {
+    "id": "08_hub_testes",
+    "url": "/coldpro/hub-de-testes",
+    "httpStatus": 200,
+    "redirected": false,
+    "redirectTo": null,
+    "h1": [
+      "Hub de Testes"
+    ],
+    "h2": [
+      "Compressor"
+    ],
+    "buttons": [
+      "Projetos",
+      "Engenharia",
+      "Cadastros & Biblioteca",
+      "Documentação",
+      "Administração",
+      "Sair",
+      "IA Assistente",
+      "Compressor",
+      "Condensador",
+      "Evaporador",
+      "Condições Operacionais",
+      "Resumo",
+      "Configuração",
+      "Revisões",
+      "P-H Diagram",
+      "Equilíbrio",
+      "Desempenho",
+      "Mapa Op.",
+      "Monte Carlo",
+      "Polinômios",
+      "Otimização",
+      "Envelope",
+      "Balanço E.",
+      "Vent×Coil",
+      "Objetivo",
+      "Sanidade",
+      "Gargalo",
+      "Cenários",
+      "Degelo",
+      "Comparar"
+    ],
+    "inputs": [
+      "Ex: R404A, R134a, R290"
+    ],
+    "alerts": [],
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID"
+    ],
+    "netFails": [],
+    "bodyText": "CN\n\nCN COLD\n\nENGENHARIA\n\nPROJETOS\nPainel\nProjetos\nENGENHARIA\nCatálogo & Seleção\nCatálogo Comercial\nCN COILS — Simulador\nHub de Testes\nSimulação\nPipeline ΔP\nValidação\nComparação\nEngenharia de Aplicação\nAGRO\nCADASTROS & BIBLIOTECA\nComponentes\nBiblioteca\nFicha Técnica\nRegistro de Produtos\nMontagem\nDOCUMENTAÇÃO\nADMINISTRAÇÃO\n\ndev@local\n\nAdministrador\n\nSair\nCN COLD\nColdPro V2\nBásico\nIA Assistente\nHub de Testes\n\nVisão consolidada de todas as análises do sistema\n\n0/3\nCompressor\nEvaporador\nCondensador\nConfigure componentes na aba Configuração\nConfiguração\nIncompleto\nCompressor\nCapacidade nominal*(W)\nW\nCapacidade deve ser maior que zero\nPotência elétrica*(W)\nW\nCapacidade deve ser maior que zero\nT evap nominal*(°C)\n°C\nCampo obrigatório\nT cond nominal*(°C)\n°C\nCampo obrigatório\nRefrigerante*\nCondensad"
+  },
+  {
+    "id": "09_cncoils_evap_dx",
+    "url": "/coldpro/cncoils/workspace?type=evaporator_dx",
+    "httpStatus": 200,
+    "redirected": false,
+    "redirectTo": null,
+    "h1": [
+      "Evaporador DX — Ciclo de Refrigeração"
+    ],
+    "h2": [
+      "Formulário principal / dados do ambiente",
+      "Condições Operacionais",
+      "Dados técnicos e premissas",
+      "Resultado do cálculo",
+      "🏭 Fonte da Verdade — Avisos e validações",
+      "Auditoria / logs / mensagens técnicas"
+    ],
+    "buttons": [
+      "Projetos",
+      "Engenharia",
+      "Cadastros & Biblioteca",
+      "Documentação",
+      "Administração",
+      "Sair",
+      "IA Assistente",
+      "Enviar para Simulação",
+      "Salvar",
+      "PDF",
+      "Editar →",
+      "Calcular",
+      "Resetar",
+      "Novo Aletado",
+      "Catálogo",
+      "Novo Projeto",
+      "🏭 Detalhado",
+      "📋 Resultados",
+      "🔄 Ciclo P-H",
+      "📊 Envelope Q×Te",
+      "❄️ Geada",
+      "🧊 Geada Avançada",
+      "📈 Mapa Operacional",
+      "📐 Incerteza",
+      "⚙️ Otimização",
+      "🔗 Série",
+      "🏗️ Desenho",
+      "📄 Relatório",
+      "Carregando…",
+      "R404A"
+    ],
+    "inputs": [
+      "0",
+      "Opcional",
+      "0 (sem margem)"
+    ],
+    "alerts": [],
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID",
+      "Failed to load resource: the server responded with a status of 404 ()"
+    ],
+    "netFails": [],
+    "bodyText": "CN\n\nCN COLD\n\nENGENHARIA\n\nPROJETOS\nPainel\nProjetos\nENGENHARIA\nCatálogo & Seleção\nCatálogo Comercial\nCN COILS — Simulador\nHub de Testes\nSimulação\nPipeline ΔP\nValidação\nComparação\nEngenharia de Aplicação\nAGRO\nCADASTROS & BIBLIOTECA\nComponentes\nBiblioteca\nFicha Técnica\nRegistro de Produtos\nMontagem\nDOCUMENTAÇÃO\nADMINISTRAÇÃO\n\ndev@local\n\nAdministrador\n\nSair\nCN COLD\nCN COILS\nWorkspace\nSESSÃO\nNenhuma ativa\nBásico\nIA Assistente\nCN Coils\nEvaporador DX — Ciclo de Refrigeração\nREF_R404A\nTe: 10°C\nTc: 40°C\nEnviar para Simulação\nSalvar\nPDF\nEVAPORADOR DX\nMODO DE CÁLCULO\nOK\nObjetivo: Verificar\nMotor: V1 NTU-ε\nEditar →\nGEOMETRIA DO ALETADO\nIncompleto\n400 × 1200 × 87 mm\nSelecione uma geometria antes de calcular.\nEditar →\nLADO VENTILAÇÃO\nOK\nVazão: 5.000 m³/h\nEntrada: 25 °C / 60% UR\nVentilador: Manual\nEditar "
+  },
+  {
+    "id": "10_cncoils_condenser",
+    "url": "/coldpro/cncoils/workspace?type=condenser_air",
+    "httpStatus": 200,
+    "redirected": false,
+    "redirectTo": null,
+    "h1": [
+      "Condensador a Ar"
+    ],
+    "h2": [
+      "Dados técnicos e premissas"
+    ],
+    "buttons": [
+      "Projetos",
+      "Engenharia",
+      "Cadastros & Biblioteca",
+      "Documentação",
+      "Administração",
+      "Sair",
+      "IA Assistente",
+      "Salvar",
+      "PDF",
+      "Editar →",
+      "Calcular",
+      "Resetar",
+      "Novo Aletado",
+      "Catálogo",
+      "Novo Projeto",
+      "🌡️ Detalhado",
+      "📋 Resultados",
+      "🔄 Ciclo P-H",
+      "📊 Envelope Q×Tc",
+      "❄️ Geada",
+      "📈 Mapa Operacional",
+      "📐 Incerteza",
+      "⚙️ Otimização",
+      "🏗️ Desenho",
+      "📄 Relatório",
+      "Carregando…",
+      "R404A",
+      "— sem compressor —",
+      "CSV",
+      "Excel"
+    ],
+    "inputs": [
+      "0",
+      "Opcional",
+      "0 (sem margem)"
+    ],
+    "alerts": [],
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID",
+      "Failed to load resource: the server responded with a status of 404 ()"
+    ],
+    "netFails": [],
+    "bodyText": "CN\n\nCN COLD\n\nENGENHARIA\n\nPROJETOS\nPainel\nProjetos\nENGENHARIA\nCatálogo & Seleção\nCatálogo Comercial\nCN COILS — Simulador\nHub de Testes\nSimulação\nPipeline ΔP\nValidação\nComparação\nEngenharia de Aplicação\nAGRO\nCADASTROS & BIBLIOTECA\nComponentes\nBiblioteca\nFicha Técnica\nRegistro de Produtos\nMontagem\nDOCUMENTAÇÃO\nADMINISTRAÇÃO\n\ndev@local\n\nAdministrador\n\nSair\nCN COLD\nCN COILS\nWorkspace\nSESSÃO\nNenhuma ativa\nBásico\nIA Assistente\nCN Coils\nCondensador a Ar\nREF_R404A\nTe: 17°C\nTc: 47°C\nSalvar\nPDF\nMODO DE CÁLCULO\nOK\nVerificar (geometria → performance)\nMotor V1 NTU-ε\nEditar →\nGEOMETRIA DO ALETADO\nIncompleto\n600×1200×64 mm\n2 linhas · 24 tubos/linha · 4 circuitos\nØ9.52 mm · passo 2.5 mm\nSelecione uma geometria antes de calcular.\nEditar →\nLADO VENTILAÇÃO\nOK\n8.000 m³/h · 25°C · 60% UR\nV frontal: 3,09 m/s\nSem"
+  },
+  {
+    "id": "11_cncoils_compressor",
+    "url": "/coldpro/cncoils/workspace?type=compressor",
+    "httpStatus": 200,
+    "redirected": false,
+    "redirectTo": null,
+    "h1": [
+      "Compressor"
+    ],
+    "h2": [],
+    "buttons": [
+      "Projetos",
+      "Engenharia",
+      "Cadastros & Biblioteca",
+      "Documentação",
+      "Administração",
+      "Sair",
+      "IA Assistente",
+      "Salvar",
+      "PDF",
+      "Seleção do CompressorIncompleto▼",
+      "Condições de OperaçãoOK▼",
+      "ElétricaOK▼",
+      "⚡ Calcular",
+      "Restaurar Padrões",
+      "Catálogo",
+      "Novo Projeto",
+      "CSV",
+      "Excel",
+      "Compartilhar"
+    ],
+    "inputs": [],
+    "alerts": [],
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID"
+    ],
+    "netFails": [],
+    "bodyText": "CN\n\nCN COLD\n\nENGENHARIA\n\nPROJETOS\nPainel\nProjetos\nENGENHARIA\nCatálogo & Seleção\nCatálogo Comercial\nCN COILS — Simulador\nHub de Testes\nSimulação\nPipeline ΔP\nValidação\nComparação\nEngenharia de Aplicação\nAGRO\nCADASTROS & BIBLIOTECA\nComponentes\nBiblioteca\nFicha Técnica\nRegistro de Produtos\nMontagem\nDOCUMENTAÇÃO\nADMINISTRAÇÃO\n\ndev@local\n\nAdministrador\n\nSair\nCN COLD\nCN COILS\nWorkspace\nSESSÃO\nNenhuma ativa\nBásico\nIA Assistente\nCN Coils\nCompressor\nR404A\n—\n60 Hz\nSalvar\nPDF\nSeleção do Compressor\nIncompleto\n▼\n\nNenhum compressor selecionado\n\nCondições de Operação\nOK\n▼\n\nTe: -10°C · Tc: 45°C\n\nSH: 7 K · SC: 5 K\n\nElétrica\nOK\n▼\n\n380 V · 60 Hz\n\n⚡ CalcularRestaurar Padrões\nNenhum projeto ativo\nCatálogo\nNovo Projeto\nNenhum compressor selecionado\n\nSelecione um compressor e clique em Calcular\n\nCSV\nExcel\nPDF\nCom"
+  },
+  {
+    "id": "12_agro",
+    "url": "/coldpro/agro",
+    "httpStatus": 200,
+    "redirected": false,
+    "redirectTo": null,
+    "h1": [
+      "Workspace AGRO"
+    ],
+    "h2": [],
+    "buttons": [
+      "Projetos",
+      "Engenharia",
+      "Cadastros & Biblioteca",
+      "Documentação",
+      "Administração",
+      "Sair",
+      "IA Assistente",
+      "A1 Câmara",
+      "A3 Ciclo AGRO",
+      "A2 Aletado",
+      "A4 Psicrometria",
+      "A5 Condensador"
+    ],
+    "inputs": [],
+    "alerts": [],
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID"
+    ],
+    "netFails": [],
+    "bodyText": "CN\n\nCN COLD\n\nENGENHARIA\n\nPROJETOS\nPainel\nProjetos\nENGENHARIA\nCatálogo & Seleção\nCatálogo Comercial\nCN COILS — Simulador\nHub de Testes\nSimulação\nPipeline ΔP\nValidação\nComparação\nEngenharia de Aplicação\nAGRO\nCADASTROS & BIBLIOTECA\nComponentes\nBiblioteca\nFicha Técnica\nRegistro de Produtos\nMontagem\nDOCUMENTAÇÃO\nADMINISTRAÇÃO\n\ndev@local\n\nAdministrador\n\nSair\nCN COLD\nColdPro V2\nBásico\nIA Assistente\nWorkspace AGRO\nHot Gas Bypass · Controle de UR · Sprint 4\n\nCâmara agrícola com controle simultâneo de temperatura e umidade via gás quente. Engine: calculateAgroWorkspace (orquestrador coldpro_v2 — detecta modo automaticamente).\n\nA1 CÂMARA\nA3 CICLO AGRO\nA2 ALETADO\nA4 PSICROMETRIA\nA5 CONDENSADOR\n\nDimensões e Envelope\n\nComprimento(m)\nLargura(m)\nAltura(m)\nU parede(W/m²K)\nT externo(°C)\nT câmara(°C)\nIlumina"
+  },
+  {
+    "id": "13_record",
+    "url": "/coldpro/record",
+    "httpStatus": 200,
+    "redirected": false,
+    "redirectTo": null,
+    "h1": [
+      "Ficha Técnica do Produto"
+    ],
+    "h2": [
+      "Identidade do Produto",
+      "Compressor",
+      "Condensador",
+      "Condições do Sistema",
+      "Grade de Pontos Operacionais"
+    ],
+    "buttons": [
+      "Projetos",
+      "Engenharia",
+      "Cadastros & Biblioteca",
+      "Documentação",
+      "Administração",
+      "Sair",
+      "IA Assistente",
+      "Gerar Ficha"
+    ],
+    "inputs": [
+      "Ex: CN-001",
+      "Ex: UCM-5000",
+      "Ex: UCM",
+      "Ex: Comercial",
+      "R404A",
+      "Ex: Câmara fria",
+      "Ex: R404A, R134a, R290",
+      "-15, -10, -5, 0",
+      "30, 35, 40, 45"
+    ],
+    "alerts": [],
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID"
+    ],
+    "netFails": [],
+    "bodyText": "CN\n\nCN COLD\n\nENGENHARIA\n\nPROJETOS\nPainel\nProjetos\nENGENHARIA\nCatálogo & Seleção\nCatálogo Comercial\nCN COILS — Simulador\nHub de Testes\nSimulação\nPipeline ΔP\nValidação\nComparação\nEngenharia de Aplicação\nAGRO\nCADASTROS & BIBLIOTECA\nComponentes\nBiblioteca\nFicha Técnica\nRegistro de Produtos\nMontagem\nDOCUMENTAÇÃO\nADMINISTRAÇÃO\n\ndev@local\n\nAdministrador\n\nSair\nCN COLD\nFicha Técnica\nBásico\nIA Assistente\nFicha Técnica do Produto\n\nConstrói o registro técnico completo (equilíbrio + curva + polinômios)\n\nGerar Ficha\nIdentidade do Produto\nID*\nCampo obrigatório\nModelo*\nCampo obrigatório\nFamília*\nCampo obrigatório\nLinha*\nCampo obrigatório\nRefrigerante*\nAplicação\nCompressor\nCapacidade nominal*(W)\nW\nCapacidade deve ser maior que zero\nPotência elétrica*(W)\nW\nCapacidade deve ser maior que zero\nT evap nominal*("
+  },
+  {
+    "id": "14_registry",
+    "url": "/coldpro/registry",
+    "httpStatus": 200,
+    "redirected": false,
+    "redirectTo": null,
+    "h1": [
+      "Registro de Produtos"
+    ],
+    "h2": [],
+    "buttons": [
+      "Projetos",
+      "Engenharia",
+      "Cadastros & Biblioteca",
+      "Documentação",
+      "Administração",
+      "Sair",
+      "IA Assistente"
+    ],
+    "inputs": [
+      "Buscar por modelo..."
+    ],
+    "alerts": [],
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID"
+    ],
+    "netFails": [],
+    "bodyText": "CN\n\nCN COLD\n\nENGENHARIA\n\nPROJETOS\nPainel\nProjetos\nENGENHARIA\nCatálogo & Seleção\nCatálogo Comercial\nCN COILS — Simulador\nHub de Testes\nSimulação\nPipeline ΔP\nValidação\nComparação\nEngenharia de Aplicação\nAGRO\nCADASTROS & BIBLIOTECA\nComponentes\nBiblioteca\nFicha Técnica\nRegistro de Produtos\nMontagem\nDOCUMENTAÇÃO\nADMINISTRAÇÃO\n\ndev@local\n\nAdministrador\n\nSair\nCN COLD\nRegistry de Produtos\nBásico\nIA Assistente\nRegistro de Produtos\n\nHistórico de fichas técnicas calculadas na sessão\n\nTotal\n\n0\n\nAprovados\n\n0\n\nAtenção\n\n0\n\nRejeitados\n\n0\n\nNenhum produto calculado nesta sessão. Execute um cálculo em Ficha Técnica para registrar.\n\nRegistro em memória da sessão. Use Exportação para salvar em PDF."
+  },
+  {
+    "id": "15_ficha_tecnica",
+    "url": "/coldpro/ficha-tecnica",
+    "httpStatus": 200,
+    "redirected": true,
+    "redirectTo": "http://localhost:8080/coldpro/export",
+    "h1": [
+      "Exportação de Data Sheet"
+    ],
+    "h2": [],
+    "buttons": [
+      "Projetos",
+      "Engenharia",
+      "Cadastros & Biblioteca",
+      "Documentação",
+      "Administração",
+      "Sair",
+      "IA Assistente",
+      "Selecionar",
+      "Hub",
+      "Carregar logo"
+    ],
+    "inputs": [
+      "Buscar por modelo, compressor, refrigerante...",
+      "CN COLD Engenharia"
+    ],
+    "alerts": [
+      "Selecione uma máquina para visualizar o preview e exportar o data sheet."
+    ],
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID"
+    ],
+    "netFails": [],
+    "bodyText": "CN\n\nCN COLD\n\nENGENHARIA\n\nPROJETOS\nPainel\nProjetos\nENGENHARIA\nCatálogo & Seleção\nCatálogo Comercial\nCN COILS — Simulador\nHub de Testes\nSimulação\nPipeline ΔP\nValidação\nComparação\nEngenharia de Aplicação\nAGRO\nCADASTROS & BIBLIOTECA\nComponentes\nBiblioteca\nFicha Técnica\nRegistro de Produtos\nMontagem\nDOCUMENTAÇÃO\nADMINISTRAÇÃO\n\ndev@local\n\nAdministrador\n\nSair\nCN COLD\nExportação\nBásico\nIA Assistente\nExportação de Data Sheet\n\nGera o data sheet completo em formato JSON padronizado para integração com ferramentas de carga térmica e selectores de terceiros.\n\nSelecionar Máquina do Catálogo\n480 equipamentos\nO preview do data sheet será gerado automaticamente após a seleção.\nMODELO\tLINHA\tFLUIDO\tCAP. KCAL/H\t\n\n\nCN_100_HT\n\nZS13KAE\n\n\t\nHT - HIGH TEMPERATURE\n\tR134a\t3.915\t\nSelecionar\nHub\n\n\n\nCN_200_AGRO\n\nZS13KAE"
+  },
+  {
+    "id": "16_components",
+    "url": "/coldpro/components",
+    "httpStatus": 200,
+    "redirected": false,
+    "redirectTo": null,
+    "h1": [
+      "Componentes"
+    ],
+    "h2": [
+      "Catálogo Bitzer (oficial)",
+      "Catálogo BITZER · 0 modelos · 50 entradas",
+      "Catálogo geral (Copeland · Bristol · outros)",
+      "Biblioteca de compressores (1.495 de 1.495 modelos)"
+    ],
+    "buttons": [
+      "Projetos",
+      "Engenharia",
+      "Cadastros & Biblioteca",
+      "Documentação",
+      "Administração",
+      "Sair",
+      "IA Assistente",
+      "Novo Compressor",
+      "Compressor",
+      "Serpentina",
+      "Condensador",
+      "Ventilador",
+      "Válvula Exp.",
+      "Válvula 4 Vias",
+      "Serpentina Bandeja",
+      "Degelo",
+      "AGRO / Desum.",
+      "Reaquecimento",
+      "Formação de Gelo",
+      "Fluido refrigerante",
+      "2CES-3Y1",
+      "2CES-4Y1",
+      "2DES-2Y1",
+      "2DES-3Y1",
+      "2EES-3Y1",
+      "2FES-2Y1",
+      "2FES-3Y1",
+      "2GES-2Y1",
+      "2HES-1Y1",
+      "2HES-2Y1"
+    ],
+    "inputs": [
+      "Buscar modelo (ex.: 4DES-7, CSH8553)…",
+      "Buscar modelo, fabricante, refrigerante…",
+      "0",
+      "∞"
+    ],
+    "alerts": [],
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID"
+    ],
+    "netFails": [],
+    "bodyText": "CN\n\nCN COLD\n\nENGENHARIA\n\nPROJETOS\nPainel\nProjetos\nENGENHARIA\nCatálogo & Seleção\nCatálogo Comercial\nCN COILS — Simulador\nHub de Testes\nSimulação\nPipeline ΔP\nValidação\nComparação\nEngenharia de Aplicação\nAGRO\nCADASTROS & BIBLIOTECA\nComponentes\nBiblioteca\nFicha Técnica\nRegistro de Produtos\nMontagem\nDOCUMENTAÇÃO\nADMINISTRAÇÃO\n\ndev@local\n\nAdministrador\n\nSair\nCN COLD\nComponentes\nBásico\nIA Assistente\nComponentes\n\nCadastre e dimensione componentes individuais antes de montar o equipamento.\n\nNovo Compressor\nCompressor\nSerpentina\nCondensador\nVentilador\nVálvula Exp.\nVálvula 4 Vias\nSerpentina Bandeja\nDegelo\nAGRO / Desum.\nReaquecimento\nFormação de Gelo\nFluido refrigerante\nCATÁLOGO BITZER (OFICIAL)\nCatálogo BITZER · 0 modelos · 50 entradas\n\nPolinômios nativos BITZER (λ + corrente + potência específica) ·"
+  },
+  {
+    "id": "17_library",
+    "url": "/coldpro/library",
+    "httpStatus": 200,
+    "redirected": false,
+    "redirectTo": null,
+    "h1": [
+      "Biblioteca"
+    ],
+    "h2": [],
+    "buttons": [
+      "Projetos",
+      "Engenharia",
+      "Cadastros & Biblioteca",
+      "Documentação",
+      "Administração",
+      "Sair",
+      "IA Assistente",
+      "Evaporadores",
+      "Condensadores",
+      "Compressores",
+      "Ventiladores",
+      "Fluidos refrigerantes",
+      "Simulações de ciclo",
+      "Novo"
+    ],
+    "inputs": [
+      "Buscar..."
+    ],
+    "alerts": [],
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID"
+    ],
+    "netFails": [],
+    "bodyText": "CN\n\nCN COLD\n\nENGENHARIA\n\nPROJETOS\nPainel\nProjetos\nENGENHARIA\nCatálogo & Seleção\nCatálogo Comercial\nCN COILS — Simulador\nHub de Testes\nSimulação\nPipeline ΔP\nValidação\nComparação\nEngenharia de Aplicação\nAGRO\nCADASTROS & BIBLIOTECA\nComponentes\nBiblioteca\nFicha Técnica\nRegistro de Produtos\nMontagem\nDOCUMENTAÇÃO\nADMINISTRAÇÃO\n\ndev@local\n\nAdministrador\n\nSair\nCN COLD\nColdPro V2\nBásico\nIA Assistente\nBiblioteca\n\nTodos os itens cadastrados e calculados — projetos, equipamentos e simulações.\n\nProjetos\nEvaporadores\nCondensadores\nCompressores\nVentiladores\nFluidos refrigerantes\nSimulações de ciclo\nProjetos (0)\nNovo\n\nCarregando..."
+  },
+  {
+    "id": "18_validation",
+    "url": "/coldpro/validation",
+    "httpStatus": 200,
+    "redirected": false,
+    "redirectTo": null,
+    "h1": [
+      "Validação em Lote"
+    ],
+    "h2": [],
+    "buttons": [
+      "Projetos",
+      "Engenharia",
+      "Cadastros & Biblioteca",
+      "Documentação",
+      "Administração",
+      "Sair",
+      "IA Assistente",
+      "Atualizar",
+      "▶ Rodar validação (215 modelos)",
+      "Todos",
+      "PASS",
+      "WARN",
+      "FAIL",
+      "SKIP"
+    ],
+    "inputs": [],
+    "alerts": [],
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID"
+    ],
+    "netFails": [],
+    "bodyText": "CN\n\nCN COLD\n\nENGENHARIA\n\nPROJETOS\nPainel\nProjetos\nENGENHARIA\nCatálogo & Seleção\nCatálogo Comercial\nCN COILS — Simulador\nHub de Testes\nSimulação\nPipeline ΔP\nValidação\nComparação\nEngenharia de Aplicação\nAGRO\nCADASTROS & BIBLIOTECA\nComponentes\nBiblioteca\nFicha Técnica\nRegistro de Produtos\nMontagem\nDOCUMENTAÇÃO\nADMINISTRAÇÃO\n\ndev@local\n\nAdministrador\n\nSair\nCN COLD\nColdPro V2\nBásico\nIA Assistente\nValidação em Lote\n\nEngine vs catálogo — desvio de capacidade frigorífica.\n\nAtualizar\n▶ Rodar validação (215 modelos)\nTotal\n0\nPASS\n0\nWARN\n0\nFAIL\n0\nScore médio\n—\nTodos\nPASS\nWARN\nFAIL\nSKIP"
+  },
+  {
+    "id": "19_pipeline_dp",
+    "url": "/coldpro/pipeline-dp",
+    "httpStatus": 200,
+    "redirected": false,
+    "redirectTo": null,
+    "h1": [
+      "ΔP Tubulações (SC4)"
+    ],
+    "h2": [],
+    "buttons": [
+      "Projetos",
+      "Engenharia",
+      "Cadastros & Biblioteca",
+      "Documentação",
+      "Administração",
+      "Sair",
+      "IA Assistente",
+      "R404A",
+      "Vapor (sucção)",
+      "½\" (12.7 mm)",
+      "⅝\" (15.9 mm)",
+      "¾\" (19.1 mm)",
+      "⅞\" (22.2 mm)",
+      "1⅛\" (28.6 mm)",
+      "1⅜\" (34.9 mm)",
+      "1⅝\" (41.3 mm)"
+    ],
+    "inputs": [],
+    "alerts": [],
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID"
+    ],
+    "netFails": [],
+    "bodyText": "CN\n\nCN COLD\n\nENGENHARIA\n\nPROJETOS\nPainel\nProjetos\nENGENHARIA\nCatálogo & Seleção\nCatálogo Comercial\nCN COILS — Simulador\nHub de Testes\nSimulação\nPipeline ΔP\nValidação\nComparação\nEngenharia de Aplicação\nAGRO\nCADASTROS & BIBLIOTECA\nComponentes\nBiblioteca\nFicha Técnica\nRegistro de Produtos\nMontagem\nDOCUMENTAÇÃO\nADMINISTRAÇÃO\n\ndev@local\n\nAdministrador\n\nSair\nCN COLD\nColdPro V2\nBásico\nIA Assistente\nΔP Tubulações (SC4)\n\nQueda de pressão em linhas de sucção/descarga/líquido e impacto equivalente na temperatura de evaporação. Método: Darcy-Weisbach + Blasius · Bifásico: Lockhart-Martinelli.\n\nParâmetros da Tubulação\nRefrigerante\nR404A\nFase do escoamento\nVapor (sucção)\nTe evaporação\n(°C)\nVazão mássica\n(kg/h)\nDiâmetro da tubulação\n½\" (12.7 mm)\n⅝\" (15.9 mm)\n¾\" (19.1 mm)\n⅞\" (22.2 mm)\n1⅛\" (28.6 mm)\n1⅜\" (3"
+  },
+  {
+    "id": "20_compare",
+    "url": "/coldpro/compare",
+    "httpStatus": 200,
+    "redirected": false,
+    "redirectTo": null,
+    "h1": [
+      "Comparação de Sistemas"
+    ],
+    "h2": [],
+    "buttons": [
+      "Projetos",
+      "Engenharia",
+      "Cadastros & Biblioteca",
+      "Documentação",
+      "Administração",
+      "Sair",
+      "IA Assistente",
+      "Compartilhar",
+      "📄 PDF"
+    ],
+    "inputs": [],
+    "alerts": [
+      "Selecione pelo menos 2 projetos para comparar."
+    ],
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID"
+    ],
+    "netFails": [],
+    "bodyText": "CN\n\nCN COLD\n\nENGENHARIA\n\nPROJETOS\nPainel\nProjetos\nENGENHARIA\nCatálogo & Seleção\nCatálogo Comercial\nCN COILS — Simulador\nHub de Testes\nSimulação\nPipeline ΔP\nValidação\nComparação\nEngenharia de Aplicação\nAGRO\nCADASTROS & BIBLIOTECA\nComponentes\nBiblioteca\nFicha Técnica\nRegistro de Produtos\nMontagem\nDOCUMENTAÇÃO\nADMINISTRAÇÃO\n\ndev@local\n\nAdministrador\n\nSair\nCN COLD\nColdPro V2\nBásico\nIA Assistente\nComparação de Sistemas\n\nCompare até 4 projetos salvos lado a lado\n\nCompartilhar\n📄 PDF\nSelecionar projetos\n0/4 selecionados\n\nNenhum projeto salvo ainda. Salve projetos nos sistemas para comparar.\n\nSelecione pelo menos 2 projetos para comparar."
+  },
+  {
+    "id": "21_audit",
+    "url": "/coldpro/audit",
+    "httpStatus": 200,
+    "redirected": false,
+    "redirectTo": null,
+    "h1": [
+      "Auditoria & Comissionamento em Campo"
+    ],
+    "h2": [],
+    "buttons": [
+      "Projetos",
+      "Engenharia",
+      "Cadastros & Biblioteca",
+      "Documentação",
+      "Administração",
+      "Sair",
+      "IA Assistente",
+      "Selecionar"
+    ],
+    "inputs": [
+      "Buscar por modelo, compressor, refrigerante..."
+    ],
+    "alerts": [
+      "Selecione uma máquina para gerar a planilha de referências."
+    ],
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID"
+    ],
+    "netFails": [],
+    "bodyText": "CN\n\nCN COLD\n\nENGENHARIA\n\nPROJETOS\nPainel\nProjetos\nENGENHARIA\nCatálogo & Seleção\nCatálogo Comercial\nCN COILS — Simulador\nHub de Testes\nSimulação\nPipeline ΔP\nValidação\nComparação\nEngenharia de Aplicação\nAGRO\nCADASTROS & BIBLIOTECA\nComponentes\nBiblioteca\nFicha Técnica\nRegistro de Produtos\nMontagem\nDOCUMENTAÇÃO\nADMINISTRAÇÃO\n\ndev@local\n\nAdministrador\n\nSair\nCN COLD\nAuditoria CN COLD\nBásico\nIA Assistente\nAuditoria & Comissionamento em Campo\n\nGeração da planilha de referências e relatório de start-up para máquinas do catálogo CN COLD.\n\nSelecionar Máquina do Catálogo\n480 equipamentos\nA planilha de referências será gerada automaticamente após selecionar a máquina.\nMODELO\tLINHA\tFLUIDO\tCAP. KCAL/H\tTE\tTC\t\n\n\nCN_100_HT\n\nZS13KAE\n\n\t\nHT - HIGH TEMPERATURE\n\tR134a\t3.915\t10.8\t54.3\tSelecionar\n\n\nCN_200_AGRO\n\nZS"
+  },
+  {
+    "id": "22_settings",
+    "url": "/coldpro/settings",
+    "httpStatus": 200,
+    "redirected": false,
+    "redirectTo": null,
+    "h1": [
+      "Configurações"
+    ],
+    "h2": [],
+    "buttons": [
+      "Projetos",
+      "Engenharia",
+      "Cadastros & Biblioteca",
+      "Documentação",
+      "Administração",
+      "Sair",
+      "IA Assistente",
+      "Usuários",
+      "Permissões",
+      "Preferências",
+      "Integrações de IA",
+      "+ Novo usuário",
+      "Tentar novamente"
+    ],
+    "inputs": [],
+    "alerts": [],
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID"
+    ],
+    "netFails": [],
+    "bodyText": "CN\n\nCN COLD\n\nENGENHARIA\n\nPROJETOS\nPainel\nProjetos\nENGENHARIA\nCatálogo & Seleção\nCatálogo Comercial\nCN COILS — Simulador\nHub de Testes\nSimulação\nPipeline ΔP\nValidação\nComparação\nEngenharia de Aplicação\nAGRO\nCADASTROS & BIBLIOTECA\nComponentes\nBiblioteca\nFicha Técnica\nRegistro de Produtos\nMontagem\nDOCUMENTAÇÃO\nADMINISTRAÇÃO\n\ndev@local\n\nAdministrador\n\nSair\nCN COLD\nColdPro V2\nBásico\nIA Assistente\nConfigurações\n\nGestão de usuários, papéis e preferências do sistema.\n\nUsuários\nPermissões\nPreferências\nIntegrações de IA\nUsuários (0)\n+ Novo usuário\n\nNenhum administrador encontrado para o modo de desenvolvimento.\n\nTentar novamente"
+  },
+  {
+    "id": "23_dev",
+    "url": "/coldpro/dev",
+    "httpStatus": 200,
+    "redirected": false,
+    "redirectTo": null,
+    "h1": [
+      "DevAssistant"
+    ],
+    "h2": [],
+    "buttons": [
+      "Projetos",
+      "Engenharia",
+      "Cadastros & Biblioteca",
+      "Documentação",
+      "Administração",
+      "Sair",
+      "IA Assistente",
+      "Bug / Erro",
+      "Design Visual",
+      "Imagem / Screenshot",
+      "Log / Arquivo",
+      "Diagnosticar"
+    ],
+    "inputs": [
+      "Ex: TypeError: Cannot read properties of undefined (reading \"sha\") at getRecentCommits..."
+    ],
+    "alerts": [],
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID"
+    ],
+    "netFails": [],
+    "bodyText": "CN\n\nCN COLD\n\nENGENHARIA\n\nPROJETOS\nPainel\nProjetos\nENGENHARIA\nCatálogo & Seleção\nCatálogo Comercial\nCN COILS — Simulador\nHub de Testes\nSimulação\nPipeline ΔP\nValidação\nComparação\nEngenharia de Aplicação\nAGRO\nCADASTROS & BIBLIOTECA\nComponentes\nBiblioteca\nFicha Técnica\nRegistro de Produtos\nMontagem\nDOCUMENTAÇÃO\nADMINISTRAÇÃO\n\ndev@local\n\nAdministrador\n\nSair\nCN COLD\nColdPro V2\nBásico\nIA Assistente\nDevAssistant\n\nDiagnóstico de bugs com IA — cole erros, stack traces ou anexe capturas\n\nBug / Erro\nDesign Visual\nDescreva o problema, cole o stack trace ou anexe um arquivo\nImagem / Screenshot\nLog / Arquivo\nDiagnosticar"
+  },
+  {
+    "id": "24_cncoils_index",
+    "url": "/coldpro/cncoils",
+    "httpStatus": 200,
+    "redirected": false,
+    "redirectTo": null,
+    "h1": [
+      "CN COILS"
+    ],
+    "h2": [
+      "Componentes Isolados",
+      "Evaporadores",
+      "Condensadores",
+      "Baterias de Aquecimento",
+      "Baterias de Resfriamento",
+      "Serpentinas de Degelo / Vapor",
+      "Recuperadores de Calor",
+      "Casco e Tubo"
+    ],
+    "buttons": [
+      "Projetos",
+      "Engenharia",
+      "Cadastros & Biblioteca",
+      "Documentação",
+      "Administração",
+      "Sair",
+      "IA Assistente"
+    ],
+    "inputs": [],
+    "alerts": [],
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID"
+    ],
+    "netFails": [],
+    "bodyText": "CN\n\nCN COLD\n\nENGENHARIA\n\nPROJETOS\nPainel\nProjetos\nENGENHARIA\nCatálogo & Seleção\nCatálogo Comercial\nCN COILS — Simulador\nHub de Testes\nSimulação\nPipeline ΔP\nValidação\nComparação\nEngenharia de Aplicação\nAGRO\nCADASTROS & BIBLIOTECA\nComponentes\nBiblioteca\nFicha Técnica\nRegistro de Produtos\nMontagem\nDOCUMENTAÇÃO\nADMINISTRAÇÃO\n\ndev@local\n\nAdministrador\n\nSair\nCN COLD\nCN COILS\nBásico\nIA Assistente\nCN COILS\n\nSimulação termodinâmica de trocadores de calor com correções polinomiais CN COILS.\n\nTodos os catálogos carregados.\n\nSelecione um tipo de componente para iniciar a simulação.\n\nComponentes Isolados\nMUNDO 1\nEvaporadores\n\nExpansão direta (DX) e bombeado.\n\nAbrir workspace\nCondensadores\n\nA ar e casco-tubo.\n\nAbrir workspace\nBaterias de Aquecimento\n\nAquecimento por água quente ou vapor.\n\nAbrir workspac"
+  },
+  {
+    "id": "25_projects",
+    "url": "/coldpro/projects",
+    "httpStatus": 200,
+    "redirected": false,
+    "redirectTo": null,
+    "h1": [
+      "Meus Projetos"
+    ],
+    "h2": [
+      "Nenhum projeto salvo"
+    ],
+    "buttons": [
+      "Projetos",
+      "Engenharia",
+      "Cadastros & Biblioteca",
+      "Documentação",
+      "Administração",
+      "Sair",
+      "IA Assistente",
+      "＋ Novo Projeto"
+    ],
+    "inputs": [],
+    "alerts": [],
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID"
+    ],
+    "netFails": [],
+    "bodyText": "CN\n\nCN COLD\n\nENGENHARIA\n\nPROJETOS\nPainel\nProjetos\nENGENHARIA\nCatálogo & Seleção\nCatálogo Comercial\nCN COILS — Simulador\nHub de Testes\nSimulação\nPipeline ΔP\nValidação\nComparação\nEngenharia de Aplicação\nAGRO\nCADASTROS & BIBLIOTECA\nComponentes\nBiblioteca\nFicha Técnica\nRegistro de Produtos\nMontagem\nDOCUMENTAÇÃO\nADMINISTRAÇÃO\n\ndev@local\n\nAdministrador\n\nSair\nCN COLD\nColdPro V2\nBásico\nIA Assistente\nMeus Projetos\n\nHistórico local de projetos e simulações salvas\n\n＋ Novo Projeto\nNenhum projeto salvo\n\nCrie um novo projeto ou inicie uma simulação e salve para retomar depois.\n\n＋ Novo Projeto"
+  }
+]
